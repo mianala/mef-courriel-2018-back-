@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  float: left;
+  flex:0 0 50%;
+  margin-bottom: .6em;
+
+  .userinfo {
+    padding-left: .7em;
+    .username {
+      font-weight: bold;
+      color: #7A7A7A;
+    }
+    .function-title {
+      position: relative;
+      bottom: 0;
+      font-size: 90%;
+      color: #6B6B6B;
+    }
+  }
+}

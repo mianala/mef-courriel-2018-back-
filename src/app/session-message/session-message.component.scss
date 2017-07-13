@@ -1,0 +1,50 @@
+
+:host {
+  color: #4A4A4A;
+  display: block;
+  padding-bottom: 1em;
+
+  .headers, .message {
+    display: flex;
+  }
+  .headers{
+    font-size:70%;
+    color: #5d5d5d;
+    .username{
+      padding: .6em;
+    }
+    .date {
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+  .message{
+   app-avatar{
+     align-self: center;
+     margin: .6em;
+   }
+  .content {
+    background-color: #EFEFEF;
+    padding: .4em;
+    border-radius: 4px;
+  }
+  }
+
+
+  &[right] {
+    padding-left: 20%;
+
+    .message, .headers {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &[left] {
+    padding-right: 20%;
+
+    .message, .headers {
+    }
+  }
+}
+
+

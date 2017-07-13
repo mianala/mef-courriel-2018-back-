@@ -1,0 +1,21 @@
+
+:host {
+  display: flex;
+  padding: 2em;
+  flex-direction: column;
+  *{
+    text-align: center;
+    margin: .5em;
+  }
+  .username{
+    font-weight: bold;
+  }
+  .function{
+    font-weight:300;
+  }
+  app-user-avatar {
+    width: 250px;
+    height: 250px;
+    margin: auto;
+  }
+}

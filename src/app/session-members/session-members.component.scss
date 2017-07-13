@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  width: 100%;
+  margin: 2em 0;
+  .members {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}

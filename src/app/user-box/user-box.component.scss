@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+  float: left;
+  flex:0 0 50%;
+
+  .userinfo {
+    align-self: center;
+    padding-left: 1em;
+
+    line-height: 16px;
+    .username {
+      color: #7A7A7A;
+      font-size: 16px;
+    }
+    .function-title {
+      font-size: 12px;
+      position: relative;
+      bottom: 0;
+      color: #8e8e8e;
+    }
+  }
+}

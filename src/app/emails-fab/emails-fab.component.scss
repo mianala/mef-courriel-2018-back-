@@ -1,0 +1,11 @@
+:host{
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  flex-direction:column;
+  right: 20px;
+  button{
+    align-self: center;
+    margin-bottom: 1em;
+  }
+}

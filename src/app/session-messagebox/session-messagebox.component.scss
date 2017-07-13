@@ -1,0 +1,16 @@
+:host{
+  display: flex;
+  width: 100%;
+  position: absolute;
+  padding-top: .6em;
+  bottom: 0;
+  background-color: #E8E8E8;
+
+  .input{
+    flex-grow:1;
+  }
+
+  > div {
+    align-self: center;
+  }
+}

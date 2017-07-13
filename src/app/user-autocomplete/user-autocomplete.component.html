@@ -1,0 +1,9 @@
+<md-input-container>
+  <input mdInput placeholder="Destinataire(s)" [mdAutocomplete]="auto" [formControl]="userCtrl">
+</md-input-container>
+
+<md-autocomplete #auto="mdAutocomplete">
+  <md-option *ngFor="let user of filteredUsers | async" [value]="user">
+    {{ user.name }} - {{user.entity}}
+  </md-option>
+</md-autocomplete>

@@ -1,0 +1,14 @@
+<div class="user">
+
+  <app-avatar [photo]="user.photo"></app-avatar>
+  <div class="username">{{user.name}}</div>
+  <button md-icon-button [mdMenuTriggerFor]="menu">
+    <md-icon>keyboard_arrow_down</md-icon>
+  </button>
+</div>
+
+<md-menu #menu="mdMenu">
+  <button md-menu-item>
+    <span>Déconnexion</span>
+  </button>
+</md-menu>
