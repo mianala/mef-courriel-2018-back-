@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-email-file',
@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./email-file.component.scss']
 })
 export class EmailFileComponent implements OnInit {
+  @Input() file;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

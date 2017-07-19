@@ -1,15 +1,13 @@
 :host {
   padding-left: 1em;
   background-color: #E8E8E8;
-  display: flex;
   border-radius: 3px;
   margin-bottom: 1em;
   color: #555;
   text-decoration: none;
-  line-height:40px;
 
   .sender {
-    flex-grow: 1;
+    flex-basis:100px;
   }
 
   .sender, .content{
@@ -23,7 +21,7 @@
   }
 
   .attachment-icon {
-    flex-grow: .2;
+    flex-basis:40px;
   }
 
   .date {

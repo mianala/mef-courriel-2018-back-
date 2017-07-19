@@ -1,4 +1,2 @@
-<div unseen app-email=""></div>
-<div app-email=""></div>
-<app-emails-fab></app-emails-fab>
+<div fxLayout.sm="column" fxLayout="row" *ngFor="let flow of flows" [flow]="flow" unseen app-email=""></div>
 

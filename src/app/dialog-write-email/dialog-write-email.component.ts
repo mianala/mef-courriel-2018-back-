@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../user.service';
 import {User} from '../../models/User';
+import {EmailService} from "../email.service";
 
 @Component({
   selector: 'app-dialog-write-email',
@@ -10,13 +11,21 @@ import {User} from '../../models/User';
 export class DialogWriteEmailComponent implements OnInit {
 
 
-  constructor(private user: User, private userService: UserService) {
+  constructor(private user: User, private emailService: EmailService, private userService: UserService) {
   }
 
   ngOnInit() {
     this.userService.getActiveUser().subscribe(data => {
       this.user = data;
     })
+  }
+
+  sendEmail() {
+    this.emailService.sendEmail();
+  }
+
+  selectUser(user) {
+    this.user = user;
   }
 
 }

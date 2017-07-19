@@ -1,16 +1,13 @@
 import {User} from './User';
-import {Email} from './Email';
 /**
  * Created by Loharano on 7/13/2017.
  */
 
-export class Flow
-{
+export class Flow {
   sender: User;
-  reciever: User;
+  receiver: User;
   archived: boolean;
   favorited: boolean;
   deleted: boolean;
   title: string;
-  last_email: Email;
 }

@@ -11,5 +11,6 @@ export class Email
   writer: User;
   title: string;
   content: string;
-  last_email: boolean;
+  date_created: Date;
 }
+

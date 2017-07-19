@@ -49,13 +49,20 @@ import {UserAvatarComponent} from './user-avatar/user-avatar.component';
 import {UsersEntitiesLeadDepartementsComponent} from './users-entities-lead-departements/users-entities-lead-departements.component';
 import {UsersEntitiesDepartementsComponent} from './users-entities-departements/users-entities-departements.component';
 import {DialogSaveMailComponent} from './dialog-save-mail/dialog-save-mail.component';
-import { SavedEmailComponent } from './saved-email/saved-email.component';
-import { SavedEmailPageComponent } from './saved-email-page/saved-email-page.component';
-import { SavedEmailsPageComponent } from './saved-emails-page/saved-emails-page.component';
-import { DialogTransferMailComponent } from './dialog-transfer-mail/dialog-transfer-mail.component';
-import { DialogWriteToComponent } from './dialog-write-to/dialog-write-to.component';
+import {SavedEmailComponent} from './saved-email/saved-email.component';
+import {SavedEmailPageComponent} from './saved-email-page/saved-email-page.component';
+import {SavedEmailsPageComponent} from './saved-emails-page/saved-emails-page.component';
+import {DialogTransferMailComponent} from './dialog-transfer-mail/dialog-transfer-mail.component';
+import {DialogWriteToComponent} from './dialog-write-to/dialog-write-to.component';
 import {UserService} from './user.service';
 import {User} from "../models/User";
+import {FlowService} from "./flow.service";
+import {Email} from "../models/Email";
+import {Flow} from "../models/Flow";
+import {EmailMessageComponent} from './email-message/email-message.component';
+import {EmailService} from "./email.service";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {NotificationService} from "./notification.service";
 
 @NgModule({
   declarations: [
@@ -106,12 +113,14 @@ import {User} from "../models/User";
     SavedEmailPageComponent,
     SavedEmailsPageComponent,
     DialogTransferMailComponent,
-    DialogWriteToComponent
+    DialogWriteToComponent,
+    EmailMessageComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FlexLayoutModule,
     HttpModule,
     FormsModule,
     MdNativeDateModule,
@@ -123,7 +132,7 @@ import {User} from "../models/User";
     DialogWriteToComponent,
     DialogWriteEmailComponent
   ],
-  providers: [UserService, User],
+  providers: [UserService,NotificationService, User, Flow, EmailService, FlowService, Email],
   bootstrap: [AppComponent]
 })
 export class AppModule {

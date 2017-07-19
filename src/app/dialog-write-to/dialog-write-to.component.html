@@ -3,15 +3,15 @@
 </div>
 <md-dialog-content class="content">
   <md-input-container class="">
-    <input mdInput placeholder="Objet">
+    <input mdInput placeholder="Sujet">
   </md-input-container>
   <md-input-container class="">
-    <textarea mdInput placeholder="Instructions"></textarea>
+    <textarea mdInput placeholder="Message"></textarea>
   </md-input-container>
 </md-dialog-content>
 <md-dialog-actions>
   <button md-button (click)="file.click()">AJOUTER FICHIER(S)</button>
   <input hidden type="file" #file/>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button md-button [md-dialog-close]="true">ENVOYER</button>
+  <button md-button [md-dialog-close]="true"  (click)="sendEmail()">ENVOYER</button>
 </md-dialog-actions>

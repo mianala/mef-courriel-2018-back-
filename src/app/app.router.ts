@@ -36,7 +36,7 @@ export const router: Routes = [
           component: EmailsPageComponent,
         },
         {
-          path: 'courriel',
+          path: ':id',
           component: EmailPageComponent,
         },
       ]

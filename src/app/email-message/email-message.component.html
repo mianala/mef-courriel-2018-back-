@@ -1,0 +1,14 @@
+<div class="email-header">
+  <app-user-box [user]="user"></app-user-box>
+  <div class="email-sent-info">{{mail.date_created|date}}</div>
+</div>
+
+
+<h3>{{mail.title}}</h3>
+<!--<hr>-->
+<p [innerHtml]="mail.content"></p>
+
+<app-email-file *ngFor="let file of mail.files" [file]="file" ></app-email-file>
+
+<!--<app-email-photo></app-email-photo>-->
+<!--<app-email-file></app-email-file>-->
