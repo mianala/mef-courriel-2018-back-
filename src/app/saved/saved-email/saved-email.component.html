@@ -1,0 +1,12 @@
+<div class="star">
+  <md-icon>star_outline</md-icon>
+</div>
+<a [routerLink]="saved.id" class="sender">{{saved.sender}}</a>
+<div class="attachment-icon">
+  <md-icon>attachment</md-icon>
+</div>
+<a [routerLink]="saved.id" class="content">
+  <span class="title">{{saved.title}}</span>
+</a>
+<div class="date">{{saved.date|date}}</div>
+<app-email-menu-button></app-email-menu-button>

@@ -1,0 +1,6 @@
+<!--<h1>Utilisateurs</h1>-->
+<app-entity-filter (selectEntity)="filterUsers($event)"></app-entity-filter>
+<masonry [options]="masonryOptions" class="users">
+  <masonry-brick class="brick" app-user [user]="user" *ngFor="let user of filteredUsers">
+  </masonry-brick>
+</masonry>

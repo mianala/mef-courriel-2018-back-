@@ -1,0 +1,38 @@
+<div md-dialog-title>
+  <app-user-box [user]="user"></app-user-box>
+</div>
+<md-dialog-content class="content">
+
+  <md-input-container class="">
+    <input type="number" [(ngModel)]="saved.n_arrive" mdInput placeholder="N° arrivé">
+  </md-input-container>
+  <md-input-container class="">
+    <input type="number" [(ngModel)]="saved.n_arrive_dg" mdInput placeholder="N° arrivé Direction Général">
+  </md-input-container>
+  <md-input-container class="">
+    <input [(ngModel)]="saved.sender" mdInput placeholder="Expediteur">
+  </md-input-container>
+  <md-input-container>
+    <input [(ngModel)]="saved.date" mdInput [mdDatepicker]="picker" placeholder="Date">
+    <button mdSuffix [mdDatepickerToggle]="picker"></button>
+  </md-input-container>
+  <md-datepicker #picker></md-datepicker>
+  <md-input-container class="">
+    <input  [(ngModel)]="saved.ref" mdInput placeholder="Référence">
+  </md-input-container>
+  <md-input-container class="">
+    <input  [(ngModel)]="saved.title" mdInput placeholder="Objet">
+  </md-input-container>
+  <md-input-container>
+    <input mdInput  [(ngModel)]="saved.received_date" [mdDatepicker]="recieved_picker" placeholder="Reçu le">
+    <button mdSuffix [mdDatepickerToggle]="recieved_picker"></button>
+  </md-input-container>
+  <md-datepicker #recieved_picker></md-datepicker>
+  <div class="froala" [froalaEditor]="options" [(froalaModel)]="saved.content"></div>
+  <app-files [files]="saved.files"></app-files>
+</md-dialog-content>
+<md-dialog-actions>
+  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button (click)="saveEmail()" md-button>ENREGISTRER</button>
+</md-dialog-actions>

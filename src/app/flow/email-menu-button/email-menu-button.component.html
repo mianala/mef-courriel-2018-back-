@@ -1,0 +1,21 @@
+<button  md-icon-button [mdMenuTriggerFor]="menu">
+  <md-icon>more_vert</md-icon>
+</button>
+<md-menu #menu="mdMenu">
+  <button md-menu-item>
+    <md-icon>assignment</md-icon>
+    <span>Assigner</span>
+  </button>
+  <button md-menu-item>
+    <md-icon>send</md-icon>
+    <span>Transférer</span>
+  </button><!--
+  <button md-menu-item>
+    <md-icon>archive</md-icon>
+    <span>Archiver</span>
+  </button>-->
+  <button md-menu-item>
+    <md-icon>delete</md-icon>
+    <span>Supprimer</span>
+  </button>
+</md-menu>

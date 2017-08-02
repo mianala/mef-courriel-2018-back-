@@ -19,5 +19,9 @@ export class NotificationService {
     const message = 'Courriel envoyé avec succès';
     this.snackBar.open(message, "", this.getConfig());
   }
+  emailSaved() {
+    const message = 'Courriel enregistré avec succès';
+    this.snackBar.open(message, "", this.getConfig());
+  }
 
 }

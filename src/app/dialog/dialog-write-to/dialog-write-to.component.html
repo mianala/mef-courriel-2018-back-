@@ -1,0 +1,14 @@
+<div md-dialog-title>
+  <app-user-box [user]="user"></app-user-box>
+</div>
+<md-dialog-content class="content">
+  <md-input-container class="">
+    <input [(ngModel)]="mail.title" mdInput placeholder="Sujet">
+  </md-input-container>
+  <div class="froala" [froalaEditor]="options" [(froalaModel)]="mail.content"></div>
+  <app-files [files]="mail.files"></app-files>
+</md-dialog-content>
+<md-dialog-actions>
+  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button><!-- Can optionally provide a result for the closing dialog. -->
+  <button md-button [md-dialog-close]="true" (click)="sendtrigger">ENVOYER</button>
+</md-dialog-actions>

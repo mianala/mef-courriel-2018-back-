@@ -1,9 +1,11 @@
 <!--The whole content below can be removed with the new code.-->
-<md-sidenav-container fullscreen class="user-home">
+<md-sidenav-container *ngIf="connected" fullscreen class="user-home">
   <md-sidenav fxHide.xs=""  #sidenav mode="side" opened="true">
     <div  app-user-sidenav ></div>
   </md-sidenav>
+
   <router-outlet></router-outlet>
 
 </md-sidenav-container>
 <app-emails-fab></app-emails-fab>
+

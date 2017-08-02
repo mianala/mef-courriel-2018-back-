@@ -1,0 +1,21 @@
+<div fxFlex="" fxLayout="column" class="container">
+
+  <header fxLayout="row">
+    <h1 fxFlex="50">Connexion</h1>
+    <!--<img src="../../assets/img/logo.png" alt="logo courrieldgb">-->
+  </header>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem eveniet magnam possimus velit veritatis,
+    voluptatibus! Ad corporis itaque omnis soluta sunt. Amet deleniti, eius explicabo modi obcaecati odio quas quo?</p>
+  <div fxLayout="column">
+    <md-input-container>
+      <input mdInput [(ngModel)]="id" placeholder="IM/Nom d'utilisateur">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput type="password" [(ngModel)]="password" placeholder="Mot de passe">
+    </md-input-container>
+    <div fxLayout="row" class="action-buttons">
+      <button routerLink="/public" md-button>ANNULER</button>
+      <button (click)="login()" md-button>CONNEXION</button>
+    </div>
+  </div>
+</div>
