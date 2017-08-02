@@ -13,23 +13,43 @@ import {FroalaService} from "../../froala.service";
 export class DialogWriteToComponent implements OnInit {
   mail: any
   options: any
-  sendtrigger: any
+  sendtrigger = function () {
+  }
 
-  constructor(@Inject(MD_DIALOG_DATA) public user: any,
+  constructor(@Inject(MD_DIALOG_DATA) public data: any,
               private flowService: FlowService,
+              private emailService: EmailService,
               private froala: FroalaService,
               private userService: UserService) {
     this.mail = {}
-    if (typeof user === 'object') {
-      this.mail.receiver = this.user;
-      this.sendtrigger = this.sendEmail
-    } else {
-      this.sendtrigger = this.answerFlow
-    }
-    this.options = this.froala.getOptions()
     this.userService.getActiveUser().subscribe(activeUser => {
-      this.mail.starter = activeUser
+      this.mail.activeUser = activeUser;
+      if (data.im !== undefined) {
+        console.log('start flow')
+        this.mail.receiver = this.data;
+        this.sendtrigger = this.sendEmail
+      } else {
+        this.flowService.getFlow(activeUser.id, this.data).subscribe(flow => {
+          this.mail.flow_id = this.data
+          if (activeUser.id === flow.starter_id) {
+            this.mail.starter = 0
+            this.userService.getUser(flow.receiver_id).subscribe(user => {
+              this.mail.receiver = user
+            })
+          } else {
+            this.mail.starter = 1
+            this.userService.getUser(flow.starter_id).subscribe(user => {
+              this.mail.receiver = user
+            })
+          }
+        })
+        this.sendtrigger = this.answerFlow
+      }
+
     });
+
+    this.options = this.froala.getOptions()
+
     this.mail.files = []
   }
 
@@ -45,7 +65,8 @@ export class DialogWriteToComponent implements OnInit {
     console.log(this.mail)
     this.flowService.startFlow(this.mail)
   }
+
   answerFlow() {
-    console.log(this.mail)
+    this.emailService.answerFlow(this.mail)
   }
 }

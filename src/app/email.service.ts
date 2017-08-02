@@ -15,7 +15,7 @@ export class EmailService {
       .map(res => res.json())
   }
 
-  sendEmail(mail?: any) {
+  answerFlow(mail?: any) {
     this.post(mail).then((result) => {
       console.log(result)
     }, (error) => {
@@ -25,14 +25,16 @@ export class EmailService {
   }
 
   post(mail: any) {
+    console.log(mail)
     return new Promise((resolve, reject) => {
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()
 
       formData.append('title', mail.title)
       formData.append('content', mail.content)
-      formData.append('starter_id', mail.starter.id)
-      formData.append('receiver_id', mail.receiver.id)
+      formData.append('flow_id', mail.flow_id)
+      formData.append('writer_id', mail.activeUser.id)
+      formData.append('sent_by', mail.starter)
 
       for (let i = 0; i < mail.files.length; i++) {
         formData.append('files', mail.files[i], mail.files[i].name)
@@ -48,7 +50,7 @@ export class EmailService {
         }
       }
 
-      xhr.open('POST', this.url, true);
+      xhr.open('POST', this.url + '/flow', true);
       xhr.send(formData)
       this.notification.emailSent()
     });

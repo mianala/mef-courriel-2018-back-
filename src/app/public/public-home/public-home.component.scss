@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  height: 100%;
+  .connexion {
+    background-color: #3949AB;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+    a {
+      color: #fff;
+      font-weight: 400;
+      font-size: 20px;
+      padding: 1em;
+      margin: .5em;
+      text-decoration: none;
+      width: 250px;
+      font-stretch:1;
+
+      text-align: center;
+      border: 2px solid #FFF;
+    }
+  }
+  .description {
+    img {
+      width: 100%;
+    }
+    padding: 7%;
+  }
+}

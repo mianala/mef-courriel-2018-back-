@@ -40,7 +40,7 @@ export class EmailsFabComponent implements OnInit {
 
   answerEmail() {
     const dialogWriteEmail = this.dialog.open(DialogWriteToComponent, {
-        data : []
+        data : this.flowId
       })
     ;
     dialogWriteEmail.afterClosed().subscribe(result => {
