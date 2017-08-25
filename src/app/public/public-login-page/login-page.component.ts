@@ -1,26 +1,33 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../user.service";
+import {fadeInAnimation} from '../../animation/fadeIn'
+import {Router} from "@angular/router";
+import {NotificationService} from "../../notification.service";
 
 @Component({
   selector: 'app-login-page',
+  animations: [fadeInAnimation],
+  host: {'[@fadeInAnimation]': ''},
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-  id: string;
-  password: string;
+  user: any
 
-  constructor(private userService: UserService) {
-    this.id = '';
-    this.password = '';
+  constructor(private notification: NotificationService, private router: Router, private userService: UserService) {
+    this.user = {}
   }
 
   ngOnInit() {
-    this.userService.login('id', 'pass')
   }
 
-  login() {
-    this.userService.login(this.id, this.password)
+  submit() {
+    this.userService.redirectIfConnected()
+    this.userService.login(this.user.id, this.user.password).subscribe(user => {
+      this.notification.connected()
+      this.router.navigateByUrl('/courriels')
+      this.userService.redirectIfConnected()
+    })
   }
 
 }

@@ -31,7 +31,7 @@
   <div class="froala" [froalaEditor]="options" [(froalaModel)]="saved.content"></div>
   <app-files [files]="saved.files"></app-files>
 </md-dialog-content>
-<md-dialog-actions>
+<md-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
   <button (click)="saveEmail()" md-button>ENREGISTRER</button>

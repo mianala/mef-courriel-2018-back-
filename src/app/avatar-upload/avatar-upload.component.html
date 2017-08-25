@@ -1,0 +1,2 @@
+<app-user-avatar (click)="file.click()" [photo]="photo"></app-user-avatar>
+<input (change)="selectFile($event.target.files[0])" hidden type="file" #file/>

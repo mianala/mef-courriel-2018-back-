@@ -2,13 +2,16 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {UserService} from "./user.service";
 import {NotificationService} from "./notification.service";
+import {GlobalService} from "./global.service";
 
 @Injectable()
 export class FlowService {
-  url = 'http://localhost:3000/api/flows'
+  url: string
   user: any
 
-  constructor(private http: Http, private notification: NotificationService, private userService: UserService) {
+  constructor(private http: Http,
+              private notification: NotificationService, private userService: UserService, private global: GlobalService) {
+    this.url = global.ip() + '/api/flows';
 
   }
 

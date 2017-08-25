@@ -4,21 +4,38 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext,cyrillic-ext,cyrillic,greek-ext,greek,vietnamese");
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700&subset=latin,latin-ext,greek-ext,greek,vietnamese,cyrillic,cyrillic-ext");
 
-body{
+body {
   padding: 0;
-  margin: 0;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
 
-  .froala{
+  .froala.fr-box {
     margin: 1em 2em;
+
+    //froala unlicenced here
+    div:nth-child(4) {
+      display: none;
+    }
   }
-  .md-dialog-container{
-    flex-basis:600px;
+  .md-dialog-container {
+    flex-basis: 600px;
+  }
+
+  .lorem {
+    display: inline !important;
+    background-color: #6b6b6b;
+    text-align: justify;
+    color: #6b6b6b;
+    line-height: 30px !important;
   }
 }
 
-.mat-sidenav-container{
+.mat-sidenav-container {
   background-color: #efefef;
+
+}
+
+.mat-sidenav-content {
+
 }
 
 html, body {
@@ -27,6 +44,13 @@ html, body {
 
 md-nav-list {
   md-list-item {
-    color: #fff!important;
+    color: #fff !important;
   }
+}
+
+.action-buttons {
+
+  bottom: 0;
+  position: relative;
+  justify-content: space-between;
 }

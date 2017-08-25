@@ -70,9 +70,13 @@ import {FilesComponent} from './files/files.component';
 import {UploadButtonComponent} from './upload-button/upload-button.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {FroalaService} from "./froala.service";
-import { SafehtmlPipe } from './safehtml.pipe';
+import {SafehtmlPipe} from './safehtml.pipe';
 import {EntityService} from "./entity.service";
-import { EntityFilterComponent } from './entity/entity-filter/entity-filter.component';
+import {EntityFilterComponent} from './entity/entity-filter/entity-filter.component';
+import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
+import {GlobalService} from "./global.service";
+import {TestService} from "./test.service";
+import { DialogTranferComponent } from './dialog/dialog-tranfer/dialog-tranfer.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +133,9 @@ import { EntityFilterComponent } from './entity/entity-filter/entity-filter.comp
     FilesComponent,
     UploadButtonComponent,
     SafehtmlPipe,
-    EntityFilterComponent
+    EntityFilterComponent,
+    AvatarUploadComponent,
+    DialogTranferComponent
   ],
   imports: [
     BrowserModule,
@@ -148,9 +154,14 @@ import { EntityFilterComponent } from './entity/entity-filter/entity-filter.comp
   entryComponents: [
     DialogSaveMailComponent,
     DialogWriteToComponent,
+    DialogTranferComponent,
     DialogWriteEmailComponent
   ],
-  providers: [UserService,EntityService, FroalaService, SavedService, NotificationService, User, Flow, EmailService, FlowService, Email],
+  providers: [UserService,
+    TestService,
+    GlobalService,
+    EntityService, FroalaService, SavedService,
+    NotificationService, User, Flow, EmailService, FlowService, Email],
   bootstrap: [AppComponent]
 })
 export class AppModule {

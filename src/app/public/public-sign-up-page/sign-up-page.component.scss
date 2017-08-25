@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  background-color: #3949AB;
+  padding: 3em;
+  .header{
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    img {
+    }
+    background-color: #fff;
+    max-width: 500px !important;
+    padding: 2em;
+    margin: auto;
+    border-radius: 2px;
+    .form{
+      margin-top: 2em;
+    }
+    app-avatar-upload{
+      width: 150px;
+      height: 150px;
+      margin: 1em auto;
+    }
+
+  }
+}

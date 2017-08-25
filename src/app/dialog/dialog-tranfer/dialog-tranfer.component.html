@@ -2,9 +2,13 @@
   Transferer
 </div>
 <md-dialog-content class="content">
+
+
   <app-user-autocomplete (userSelected)="selectUser($event)"></app-user-autocomplete>
+
 </md-dialog-content>
 <md-dialog-actions fxLayout="row" class="action-buttons">
- <button md-button [md-dialog-close]="true">Annuler</button>
- <button md-button [md-dialog-close]="true" (click)="transfer()">ENVOYER</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button md-button [md-dialog-close]="true" >ANNULER</button>
+  <button md-button [md-dialog-close]="true" (click)="transfer()">ENVOYER</button>
 </md-dialog-actions>

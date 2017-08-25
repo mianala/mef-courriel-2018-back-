@@ -13,11 +13,9 @@
     max-width: 500px !important;
     padding: 2em;
     margin: auto;
-    .action-buttons {
+    border-radius: 2px;
 
-      bottom: 0;
-      position: relative;
-      justify-content: space-between;
-    }
-  }
+    .form{
+      margin-top: 2em;
+    }}
 }

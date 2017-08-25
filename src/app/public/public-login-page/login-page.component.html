@@ -1,21 +1,24 @@
 <div fxFlex="" fxLayout="column" class="container">
 
-  <header fxLayout="row">
-    <h1 fxFlex="50">Connexion</h1>
+  <header>
+    <h1>Connexion</h1>
     <!--<img src="../../assets/img/logo.png" alt="logo courrieldgb">-->
+    <p class="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem eveniet magnam possimus velit
+      veritatis,
+      voluptatibus! Ad corporis itaque omnis soluta sunt. Amet deleniti, eius explicabo modi obcaecati odio quas
+      quo?</p>
+
   </header>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem eveniet magnam possimus velit veritatis,
-    voluptatibus! Ad corporis itaque omnis soluta sunt. Amet deleniti, eius explicabo modi obcaecati odio quas quo?</p>
-  <div fxLayout="column">
+  <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="form" fxLayout="column">
     <md-input-container>
-      <input mdInput [(ngModel)]="id" placeholder="IM/Nom d'utilisateur">
+      <input name="id" mdInput [(ngModel)]="user.id" placeholder="Identifiant">
     </md-input-container>
     <md-input-container>
-      <input mdInput type="password" [(ngModel)]="password" placeholder="Mot de passe">
+      <input name="password" mdInput type="password" [(ngModel)]="user.password" placeholder="Mot de passe">
     </md-input-container>
-    <div fxLayout="row" class="action-buttons">
-      <button routerLink="/public" md-button>ANNULER</button>
-      <button (click)="login()" md-button>CONNEXION</button>
-    </div>
+  </form>
+  <div fxLayout="row" class="action-buttons">
+    <button routerLink="/public" md-button>ANNULER</button>
+    <button (click)="submit()" md-button>CONNEXION</button>
   </div>
 </div>

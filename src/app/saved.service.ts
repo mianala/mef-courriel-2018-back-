@@ -1,14 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {NotificationService} from "./notification.service";
+import {GlobalService} from "./global.service";
 
 
 @Injectable()
 export class SavedService {
 
-  url = 'http://localhost:3000/api/saveds';
+  url: string;
 
-  constructor(private http: Http, private notification: NotificationService) {
+  constructor(private global: GlobalService, private http: Http, private notification: NotificationService) {
+    this.url = global.ip() + '/api/saveds';
 
   }
 

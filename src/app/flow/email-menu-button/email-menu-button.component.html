@@ -2,11 +2,7 @@
   <md-icon>more_vert</md-icon>
 </button>
 <md-menu #menu="mdMenu">
-  <button md-menu-item>
-    <md-icon>assignment</md-icon>
-    <span>Assigner</span>
-  </button>
-  <button md-menu-item>
+  <button md-menu-item (click)="openTransfer()">
     <md-icon>send</md-icon>
     <span>Transférer</span>
   </button><!--

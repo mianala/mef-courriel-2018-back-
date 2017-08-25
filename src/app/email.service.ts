@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core'
 import {Http, RequestOptions} from '@angular/http'
 import {NotificationService} from './notification.service'
+import {GlobalService} from "./global.service";
 
 @Injectable()
 export class EmailService {
-  url = 'http://localhost:3000/api/flows/'
+  url: string
   options = new RequestOptions({withCredentials: true});
 
-  constructor(private http: Http, private notification: NotificationService) {
+  constructor(private http: Http, private global: GlobalService, private notification: NotificationService) {
+    this.url = global.ip() + '/api/flows/';
   }
 
   getEmails(flowId: number) {

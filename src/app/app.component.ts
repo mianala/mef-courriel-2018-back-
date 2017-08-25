@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {UserService} from "./user.service";
 import {Http} from "@angular/http";
+import {NavigationStart, Router} from "@angular/router";
+import {TestService} from "./test.service";
 
 @Component({
   selector: 'app-root',
@@ -11,14 +13,29 @@ export class AppComponent {
   title = 'app'
   connected: boolean
 
-  constructor(private userService: UserService, private http: Http) {
+  constructor(private test: TestService, private userService: UserService, private router: Router, private http: Http) {
+    router.events.subscribe(event => {
+        userService.isConnected(result => {
+          this.connected = result
 
-    userService.getActiveUser()
-      .subscribe(result => {
-        if (result) {
-          this.connected = true
-        }
-      })
+        })
+      }
+    )
+    userService.isConnected(result => {
+      this.connected = result
+      if (!this.connected) {
+        this.router.navigateByUrl('/public')
+      } else {
+      }
+    })
+
+    test
+      .get()
+      .subscribe(
+        x => console.log('onNext: ' + x),
+        e => console.log('onError: ' + e.message),
+        () => console.log('onCompleted'))
   }
+
 
 }

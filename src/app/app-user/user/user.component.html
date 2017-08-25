@@ -1,5 +1,5 @@
 <app-user-avatar [photo]="user.photo" [routerLink]="user.id"></app-user-avatar>
-<span class="user-function">{{user.entity}} - {{user.function_title}}</span>
+<span class="user-function">{{user.entity}} - <span class="lorem">{{user.function_title}}</span></span>
 <a [routerLink]="user.id" class="username">{{user.name}}</a>
 <div style="text-align: center;">
   <button md-button (click)="writeTo()">

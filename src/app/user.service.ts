@@ -1,14 +1,40 @@
 import {Injectable} from '@angular/core';
 import {Http, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Router} from '@angular/router';
+import {GlobalService} from './global.service';
 
 @Injectable()
 export class UserService {
-
-  url = 'http://localhost:3000/api/users';
+  url: string
   options = new RequestOptions({withCredentials: true});
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private route: Router, private global: GlobalService) {
+    this.url = global.ip() + '/api/users';
+  }
+
+  redirectIfConnected() {
+    const route = this.route
+    this.isConnected(function (result) {
+      console.log('log :' + result)
+      if (result) {
+        route.navigateByUrl('/courriels')
+      } else {
+        route.navigateByUrl('/public')
+      }
+    })
+  }
+
+  isConnected(next) {
+    return this.http.post(this.url + '/user', {type: 'check'}, this.options)
+      .map(data => data.json())
+      .subscribe(result => {
+        if (result === '0') {
+          next(false)
+        } else {
+          next(true)
+        }
+      })
   }
 
   getUsers() {
@@ -27,21 +53,23 @@ export class UserService {
   }
 
   getActiveUser() {
-    return this.http.post(this.url + '/user', {}, this.options)
+    return this.http.post(this.url + '/user', {type: 'user'}, this.options)
+      .map(res => res.json());
+  }
+
+  logout() {
+    return this.http.post(this.url + '/user', {type: 'logout'}, this.options)
       .map(res => res.json());
   }
 
   login(id: string, password: string) {
-    this.http.post(
+    return this.http.post(
       this.url + '/user',
       {
         id: id,
         password: password
       }, this.options)
       .map(res => res.json())
-      .subscribe(user => {
-
-      })
   }
 
 }
