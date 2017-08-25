@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../../models/User";
+import {UserService} from "../../user.service";
 
 @Component({
   selector: 'app-dialog-transfer-mail',
@@ -8,7 +9,7 @@ import {User} from "../../../models/User";
 })
 export class DialogTransferMailComponent implements OnInit {
 
-  constructor(private user: User) {
+  constructor(private user: User, private userService: UserService) {
   }
 
   ngOnInit() {
