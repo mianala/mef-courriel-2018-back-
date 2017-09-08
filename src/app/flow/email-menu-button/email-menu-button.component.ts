@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MdDialog} from "@angular/material";
-import {DialogTranferComponent} from "../../dialog/dialog-tranfer/dialog-tranfer.component";
+import {DialogTransferMailComponent} from "../../dialog/dialog-transfer-mail/dialog-transfer-mail.component";
 
 @Component({
   selector: 'app-email-menu-button',
@@ -16,7 +16,7 @@ export class EmailMenuButtonComponent implements OnInit {
   }
 
   openTransfer() {
-    const dialogTransfer = this.dialog.open(DialogTranferComponent);
+    const dialogTransfer = this.dialog.open(DialogTransferMailComponent);
     dialogTransfer.afterClosed().subscribe(result => {
     })
   }

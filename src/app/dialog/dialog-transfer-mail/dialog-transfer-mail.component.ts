@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {User} from "../../../models/User";
 import {UserService} from "../../user.service";
+import {MD_DIALOG_DATA} from "@angular/material";
+import {TransferService} from "../../transfer.service";
 
 @Component({
   selector: 'app-dialog-transfer-mail',
@@ -9,7 +11,16 @@ import {UserService} from "../../user.service";
 })
 export class DialogTransferMailComponent implements OnInit {
 
-  constructor(private user: User, private userService: UserService) {
+  activeUser: User
+
+  constructor
+  (@Inject(MD_DIALOG_DATA) public flowId: any,
+   private user: User,
+   private transferService: TransferService,
+   private userService: UserService) {
+    this.userService.getActiveUser().subscribe(activeUser => {
+      this.activeUser = activeUser
+    });
   }
 
   ngOnInit() {
@@ -20,7 +31,11 @@ export class DialogTransferMailComponent implements OnInit {
   }
 
   transfer() {
-
+    this.transferService.transferFlow({
+      flowId: this.flowId,
+      senderId: this.activeUser.id,
+      receiverId: this.user.id,
+    })
   }
 
 }
