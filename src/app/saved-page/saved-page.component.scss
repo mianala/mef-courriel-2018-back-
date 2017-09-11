@@ -1,0 +1,34 @@
+:host{
+  display: block;
+  label{
+    background-color: #5a6fab;
+    border-radius: 3px;
+    flex-basis: 100px;
+    color: #fff;
+    padding: .3em .5em;
+    margin: .3em;
+    text-align: center;
+  }
+  .label{
+    margin-bottom: 1.2em;
+    display: flex;
+    align-items: center;
+    margin-right: .3em;
+  }
+  .sender,.title{
+    font-weight: bold;
+  }
+  .target{
+    align-items: center;
+    align-self: center;
+  }
+  .ref
+  {
+    text-decoration: underline;
+  }
+  .content{
+    margin: .3em;
+    padding: .5em;
+    border: 2px solid #5a6fab;
+  }
+}

@@ -1,9 +1,12 @@
+// user already defined
+
+
 import {Component, Inject, OnInit, SimpleChange, SimpleChanges} from '@angular/core'
 import {MD_DIALOG_DATA} from '@angular/material'
 import {EmailService} from '../../email.service'
-import {UserService} from "../../user.service";
-import {FlowService} from "../../flow.service";
-import {FroalaService} from "../../froala.service";
+import {UserService} from '../../user.service';
+import {FlowService} from '../../flow.service';
+import {FroalaService} from '../../froala.service';
 
 @Component({
   selector: 'app-dialog-write-to',

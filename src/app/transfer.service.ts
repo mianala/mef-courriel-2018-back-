@@ -11,7 +11,6 @@ export class TransferService {
   constructor(private http: Http,
               private notification: NotificationService, private userService: UserService, private global: GlobalService) {
     this.url = global.ip() + '/api/flows';
-
   }
 
   transferFlow(flow) {
@@ -28,8 +27,10 @@ export class TransferService {
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()
 
-      formData.append('flow_id', flow.flowId)
-      formData.append('sender_id', flow.senderId)
+      formData.append('saved_id', flow.savedId)
+      formData.append('starter_id', flow.senderId)
+      formData.append('title', flow.title)
+      formData.append('content', flow.content)
       formData.append('receiver_id', flow.receiverId)
 
       xhr.onreadystatechange = function () {

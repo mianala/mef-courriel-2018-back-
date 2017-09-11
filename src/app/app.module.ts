@@ -78,6 +78,7 @@ import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
 import {GlobalService} from './global.service';
 import {TestService} from './test.service';
 import {TransferService} from './transfer.service';
+import { SavedPageComponent } from './saved-page/saved-page.component';
 
 @NgModule({
   declarations: [
@@ -136,6 +137,7 @@ import {TransferService} from './transfer.service';
     SafehtmlPipe,
     EntityFilterComponent,
     AvatarUploadComponent,
+    SavedPageComponent,
   ],
   imports: [
     BrowserModule,

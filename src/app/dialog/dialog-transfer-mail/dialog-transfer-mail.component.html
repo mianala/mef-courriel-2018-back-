@@ -3,6 +3,12 @@
 </div>
 <md-dialog-content class="content">
   <app-user-autocomplete (userSelected)="selectUser($event)"></app-user-autocomplete>
+  <md-input-container class="">
+    <input [(ngModel)]="title" mdInput placeholder="Sujet">
+  </md-input-container>  <md-input-container class="">
+    <input [(ngModel)]="content" mdInput placeholder="Description">
+  </md-input-container>
+
 </md-dialog-content>
 <md-dialog-actions fxLayout="row" class="action-buttons">
  <button md-button [md-dialog-close]="true">Annuler</button>
