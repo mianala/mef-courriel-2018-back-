@@ -24,7 +24,10 @@ export class DialogWriteToComponent implements OnInit {
               private emailService: EmailService,
               private froala: FroalaService,
               private userService: UserService) {
-    this.mail = {}
+    this.mail = {
+      title: '',
+      content: ''
+    }
     this.userService.getActiveUser().subscribe(activeUser => {
       this.mail.activeUser = activeUser;
       if (data.im !== undefined) {
@@ -58,7 +61,6 @@ export class DialogWriteToComponent implements OnInit {
 
   ngOnInit() {
   }
-
 
   getFiles(files) {
     this.mail.files = this.mail.files.concat(files)

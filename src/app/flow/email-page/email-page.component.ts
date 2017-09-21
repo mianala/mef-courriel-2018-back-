@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core'
-import {UserService} from "../../user.service"
-import {FlowService} from "../../flow.service"
-import {EmailService} from "../../email.service"
-import {ActivatedRoute} from "@angular/router"
-import {User} from "../../../models/User"
+import {UserService} from '../../user.service'
+import {FlowService} from '../../flow.service'
+import {EmailService} from '../../email.service'
+import {ActivatedRoute} from '@angular/router'
+import {User} from '../../../models/User'
 import {fadeInAnimation} from '../../animation/fadeIn'
-import {SavedService} from "../../saved.service";
+import {SavedService} from '../../saved.service';
 
 @Component({
   selector: 'app-email-page',

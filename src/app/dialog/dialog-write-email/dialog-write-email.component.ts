@@ -16,7 +16,10 @@ export class DialogWriteEmailComponent implements OnInit {
   constructor(private user: User, private flowService: FlowService,
               private froala: FroalaService,
               private userService: UserService) {
-    this.mail = {}
+    this.mail = {
+      title: '',
+      content: ''
+    }
     this.userService.getActiveUser().subscribe(activeUser => {
       this.mail.starter = activeUser
     })

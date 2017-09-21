@@ -13,7 +13,10 @@ export class AppComponent {
   title = 'app'
   connected: boolean
 
-  constructor(private test: TestService, private userService: UserService, private router: Router, private http: Http) {
+  constructor(private test: TestService,
+              private userService: UserService,
+              private router: Router,
+              private http: Http) {
     router.events.subscribe(event => {
         userService.isConnected(result => {
           this.connected = result
@@ -29,12 +32,6 @@ export class AppComponent {
       }
     })
 
-    test
-      .get()
-      .subscribe(
-        x => console.log('onNext: ' + x),
-        e => console.log('onError: ' + e.message),
-        () => console.log('onCompleted'))
   }
 
 

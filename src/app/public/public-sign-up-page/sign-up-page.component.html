@@ -9,7 +9,7 @@
       quo?</p>
   </header>
   <app-avatar-upload (avatarSelected)="avatarSelected($event)"></app-avatar-upload>
-  <form (ngSubmit)="submit()" (keyup.enter)="submit()" fxLayout="column">
+  <!--<form (ngSubmit)="submit()" (keyup.enter)="submit()" fxLayout="column">-->
     <md-select name="entity" placeholder="Bureau" [(ngModel)]="user.entity">
       <md-option *ngFor="let entity of entities" [value]="entity">
         {{ entity.label }} - {{entity.title}}
@@ -20,7 +20,7 @@
       <md-hint align="start">Si IM non attribué, laissez vide</md-hint>
     </md-input-container>
     <md-input-container>
-      <input name="name" [(ngModel)]="user.name" mdInput placeholder="Surnom">
+      <input name="name" [(ngModel)]="user.name" mdInput placeholder="Prénom">
       <md-hint align="start"><strong>"John, Marie"</strong></md-hint>
     </md-input-container>
     <md-input-container>
@@ -46,7 +46,7 @@
       <input name="confirm" mdInput type="password"
              placeholder="Confirmer votre mot de passe">
     </md-input-container>
-  </form>
+  <!--</form>-->
 
   <div fxLayout="row" class="action-buttons">
     <button routerLink="/public" md-button>ANNULER</button>
