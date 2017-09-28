@@ -24,7 +24,7 @@ export class UserService {
       if (result) {
         route.navigateByUrl('/courriels')
       } else {
-        route.navigateByUrl('/public')
+        route.navigateByUrl('/public/connexion')
       }
     })
   }

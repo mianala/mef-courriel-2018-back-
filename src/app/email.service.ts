@@ -27,7 +27,6 @@ export class EmailService {
   }
 
   post(mail: any) {
-    console.log(mail)
     return new Promise((resolve, reject) => {
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()

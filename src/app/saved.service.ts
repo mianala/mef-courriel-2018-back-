@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
-import {NotificationService} from "./notification.service";
-import {GlobalService} from "./global.service";
+import {NotificationService} from './notification.service';
+import {GlobalService} from './global.service';
+import {UserService} from './user.service';
 
 
 @Injectable()
@@ -9,7 +10,9 @@ export class SavedService {
 
   url: string;
 
-  constructor(private global: GlobalService, private http: Http, private notification: NotificationService) {
+  constructor(private global: GlobalService,
+              private userService: UserService,
+              private http: Http, private notification: NotificationService) {
     this.url = global.ip() + '/api/saveds';
 
   }
@@ -68,5 +71,10 @@ export class SavedService {
       this.notification.emailSaved()
     });
   }
+
+  removeSaved(id: number, userId: number) {
+    return this.http.delete(this.url + '/' + id + '/' + userId)
+  }
+
 }
 

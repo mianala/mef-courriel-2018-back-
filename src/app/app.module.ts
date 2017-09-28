@@ -79,6 +79,8 @@ import {GlobalService} from './global.service';
 import {TestService} from './test.service';
 import {TransferService} from './transfer.service';
 import { SavedPageComponent } from './saved-page/saved-page.component';
+import { TransferButtonComponent } from './menu/transfer-button/transfer-button.component';
+import { DeleteButtonComponent } from './menu/delete-button/delete-button.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +140,8 @@ import { SavedPageComponent } from './saved-page/saved-page.component';
     EntityFilterComponent,
     AvatarUploadComponent,
     SavedPageComponent,
+    TransferButtonComponent,
+    DeleteButtonComponent,
   ],
   imports: [
     BrowserModule,

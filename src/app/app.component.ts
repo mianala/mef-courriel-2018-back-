@@ -24,13 +24,7 @@ export class AppComponent {
         })
       }
     )
-    userService.isConnected(result => {
-      this.connected = result
-      if (!this.connected) {
-        this.router.navigateByUrl('/public')
-      } else {
-      }
-    })
+    userService.redirectIfConnected()
 
   }
 

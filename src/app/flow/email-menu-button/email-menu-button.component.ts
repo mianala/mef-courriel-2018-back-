@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MdDialog} from "@angular/material";
 import {DialogTransferMailComponent} from "../../dialog/dialog-transfer-mail/dialog-transfer-mail.component";
 
@@ -9,19 +9,13 @@ import {DialogTransferMailComponent} from "../../dialog/dialog-transfer-mail/dia
 })
 export class EmailMenuButtonComponent implements OnInit {
 
+  @Output() remove = new EventEmitter()
   @Input() id
-  constructor(public dialog: MdDialog) {
+
+  constructor() {
   }
 
   ngOnInit() {
   }
 
-  openTransfer() {
-    const dialogTransfer = this.dialog.open(DialogTransferMailComponent, {
-      data: this.id
-    });
-
-    dialogTransfer.afterClosed().subscribe(result => {
-    })
-  }
 }

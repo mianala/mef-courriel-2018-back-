@@ -10,4 +10,5 @@
   <label for="">Référence</label>
   <span class="ref target">{{saved.ref}}</span>
 </div>
+<app-email-file *ngFor="let file of saved.files" [file]="file" ></app-email-file>
 <div class="content" [innerHtml]="saved.content | safehtml"></div>
