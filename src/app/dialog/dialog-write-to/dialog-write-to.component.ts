@@ -1,9 +1,12 @@
+// user already defined
+
+
 import {Component, Inject, OnInit, SimpleChange, SimpleChanges} from '@angular/core'
 import {MD_DIALOG_DATA} from '@angular/material'
 import {EmailService} from '../../email.service'
-import {UserService} from "../../user.service";
-import {FlowService} from "../../flow.service";
-import {FroalaService} from "../../froala.service";
+import {UserService} from '../../user.service';
+import {FlowService} from '../../flow.service';
+import {FroalaService} from '../../froala.service';
 
 @Component({
   selector: 'app-dialog-write-to',
@@ -21,7 +24,10 @@ export class DialogWriteToComponent implements OnInit {
               private emailService: EmailService,
               private froala: FroalaService,
               private userService: UserService) {
-    this.mail = {}
+    this.mail = {
+      title: '',
+      content: ''
+    }
     this.userService.getActiveUser().subscribe(activeUser => {
       this.mail.activeUser = activeUser;
       if (data.im !== undefined) {
@@ -55,7 +61,6 @@ export class DialogWriteToComponent implements OnInit {
 
   ngOnInit() {
   }
-
 
   getFiles(files) {
     this.mail.files = this.mail.files.concat(files)

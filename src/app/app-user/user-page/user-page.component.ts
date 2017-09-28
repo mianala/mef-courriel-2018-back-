@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MdDialog} from '@angular/material';
 import {DialogWriteToComponent} from '../../dialog/dialog-write-to/dialog-write-to.component';
-import {UserService} from "../../user.service";
-import {ActivatedRoute} from "@angular/router";
-import {User} from "../../../models/User";
+import {UserService} from '../../user.service';
+import {ActivatedRoute} from '@angular/router';
+import {User} from '../../../models/User';
 import {fadeInAnimation} from '../../animation/fadeIn'
 
 @Component({
@@ -15,9 +15,10 @@ import {fadeInAnimation} from '../../animation/fadeIn'
 })
 export class UserPageComponent implements OnInit {
 
-  private userSub: any;
+  user: User
 
-  constructor(private user: User, private userService: UserService, private route: ActivatedRoute, public dialog: MdDialog) {
+  constructor(private userService: UserService, private route: ActivatedRoute, public dialog: MdDialog) {
+    this.user = new User
   }
 
   writeTo() {

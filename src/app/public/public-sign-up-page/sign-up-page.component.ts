@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {fadeInAnimation} from '../../animation/fadeIn'
-import {EntityService} from "../../entity.service";
+import {EntityService} from '../../entity.service';
+import {UserService} from '../../user.service';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -13,7 +14,8 @@ export class SignUpPageComponent implements OnInit {
   entities = []
   user: any
 
-  constructor(private entity: EntityService) {
+  constructor(private entity: EntityService,
+              private userService: UserService) {
     this.user = {}
     entity.getEntities().subscribe(entities => {
       this.entities = entities
@@ -24,11 +26,12 @@ export class SignUpPageComponent implements OnInit {
   }
 
   avatarSelected(file) {
+    this.user.functionId = 3
     this.user.avatar = file
   }
 
   submit() {
-    console.log(this.user);
+    this.userService.saveUser(this.user);
   }
 
 }

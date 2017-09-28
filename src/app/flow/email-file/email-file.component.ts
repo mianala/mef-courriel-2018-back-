@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core'
 
 @Component({
   selector: 'app-email-file',
@@ -6,7 +6,7 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./email-file.component.scss']
 })
 export class EmailFileComponent implements OnInit {
-  @Input() file;
+  @Input() file
 
   constructor() {
   }
@@ -15,26 +15,26 @@ export class EmailFileComponent implements OnInit {
   }
 
   pdf() {
-    if (this.file.extension == 'pdf') {
-      return true;
+    if (this.file.extension === 'pdf') {
+      return true
     } else {
-      return false;
+      return false
     }
   }
 
   img() {
-    if (this.file.extension == 'jpg') {
-      return true;
+    if (this.file.extension === 'jpg') {
+      return true
     } else {
-      return false;
+      return false
     }
   }
 
   doc() {
-    if (this.file.extension != 'jpg' && this.file.extension != 'pdf') {
-      return true;
+    if (this.file.extension !== 'jpg' && this.file.extension != 'pdf') {
+      return true
     } else {
-      return false;
+      return false
     }
   }
 

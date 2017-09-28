@@ -47,7 +47,8 @@ import {UsersPageComponent} from './app-user/users-page/users-page.component';
 import {UserPageComponent} from './app-user/user-page/user-page.component';
 import {UserComponent} from './app-user/user/user.component';
 import {UserAvatarComponent} from './app-user/user-avatar/user-avatar.component';
-import {UsersEntitiesLeadDepartementsComponent} from './app-user/users-entities-lead-departements/users-entities-lead-departements.component';
+import {UsersEntitiesLeadDepartementsComponent}
+from './app-user/users-entities-lead-departements/users-entities-lead-departements.component';
 import {UsersEntitiesDepartementsComponent} from './app-user/users-entities-departements/users-entities-departements.component';
 import {DialogSaveMailComponent} from './dialog/dialog-save-mail/dialog-save-mail.component';
 import {SavedEmailComponent} from './saved/saved-email/saved-email.component';
@@ -65,18 +66,21 @@ import {EmailService} from './email.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {NotificationService} from './notification.service';
 import {DialogFileComponent} from './dialog/dialog-file/dialog-file.component';
-import {SavedService} from "./saved.service";
+import {SavedService} from './saved.service';
 import {FilesComponent} from './files/files.component';
 import {UploadButtonComponent} from './upload-button/upload-button.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
-import {FroalaService} from "./froala.service";
+import {FroalaService} from './froala.service';
 import {SafehtmlPipe} from './safehtml.pipe';
-import {EntityService} from "./entity.service";
+import {EntityService} from './entity.service';
 import {EntityFilterComponent} from './entity/entity-filter/entity-filter.component';
 import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
-import {GlobalService} from "./global.service";
-import {TestService} from "./test.service";
-import { DialogTranferComponent } from './dialog/dialog-tranfer/dialog-tranfer.component';
+import {GlobalService} from './global.service';
+import {TestService} from './test.service';
+import {TransferService} from './transfer.service';
+import { SavedPageComponent } from './saved-page/saved-page.component';
+import { TransferButtonComponent } from './menu/transfer-button/transfer-button.component';
+import { DeleteButtonComponent } from './menu/delete-button/delete-button.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +139,9 @@ import { DialogTranferComponent } from './dialog/dialog-tranfer/dialog-tranfer.c
     SafehtmlPipe,
     EntityFilterComponent,
     AvatarUploadComponent,
-    DialogTranferComponent
+    SavedPageComponent,
+    TransferButtonComponent,
+    DeleteButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -154,12 +160,13 @@ import { DialogTranferComponent } from './dialog/dialog-tranfer/dialog-tranfer.c
   entryComponents: [
     DialogSaveMailComponent,
     DialogWriteToComponent,
-    DialogTranferComponent,
+    DialogTransferMailComponent,
     DialogWriteEmailComponent
   ],
   providers: [UserService,
     TestService,
     GlobalService,
+    TransferService,
     EntityService, FroalaService, SavedService,
     NotificationService, User, Flow, EmailService, FlowService, Email],
   bootstrap: [AppComponent]

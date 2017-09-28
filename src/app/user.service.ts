@@ -3,13 +3,17 @@ import {Http, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Router} from '@angular/router';
 import {GlobalService} from './global.service';
+import {NotificationService} from './notification.service';
 
 @Injectable()
 export class UserService {
   url: string
   options = new RequestOptions({withCredentials: true});
 
-  constructor(private http: Http, private route: Router, private global: GlobalService) {
+  constructor(private http: Http,
+              private route: Router,
+              private notification: NotificationService,
+              private global: GlobalService) {
     this.url = global.ip() + '/api/users';
   }
 
@@ -20,7 +24,7 @@ export class UserService {
       if (result) {
         route.navigateByUrl('/courriels')
       } else {
-        route.navigateByUrl('/public')
+        route.navigateByUrl('/public/connexion')
       }
     })
   }
@@ -35,6 +39,51 @@ export class UserService {
           next(true)
         }
       })
+  }
+
+  saveUser(user?: any) {
+
+
+    this.post(user).then((result) => {
+      console.log(result)
+      this.notification.user_saved()
+      this.route.navigateByUrl('/public')
+
+    }, (error) => {
+      console.log(error)
+    })
+
+  }
+
+  post(user: any) {
+    return new Promise((resolve, reject) => {
+      const formData: any = new FormData()
+      const xhr = new XMLHttpRequest()
+      formData.append('entityId', user.entity.id)
+      formData.append('im', user.im)
+      formData.append('username', user.username)
+      formData.append('functionId', user.functionId)
+      formData.append('name', user.name)
+      formData.append('fullname', user.fullname)
+      formData.append('title', user.functionTitle)
+      formData.append('email', user.email)
+      formData.append('password', user.password)
+      formData.append('avatar', user.avatar, user.avatar.name)
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('POST', this.url, true);
+      xhr.send(formData)
+      // this.notification.user()
+    });
   }
 
   getUsers() {

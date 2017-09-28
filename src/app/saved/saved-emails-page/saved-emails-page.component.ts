@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../user.service";
-import {User} from "../../../models/User";
-import {SavedService} from "../../saved.service";
+import {UserService} from '../../user.service';
+import {User} from '../../../models/User';
+import {SavedService} from '../../saved.service';
 import {fadeInAnimation} from '../../animation/fadeIn'
 
 @Component({
@@ -23,6 +23,12 @@ export class SavedEmailsPageComponent implements OnInit {
     this.userService.getActiveUser().subscribe(data => {
       this.activeUser = data
       this.savedService.getSaveds(this.activeUser.id).subscribe(result => {
+
+        result.sort(function (b, a) {
+          const c: any = a.id;
+          const d: any = b.id;
+          return c - d;
+        });
         this.saveds = result
       })
     })

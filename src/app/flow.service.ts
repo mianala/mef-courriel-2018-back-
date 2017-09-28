@@ -48,9 +48,17 @@ export class FlowService {
       formData.append('content', mail.content)
       formData.append('starter_id', mail.starter.id)
       formData.append('receiver_id', mail.receiver.id)
+      if (mail.savedId) {
+        formData.append('saved_id', mail.savedId)
+      }else{
+        formData.append('saved_id', 0)
 
-      for (let i = 0; i < mail.files.length; i++) {
-        formData.append('files', mail.files[i], mail.files[i].name)
+      }
+
+      if (mail.files) {
+        for (let i = 0; i < mail.files.length; i++) {
+          formData.append('files', mail.files[i], mail.files[i].name)
+        }
       }
 
       xhr.onreadystatechange = function () {

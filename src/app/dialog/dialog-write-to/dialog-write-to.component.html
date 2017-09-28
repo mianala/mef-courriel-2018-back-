@@ -5,7 +5,7 @@
   <md-input-container class="">
     <input [(ngModel)]="mail.title" mdInput placeholder="Sujet">
   </md-input-container>
-  <div class="froala" [froalaEditor]="options" [(froalaModel)]="mail.content"></div>
+  <div class="froala" [froalaEditor]="options"  [(froalaModel)]="mail.content"></div>
   <app-files [files]="mail.files"></app-files>
 </md-dialog-content>
 <md-dialog-actions fxLayout="row" class="action-buttons">

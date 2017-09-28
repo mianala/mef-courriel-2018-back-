@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../user.service';
 import {User} from '../../../models/User';
-import {NotificationService} from "../../notification.service";
-import {SavedService} from "../../saved.service";
-import {FroalaService} from "../../froala.service";
+import {NotificationService} from '../../notification.service';
+import {SavedService} from '../../saved.service';
+import {FroalaService} from '../../froala.service';
 
 @Component({
   selector: 'app-dialog-save-mail',
@@ -18,8 +18,7 @@ export class DialogSaveMailComponent implements OnInit {
               private froalaService: FroalaService,
               private notification: NotificationService,
               private userService: UserService,
-              private savedService: SavedService)
-  {
+              private savedService: SavedService) {
     this.userService.getActiveUser().subscribe(data => {
       this.user = data;
     })

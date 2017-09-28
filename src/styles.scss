@@ -10,12 +10,26 @@ body {
 
   .froala.fr-box {
     margin: 1em 2em;
+    z-index: 1000;
 
-    //froala unlicenced here
+    //froala unlicenced here for the 1st
     div:nth-child(4) {
-      display: none;
+      background-color: #fff !important;
+      a{
+        background-color: #fff !important;
+      }
+    }
+    //froala unlicenced here for the 1st
+    div:nth-child(3) {
+      background-color: #fff !important;
+      a{
+        background-color: #fff !important;
+      }
     }
   }
+
+
+
   .md-dialog-container {
     flex-basis: 600px;
   }
@@ -31,7 +45,6 @@ body {
 
 .mat-sidenav-container {
   background-color: #efefef;
-
 }
 
 .mat-sidenav-content {

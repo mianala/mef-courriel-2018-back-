@@ -21,6 +21,11 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+  user_saved() {
+    const message = 'Vous avez été enregistré avec succès';
+    this.openSnack(message);
+  }
+
   loggedOut() {
     const message = 'Vous ête déconnecté';
     this.openSnack(message);
@@ -38,6 +43,11 @@ export class NotificationService {
 
   emailSent() {
     const message = 'Courriel envoyé avec succès';
+    this.openSnack(message);
+  }
+
+  savedRemoved() {
+    const message = 'Courriel supprimé';
     this.openSnack(message);
   }
 

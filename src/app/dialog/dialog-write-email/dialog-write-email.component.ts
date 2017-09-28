@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../user.service';
-import {User} from '../../../models/User';
-import {EmailService} from "../../email.service";
-import {FlowService} from "../../flow.service";
-import {FroalaService} from "../../froala.service";
+import {Component, OnInit} from '@angular/core'
+import {UserService} from '../../user.service'
+import {User} from '../../../models/User'
+import {FlowService} from '../../flow.service'
+import {FroalaService} from '../../froala.service'
 
 @Component({
   selector: 'app-dialog-write-email',
@@ -17,23 +16,27 @@ export class DialogWriteEmailComponent implements OnInit {
   constructor(private user: User, private flowService: FlowService,
               private froala: FroalaService,
               private userService: UserService) {
-    this.mail = {}
+    this.mail = {
+      title: '',
+      content: ''
+    }
     this.userService.getActiveUser().subscribe(activeUser => {
       this.mail.starter = activeUser
-    });
+    })
     this.mail.files = []
     this.options = this.froala.getOptions()
   }
 
   ngOnInit() {
     this.userService.getActiveUser().subscribe(data => {
-      this.user = data;
+      this.user = data
     })
   }
 
   sendEmail() {
-    this.mail.receiver = this.user;
-    this.flowService.startFlow(this.mail);
+    this.mail.receiver = this.user
+    this.mail.savedId = 0
+    this.flowService.startFlow(this.mail)
   }
 
   getFiles(files) {
@@ -41,7 +44,7 @@ export class DialogWriteEmailComponent implements OnInit {
   }
 
   selectUser(user) {
-    this.user = user;
+    this.user = user
   }
 
 }
