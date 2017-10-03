@@ -9,7 +9,6 @@ import {DialogTransferMailComponent} from "../../dialog/dialog-transfer-mail/dia
 })
 export class EmailMenuButtonComponent implements OnInit {
 
-  @Output() remove = new EventEmitter()
   @Input() id
 
   constructor() {

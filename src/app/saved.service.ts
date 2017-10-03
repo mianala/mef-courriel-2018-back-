@@ -3,12 +3,14 @@ import {Http} from '@angular/http';
 import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {UserService} from './user.service';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 
 @Injectable()
 export class SavedService {
 
   url: string;
+  saveds = new BehaviorSubject([])
 
   constructor(private global: GlobalService,
               private userService: UserService,

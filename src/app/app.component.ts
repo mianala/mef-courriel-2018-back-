@@ -3,6 +3,7 @@ import {UserService} from "./user.service";
 import {Http} from "@angular/http";
 import {NavigationStart, Router} from "@angular/router";
 import {TestService} from "./test.service";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,14 @@ export class AppComponent {
         })
       }
     )
+
+    userService.user.subscribe((data) => {
+        console.log('app component')
+        console.log(data)
+      }
+    )
     userService.redirectIfConnected()
+
 
   }
 

@@ -29,7 +29,6 @@ export class DeleteButtonComponent implements OnInit {
     this.userService.getActiveUser().subscribe(user => {
       this.savedService.removeSaved(this.id, user.id).subscribe(data => {
         console.log(data)
-        this.remove.emit(this.id)
       })
     })
 

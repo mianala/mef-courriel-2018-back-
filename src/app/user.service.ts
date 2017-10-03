@@ -4,11 +4,13 @@ import 'rxjs/add/operator/map';
 import {Router} from '@angular/router';
 import {GlobalService} from './global.service';
 import {NotificationService} from './notification.service';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class UserService {
   url: string
   options = new RequestOptions({withCredentials: true});
+  user = new BehaviorSubject({})
 
   constructor(private http: Http,
               private route: Router,
