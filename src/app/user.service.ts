@@ -5,42 +5,49 @@ import {Router} from '@angular/router';
 import {GlobalService} from './global.service';
 import {NotificationService} from './notification.service';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {User} from "../models/User";
 
 @Injectable()
 export class UserService {
   url: string
   options = new RequestOptions({withCredentials: true});
-  user = new BehaviorSubject({})
+  userSubject = new BehaviorSubject('0')
+  userObject = new BehaviorSubject(new User())
+  status = ''
+  user: any
 
   constructor(private http: Http,
               private route: Router,
               private notification: NotificationService,
               private global: GlobalService) {
     this.url = global.ip() + '/api/users';
+
+    this.http.post(this.url + '/user', {type: 'user'}, this.options)
+      .map(res => res.json())
+      .subscribe(user => {
+        this.userSubject.subscribe(e => {
+          this.status = e
+          console.log('status changed ' + e)
+        })
+
+
+        if (user !== 0) {
+          this.user = user
+          this.userSubject.next('connected')
+          this.userObject.next(user)
+        } else {
+          this.userSubject.next('disconnected')
+        }
+      })
   }
 
   redirectIfConnected() {
     const route = this.route
-    this.isConnected(function (result) {
-      console.log('log :' + result)
-      if (result) {
-        route.navigateByUrl('/courriels')
-      } else {
-        route.navigateByUrl('/public/connexion')
-      }
-    })
-  }
-
-  isConnected(next) {
-    return this.http.post(this.url + '/user', {type: 'check'}, this.options)
-      .map(data => data.json())
-      .subscribe(result => {
-        if (result === '0') {
-          next(false)
-        } else {
-          next(true)
-        }
-      })
+    if (this.status === 'connected') {
+      route.navigateByUrl('/courriels')
+    } else {
+      route.navigateByUrl('/public/connexion')
+    }
   }
 
   saveUser(user?: any) {
@@ -103,24 +110,26 @@ export class UserService {
       .map(res => res.json())
   }
 
-  getActiveUser() {
-    return this.http.post(this.url + '/user', {type: 'user'}, this.options)
-      .map(res => res.json());
-  }
-
   logout() {
     return this.http.post(this.url + '/user', {type: 'logout'}, this.options)
       .map(res => res.json());
   }
 
   login(id: string, password: string) {
-    return this.http.post(
-      this.url + '/user',
-      {
-        id: id,
-        password: password
-      }, this.options)
+    this.http
+      .post(
+        this.url + '/user',
+        {
+          id: id,
+          password: password
+        }, this.options)
       .map(res => res.json())
+      .subscribe(user => {
+        this.user = user
+        this.userSubject.next('logged in')
+        console.log('user logged in')
+        console.log(user)
+      })
   }
 
 }

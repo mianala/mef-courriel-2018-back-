@@ -26,7 +26,7 @@ export class DeleteButtonComponent implements OnInit {
   }
 
   removeMail() {
-    this.userService.getActiveUser().subscribe(user => {
+    this.userService.userObject.subscribe(user => {
       this.savedService.removeSaved(this.id, user.id).subscribe(data => {
         console.log(data)
       })

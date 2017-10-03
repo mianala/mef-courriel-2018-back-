@@ -13,14 +13,16 @@ import {fadeInAnimation} from '../../animation/fadeIn'
 })
 export class SavedEmailsPageComponent implements OnInit {
   saveds
-  activeUser: User
+  activeUser: any
 
   constructor(private userService: UserService, private savedService: SavedService) {
   }
 
   ngOnInit() {
 
-    this.userService.getActiveUser().subscribe(data => {
+    this.userService.userObject.subscribe(data => {
+      console.log('saved email got the active user')
+      console.log(data)
       this.activeUser = data
       this.savedService.getSaveds(this.activeUser.id).subscribe(result => {
 

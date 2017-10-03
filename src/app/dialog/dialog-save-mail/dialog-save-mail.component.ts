@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../user.service';
-import {User} from '../../../models/User';
 import {NotificationService} from '../../notification.service';
 import {SavedService} from '../../saved.service';
 import {FroalaService} from '../../froala.service';
@@ -13,13 +12,13 @@ import {FroalaService} from '../../froala.service';
 export class DialogSaveMailComponent implements OnInit {
   saved: any
   options: any
+  user: any
 
-  constructor(private user: User,
-              private froalaService: FroalaService,
+  constructor(private froalaService: FroalaService,
               private notification: NotificationService,
               private userService: UserService,
               private savedService: SavedService) {
-    this.userService.getActiveUser().subscribe(data => {
+    this.userService.userObject.subscribe(data => {
       this.user = data;
     })
     this.saved = {}

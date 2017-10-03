@@ -14,14 +14,13 @@ import {fadeInAnimation} from '../../animation/fadeIn'
 })
 export class EmailsPageComponent implements OnInit {
   flows
-  activeUser: User
+  activeUser: any
 
   constructor(private flowService: FlowService, private userService: UserService) {
   }
 
   ngOnInit() {
-
-    this.userService.getActiveUser().subscribe(data => {
+    this.userService.userObject.subscribe(data => {
       this.activeUser = data
       this.flowService.getFlows(this.activeUser.id).subscribe(result => {
         this.flows = result

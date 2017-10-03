@@ -17,10 +17,6 @@ export class LoginPageComponent implements OnInit {
   constructor(private notification: NotificationService, private router: Router, private userService: UserService) {
     this.user = {}
 
-    this.userService.user.subscribe((data) => {
-      console.log('login page')
-      console.log(data)
-    })
   }
 
   ngOnInit() {
@@ -31,14 +27,7 @@ export class LoginPageComponent implements OnInit {
 
 
     this.userService.redirectIfConnected()
-    this.userService.login(this.user.id, this.user.password).subscribe(user => {
-      this.notification.connected()
-      this.router.navigateByUrl('/courriels')
-      this.userService.redirectIfConnected()
-    })
-
-
-
+    this.userService.login(this.user.id, this.user.password)
   }
 
 }

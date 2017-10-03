@@ -12,15 +12,16 @@ import {FroalaService} from '../../froala.service'
 export class DialogWriteEmailComponent implements OnInit {
   mail: any
   options: any
+  user: any
 
-  constructor(private user: User, private flowService: FlowService,
+  constructor(private flowService: FlowService,
               private froala: FroalaService,
               private userService: UserService) {
     this.mail = {
       title: '',
       content: ''
     }
-    this.userService.getActiveUser().subscribe(activeUser => {
+    this.userService.userObject.subscribe(activeUser => {
       this.mail.starter = activeUser
     })
     this.mail.files = []
@@ -28,7 +29,7 @@ export class DialogWriteEmailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getActiveUser().subscribe(data => {
+    this.userService.userObject.subscribe(data => {
       this.user = data
     })
   }

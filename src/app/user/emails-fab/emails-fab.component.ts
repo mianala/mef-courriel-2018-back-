@@ -22,7 +22,7 @@ export class EmailsFabComponent implements OnInit {
           this.answer = url.indexOf(this.flowUrl.toLowerCase()) > -1;
           if (this.answer) {
             this.flowId = url.slice(this.flowUrl.length, url.length)
-            console.log(this.flowId)
+            console.log('watching flow ' +this.flowId)
           }
         }
       }

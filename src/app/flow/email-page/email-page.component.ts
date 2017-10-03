@@ -20,7 +20,7 @@ export class EmailPageComponent implements OnInit {
   flowId: number
   starterUser: User
   receiverUser: User
-  activeUser: User
+  activeUser: any
 
   constructor(private userService: UserService,
               private savedService: SavedService,
@@ -34,7 +34,7 @@ export class EmailPageComponent implements OnInit {
 
   ngOnInit() {
 
-    this.userService.getActiveUser().subscribe(data => {
+    this.userService.userObject.subscribe(data => {
         this.activeUser = data
 
         this.flowService.getFlow(this.activeUser.id, this.flowId)
@@ -84,7 +84,6 @@ export class EmailPageComponent implements OnInit {
           return c - d;
         });
         this.mails = data
-        console.log(data)
       })
 
   }

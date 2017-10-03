@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "./user.service";
 import {Http} from "@angular/http";
 import {NavigationStart, Router} from "@angular/router";
@@ -10,7 +10,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app'
   connected: boolean
 
@@ -18,22 +18,15 @@ export class AppComponent {
               private userService: UserService,
               private router: Router,
               private http: Http) {
-    router.events.subscribe(event => {
-        userService.isConnected(result => {
-          this.connected = result
-
-        })
-      }
-    )
-
-    userService.user.subscribe((data) => {
-        console.log('app component')
-        console.log(data)
-      }
-    )
-    userService.redirectIfConnected()
 
 
+  }
+
+  ngOnInit() {
+    this.userService.userSubject.subscribe(
+      e => {
+        this.connected = e !== 'disconnected';
+      })
   }
 
 

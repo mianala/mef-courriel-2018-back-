@@ -12,7 +12,7 @@ import {FlowService} from '../../flow.service';
 export class DialogTransferMailComponent implements OnInit {
   title
   content
-  activeUser: User
+  activeUser: any
   savedId
 
   constructor
@@ -20,7 +20,7 @@ export class DialogTransferMailComponent implements OnInit {
    private user: User,
    private flowService: FlowService,
    private userService: UserService) {
-    this.userService.getActiveUser().subscribe(activeUser => {
+    this.userService.userObject.subscribe(activeUser => {
       console.log(data)
       this.savedId = data
       this.activeUser = activeUser

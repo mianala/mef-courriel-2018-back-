@@ -28,7 +28,7 @@ export class DialogWriteToComponent implements OnInit {
       title: '',
       content: ''
     }
-    this.userService.getActiveUser().subscribe(activeUser => {
+    this.userService.userObject.subscribe(activeUser => {
       this.mail.activeUser = activeUser;
       if (data.im !== undefined) {
         console.log('start flow')
