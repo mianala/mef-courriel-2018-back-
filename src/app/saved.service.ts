@@ -3,7 +3,7 @@ import {Http} from '@angular/http';
 import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {UserService} from './user.service';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 
 @Injectable()
@@ -16,12 +16,24 @@ export class SavedService {
               private userService: UserService,
               private http: Http, private notification: NotificationService) {
     this.url = global.ip() + '/api/saveds';
-
+    console.log('initializing saveds')
+    this.getSaveds()
   }
 
-  getSaveds(userId) {
-    return this.http.get(this.url + '/user/' + userId)
-      .map(res => res.json())
+  getSaveds() {
+    this.userService.userObject.subscribe(user => {
+
+      this.http.get(this.url + '/user/' + user.id)
+        .map(res => res.json()).subscribe(saveds => {
+
+        saveds.sort(function (b, a) {
+          const c = a.id;
+          const d = b.id;
+          return c - d;
+        });
+        this.saveds.next(saveds)
+      })
+    })
   }
 
 
@@ -33,6 +45,9 @@ export class SavedService {
   save(saved: any) {
     this.post(saved).then((result) => {
       console.log(result)
+      console.log('fetching result from the result of the post saved')
+      this.getSaveds()
+
     }, (error) => {
       console.log(error)
     })
@@ -61,7 +76,7 @@ export class SavedService {
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            resolve(JSON.parse(xhr.response));
+            resolve(xhr.response);
           } else {
             reject(xhr.response);
           }
@@ -75,7 +90,11 @@ export class SavedService {
   }
 
   removeSaved(id: number, userId: number) {
-    return this.http.delete(this.url + '/' + id + '/' + userId)
+    this.http.delete(this.url + '/' + id + '/' + userId).subscribe(data => {
+      console.log('saved ' + id + ' removed')
+      console.log('updating saved list')
+      this.getSaveds()
+    })
   }
 
 }

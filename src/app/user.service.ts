@@ -11,7 +11,7 @@ import {User} from "../models/User";
 export class UserService {
   url: string
   options = new RequestOptions({withCredentials: true});
-  userSubject = new BehaviorSubject('0')
+  userSubject = new BehaviorSubject('disconnected')
   userObject = new BehaviorSubject(new User())
   status = ''
   user: any
@@ -22,6 +22,14 @@ export class UserService {
               private global: GlobalService) {
     this.url = global.ip() + '/api/users';
 
+    this.connect()
+  }
+
+  connect() {
+
+    //de redirect to login
+
+
     this.http.post(this.url + '/user', {type: 'user'}, this.options)
       .map(res => res.json())
       .subscribe(user => {
@@ -31,12 +39,13 @@ export class UserService {
         })
 
 
-        if (user !== 0) {
+        if (user != 0) {
           this.user = user
+
+          console.log('got the user')
+          console.log(user)
           this.userSubject.next('connected')
           this.userObject.next(user)
-        } else {
-          this.userSubject.next('disconnected')
         }
       })
   }
@@ -50,7 +59,7 @@ export class UserService {
     }
   }
 
-  saveUser(user?: any) {
+  saveUser(user ?: any) {
 
 
     this.post(user).then((result) => {
@@ -125,10 +134,7 @@ export class UserService {
         }, this.options)
       .map(res => res.json())
       .subscribe(user => {
-        this.user = user
-        this.userSubject.next('logged in')
-        console.log('user logged in')
-        console.log(user)
+        this.connect()
       })
   }
 
