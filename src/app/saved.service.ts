@@ -14,13 +14,15 @@ export class SavedService {
 
   constructor(private global: GlobalService,
               private userService: UserService,
-              private http: Http, private notification: NotificationService) {
+              private http: Http,
+              private notification: NotificationService) {
     this.url = global.ip() + '/api/saveds';
     console.log('initializing saveds')
     this.getSaveds()
   }
 
   getSaveds() {
+    console.log('loading saveds')
     this.userService.userObject.subscribe(user => {
 
       this.http.get(this.url + '/user/' + user.id)
@@ -89,11 +91,14 @@ export class SavedService {
     });
   }
 
-  removeSaved(id: number, userId: number) {
-    this.http.delete(this.url + '/' + id + '/' + userId).subscribe(data => {
-      console.log('saved ' + id + ' removed')
-      console.log('updating saved list')
-      this.getSaveds()
+  removeSaved(id: number) {
+    this.userService.userObject.subscribe(user => {
+      this.http.delete(this.url + '/' + id + '/' + user.id).subscribe(data => {
+        console.log('saved ' + id + ' removed')
+        console.log('updating saved list')
+        this.getSaveds()
+        this.notification.savedRemoved()
+      })
     })
   }
 

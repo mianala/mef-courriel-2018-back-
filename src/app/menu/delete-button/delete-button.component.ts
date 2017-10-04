@@ -3,6 +3,7 @@ import {MdDialog} from '@angular/material';
 import {SavedService} from '../../saved.service';
 import {NotificationService} from '../../notification.service';
 import {UserService} from '../../user.service';
+import {FlowService} from "../../flow.service";
 
 @Component({
   selector: 'app-delete-button',
@@ -19,17 +20,19 @@ export class DeleteButtonComponent implements OnInit {
   constructor(public dialog: MdDialog,
               public userService: UserService,
               public savedService: SavedService,
-              private notification: NotificationService) {
+              public flowService: FlowService) {
   }
 
   ngOnInit() {
   }
 
   removeMail() {
-    this.userService.userObject.subscribe(user => {
-      this.savedService.removeSaved(this.id, user.id)
-    })
-
-    this.notification.savedRemoved()
+    if (this.type === 'flow') {
+      this.flowService.deleteFlow(this.id)
+    } else if (this.type === 'email') {
+      this.flowService.deleteFlow(this.id)
+    } else {
+      this.savedService.removeSaved(this.id)
+    }
   }
 }

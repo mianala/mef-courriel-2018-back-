@@ -16,16 +16,20 @@ export class AppComponent implements OnInit {
 
   constructor(private test: TestService,
               private userService: UserService,
-              private router: Router,
+              public router: Router,
               private http: Http) {
-
 
   }
 
   ngOnInit() {
+
     this.userService.userSubject.subscribe(
       e => {
         this.connected = e !== 'disconnected';
+
+        if (!this.connected) {
+          // this.router.navigateByUrl('/public')
+        }
       })
   }
 

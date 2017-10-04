@@ -20,11 +20,8 @@ export class EmailsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.userObject.subscribe(data => {
-      this.activeUser = data
-      this.flowService.getFlows(this.activeUser.id).subscribe(result => {
-        this.flows = result
-      })
+    this.flowService.flows.subscribe(flows => {
+      this.flows = flows
     })
   }
 }

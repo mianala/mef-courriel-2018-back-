@@ -7,4 +7,4 @@
   <!--<span class="description">{{flow.content|slice:0:35}}</span>-->
 </a>
 <div class="date">{{flow.date_created|date}}</div>
-<app-email-menu-button></app-email-menu-button>
+<app-email-menu-button [id]="flow.id" [type]="'flow'"></app-email-menu-button>

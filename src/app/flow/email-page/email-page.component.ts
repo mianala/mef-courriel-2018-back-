@@ -69,7 +69,7 @@ export class EmailPageComponent implements OnInit {
   }
 
   getMails() {
-    this.emailService.getEmails(this.flowId)
+    this.emailService.emails
       .subscribe(data => {
         for (let i = 0; i < data.length; i++) {
           if (data[i].sentBy === 1) {

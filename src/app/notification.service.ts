@@ -51,6 +51,11 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+  flowRemoved() {
+    const message = 'Courriel supprimé';
+    this.openSnack(message);
+  }
+
   openSnack(message) {
     this.snackBar.open(message, '', this.getConfig());
   }

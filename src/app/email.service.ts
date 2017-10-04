@@ -2,19 +2,37 @@ import {Injectable} from '@angular/core'
 import {Http, RequestOptions} from '@angular/http'
 import {NotificationService} from './notification.service'
 import {GlobalService} from "./global.service";
+import {UserService} from "./user.service";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class EmailService {
   url: string
   options = new RequestOptions({withCredentials: true});
+  emails = new BehaviorSubject([])
 
-  constructor(private http: Http, private global: GlobalService, private notification: NotificationService) {
+  constructor(private http: Http,
+              private userService: UserService,
+              private global: GlobalService, private notification: NotificationService) {
     this.url = global.ip() + '/api/flows/';
+    this.getEmails()
   }
 
-  getEmails(flowId: number) {
-    return this.http.get(this.url + flowId + '/emails', this.options)
-      .map(res => res.json())
+  getEmails() {
+    console.log('loading flows')
+    this.userService.userObject.subscribe(user => {
+
+      this.http.get(this.url + flowId + '/emails', this.options)
+        .map(res => res.json()).subscribe(emails => {
+
+        emails.sort(function (b, a) {
+          const c = a.id;
+          const d = b.id;
+          return c - d;
+        });
+        this.emails.next(flows)
+      })
+    })
   }
 
   answerFlow(mail?: any) {

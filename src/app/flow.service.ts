@@ -3,26 +3,36 @@ import {Http} from '@angular/http';
 import {UserService} from "./user.service";
 import {NotificationService} from "./notification.service";
 import {GlobalService} from "./global.service";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class FlowService {
   url: string
   user: any
+  flows = new BehaviorSubject([])
 
   constructor(private http: Http,
               private notification: NotificationService, private userService: UserService, private global: GlobalService) {
     this.url = global.ip() + '/api/flows';
-
+    console.log('initializing flows')
+    this.getFlows()
   }
 
-  getFlows(userId) {
-    return this.http.get(this.url + '/user/' + userId)
-      .map(res => res.json())
-  }
+  getFlows() {
+    console.log('loading flows')
+    this.userService.userObject.subscribe(user => {
 
-  getUnseenFlowsNumber() {
-    return this.http.get(this.url + '/unseen-flows-number')
-    // .map(res => res.json())
+      this.http.get(this.url + '/user/' + user.id)
+        .map(res => res.json()).subscribe(flows => {
+
+        flows.sort(function (b, a) {
+          const c = a.id;
+          const d = b.id;
+          return c - d;
+        });
+        this.flows.next(flows)
+      })
+    })
   }
 
   getFlow(userId: number, id: number) {
@@ -33,6 +43,7 @@ export class FlowService {
   startFlow(mail?: any) {
     this.post(mail).then((result) => {
       console.log(result)
+      this.getFlows()
     }, (error) => {
       console.log(error)
     })
@@ -50,7 +61,7 @@ export class FlowService {
       formData.append('receiver_id', mail.receiver.id)
       if (mail.savedId) {
         formData.append('saved_id', mail.savedId)
-      }else{
+      } else {
         formData.append('saved_id', 0)
 
       }
@@ -75,6 +86,17 @@ export class FlowService {
       xhr.send(formData)
       this.notification.emailSent()
     });
+  }
+
+  deleteFlow(id: number) {
+    this.userService.userObject.subscribe(user => {
+      this.http.delete(this.url + '/' + id + '/' + user.id).subscribe(data => {
+        console.log('flow ' + id + ' removed')
+        console.log('updating flow list')
+        this.notification.flowRemoved()
+        this.getFlows()
+      })
+    })
   }
 
   selectFlow() {
