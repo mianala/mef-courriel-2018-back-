@@ -20,7 +20,8 @@ export class DialogWriteToComponent implements OnInit {
   sendtrigger = function () {
   }
 
-  constructor(private flowService: FlowService,
+  constructor(@Inject(MD_DIALOG_DATA) public data: any,
+              private flowService: FlowService,
               private router: Router,
               private emailService: EmailService,
               private froala: FroalaService) {
@@ -32,13 +33,11 @@ export class DialogWriteToComponent implements OnInit {
 
     this.sendtrigger = this.answerFlow
     if (router.url.includes('/courriels/courriel')) {
-
       this.flowService.flow.subscribe(flow => {
         this.mail.user = flow.user;
       })
     } else {
-
-
+      this.mail.user = data
       this.sendtrigger = this.startFlow
     }
 
