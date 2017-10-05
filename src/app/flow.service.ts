@@ -37,15 +37,25 @@ export class FlowService {
     })
   }
 
+  reload() {
+    console.log('reloading flow')
+    const flow = localStorage.getItem('flow')
+    if (flow) {
+      this.flow.next(JSON.parse(flow))
+    }
+  }
+
   setFlow(id: number) {
-    console.log('loading flow')
+    console.log('setting flow ' + id)
     this.userService.userObject.subscribe(user => {
 
       this.http.get(this.url + '/' + user.id + '/' + id)
-        .map(res => res.json()).subscribe(flow => {
-        this.flow.next(flow)
-        console.log('flow set')
-      })
+        .map(res => res.json()).subscribe(
+        flow => {
+          this.flow.next(flow)
+          console.log(flow)
+          localStorage.setItem('flow', JSON.stringify(flow))
+        })
     })
   }
 

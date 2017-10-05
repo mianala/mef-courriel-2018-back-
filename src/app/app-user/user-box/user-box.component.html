@@ -1,5 +1,5 @@
 <app-avatar [photo]="user.photo"></app-avatar>
 <div class="userinfo">
-  <div class="username">{{user.fullname}}</div>
+  <div class="username" (click)="setUser(user.id)">{{user.fullname}}</div>
   <div class="function-title">{{user.function_title}} - {{user.entity}}</div>
 </div>

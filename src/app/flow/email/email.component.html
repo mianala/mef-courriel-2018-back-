@@ -1,8 +1,8 @@
-<a [routerLink]="'courriel" class="sender">{{flow.name}}</a>
+<a [routerLink]="'courriel'" (click)="setFlow(flow.id)" class="sender">{{flow.name}}</a>
 <div class="attachment-icon">
   <md-icon>attachment</md-icon>
 </div>
-<a [routerLink]="'courriel" class="content">
+<a [routerLink]="'courriel'" (click)="setFlow(flow.id)" class="content">
   <span class="title">{{flow.title}}</span>
   <!--<span class="description">{{flow.content|slice:0:35}}</span>-->
 </a>

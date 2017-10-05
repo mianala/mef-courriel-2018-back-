@@ -27,9 +27,7 @@ export class UserService {
 
   connect() {
 
-    //de redirect to login
-
-
+    // de redirect to login
     this.http.post(this.url + '/user', {type: 'user'}, this.options)
       .map(res => res.json())
       .subscribe(user => {
@@ -43,7 +41,6 @@ export class UserService {
           this.user = user
 
           console.log('got the user')
-          console.log(user)
           this.userSubject.next('connected')
           this.userObject.next(user)
         }
@@ -120,8 +117,10 @@ export class UserService {
   }
 
   logout() {
-    return this.http.post(this.url + '/user', {type: 'logout'}, this.options)
-      .map(res => res.json());
+    this.http.post(this.url + '/user', {type: 'logout'}, this.options)
+      .map(res => res.json()).subscribe(data => {
+        this.user.next('')
+    });
   }
 
   login(id: string, password: string) {

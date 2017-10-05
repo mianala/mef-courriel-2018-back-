@@ -43,7 +43,7 @@ export class DialogTransferMailComponent implements OnInit {
       receiver: this.user,
     }
     console.log(flow)
-    this.flowService.startFlow(flow)
+    this.flowService.start(flow)
   }
 
 }

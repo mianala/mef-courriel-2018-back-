@@ -17,6 +17,7 @@ export class EmailPageComponent implements OnInit {
 
   constructor(private flowService: FlowService,
               private emailService: EmailService) {
+    this.flowService.reload()
   }
 
   ngOnInit() {
@@ -28,6 +29,7 @@ export class EmailPageComponent implements OnInit {
     this.emailService.emails.subscribe(data => {
       this.mails = data
     })
+
   }
 
 }

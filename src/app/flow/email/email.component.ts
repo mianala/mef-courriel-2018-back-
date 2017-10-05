@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {FlowService} from "../../flow.service";
 
 @Component({
   selector: '[app-email]',
@@ -8,10 +9,14 @@ import {Component, Input, OnInit} from '@angular/core';
 export class EmailComponent implements OnInit {
   @Input() flow;
 
-  constructor() {
+  constructor(private flowService: FlowService) {
   }
 
   ngOnInit() {
+  }
+
+  setFlow(id) {
+    this.flowService.setFlow(id)
   }
 
 }

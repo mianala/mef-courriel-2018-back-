@@ -7,6 +7,7 @@ import {EmailService} from '../../email.service'
 import {UserService} from '../../user.service';
 import {FlowService} from '../../flow.service';
 import {FroalaService} from '../../froala.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dialog-write-to',
@@ -19,44 +20,31 @@ export class DialogWriteToComponent implements OnInit {
   sendtrigger = function () {
   }
 
-  constructor(@Inject(MD_DIALOG_DATA) public data: any,
-              private flowService: FlowService,
+  constructor(private flowService: FlowService,
+              private router: Router,
               private emailService: EmailService,
-              private froala: FroalaService,
-              private userService: UserService) {
+              private froala: FroalaService) {
     this.mail = {
       title: '',
-      content: ''
+      content: '',
+      files: []
     }
-    this.userService.userObject.subscribe(activeUser => {
-      this.mail.activeUser = activeUser;
-      if (data.im !== undefined) {
-        console.log('start flow')
-        this.mail.receiver = this.data;
-        this.sendtrigger = this.sendEmail
-      } else {
-        this.flowService.flow.subscribe(flow => {
-          this.mail.flow_id = this.data
-          if (activeUser.id === flow.starter_id) {
-            this.mail.starter = 0
-            this.userService.getUser(flow.receiver_id).subscribe(user => {
-              this.mail.receiver = user
-            })
-          } else {
-            this.mail.starter = 1
-            this.userService.getUser(flow.starter_id).subscribe(user => {
-              this.mail.receiver = user
-            })
-          }
-        })
-        this.sendtrigger = this.answerFlow
-      }
 
-    });
+    this.sendtrigger = this.answerFlow
+    if (router.url.includes('/courriels/courriel')) {
 
+      this.flowService.flow.subscribe(flow => {
+        this.mail.user = flow.user;
+      })
+    } else {
+
+
+      this.sendtrigger = this.startFlow
+    }
+
+
+    // froala option
     this.options = this.froala.getOptions()
-
-    this.mail.files = []
   }
 
   ngOnInit() {
@@ -66,7 +54,7 @@ export class DialogWriteToComponent implements OnInit {
     this.mail.files = this.mail.files.concat(files)
   }
 
-  sendEmail() {
+  startFlow() {
     console.log(this.mail)
     this.flowService.start(this.mail)
   }

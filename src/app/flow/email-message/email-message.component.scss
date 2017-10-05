@@ -3,11 +3,21 @@
   .email-header {
     display: flex;
     justify-content: space-between;
-    padding-bottom: .6em;
     border-bottom:1px solid grey;
+    app-user-box{
+      flex: 1 1;
+    }
+
     .email-sent-info {
-      align-self: flex-end;
+      align-self: center;
+      flex: 1 1;
+      font-size: .7em;
       text-align: right;
+    }
+
+    app-email-menu-button{
+      flex: .1;
+      align-self: center;
     }
   }
 }

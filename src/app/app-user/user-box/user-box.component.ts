@@ -14,4 +14,8 @@ export class UserBoxComponent implements OnInit {
   ngOnInit() {
   }
 
+  setUser(id) {
+
+  }
+
 }

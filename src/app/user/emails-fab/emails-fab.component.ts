@@ -12,18 +12,12 @@ import {DialogWriteToComponent} from "../../dialog/dialog-write-to/dialog-write-
 })
 export class EmailsFabComponent implements OnInit {
   answer: boolean
-  flowUrl = '/courriels/'
-  flowId: string
 
   constructor(public dialog: MdDialog, private router: Router) {
+    this.answer = router.url.indexOf('/courriels/courriel') > -1;
     router.events.subscribe(event => {
         if (event instanceof NavigationStart) {
-          const url = event.url.toLowerCase()
-          this.answer = url.indexOf(this.flowUrl.toLowerCase()) > -1;
-          if (this.answer) {
-            this.flowId = url.slice(this.flowUrl.length, url.length)
-            console.log('watching flow ' +this.flowId)
-          }
+          this.answer = event.url.indexOf('/courriels/courriel') > -1;
         }
       }
     )
@@ -39,9 +33,7 @@ export class EmailsFabComponent implements OnInit {
   }
 
   answerEmail() {
-    const dialogWriteEmail = this.dialog.open(DialogWriteToComponent, {
-        data : this.flowId
-      })
+    const dialogWriteEmail = this.dialog.open(DialogWriteToComponent)
     ;
     dialogWriteEmail.afterClosed().subscribe(result => {
     })

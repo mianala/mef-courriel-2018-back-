@@ -11,6 +11,7 @@ export class EmailService {
   url: string
   options = new RequestOptions({withCredentials: true});
   emails = new BehaviorSubject([])
+  flow
 
   constructor(private http: Http,
               private userService: UserService,
@@ -18,21 +19,19 @@ export class EmailService {
               private flowService: FlowService,
               private notification: NotificationService) {
     this.url = global.ip() + '/api/emails/';
-    this.getEmails()
-  }
-
-  getEmails() {
 
     this.flowService.flow.subscribe(flow => {
-      this.getFlowEmails(flow.id)
+      this.getFlowEmails(flow)
+      this.flow = flow
     })
   }
 
-  getFlowEmails(flowId) {
-    console.log('loading flows')
+
+  getFlowEmails(flow) {
+    console.log('loading emails')
     this.userService.userObject.subscribe(user => {
 
-      this.http.get(this.url + flowId, this.options)
+      this.http.get(this.url + flow.id, this.options)
         .map(res => res.json()).subscribe(emails => {
 
         emails.sort(function (b, a) {
@@ -40,31 +39,35 @@ export class EmailService {
           const d = b.id;
           return c - d;
         });
-        this.emails.next(flows)
+        this.emails.next(emails)
       })
     })
   }
 
   answerFlow(mail?: any) {
-    this.post(mail).then((result) => {
-      console.log(result)
-      this.getEmails()
-    }, (error) => {
-      console.log(error)
+    this.userService.userObject.subscribe(user => {
+      this.flowService.flow.subscribe(flow => {
+        this.post(user, flow, mail).then((result) => {
+          this.getFlowEmails(flow)
+          console.log(result)
+        }, (error) => {
+          console.log(error)
+        })
+      })
     })
 
   }
 
-  post(mail: any) {
+  post(user, flow, mail: any) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()
 
       formData.append('title', mail.title)
       formData.append('content', mail.content)
-      formData.append('flow_id', mail.flow_id)
-      formData.append('writer_id', mail.activeUser.id)
-      formData.append('sent_by', mail.starter)
+      formData.append('flow_id', flow.id)
+      formData.append('writer_id', user.id)
+      formData.append('sent_by', flow.writer_id == user.id ? 1 : 0)
 
       for (let i = 0; i < mail.files.length; i++) {
         formData.append('files', mail.files[i], mail.files[i].name)
@@ -73,25 +76,27 @@ export class EmailService {
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            resolve(JSON.parse(xhr.response));
+            resolve(xhr.response);
           } else {
             reject(xhr.response);
           }
         }
       }
 
-      xhr.open('POST', this.url + '/flow', true);
+      xhr.open('POST', this.url + 'flow', true);
       xhr.send(formData)
       this.notification.emailSent()
     });
   }
 
   delete(id: number) {
-    this.http.delete(this.url + '/' + id + '/' + user.id).subscribe(data => {
-      console.log('email ' + id + ' removed')
-      console.log('updating email list')
-      this.getEmails()
-      this.notification.emailRemoved()
+    this.userService.userObject.subscribe(user => {
+
+      this.http.delete(this.url + '/' + id + '/' + user.id).subscribe(data => {
+        console.log('email ' + id + ' removed')
+        console.log('updating email list')
+        this.notification.emailRemoved()
+      })
     })
   }
 
