@@ -37,7 +37,7 @@ export class FlowService {
     })
   }
 
-  getFlow(id: number) {
+  setFlow(id: number) {
     console.log('loading flow')
     this.userService.userObject.subscribe(user => {
 
@@ -106,9 +106,5 @@ export class FlowService {
         this.getFlows()
       })
     })
-  }
-
-  selectFlow() {
-
   }
 }
