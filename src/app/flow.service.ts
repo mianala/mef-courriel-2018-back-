@@ -4,12 +4,14 @@ import {UserService} from "./user.service";
 import {NotificationService} from "./notification.service";
 import {GlobalService} from "./global.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Flow} from "../models/Flow";
 
 @Injectable()
 export class FlowService {
   url: string
   user: any
   flows = new BehaviorSubject([])
+  flow = new BehaviorSubject(new Flow())
 
   constructor(private http: Http,
               private notification: NotificationService, private userService: UserService, private global: GlobalService) {
@@ -35,12 +37,19 @@ export class FlowService {
     })
   }
 
-  getFlow(userId: number, id: number) {
-    return this.http.get(this.url + '/' + userId + '/' + id)
-      .map(res => res.json())
+  setFlow(id: number) {
+    console.log('loading flow')
+    this.userService.userObject.subscribe(user => {
+
+      this.http.get(this.url + '/' + user.id + '/' + id)
+        .map(res => res.json()).subscribe(flow => {
+        this.flow.next(flow)
+        console.log('flow set')
+      })
+    })
   }
 
-  startFlow(mail?: any) {
+  start(mail?: any) {
     this.post(mail).then((result) => {
       console.log(result)
       this.getFlows()
@@ -88,7 +97,7 @@ export class FlowService {
     });
   }
 
-  deleteFlow(id: number) {
+  delete(id: number) {
     this.userService.userObject.subscribe(user => {
       this.http.delete(this.url + '/' + id + '/' + user.id).subscribe(data => {
         console.log('flow ' + id + ' removed')
@@ -97,9 +106,5 @@ export class FlowService {
         this.getFlows()
       })
     })
-  }
-
-  selectFlow() {
-
   }
 }

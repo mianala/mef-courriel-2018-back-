@@ -91,7 +91,7 @@ export class SavedService {
     });
   }
 
-  removeSaved(id: number) {
+  remove(id: number) {
     this.userService.userObject.subscribe(user => {
       this.http.delete(this.url + '/' + id + '/' + user.id).subscribe(data => {
         console.log('saved ' + id + ' removed')

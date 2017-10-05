@@ -56,6 +56,11 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+  emailRemoved() {
+    const message = 'Message supprimé';
+    this.openSnack(message);
+  }
+
   openSnack(message) {
     this.snackBar.open(message, '', this.getConfig());
   }

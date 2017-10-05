@@ -35,7 +35,7 @@ export class DialogWriteToComponent implements OnInit {
         this.mail.receiver = this.data;
         this.sendtrigger = this.sendEmail
       } else {
-        this.flowService.getFlow(activeUser.id, this.data).subscribe(flow => {
+        this.flowService.flow.subscribe(flow => {
           this.mail.flow_id = this.data
           if (activeUser.id === flow.starter_id) {
             this.mail.starter = 0
@@ -68,7 +68,7 @@ export class DialogWriteToComponent implements OnInit {
 
   sendEmail() {
     console.log(this.mail)
-    this.flowService.startFlow(this.mail)
+    this.flowService.start(this.mail)
   }
 
   answerFlow() {

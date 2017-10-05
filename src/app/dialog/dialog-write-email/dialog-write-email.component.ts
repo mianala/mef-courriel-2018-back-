@@ -37,7 +37,7 @@ export class DialogWriteEmailComponent implements OnInit {
   sendEmail() {
     this.mail.receiver = this.user
     this.mail.savedId = 0
-    this.flowService.startFlow(this.mail)
+    this.flowService.start(this.mail)
   }
 
   getFiles(files) {

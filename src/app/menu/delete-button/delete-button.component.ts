@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MdDialog} from '@angular/material';
 import {SavedService} from '../../saved.service';
-import {NotificationService} from '../../notification.service';
 import {UserService} from '../../user.service';
 import {FlowService} from "../../flow.service";
+import {EmailService} from "../../email.service";
 
 @Component({
   selector: 'app-delete-button',
@@ -15,10 +15,10 @@ export class DeleteButtonComponent implements OnInit {
 
   @Input() id
   @Input() type
-  @Output() remove = new EventEmitter()
 
   constructor(public dialog: MdDialog,
               public userService: UserService,
+              public emailService: EmailService,
               public savedService: SavedService,
               public flowService: FlowService) {
   }
@@ -28,11 +28,11 @@ export class DeleteButtonComponent implements OnInit {
 
   removeMail() {
     if (this.type === 'flow') {
-      this.flowService.deleteFlow(this.id)
+      this.flowService.delete(this.id)
     } else if (this.type === 'email') {
-      this.flowService.deleteFlow(this.id)
+      this.emailService.delete(this.id)
     } else {
-      this.savedService.removeSaved(this.id)
+      this.savedService.remove(this.id)
     }
   }
 }
