@@ -78,7 +78,7 @@ export const router: Routes = [
           component: SavedEmailsPageComponent,
         },
         {
-          path: ':id',
+          path: 'enregistre',
           component: SavedEmailPageComponent,
         }
       ]

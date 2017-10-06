@@ -17,10 +17,10 @@ export class EmailPageComponent implements OnInit {
 
   constructor(private flowService: FlowService,
               private emailService: EmailService) {
-    this.flowService.reload()
   }
 
   ngOnInit() {
+    this.flowService.reload()
 
     this.flowService.flow.subscribe(flow => {
       this.flow = flow

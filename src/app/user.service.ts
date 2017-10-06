@@ -21,8 +21,25 @@ export class UserService {
               private notification: NotificationService,
               private global: GlobalService) {
     this.url = global.ip() + '/api/users';
+    if (localStorage.getItem('user')) {
+      this.setUser(JSON.parse(localStorage.getItem('user')))
+    } else {
+      this.connect()
+    }
+  }
 
-    this.connect()
+  login(id: string, password: string) {
+    this.http
+      .post(
+        this.url + '/user',
+        {
+          id: id,
+          password: password
+        }, this.options)
+      .map(res => res.json())
+      .subscribe(user => {
+        this.connect()
+      })
   }
 
   connect() {
@@ -38,13 +55,17 @@ export class UserService {
 
 
         if (user != 0) {
-          this.user = user
-
+          this.setUser(user)
           console.log('got the user')
-          this.userSubject.next('connected')
-          this.userObject.next(user)
+          localStorage.setItem('user', JSON.stringify(user))
         }
       })
+  }
+
+  setUser(user) {
+    this.user = user
+    this.userSubject.next('connected')
+    this.userObject.next(user)
   }
 
   redirectIfConnected() {
@@ -119,22 +140,10 @@ export class UserService {
   logout() {
     this.http.post(this.url + '/user', {type: 'logout'}, this.options)
       .map(res => res.json()).subscribe(data => {
-        this.user.next('')
+      this.userObject.next(null)
+      localStorage.clear()
     });
   }
 
-  login(id: string, password: string) {
-    this.http
-      .post(
-        this.url + '/user',
-        {
-          id: id,
-          password: password
-        }, this.options)
-      .map(res => res.json())
-      .subscribe(user => {
-        this.connect()
-      })
-  }
 
 }

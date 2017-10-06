@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {SavedService} from '../../saved.service';
 import {fadeInAnimation} from '../../animation/fadeIn'
 
@@ -12,22 +11,17 @@ import {fadeInAnimation} from '../../animation/fadeIn'
   styleUrls: ['./saved-email-page.component.scss']
 })
 export class SavedEmailPageComponent implements OnInit {
-  saved: {}
+  saved
   savedId
 
-  constructor(private route: ActivatedRoute, private savedService: SavedService) {
-    this.saved = {}
-    this.route.params.subscribe(params => {
-      this.savedId = params.id
-    })
-
-    this.savedService.getSaved(this.savedId).subscribe(saved => {
+  constructor(private savedService: SavedService) {
+    this.savedService.saved.subscribe(saved => {
       this.saved = saved
     })
   }
 
   ngOnInit() {
-
+    this.savedService.reload()
   }
 
 }
