@@ -20,6 +20,10 @@ export class EmailService {
               private notification: NotificationService) {
     this.url = global.ip() + '/api/emails/';
 
+    this.getEmails()
+  }
+
+  getEmails() {
     this.flowService.flow.subscribe(flow => {
       this.getFlowEmails(flow)
       this.flow = flow
@@ -31,7 +35,7 @@ export class EmailService {
     console.log('loading emails')
     this.userService.userObject.subscribe(user => {
 
-      this.http.get(this.url + flow.id, this.options)
+      this.http.get(this.url + flow.id + '/' + user.id, this.options)
         .map(res => res.json()).subscribe(emails => {
 
         emails.sort(function (b, a) {
@@ -90,13 +94,11 @@ export class EmailService {
   }
 
   delete(id: number) {
-    this.userService.userObject.subscribe(user => {
-
-      this.http.delete(this.url + '/' + id + '/' + user.id).subscribe(data => {
-        console.log('email ' + id + ' removed')
-        console.log('updating email list')
-        this.notification.emailRemoved()
-      })
+    this.http.delete(this.url + '/' + id).subscribe(data => {
+      console.log('email ' + id + ' removed')
+      this.getEmails()
+      console.log('updating email list')
+      this.notification.emailRemoved()
     })
   }
 

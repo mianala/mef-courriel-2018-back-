@@ -29,4 +29,8 @@ export class SavedEmailsPageComponent implements OnInit {
     })
   }
 
+  setSaved(id: number) {
+    this.savedService.setSaved(id)
+  }
+
 }

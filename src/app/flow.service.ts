@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
-import {UserService} from "./user.service";
-import {NotificationService} from "./notification.service";
-import {GlobalService} from "./global.service";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {Flow} from "../models/Flow";
+import {UserService} from './user.service';
+import {NotificationService} from './notification.service';
+import {GlobalService} from './global.service';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Flow} from '../models/Flow';
 
 @Injectable()
 export class FlowService {
@@ -12,6 +12,7 @@ export class FlowService {
   user: any
   flows = new BehaviorSubject([])
   flow = new BehaviorSubject(new Flow())
+  unseenflowCount = new BehaviorSubject(0)
 
   constructor(private http: Http,
               private notification: NotificationService, private userService: UserService, private global: GlobalService) {
@@ -53,7 +54,6 @@ export class FlowService {
         .map(res => res.json()).subscribe(
         flow => {
           this.flow.next(flow)
-          console.log(flow)
           localStorage.setItem('flow', JSON.stringify(flow))
         })
     })

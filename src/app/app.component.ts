@@ -23,14 +23,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
+    //todo wait for a little before redirecting
+
     this.userService.userSubject.subscribe(
+
       e => {
         this.connected = e !== 'disconnected';
 
         if (!this.connected) {
-          // this.router.navigateByUrl('/public')
+          this.router.navigateByUrl('/public')
         }
       })
+
+
+    //todo user login
   }
 
 
