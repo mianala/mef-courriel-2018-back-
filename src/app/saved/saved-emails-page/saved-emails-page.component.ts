@@ -19,12 +19,6 @@ export class SavedEmailsPageComponent implements OnInit {
   ngOnInit() {
 
     this.savedService.saveds.subscribe(result => {
-
-      result.sort(function (b, a) {
-        const c: any = a.id;
-        const d: any = b.id;
-        return c - d;
-      });
       this.saveds = result
     })
   }

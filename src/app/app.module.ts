@@ -146,13 +146,11 @@ import { DeleteButtonComponent } from './menu/delete-button/delete-button.compon
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule,
     FlexLayoutModule,
     HttpModule,
     FormsModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
-    MdNativeDateModule,
     MasonryModule,
     ReactiveFormsModule,
     routes
