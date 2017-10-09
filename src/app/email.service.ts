@@ -20,7 +20,8 @@ export class EmailService {
               private notification: NotificationService) {
     this.url = global.ip() + '/api/emails/';
 
-    this.getEmails()
+    setInterval(this.getEmails(), 3000)
+    // this.getEmails()
   }
 
   getEmails() {
