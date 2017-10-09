@@ -21,12 +21,15 @@ export class UserService {
               private notification: NotificationService,
               private global: GlobalService) {
     this.url = global.ip() + '/api/users';
+
+
     if (localStorage.getItem('user')) {
       this.setUser(JSON.parse(localStorage.getItem('user')))
     } else {
       this.connect()
     }
   }
+
 
   login(id: string, password: string) {
     this.http
@@ -58,6 +61,7 @@ export class UserService {
           this.setUser(user)
           console.log('got the user')
           localStorage.setItem('user', JSON.stringify(user))
+          this.route.navigateByUrl('/courriels')
         }
       })
   }
@@ -142,6 +146,7 @@ export class UserService {
       .map(res => res.json()).subscribe(data => {
       this.userObject.next(null)
       localStorage.clear()
+      this.route.navigateByUrl('/public')
     });
   }
 

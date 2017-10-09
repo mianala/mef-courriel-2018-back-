@@ -5,6 +5,7 @@ import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Flow} from '../models/Flow';
+import {Route} from "@angular/router";
 
 @Injectable()
 export class FlowService {
@@ -15,10 +16,18 @@ export class FlowService {
   unseenflowCount = new BehaviorSubject(0)
 
   constructor(private http: Http,
-              private notification: NotificationService, private userService: UserService, private global: GlobalService) {
+              private router: Route,
+              private notification: NotificationService,
+              private userService: UserService,
+              private global: GlobalService) {
     this.url = global.ip() + '/api/flows';
     console.log('initializing flows')
-    this.getFlows()
+
+
+    // this.getFlows()
+
+    //todo realtime
+    setInterval(this.getFlows(), 3000)
   }
 
   getFlows() {
@@ -81,7 +90,7 @@ export class FlowService {
       if (mail.savedId) {
         formData.append('saved_id', mail.savedId)
       } else {
-        formData.append('saved_id', 0)
+        formData.append('savedx_id', 0)
 
       }
 
