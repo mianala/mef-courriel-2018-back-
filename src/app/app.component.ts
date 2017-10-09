@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
-    //todo wait for a little before redirecting
+    // todo wait for a little before redirecting
 
     this.userService.userSubject.subscribe(
 
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
       })
 
 
-    //todo user login
+    // todo user login
   }
 
 

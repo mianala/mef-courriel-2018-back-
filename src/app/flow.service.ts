@@ -5,7 +5,7 @@ import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Flow} from '../models/Flow';
-import {Route} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class FlowService {
@@ -16,7 +16,7 @@ export class FlowService {
   unseenflowCount = new BehaviorSubject(0)
 
   constructor(private http: Http,
-              private router: Route,
+              private router: Router,
               private notification: NotificationService,
               private userService: UserService,
               private global: GlobalService) {
@@ -24,10 +24,9 @@ export class FlowService {
     console.log('initializing flows')
 
 
-    // this.getFlows()
+    this.getFlows()
 
-    //todo realtime
-    setInterval(this.getFlows(), 3000)
+    // todo realtime
   }
 
   getFlows() {
@@ -62,6 +61,7 @@ export class FlowService {
       this.http.get(this.url + '/' + user.id + '/' + id)
         .map(res => res.json()).subscribe(
         flow => {
+          console.log(flow)
           this.flow.next(flow)
           localStorage.setItem('flow', JSON.stringify(flow))
         })
@@ -69,28 +69,34 @@ export class FlowService {
   }
 
   start(mail?: any) {
-    this.post(mail).then((result) => {
-      console.log(result)
-      this.getFlows()
-    }, (error) => {
-      console.log(error)
+    this.userService.userObject.subscribe(user => {
+
+      this.post(mail, user).then((result) => {
+        console.log(result)
+        this.getFlows()
+      }, (error) => {
+        console.log(error)
+      })
     })
 
   }
 
-  post(mail: any) {
+  post(mail: any, user) {
+
+    console.log('posting mail')
+    console.log(mail)
     return new Promise((resolve, reject) => {
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()
 
       formData.append('title', mail.title)
       formData.append('content', mail.content)
-      formData.append('starter_id', mail.starter.id)
-      formData.append('receiver_id', mail.receiver.id)
+      formData.append('starter_id', user.id)
+      formData.append('receiver_id', mail.user.id)
       if (mail.savedId) {
         formData.append('saved_id', mail.savedId)
       } else {
-        formData.append('savedx_id', 0)
+        formData.append('saved_id', 0)
 
       }
 

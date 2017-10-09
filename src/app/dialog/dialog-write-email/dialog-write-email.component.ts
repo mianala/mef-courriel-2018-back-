@@ -21,9 +21,6 @@ export class DialogWriteEmailComponent implements OnInit {
       title: '',
       content: ''
     }
-    this.userService.userObject.subscribe(activeUser => {
-      this.mail.starter = activeUser
-    })
     this.mail.files = []
     this.options = this.froala.getOptions()
   }
@@ -35,7 +32,7 @@ export class DialogWriteEmailComponent implements OnInit {
   }
 
   sendEmail() {
-    this.mail.receiver = this.user
+    this.mail.user = this.user
     this.mail.savedId = 0
     this.flowService.start(this.mail)
   }

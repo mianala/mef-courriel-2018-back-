@@ -20,32 +20,38 @@ export class EmailService {
               private notification: NotificationService) {
     this.url = global.ip() + '/api/emails/';
 
-    setInterval(this.getEmails(), 3000)
-    // this.getEmails()
+    this.getEmails()
   }
 
   getEmails() {
+
+    console.log('getting emails')
     this.flowService.flow.subscribe(flow => {
       this.getFlowEmails(flow)
       this.flow = flow
     })
   }
 
-
   getFlowEmails(flow) {
-    console.log('loading emails')
     this.userService.userObject.subscribe(user => {
 
-      this.http.get(this.url + flow.id + '/' + user.id, this.options)
-        .map(res => res.json()).subscribe(emails => {
+      setInterval(this.reloadFlow(flow, user),3000)
+      this.reloadFlow(flow, user)
+    })
+  }
 
-        emails.sort(function (b, a) {
-          const c = a.id;
-          const d = b.id;
-          return c - d;
-        });
-        this.emails.next(emails)
-      })
+  reloadFlow(flow, user) {
+    console.log('loading emails')
+    this.http.get(this.url + flow.id + '/' + user.id, this.options)
+      .first()
+      .map(res => res.json()).subscribe(emails => {
+
+      emails.sort(function (b, a) {
+        const c = a.id;
+        const d = b.id;
+        return c - d;
+      });
+      this.emails.next(emails)
     })
   }
 

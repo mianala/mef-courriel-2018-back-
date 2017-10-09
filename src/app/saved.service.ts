@@ -10,7 +10,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class SavedService {
 
   url: string;
-  saveds = new BehaviorSubject(new Object())
+  saveds = new BehaviorSubject([])
   saved = new BehaviorSubject([])
 
   constructor(private global: GlobalService,
@@ -40,7 +40,7 @@ export class SavedService {
   }
 
   reload() {
-    //todo if nothing in the actual saved
+    // todo if nothing in the actual saved
 
     console.log('reloading saved')
     const saved = localStorage.getItem('saved')
@@ -53,8 +53,9 @@ export class SavedService {
     console.log('setting saved ' + id)
     this.http.get(this.url + '/' + id)
       .map(res => res.json()).subscribe(saved => {
+      console.log(saved)
       this.saved.next(saved)
-      localStorage.setItem('saved', saved)
+      localStorage.setItem('saved', JSON.stringify(saved))
     })
   }
 

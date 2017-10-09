@@ -6,6 +6,7 @@ import {GlobalService} from './global.service';
 import {NotificationService} from './notification.service';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {User} from "../models/User";
+import {isString} from "util";
 
 @Injectable()
 export class UserService {
@@ -41,7 +42,11 @@ export class UserService {
         }, this.options)
       .map(res => res.json())
       .subscribe(user => {
+        if (user.error) {
+          this.notification.print(user.error)
+        }
         this.connect()
+
       })
   }
 
@@ -83,11 +88,12 @@ export class UserService {
 
   saveUser(user ?: any) {
 
-
+    this.route.navigateByUrl('/public/connexion')
+    this.notification.userSaved()
+    console.log('Saving')
+    console.log(user)
     this.post(user).then((result) => {
       console.log(result)
-      this.notification.user_saved()
-      this.route.navigateByUrl('/public')
 
     }, (error) => {
       console.log(error)
@@ -108,7 +114,10 @@ export class UserService {
       formData.append('title', user.functionTitle)
       formData.append('email', user.email)
       formData.append('password', user.password)
-      formData.append('avatar', user.avatar, user.avatar.name)
+      if (user.avatar) {
+        formData.append('avatar', user.avatar, user.avatar.name)
+      }
+
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -142,10 +151,13 @@ export class UserService {
   }
 
   logout() {
+    console.log('loggin out')
     this.http.post(this.url + '/user', {type: 'logout'}, this.options)
       .map(res => res.json()).subscribe(data => {
-      this.userObject.next(null)
+      this.userObject.next(new User())
+      this.userSubject.next('disconnected')
       localStorage.clear()
+      this.notification.loggedOut()
       this.route.navigateByUrl('/public')
     });
   }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SavedService} from '../../saved.service';
 import {fadeInAnimation} from '../../animation/fadeIn'
+import {isEmpty} from "rxjs/operator/isEmpty";
 
 @Component({
   selector: 'app-saved-emails-page',
@@ -10,10 +11,10 @@ import {fadeInAnimation} from '../../animation/fadeIn'
   styleUrls: ['./saved-emails-page.component.scss']
 })
 export class SavedEmailsPageComponent implements OnInit {
-  saveds
-  activeUser: any
+  saveds: any
 
   constructor(private savedService: SavedService) {
+    this.saveds = []
   }
 
   ngOnInit() {
@@ -23,8 +24,5 @@ export class SavedEmailsPageComponent implements OnInit {
     })
   }
 
-  setSaved(id: number) {
-    this.savedService.setSaved(id)
-  }
 
 }

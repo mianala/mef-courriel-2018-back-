@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DialogWriteEmailComponent} from '../../dialog/dialog-write-email/dialog-write-email.component';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MdDialog} from '@angular/material';
 import {DialogSaveMailComponent} from '../../dialog/dialog-save-mail/dialog-save-mail.component';
 import {NavigationStart, Router} from '@angular/router';
 import {DialogWriteToComponent} from '../../dialog/dialog-write-to/dialog-write-to.component';
@@ -43,6 +43,10 @@ export class EmailsFabComponent implements OnInit {
     const dialogSaveEmail = this.dialog.open(DialogSaveMailComponent);
     dialogSaveEmail.afterClosed().subscribe(result => {
     })
+  }
+
+  report(){
+
   }
 
 }

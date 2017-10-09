@@ -4,6 +4,7 @@ import {NotificationService} from '../../notification.service';
 import {SavedService} from '../../saved.service';
 import {FroalaService} from '../../froala.service';
 
+
 @Component({
   selector: 'app-dialog-save-mail',
   templateUrl: './dialog-save-mail.component.html',
@@ -18,12 +19,12 @@ export class DialogSaveMailComponent implements OnInit {
               private notification: NotificationService,
               private userService: UserService,
               private savedService: SavedService) {
+    this.saved = {}
+    this.saved.files = []
     this.userService.userObject.subscribe(data => {
       this.user = data;
     })
-    this.saved = {}
     this.options = froalaService.getOptions()
-    this.saved.files = []
   }
 
   ngOnInit() {

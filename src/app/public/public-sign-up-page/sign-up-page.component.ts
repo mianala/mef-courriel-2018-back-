@@ -16,7 +16,8 @@ export class SignUpPageComponent implements OnInit {
 
   constructor(private entity: EntityService,
               private userService: UserService) {
-    this.user = {}
+    this.user = {functionId : 3
+    }
     entity.getEntities().subscribe(entities => {
       this.entities = entities
     })
@@ -26,7 +27,6 @@ export class SignUpPageComponent implements OnInit {
   }
 
   avatarSelected(file) {
-    this.user.functionId = 3
     this.user.avatar = file
   }
 

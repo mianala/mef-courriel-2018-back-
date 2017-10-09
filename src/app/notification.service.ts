@@ -21,7 +21,12 @@ export class NotificationService {
     this.openSnack(message);
   }
 
-  user_saved() {
+  print(p: string) {
+    const message = p;
+    this.openSnack(message);
+  }
+
+  userSaved() {
     const message = 'Vous avez été enregistré avec succès';
     this.openSnack(message);
   }

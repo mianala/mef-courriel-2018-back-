@@ -12,19 +12,13 @@ import {FlowService} from '../../flow.service';
 export class DialogTransferMailComponent implements OnInit {
   title
   content
-  activeUser: any
   savedId
 
   constructor
   (@Inject(MD_DIALOG_DATA) public data: any,
    private user: User,
-   private flowService: FlowService,
-   private userService: UserService) {
-    this.userService.userObject.subscribe(activeUser => {
-      console.log(data)
-      this.savedId = data
-      this.activeUser = activeUser
-    });
+   private flowService: FlowService) {
+    this.savedId = data
   }
 
   ngOnInit() {
@@ -39,8 +33,7 @@ export class DialogTransferMailComponent implements OnInit {
       savedId: this.savedId,
       title: this.title,
       content: this.content,
-      starter: this.activeUser,
-      receiver: this.user,
+      user: this.user,
     }
     console.log(flow)
     this.flowService.start(flow)

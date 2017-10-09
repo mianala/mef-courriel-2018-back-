@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {SavedService} from "../../saved.service";
 
 @Component({
   selector: '[app-saved-email]',
@@ -8,10 +9,13 @@ import {Component, Input, OnInit} from '@angular/core';
 export class SavedEmailComponent implements OnInit {
   @Input() saved
 
-  constructor() {
+  constructor(private savedService: SavedService) {
   }
 
   ngOnInit() {
   }
 
+  setSaved(id: number) {
+    this.savedService.setSaved(id)
+  }
 }
