@@ -14,6 +14,7 @@ import {fadeInAnimation} from '../../animation/fadeIn'
 export class EmailPageComponent implements OnInit {
   mails
   flow
+  connection;
 
   constructor(private flowService: FlowService,
               private emailService: EmailService) {
@@ -26,10 +27,12 @@ export class EmailPageComponent implements OnInit {
       this.flow = flow
     })
 
-    this.emailService.emails.subscribe(data => {
+    this.connection = this.emailService.emails.subscribe(data => {
       this.mails = data
     })
-
   }
 
+  ngOnDestroy(){
+    this.connection.unsubscribe()
+  }
 }

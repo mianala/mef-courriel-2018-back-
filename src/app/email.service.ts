@@ -5,6 +5,7 @@ import {GlobalService} from './global.service';
 import {UserService} from './user.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {FlowService} from "./flow.service";
+import {SocketService} from "./service/socket.service";
 
 @Injectable()
 export class EmailService {
@@ -14,6 +15,7 @@ export class EmailService {
   flow
 
   constructor(private http: Http,
+              private socketService: SocketService,
               private userService: UserService,
               private global: GlobalService,
               private flowService: FlowService,
@@ -21,6 +23,14 @@ export class EmailService {
     this.url = global.ip() + '/api/emails/';
 
     this.getEmails()
+  }
+
+  listen() {
+    console.log('listening to flows')
+    this.socketService.io.on('flows', data => {
+      console.log(data)
+      this.getFlows()
+    })
   }
 
   getEmails() {
