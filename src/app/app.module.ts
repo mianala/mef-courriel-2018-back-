@@ -59,6 +59,7 @@ import {DialogWriteToComponent} from './dialog/dialog-write-to/dialog-write-to.c
 import {UserService} from './user.service';
 import {User} from '../models/User';
 import {FlowService} from './flow.service';
+import {SocketService} from './service/socket.service';
 import {Email} from '../models/Email';
 import {Flow} from '../models/Flow';
 import {EmailMessageComponent} from './flow/email-message/email-message.component';
@@ -81,6 +82,7 @@ import {TransferService} from './transfer.service';
 import { SavedPageComponent } from './saved-page/saved-page.component';
 import { TransferButtonComponent } from './menu/transfer-button/transfer-button.component';
 import { DeleteButtonComponent } from './menu/delete-button/delete-button.component';
+import { ReportComponent } from './dialog/report/report.component';
 
 @NgModule({
   declarations: [
@@ -142,6 +144,7 @@ import { DeleteButtonComponent } from './menu/delete-button/delete-button.compon
     SavedPageComponent,
     TransferButtonComponent,
     DeleteButtonComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,

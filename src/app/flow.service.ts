@@ -6,6 +6,7 @@ import {GlobalService} from './global.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Flow} from '../models/Flow';
 import {Router} from "@angular/router";
+import {SocketService} from "./service/socket.service";
 
 @Injectable()
 export class FlowService {
@@ -17,6 +18,7 @@ export class FlowService {
 
   constructor(private http: Http,
               private router: Router,
+              private socketService: SocketService,
               private notification: NotificationService,
               private userService: UserService,
               private global: GlobalService) {
@@ -25,25 +27,47 @@ export class FlowService {
 
 
     this.getFlows()
+    this.listen()
 
     // todo realtime
   }
 
-  getFlows() {
-    console.log('loading flows')
-    this.userService.userObject.subscribe(user => {
+  listen() {
+    console.log('listening to flows')
+    this.socketService.io.on('flows', data => {
+      console.log(data)
+      this.getFlows()
+    })
+  }
 
-      this.http.get(this.url + '/user/' + user.id)
-        .map(res => res.json()).subscribe(flows => {
+  update(user) {
 
+    this.http.get(this.url + '/user/' + user.id).first()
+      .map(res => res.json()).subscribe(flows => {
+      {
         flows.sort(function (b, a) {
           const c = a.id;
           const d = b.id;
           return c - d;
         });
         this.flows.next(flows)
-      })
+      }
     })
+  }
+
+  getFlows() {
+
+    console.log('loading flows');
+    if (this.user) {
+      this.update(this.user)
+    } else {
+
+      this.userService.userObject.subscribe(user => {
+          this.update(user)
+          this.user = user
+        }
+      )
+    }
   }
 
   reload() {
