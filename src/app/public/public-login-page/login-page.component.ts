@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../user.service';
 import {fadeInAnimation} from '../../animation/fadeIn'
-import {Router} from '@angular/router';
-import {NotificationService} from '../../notification.service';
 
 @Component({
   selector: 'app-login-page',
@@ -14,7 +12,7 @@ import {NotificationService} from '../../notification.service';
 export class LoginPageComponent implements OnInit {
   user: any
 
-  constructor(private notification: NotificationService, private router: Router, private userService: UserService) {
+  constructor(private userService: UserService) {
     this.user = {}
 
   }
@@ -23,7 +21,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   submit() {
-
 
 
     this.userService.redirectIfConnected()

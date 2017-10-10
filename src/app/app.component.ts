@@ -4,6 +4,7 @@ import {Http} from "@angular/http";
 import {NavigationStart, Router} from "@angular/router";
 import {TestService} from "./test.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {SocketService} from "./service/socket.service";
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,13 @@ export class AppComponent implements OnInit {
 
   constructor(private test: TestService,
               private userService: UserService,
+              private socketService: SocketService,
               public router: Router,
               private http: Http) {
 
+    this.socketService.io.on('email', email => {
+      console.log(email)
+    })
   }
 
   ngOnInit() {
@@ -26,7 +31,6 @@ export class AppComponent implements OnInit {
     // todo wait for a little before redirecting
 
     this.userService.userSubject.subscribe(
-
       e => {
         this.connected = e !== 'disconnected';
 

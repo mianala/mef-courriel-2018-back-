@@ -23,22 +23,21 @@ export class FlowService {
               private userService: UserService,
               private global: GlobalService) {
     this.url = global.ip() + '/api/flows';
+
     console.log('initializing flows')
-
-
     this.getFlows()
-    this.listen()
+
+    this.socketService.io.on('flow', data => {
+      console.log(data)
+      this.update(this.user)
+    })
+    this.socketService.io.on('email', () => {
+      this.update(this.user)
+    })
 
     // todo realtime
   }
 
-  listen() {
-    console.log('listening to flows')
-    this.socketService.io.on('flows', data => {
-      console.log(data)
-      this.getFlows()
-    })
-  }
 
   update(user) {
 
@@ -46,9 +45,9 @@ export class FlowService {
       .map(res => res.json()).subscribe(flows => {
       {
         flows.sort(function (b, a) {
-          const c = a.id;
-          const d = b.id;
-          return c - d;
+          const c = new Date(a.date_created);
+          const d = new Date(b.date_created);
+          return c > d;
         });
         this.flows.next(flows)
       }
@@ -57,7 +56,7 @@ export class FlowService {
 
   getFlows() {
 
-    console.log('loading flows');
+    console.log('getting flows');
     if (this.user) {
       this.update(this.user)
     } else {

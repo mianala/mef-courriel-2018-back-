@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {User} from '../../../models/User'
-import {FlowService} from "../../flow.service";
-import {UserService} from "../../user.service";
+import {FlowService} from '../../flow.service';
+import {UserService} from '../../user.service';
 
 @Component({
   selector: 'app-email-message',
@@ -18,20 +18,12 @@ export class EmailMessageComponent implements OnInit {
   ngOnInit() {
     this.flowService.flow.subscribe(flow => {
       this.userService.userObject.subscribe(user => {
-        const writer = user.id === flow.writer_id
-        if (this.mail.sentBy) {
-          if (writer) {
-            this.user = user
-          } else {
-            this.user = flow.user
-          }
+        console.log('user ' + user.id + ' mail ' + this.mail.writer_id)
+        const writer = user.id === this.mail.writer_id
+        if (writer) {
+          this.user = user
         } else {
-          if (writer) {
-
-            this.user = flow.user
-          } else {
-            this.user = user
-          }
+          this.user = flow.user
         }
       })
     })

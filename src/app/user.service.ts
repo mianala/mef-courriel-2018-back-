@@ -6,21 +6,20 @@ import {GlobalService} from './global.service';
 import {NotificationService} from './notification.service';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {User} from "../models/User";
-import {isString} from "util";
 
 @Injectable()
 export class UserService {
   url: string
   options = new RequestOptions({withCredentials: true});
-  userSubject = new BehaviorSubject('disconnected')
+  userSubject = new BehaviorSubject('')
   userObject = new BehaviorSubject(new User())
   status = ''
   user: any
 
   constructor(private http: Http,
               private route: Router,
-              private notification: NotificationService,
-              private global: GlobalService) {
+              private global: GlobalService,
+              private notification: NotificationService) {
     this.url = global.ip() + '/api/users';
 
 
@@ -154,9 +153,9 @@ export class UserService {
     console.log('loggin out')
     this.http.post(this.url + '/user', {type: 'logout'}, this.options)
       .map(res => res.json()).subscribe(data => {
+      localStorage.clear()
       this.userObject.next(new User())
       this.userSubject.next('disconnected')
-      localStorage.clear()
       this.notification.loggedOut()
       this.route.navigateByUrl('/public')
     });

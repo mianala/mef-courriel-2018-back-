@@ -83,6 +83,10 @@ import { SavedPageComponent } from './saved-page/saved-page.component';
 import { TransferButtonComponent } from './menu/transfer-button/transfer-button.component';
 import { DeleteButtonComponent } from './menu/delete-button/delete-button.component';
 import { ReportComponent } from './dialog/report/report.component';
+import { NoMailComponent } from './util/no-mail/no-mail.component';
+import { FlowComponent } from './menu/flow/flow.component';
+import { SavedComponent } from './menu/saved/saved.component';
+import { MessageComponent } from './menu/message/message.component';
 
 @NgModule({
   declarations: [
@@ -145,6 +149,10 @@ import { ReportComponent } from './dialog/report/report.component';
     TransferButtonComponent,
     DeleteButtonComponent,
     ReportComponent,
+    NoMailComponent,
+    FlowComponent,
+    SavedComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -164,10 +172,12 @@ import { ReportComponent } from './dialog/report/report.component';
     DialogSaveMailComponent,
     DialogWriteToComponent,
     DialogTransferMailComponent,
-    DialogWriteEmailComponent
+    DialogWriteEmailComponent,
+    ReportComponent
   ],
   providers: [UserService,
     TestService,
+    SocketService,
     GlobalService,
     TransferService,
     EntityService, FroalaService, SavedService,

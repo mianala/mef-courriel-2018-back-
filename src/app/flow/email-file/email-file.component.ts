@@ -12,6 +12,7 @@ export class EmailFileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.file.ko = Math.round(this.file.size / 1000) + ' Ko'
   }
 
   pdf() {

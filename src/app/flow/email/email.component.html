@@ -1,10 +1,10 @@
 <a [routerLink]="'courriel'" (click)="setFlow(flow.id)" class="sender">{{flow.name}}</a>
-<div class="attachment-icon">
+<!--<div class="attachment-icon">
   <md-icon>attachment</md-icon>
-</div>
+</div>-->
 <a [routerLink]="'courriel'" (click)="setFlow(flow.id)" class="content">
   <span class="title">{{flow.title}}</span>
   <!--<span class="description">{{flow.content|slice:0:35}}</span>-->
 </a>
-<div class="date">{{flow.date_created|date}}</div>
-<app-email-menu-button [id]="flow.id" [type]="'flow'"></app-email-menu-button>
+<div class="date">{{flow.date_created|date:'short'}}</div>
+<app-flow [id]="flow.id" [type]="'flow'"></app-flow>

@@ -11,10 +11,10 @@
   </header>
   <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="form" fxLayout="column">
     <md-input-container>
-      <input name="id" mdInput [(ngModel)]="user.id" placeholder="Identifiant">
+      <input name="id" mdInput required [(ngModel)]="user.id" placeholder="Identifiant">
     </md-input-container>
     <md-input-container>
-      <input name="password" mdInput type="password" [(ngModel)]="user.password" placeholder="Mot de passe">
+      <input name="password" required mdInput type="password" [(ngModel)]="user.password" placeholder="Mot de passe">
     </md-input-container>
   </form>
   <div fxLayout="row" class="action-buttons">

@@ -28,8 +28,6 @@ body {
     }
   }
 
-
-
   .md-dialog-container {
     flex-basis: 600px;
   }
@@ -41,7 +39,6 @@ body {
     color: #6b6b6b;
     line-height: 30px !important;
   }
-}
 
 .mat-sidenav-container {
   background-color: #efefef;
@@ -51,9 +48,16 @@ body {
 
 }
 
-html, body {
-  margin: 0;
 }
+
+md-list-item[disabled]{
+  opacity: .5;
+  cursor: none;
+}
+md-icon{
+  padding-right: 16px ;
+}
+
 
 md-nav-list {
   md-list-item {

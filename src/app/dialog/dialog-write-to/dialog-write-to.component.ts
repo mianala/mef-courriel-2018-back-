@@ -2,7 +2,7 @@
 
 
 import {Component, Inject, OnInit, SimpleChange, SimpleChanges} from '@angular/core'
-import {MD_DIALOG_DATA} from '@angular/material'
+import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material'
 import {EmailService} from '../../email.service'
 import {UserService} from '../../user.service';
 import {FlowService} from '../../flow.service';
@@ -17,10 +17,11 @@ import {Router} from "@angular/router";
 export class DialogWriteToComponent implements OnInit {
   mail: any
   options: any
-  sendtrigger = function () {
+  submit = function () {
   }
 
   constructor(@Inject(MD_DIALOG_DATA) public data: any,
+              private dialogRef: MdDialogRef<DialogWriteToComponent>,
               private flowService: FlowService,
               private router: Router,
               private emailService: EmailService,
@@ -31,14 +32,14 @@ export class DialogWriteToComponent implements OnInit {
       files: []
     }
 
-    this.sendtrigger = this.answerFlow
+    this.submit = this.answerFlow
     if (router.url.includes('/courriels/courriel')) {
       this.flowService.flow.subscribe(flow => {
         this.mail.user = flow.user;
       })
     } else {
       this.mail.user = data
-      this.sendtrigger = this.startFlow
+      this.submit = this.startFlow
     }
 
 
@@ -55,10 +56,12 @@ export class DialogWriteToComponent implements OnInit {
 
   startFlow() {
     console.log(this.mail)
+    this.dialogRef.close()
     this.flowService.start(this.mail)
   }
 
   answerFlow() {
+    this.dialogRef.close()
     this.emailService.answerFlow(this.mail)
   }
 }

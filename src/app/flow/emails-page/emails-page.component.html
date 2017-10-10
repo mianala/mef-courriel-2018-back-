@@ -1,2 +1,3 @@
 <div fxLayout.sm="column" fxLayout="row" *ngFor="let flow of flows" [flow]="flow" unseen app-email=""></div>
+<app-no-mail  *ngIf="flows.length === 0"></app-no-mail>
 

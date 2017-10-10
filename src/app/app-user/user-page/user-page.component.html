@@ -4,7 +4,8 @@
   <h2 class="function ">{{user.entity}} - <span class="">{{user.function_title}}</span></h2>
   <h1 class="username">{{user.fullname}}</h1>
   <div class="email">{{user.email}}</div>
-  <div class="im">IM - {{user.im || 'ECD'}}</div>
+  <div class="im" *ngIf="user.im">IM - {{user.im}}</div>
+  <div class="im" *ngIf="!user.im">ECD</div>
   <div class="">
 
     <button md-raised-button (click)="writeTo(user.id)">

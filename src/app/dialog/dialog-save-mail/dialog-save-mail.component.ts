@@ -3,6 +3,7 @@ import {UserService} from '../../user.service';
 import {NotificationService} from '../../notification.service';
 import {SavedService} from '../../saved.service';
 import {FroalaService} from '../../froala.service';
+import {MdDialogRef} from "@angular/material";
 
 
 @Component({
@@ -16,10 +17,14 @@ export class DialogSaveMailComponent implements OnInit {
   user: any
 
   constructor(private froalaService: FroalaService,
-              private notification: NotificationService,
+              private dialogRef: MdDialogRef<DialogSaveMailComponent>,
               private userService: UserService,
+              private notification: NotificationService,
               private savedService: SavedService) {
-    this.saved = {}
+    this.saved = {
+      content: ''
+    }
+
     this.saved.files = []
     this.userService.userObject.subscribe(data => {
       this.user = data;
@@ -31,14 +36,28 @@ export class DialogSaveMailComponent implements OnInit {
 
   }
 
+  valid() {
+    console.log(this.saved.n_arrive)
+    if (!this.saved.n_arrive || !this.saved.n_arrive_dg) {
+      return false
+    }
+
+    return true
+  }
+
   getFiles(files) {
     this.saved.files = this.saved.files.concat(files)
   }
 
-  saveEmail() {
-    this.saved.user = this.user
-    this.savedService.save(this.saved)
-    this.notification.emailSaved();
+  submit() {
+    if (!this.valid()) {
+      this.notification.formError()
+    } else {
+      this.saved.user = this.user
+      this.savedService.save(this.saved)
+      this.notification.emailSaved();
+      this.dialogRef.close()
+    }
   }
 
 }

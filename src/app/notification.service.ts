@@ -66,6 +66,12 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+
+  formError() {
+    const message = 'Veuillez bien remplir le formulaire';
+    this.openSnack(message);
+  }
+
   openSnack(message) {
     this.snackBar.open(message, '', this.getConfig());
   }

@@ -4,13 +4,16 @@
 }
 
 .padded {
-  padding: 2em;
+  padding: 2em 16px 16px 16px;
 }
+
 
 :host {
   background-color: #3949AB;
   height: 100%;
-  width: 225px;
+  width: 200px;
   color: #eee;
+
+
 }
 

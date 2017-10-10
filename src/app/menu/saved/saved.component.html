@@ -1,0 +1,7 @@
+<button  md-icon-button [mdMenuTriggerFor]="menu">
+  <md-icon>more_vert</md-icon>
+</button>
+<md-menu #menu="mdMenu">
+  <app-transfer-button [id]="id"></app-transfer-button>
+  <app-delete-button [id]="id" [type]="type"></app-delete-button>
+</md-menu>

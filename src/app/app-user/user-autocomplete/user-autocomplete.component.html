@@ -6,6 +6,6 @@
 <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayFn">
   <md-option (onSelectionChange)="selectUser(user)" *ngFor="let user of filteredUsers | async" [value]="user">
     <!--<app-user-avatar [photo]="user.photo"></app-user-avatar>-->
-    {{ user.name }} - {{user.entity}}
+    {{user.entity}} - {{ user.name }}
   </md-option>
 </md-autocomplete>

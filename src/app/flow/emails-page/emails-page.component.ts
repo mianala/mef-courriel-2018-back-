@@ -14,7 +14,6 @@ import {fadeInAnimation} from '../../animation/fadeIn'
 })
 export class EmailsPageComponent implements OnInit {
   flows
-  activeUser: any
 
   constructor(private flowService: FlowService, private userService: UserService) {
   }

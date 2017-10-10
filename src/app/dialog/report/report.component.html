@@ -2,18 +2,10 @@
   <app-user-box [user]="user"></app-user-box>
 </div>
 <md-dialog-content class="content">
+  <h1>Rapport</h1>
   <md-select name="type" placeholder="Type" [(ngModel)]="report.type">
-    <md-option value="1">
-      COMPTE RENDU
-    </md-option>
-    <md-option value="2">
-      RAPPORT DE MISSION
-    </md-option>
-    <md-option value="3">
-      RAPPORT DE REUNION/ATELIER
-    </md-option>
-    <md-option value="4">
-      RAPPORT DE FORMATION
+    <md-option *ngFor="let type of types" [value]="type.id">
+      {{type.content}}
     </md-option>
   </md-select>
 
@@ -23,9 +15,11 @@
   <md-input-container>
     <input [(ngModel)]="report.date" mdInput [mdDatepicker]="picker" placeholder="Date">
     <button mdSuffix [mdDatepickerToggle]="picker"></button>
+    <md-hint align="start">DD/MM/YYYY</md-hint>
   </md-input-container>
   <md-datepicker #picker></md-datepicker>
 
+  <!--every report-->
   <md-input-container class="">
     <input [(ngModel)]="report.lieu" mdInput placeholder="Lieu">
   </md-input-container>
@@ -42,47 +36,47 @@
     <input [(ngModel)]="report.intervenants" mdInput placeholder="Intervenants">
   </md-input-container>
 
-  <!--is mission-->
-  <md-input-container class="">
-    <input [(ngModel)]="report.attribution" mdInput *ngIf="isMission()" placeholder="Attribution pendant la mission">
+  <md-input-container class="" *ngIf="isMission()">
+    <input [(ngModel)]="report.attribution" mdInput placeholder="Attribution pendant la mission">
   </md-input-container>
-  <md-input-container class="">
-    <input [(ngModel)]="report.problemes" mdInput *ngIf="isMission()" placeholder="Problèmes recontrés">
+  <md-input-container class="" *ngIf="isMission()">
+    <input [(ngModel)]="report.problemes" mdInput placeholder="Problèmes recontrés">
   </md-input-container>
-  <md-input-container class="">
-    <input [(ngModel)]="report.suggestions" mdInput *ngIf="isMission()" placeholder="Suggestions">
+  <md-input-container class="" *ngIf="isMission()">
+    <input [(ngModel)]="report.suggestions" mdInput placeholder="Suggestions">
   </md-input-container>
-  <md-input-container class="">
-    <input [(ngModel)]="report.personnes" mdInput *ngIf="isMission()" placeholder="Liste des personnes rencontrés">
+  <md-input-container class="" *ngIf="isMission()">
+    <input [(ngModel)]="report.personnes" mdInput placeholder="Liste des personnes rencontrés">
   </md-input-container>
 
   <!--is reunion-->
-  <md-input-container class="">
-    <input [(ngModel)]="report.points" mdInput *ngIf="isReunion()" placeholder="Points soulevés">
+  <md-input-container class="" *ngIf="isReunion()">
+    <textarea [(ngModel)]="report.points" mdInput placeholder="Points soulevés"></textarea>
   </md-input-container>
-  <md-input-container class="">
-    <input [(ngModel)]="report.impications" *ngIf="isReunion()" mdInput
+  <md-input-container class="" *ngIf="isReunion()">
+    <input [(ngModel)]="report.impications" mdInput
            placeholder="Implication et/ou engagement du MFB">
   </md-input-container>
   <md-input-container class="">
     <input [(ngModel)]="report.suite" mdInput placeholder="Suite du programme">
   </md-input-container>
-  <md-input-container class="">
-    <input [(ngModel)]="report.apport" mdInput *ngIf="isFormation()"
-           placeholder="Apport de la formation sur les activités proffessionnlles de l'agent">
+  <md-input-container class="" *ngIf="isFormation()">
+    <textarea [(ngModel)]="report.apport" mdInput
+              placeholder="Apport de la formation sur les activités proffessionnlles de l'agent"></textarea>
   </md-input-container>
 
   <!--is formation-->
-  <md-input-container class="">
-    <input [(ngModel)]="report.themes" mdInput placeholder="Thèmes traités" *ngIf="isFormation()">
+  <md-input-container class="" *ngIf="isFormation()">
+    <input [(ngModel)]="report.themes" mdInput placeholder="Thèmes traités">
   </md-input-container>
 
   <!--todo documents-->
+  <p>Ce rapport sera transmis à Monsieur le Directeur Général du Budget</p>
 
-  <app-files [files]="report.files"></app-files>
+  <!--<app-files [files]="report.files"></app-files>-->
 </md-dialog-content>
 <md-dialog-actions fxLayout="row" class="action-buttons">
-  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
+  <!--<app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>-->
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button (click)="saveEmail()" [md-dialog-close]="true" md-button>ENREGISTRER</button>
+  <button (click)="submit()" [md-dialog-close]="true" md-button>SOUMETRE RAPPORT</button>
 </md-dialog-actions>

@@ -23,36 +23,40 @@ export class EmailService {
     this.url = global.ip() + '/api/emails/';
 
     this.getEmails()
-  }
 
-  listen() {
-    console.log('listening to flows')
-    this.socketService.io.on('flows', data => {
-      console.log(data)
-      this.getFlows()
+
+    this.socketService.io.on('email', email => {
+      console.log(email)
+      if (email.email.id == this.flow.id) {
+        this.getFlowEmails(this.flow)
+      }
     })
   }
 
   getEmails() {
 
-    console.log('getting emails')
-    this.flowService.flow.subscribe(flow => {
-      this.getFlowEmails(flow)
-      this.flow = flow
-    })
+    if (this.flow) {
+      this.getFlowEmails(this.flow)
+    } else {
+      console.log('getting emails')
+      this.flowService.flow.subscribe(flow => {
+        this.getFlowEmails(flow)
+        this.flow = flow
+      })
+    }
   }
 
   getFlowEmails(flow) {
-    this.userService.userObject.subscribe(user => {
+    this.userService.userObject.first().subscribe(user => {
 
-      setInterval(this.reloadFlow(flow, user),3000)
+      setInterval(this.reloadFlow(flow, user), 3000)
       this.reloadFlow(flow, user)
     })
   }
 
   reloadFlow(flow, user) {
     console.log('loading emails')
-    this.http.get(this.url + flow.id + '/' + user.id, this.options)
+    this.http.get(this.url + flow.id + '/' + user.id, this.options).first()
       .first()
       .map(res => res.json()).subscribe(emails => {
 
