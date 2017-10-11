@@ -47,8 +47,7 @@ import {UsersPageComponent} from './app-user/users-page/users-page.component';
 import {UserPageComponent} from './app-user/user-page/user-page.component';
 import {UserComponent} from './app-user/user/user.component';
 import {UserAvatarComponent} from './app-user/user-avatar/user-avatar.component';
-import {UsersEntitiesLeadDepartementsComponent}
-from './app-user/users-entities-lead-departements/users-entities-lead-departements.component';
+import {UsersEntitiesLeadDepartementsComponent} from './app-user/users-entities-lead-departements/users-entities-lead-departements.component';
 import {UsersEntitiesDepartementsComponent} from './app-user/users-entities-departements/users-entities-departements.component';
 import {DialogSaveMailComponent} from './dialog/dialog-save-mail/dialog-save-mail.component';
 import {SavedEmailComponent} from './saved/saved-email/saved-email.component';

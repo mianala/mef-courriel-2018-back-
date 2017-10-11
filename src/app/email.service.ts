@@ -4,8 +4,8 @@ import {NotificationService} from './notification.service'
 import {GlobalService} from './global.service';
 import {UserService} from './user.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {FlowService} from "./flow.service";
-import {SocketService} from "./service/socket.service";
+import {FlowService} from './flow.service';
+import {SocketService} from './service/socket.service';
 
 @Injectable()
 export class EmailService {
@@ -13,6 +13,7 @@ export class EmailService {
   options = new RequestOptions({withCredentials: true});
   emails = new BehaviorSubject([])
   flow
+  user
 
   constructor(private http: Http,
               private socketService: SocketService,
@@ -23,12 +24,13 @@ export class EmailService {
     this.url = global.ip() + '/api/emails/';
 
     this.getEmails()
+    this.user = this.userService.user.getValue()
 
 
     this.socketService.io.on('email', email => {
       console.log(email)
       if (email.email.id == this.flow.id) {
-        this.getFlowEmails(this.flow)
+        this.reloadFlow(this.flow)
       }
     })
   }
@@ -36,27 +38,19 @@ export class EmailService {
   getEmails() {
 
     if (this.flow) {
-      this.getFlowEmails(this.flow)
+      this.reloadFlow(this.flow)
     } else {
       console.log('getting emails')
       this.flowService.flow.subscribe(flow => {
-        this.getFlowEmails(flow)
+        this.reloadFlow(flow)
         this.flow = flow
       })
     }
   }
 
-  getFlowEmails(flow) {
-    this.userService.userObject.first().subscribe(user => {
-
-      setInterval(this.reloadFlow(flow, user), 3000)
-      this.reloadFlow(flow, user)
-    })
-  }
-
-  reloadFlow(flow, user) {
+  reloadFlow(flow) {
     console.log('loading emails')
-    this.http.get(this.url + flow.id + '/' + user.id, this.options).first()
+    this.http.get(this.url + flow.id + '/' + this.user.id, this.options).first()
       .first()
       .map(res => res.json()).subscribe(emails => {
 
@@ -70,14 +64,12 @@ export class EmailService {
   }
 
   answerFlow(mail?: any) {
-    this.userService.userObject.subscribe(user => {
-      this.flowService.flow.subscribe(flow => {
-        this.post(user, flow, mail).then((result) => {
-          this.getFlowEmails(flow)
-          console.log(result)
-        }, (error) => {
-          console.log(error)
-        })
+    this.flowService.flow.subscribe(flow => {
+      this.post(this.user, flow, mail).then((result) => {
+        this.reloadFlow(flow)
+        console.log(result)
+      }, (error) => {
+        console.log(error)
       })
     })
 

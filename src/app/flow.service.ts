@@ -11,13 +11,10 @@ import {SocketService} from "./service/socket.service";
 @Injectable()
 export class FlowService {
   url: string
-  user: any
   flows = new BehaviorSubject([])
   flow = new BehaviorSubject(new Flow())
-  unseenflowCount = new BehaviorSubject(0)
 
   constructor(private http: Http,
-              private router: Router,
               private socketService: SocketService,
               private notification: NotificationService,
               private userService: UserService,
@@ -29,10 +26,10 @@ export class FlowService {
 
     this.socketService.io.on('flow', data => {
       console.log(data)
-      this.update(this.user)
+      this.update(this.userService.user.getValue())
     })
     this.socketService.io.on('email', () => {
-      this.update(this.user)
+      this.update(this.userService.user.getValue())
     })
 
     // todo realtime
@@ -57,13 +54,12 @@ export class FlowService {
   getFlows() {
 
     console.log('getting flows');
-    if (this.user) {
-      this.update(this.user)
+    if (this.userService.user.getValue()) {
+      this.update(this.userService.user.getValue())
     } else {
 
-      this.userService.userObject.subscribe(user => {
+      this.userService.user.subscribe(user => {
           this.update(user)
-          this.user = user
         }
       )
     }
@@ -79,27 +75,23 @@ export class FlowService {
 
   setFlow(id: number) {
     console.log('setting flow ' + id)
-    this.userService.userObject.subscribe(user => {
 
-      this.http.get(this.url + '/' + user.id + '/' + id)
-        .map(res => res.json()).subscribe(
-        flow => {
-          console.log(flow)
-          this.flow.next(flow)
-          localStorage.setItem('flow', JSON.stringify(flow))
-        })
-    })
+    this.http.get(this.url + '/' + this.userService.user.getValue().id + '/' + id)
+      .map(res => res.json()).subscribe(
+      flow => {
+        console.log(flow)
+        this.flow.next(flow)
+        localStorage.setItem('flow', JSON.stringify(flow))
+      })
   }
 
   start(mail?: any) {
-    this.userService.userObject.subscribe(user => {
 
-      this.post(mail, user).then((result) => {
-        console.log(result)
-        this.getFlows()
-      }, (error) => {
-        console.log(error)
-      })
+    this.post(mail, this.userService.user.getValue()).then((result) => {
+      console.log(result)
+      this.getFlows()
+    }, (error) => {
+      console.log(error)
     })
 
   }
@@ -146,13 +138,11 @@ export class FlowService {
   }
 
   delete(id: number) {
-    this.userService.userObject.subscribe(user => {
-      this.http.delete(this.url + '/' + id + '/' + user.id).subscribe(data => {
-        console.log('flow ' + id + ' removed')
-        console.log('updating flow list')
-        this.notification.flowRemoved()
-        this.getFlows()
-      })
+    this.http.delete(this.url + '/' + id + '/' + this.userService.user.getValue().id).subscribe(data => {
+      console.log('flow ' + id + ' removed')
+      console.log('updating flow list')
+      this.notification.flowRemoved()
+      this.getFlows()
     })
   }
 }

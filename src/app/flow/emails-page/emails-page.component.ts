@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FlowService} from '../../flow.service';
-import {Flow} from '../../../models/Flow';
-import {UserService} from "../../user.service";
-import {User} from "../../../models/User";
 import {fadeInAnimation} from '../../animation/fadeIn'
 
 @Component({
@@ -15,7 +12,7 @@ import {fadeInAnimation} from '../../animation/fadeIn'
 export class EmailsPageComponent implements OnInit {
   flows
 
-  constructor(private flowService: FlowService, private userService: UserService) {
+  constructor(private flowService: FlowService) {
   }
 
   ngOnInit() {

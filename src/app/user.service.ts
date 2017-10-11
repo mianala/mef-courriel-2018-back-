@@ -4,17 +4,14 @@ import 'rxjs/add/operator/map';
 import {Router} from '@angular/router';
 import {GlobalService} from './global.service';
 import {NotificationService} from './notification.service';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {User} from "../models/User";
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {User} from '../models/User';
 
 @Injectable()
 export class UserService {
   url: string
   options = new RequestOptions({withCredentials: true});
-  userSubject = new BehaviorSubject('')
-  userObject = new BehaviorSubject(new User())
-  status = ''
-  user: any
+  user = new BehaviorSubject(new User())
 
   constructor(private http: Http,
               private route: Router,
@@ -55,34 +52,20 @@ export class UserService {
     this.http.post(this.url + '/user', {type: 'user'}, this.options)
       .map(res => res.json())
       .subscribe(user => {
-        this.userSubject.subscribe(e => {
-          this.status = e
-          console.log('status changed ' + e)
-        })
 
-
-        if (user != 0) {
-          this.setUser(user)
-          console.log('got the user')
-          localStorage.setItem('user', JSON.stringify(user))
-          this.route.navigateByUrl('/courriels')
-        }
       })
   }
 
   setUser(user) {
-    this.user = user
-    this.userSubject.next('connected')
-    this.userObject.next(user)
+    this.user.next(user)
   }
 
   redirectIfConnected() {
-    const route = this.route
-    if (this.status === 'connected') {
-      route.navigateByUrl('/courriels')
-    } else {
-      route.navigateByUrl('/public/connexion')
-    }
+    this.user.subscribe(user => {
+      if (user.id) {
+        this.route.navigateByUrl('/public')
+      }
+    })
   }
 
   saveUser(user ?: any) {
@@ -154,8 +137,7 @@ export class UserService {
     this.http.post(this.url + '/user', {type: 'logout'}, this.options)
       .map(res => res.json()).subscribe(data => {
       localStorage.clear()
-      this.userObject.next(new User())
-      this.userSubject.next('disconnected')
+      this.user.next(new User())
       this.notification.loggedOut()
       this.route.navigateByUrl('/public')
     });

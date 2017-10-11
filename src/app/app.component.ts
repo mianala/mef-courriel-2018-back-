@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "./user.service";
-import {Http} from "@angular/http";
-import {NavigationStart, Router} from "@angular/router";
-import {TestService} from "./test.service";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {SocketService} from "./service/socket.service";
+import {UserService} from './user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,27 +11,21 @@ export class AppComponent implements OnInit {
   title = 'app'
   connected: boolean
 
-  constructor(private test: TestService,
-              private userService: UserService,
-              private socketService: SocketService,
-              public router: Router,
-              private http: Http) {
+  constructor(private userService: UserService,
+              public router: Router) {
 
-    this.socketService.io.on('email', email => {
-      console.log(email)
-    })
   }
 
   ngOnInit() {
 
     // todo wait for a little before redirecting
 
-    this.userService.userSubject.subscribe(
-      e => {
-        this.connected = e !== 'disconnected';
-
-        if (!this.connected) {
-          this.router.navigateByUrl('/public')
+    this.userService.user.subscribe(
+      user => {
+        if (user.id) {
+          this.connected = true
+        } else {
+          this.connected = false
         }
       })
 

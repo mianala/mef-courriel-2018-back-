@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FlowService} from "../../flow.service";
+import {FlowService} from '../../flow.service';
 
 @Component({
   selector: 'app-user-sidenav-mailmenu',
@@ -10,10 +10,6 @@ export class UserSidenavMailmenuComponent implements OnInit {
   unseenflowCount: number
 
   constructor(flowService: FlowService) {
-    flowService.unseenflowCount.subscribe(n => {
-      console.log('unsee flows ' + n)
-      this.unseenflowCount = n
-    })
   }
 
   ngOnInit() {

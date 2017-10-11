@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../user.service';
-import {NotificationService} from '../../notification.service';
 
 @Component({
   selector: 'app-user-sidenav-profil',
@@ -11,15 +10,11 @@ export class UserSidenavProfilComponent implements OnInit {
 
   user: any
 
-  constructor(private notification: NotificationService,
-              private userService: UserService) {
-
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
-    this.userService.userObject.subscribe(user => {
-      this.user = user
-    })
+    this.user = this.userService.user.getValue()
   }
 
   logout() {

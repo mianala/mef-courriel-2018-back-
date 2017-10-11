@@ -26,9 +26,7 @@ export class DialogSaveMailComponent implements OnInit {
     }
 
     this.saved.files = []
-    this.userService.userObject.subscribe(data => {
-      this.user = data;
-    })
+    this.user = this.userService.user.getValue();
     this.options = froalaService.getOptions()
   }
 

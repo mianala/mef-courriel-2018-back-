@@ -4,7 +4,7 @@ import {MdDialog} from '@angular/material';
 import {DialogSaveMailComponent} from '../../dialog/dialog-save-mail/dialog-save-mail.component';
 import {NavigationStart, Router} from '@angular/router';
 import {DialogWriteToComponent} from '../../dialog/dialog-write-to/dialog-write-to.component';
-import {ReportComponent} from "../../dialog/report/report.component";
+import {ReportComponent} from '../../dialog/report/report.component';
 
 @Component({
   selector: 'app-emails-fab',

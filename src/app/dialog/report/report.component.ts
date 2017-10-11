@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FroalaService} from "../../froala.service";
-import {UserService} from "../../user.service";
-import {NotificationService} from "../../notification.service";
+import {FroalaService} from '../../froala.service';
+import {NotificationService} from '../../notification.service';
 
 @Component({
   selector: 'app-report',
@@ -11,18 +10,12 @@ import {NotificationService} from "../../notification.service";
 export class ReportComponent implements OnInit {
   options: any
   report: any
-  user
-  userConnection
   types
 
   constructor(private froalaService: FroalaService,
-              private notification: NotificationService,
-              private userService: UserService) {
+              private notification: NotificationService) {
     this.options = froalaService.getOptions()
 
-    this.userConnection = this.userService.userObject.first().subscribe(user => {
-      this.user = user
-    })
     this.types = [
       {
         id: 2,
@@ -70,10 +63,6 @@ export class ReportComponent implements OnInit {
     } else {
       console.log(this.report)
     }
-  }
-
-  onDestroy() {
-    this.userConnection.unsubscribe()
   }
 
 }

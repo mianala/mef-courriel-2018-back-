@@ -8,4 +8,5 @@ export class User {
   id: number;
   entity: string;
   email: string;
+  status: string;
 }

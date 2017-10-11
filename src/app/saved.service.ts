@@ -12,21 +12,22 @@ export class SavedService {
   url: string;
   saveds = new BehaviorSubject([])
   saved = new BehaviorSubject([])
+  user
 
   constructor(private global: GlobalService,
               private userService: UserService,
               private http: Http,
               private notification: NotificationService) {
     this.url = global.ip() + '/api/saveds';
+    this.user = this.userService.user.getValue()
     console.log('initializing saveds')
     this.getSaveds()
   }
 
   getSaveds() {
     console.log('loading saveds')
-    this.userService.userObject.subscribe(user => {
 
-      this.http.get(this.url + '/user/' + user.id)
+      this.http.get(this.url + '/user/' + this.user.id)
         .map(res => res.json()).subscribe(saveds => {
 
         saveds.sort(function (b, a) {
@@ -35,7 +36,6 @@ export class SavedService {
           return c - d;
         });
         this.saveds.next(saveds)
-      })
     })
   }
 
@@ -107,13 +107,11 @@ export class SavedService {
   }
 
   remove(id: number) {
-    this.userService.userObject.subscribe(user => {
-      this.http.delete(this.url + '/' + id + '/' + user.id).subscribe(data => {
-        console.log('saved ' + id + ' removed')
-        console.log('updating saved list')
-        this.getSaveds()
-        this.notification.savedRemoved()
-      })
+    this.http.delete(this.url + '/' + id + '/' + this.user.id).subscribe(data => {
+      console.log('saved ' + id + ' removed')
+      console.log('updating saved list')
+      this.getSaveds()
+      this.notification.savedRemoved()
     })
   }
 
