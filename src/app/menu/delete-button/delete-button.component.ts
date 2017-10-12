@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MdDialog} from '@angular/material';
 import {SavedService} from '../../saved.service';
 import {UserService} from '../../user.service';
-import {FlowService} from "../../flow.service";
-import {EmailService} from "../../email.service";
+import {FlowService} from '../../flow.service';
+import {EmailService} from '../../email.service';
 
 @Component({
   selector: 'app-delete-button',

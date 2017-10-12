@@ -8,6 +8,7 @@ import {UserService} from '../../user.service';
 import {FlowService} from '../../flow.service';
 import {FroalaService} from '../../froala.service';
 import {Router} from "@angular/router";
+import {NotificationService} from "../../notification.service";
 
 @Component({
   selector: 'app-dialog-write-to',
@@ -25,7 +26,8 @@ export class DialogWriteToComponent implements OnInit {
               private flowService: FlowService,
               private router: Router,
               private emailService: EmailService,
-              private froala: FroalaService) {
+              private froala: FroalaService,
+              private notification: NotificationService) {
     this.mail = {
       title: '',
       content: '',
@@ -61,6 +63,10 @@ export class DialogWriteToComponent implements OnInit {
   }
 
   answerFlow() {
+    if (this.mail.title === '' && this.mail.content === '' && this.mail.files.length === 0) {
+      this.notification.formError()
+      return
+    }
     this.dialogRef.close()
     this.emailService.answerFlow(this.mail)
   }

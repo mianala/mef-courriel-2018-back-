@@ -13,20 +13,18 @@ export class EmailMessageComponent implements OnInit {
   user: User
 
   constructor(private flowService: FlowService, private userService: UserService) {
+    if (!this.userService.user.getValue()) {
+      console.log('no active flow')
+    }
   }
 
   ngOnInit() {
-    this.flowService.flow.subscribe(flow => {
-      this.userService.userObject.subscribe(user => {
-        console.log('user ' + user.id + ' mail ' + this.mail.writer_id)
-        const writer = user.id === this.mail.writer_id
-        if (writer) {
-          this.user = user
-        } else {
-          this.user = flow.user
-        }
-      })
-    })
+    const writer = this.userService.user.getValue().id === this.mail.writer_id
+    if (writer) {
+      this.user = this.userService.user.getValue()
+    } else {
+      this.user = this.flowService.flow.getValue().user
+    }
   }
 
 }

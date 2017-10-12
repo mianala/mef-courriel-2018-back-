@@ -86,6 +86,9 @@ import { NoMailComponent } from './util/no-mail/no-mail.component';
 import { FlowComponent } from './menu/flow/flow.component';
 import { SavedComponent } from './menu/saved/saved.component';
 import { MessageComponent } from './menu/message/message.component';
+import { ArchiveComponent } from './menu/archive/archive.component';
+import {XhrService} from "./service/xhr.service";
+import {ReportService} from "./service/report.service";
 
 @NgModule({
   declarations: [
@@ -152,6 +155,7 @@ import { MessageComponent } from './menu/message/message.component';
     FlowComponent,
     SavedComponent,
     MessageComponent,
+    ArchiveComponent,
   ],
   imports: [
     BrowserModule,
@@ -177,6 +181,8 @@ import { MessageComponent } from './menu/message/message.component';
   providers: [UserService,
     TestService,
     SocketService,
+    ReportService,
+    XhrService,
     GlobalService,
     TransferService,
     EntityService, FroalaService, SavedService,

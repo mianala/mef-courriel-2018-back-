@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NotificationService} from '../notification.service';
 
 @Component({
@@ -22,6 +22,14 @@ export class AvatarUploadComponent implements OnInit {
       return
     }
 
+    const target = file.target || window.event.srcElement
+    const files = target.files
+    const fr = new FileReader();
+    fr.onload = () => {
+      this.photo = fr.result
+    }
+
+    fr.readAsDataURL(files[0])
     const reader = new FileReader();
 
     reader.onload = function (e) {

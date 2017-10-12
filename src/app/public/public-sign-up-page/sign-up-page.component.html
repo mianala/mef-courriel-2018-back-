@@ -10,43 +10,45 @@
   </header>
   <app-avatar-upload (avatarSelected)="avatarSelected($event)"></app-avatar-upload>
   <!--<form (ngSubmit)="submit()" (keyup.enter)="submit()" fxLayout="column">-->
-    <md-select name="entity" placeholder="Bureau" [(ngModel)]="user.entity">
+  <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="form" fxLayout="column">
+    <md-select required name="entity" placeholder="Bureau" [(ngModel)]="user.entity">
       <md-option *ngFor="let entity of entities" [value]="entity">
         {{ entity.label }} - {{entity.title}}
       </md-option>
     </md-select>
     <md-input-container>
-      <input name="im" [(ngModel)]="user.im" type="number" mdInput placeholder="IM">
+      <input required  name="im" [(ngModel)]="user.im" type="number" mdInput placeholder="IM">
       <md-hint align="start">Si IM non attribué, laissez vide</md-hint>
     </md-input-container>
     <md-input-container>
-      <input name="name"  [(ngModel)]="user.name" mdInput placeholder="Prénom">
+      <input required  name="name"  [(ngModel)]="user.name" mdInput placeholder="Prénom">
       <md-hint align="start"><strong>"John, Marie"</strong></md-hint>
     </md-input-container>
     <md-input-container>
-      <input name="fullname" [(ngModel)]="user.fullname" mdInput placeholder="Nom complet">
+      <input required  name="fullname" [(ngModel)]="user.fullname" mdInput placeholder="Nom complet">
       <!--<md-hint align="start"><strong>Veillez inscrire votre nom complet</strong></md-hint>-->
     </md-input-container>
     <md-input-container>
-      <input name="funcitontitle" [(ngModel)]="user.functionTitle" mdInput placeholder="Titre de votre fonction">
+      <input required  name="funcitontitle" [(ngModel)]="user.functionTitle" mdInput placeholder="Titre de votre fonction">
       <md-hint align="start"><strong>Votre fonction, "Chargé de mission, chargé d'étude, etc"</strong></md-hint>
     </md-input-container>
     <md-input-container>
-      <input name="email" [(ngModel)]="user.email" mdInput type="email" placeholder="Email">
+      <input required  name="email" [(ngModel)]="user.email" mdInput type="email" placeholder="Email">
       <md-hint align="start">_______@__mail.com</md-hint>
     </md-input-container>
     <md-input-container>
-      <input name="username" [(ngModel)]="user.username" mdInput placeholder="Nom d'utilisateur">
+      <input  required name="username" [(ngModel)]="user.username" mdInput placeholder="Nom d'utilisateur">
       <md-hint align="start"><strong>Utiliser pour la connexion</strong></md-hint>
     </md-input-container>
     <md-input-container>
-      <input name="password" [(ngModel)]="user.password" mdInput type="password" placeholder="Mot de passe">
+      <input required name="password" [(ngModel)]="user.password" mdInput type="password" placeholder="Mot de passe">
     </md-input-container>
     <!--<md-input-container>
       <input name="confirm" mdInput type="password"
              placeholder="Confirmer votre mot de passe">
     </md-input-container>-->
   <!--</form>-->
+  </form>
 
   <div fxLayout="row" class="action-buttons">
     <button routerLink="/public" md-button>ANNULER</button>

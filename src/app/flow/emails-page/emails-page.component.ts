@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FlowService} from '../../flow.service';
 import {fadeInAnimation} from '../../animation/fadeIn'
 
@@ -9,15 +9,20 @@ import {fadeInAnimation} from '../../animation/fadeIn'
   templateUrl: './emails-page.component.html',
   styleUrls: ['./emails-page.component.scss']
 })
-export class EmailsPageComponent implements OnInit {
+export class EmailsPageComponent implements OnInit, OnDestroy {
   flows
+  connection
 
   constructor(private flowService: FlowService) {
   }
 
   ngOnInit() {
-    this.flowService.flows.subscribe(flows => {
+    this.connection = this.flowService.flows.subscribe(flows => {
       this.flows = flows
     })
+  }
+
+  ngOnDestroy() {
+    this.connection.unsubscribe()
   }
 }

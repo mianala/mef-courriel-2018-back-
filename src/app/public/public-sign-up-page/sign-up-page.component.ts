@@ -14,9 +14,11 @@ export class SignUpPageComponent implements OnInit {
   entities = []
   user: any
 
+
   constructor(private entity: EntityService,
               private userService: UserService) {
-    this.user = {functionId : 3
+    this.user = {
+      functionId: 3
     }
     entity.getEntities().subscribe(entities => {
       this.entities = entities

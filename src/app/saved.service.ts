@@ -21,7 +21,11 @@ export class SavedService {
     this.url = global.ip() + '/api/saveds';
     this.user = this.userService.user.getValue()
     console.log('initializing saveds')
-    this.getSaveds()
+
+    this.user = this.userService.user.subscribe(user => {
+      this.user = user
+      this.getSaveds()
+    })
   }
 
   getSaveds() {

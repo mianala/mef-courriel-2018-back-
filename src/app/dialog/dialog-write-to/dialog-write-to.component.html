@@ -13,5 +13,5 @@
 <md-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button md-button [md-dialog-close]="true" (click)="submit()">ENVOYER</button>
+  <button md-button (click)="submit()">ENVOYER</button>
 </md-dialog-actions>

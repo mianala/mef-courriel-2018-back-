@@ -37,7 +37,7 @@ export class NotificationService {
   }
 
   notAnImage() {
-    const message = 'Veillez utiliser une image JPG';
+    const message = 'Veillez utiliser une photo';
     this.openSnack(message);
   }
 

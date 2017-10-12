@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {fadeInAnimation} from '../../animation/fadeIn'
+import {UserService} from '../../user.service';
 
 @Component({
   selector: 'app-public-home',
@@ -10,7 +11,8 @@ import {fadeInAnimation} from '../../animation/fadeIn'
 })
 export class PublicHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public userService: UserService) {
+  }
 
   ngOnInit() {
   }

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core'
 import {UserService} from '../../user.service'
-import {User} from '../../../models/User'
 import {FlowService} from '../../flow.service'
 import {FroalaService} from '../../froala.service'
 
@@ -26,9 +25,7 @@ export class DialogWriteEmailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.userObject.subscribe(data => {
-      this.user = data
-    })
+    this.user = this.userService.user.getValue()
   }
 
   sendEmail() {

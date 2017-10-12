@@ -4,6 +4,7 @@
 </div>-->
 <a [routerLink]="'courriel'" (click)="setFlow(flow.id)" class="content">
   <span class="title">{{flow.title}}</span>
+  <span class="title" *ngIf="!flow.title" [innerHtml]="flow.content|safehtml"></span>
   <!--<span class="description">{{flow.content|slice:0:35}}</span>-->
 </a>
 <div class="date">{{flow.date_created|date:'short'}}</div>

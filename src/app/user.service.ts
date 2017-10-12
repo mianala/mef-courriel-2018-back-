@@ -12,6 +12,7 @@ export class UserService {
   url: string
   options = new RequestOptions({withCredentials: true});
   user = new BehaviorSubject(new User())
+  connected = new BehaviorSubject(false)
 
   constructor(private http: Http,
               private route: Router,
@@ -25,6 +26,20 @@ export class UserService {
     } else {
       this.connect()
     }
+
+
+    this.user.subscribe(user => {
+      if (user.id) {
+        this.connected.next(true)
+      } else {
+        this.connected.next(false)
+      }
+    })
+
+    this.connected.subscribe(e => {
+      console.log('user status')
+      console.log(e)
+    })
   }
 
 
@@ -52,7 +67,7 @@ export class UserService {
     this.http.post(this.url + '/user', {type: 'user'}, this.options)
       .map(res => res.json())
       .subscribe(user => {
-
+        this.setUser(user)
       })
   }
 
@@ -68,12 +83,11 @@ export class UserService {
     })
   }
 
+
   saveUser(user ?: any) {
 
     this.route.navigateByUrl('/public/connexion')
     this.notification.userSaved()
-    console.log('Saving')
-    console.log(user)
     this.post(user).then((result) => {
       console.log(result)
 

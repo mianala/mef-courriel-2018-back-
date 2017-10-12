@@ -5,86 +5,69 @@ import {GlobalService} from './global.service';
 import {UserService} from './user.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {FlowService} from './flow.service';
-import {SocketService} from './service/socket.service';
 
 @Injectable()
 export class EmailService {
   url: string
   options = new RequestOptions({withCredentials: true});
   emails = new BehaviorSubject([])
-  flow
-  user
+  flow = this.flowService.flow.getValue()
+  user = this.userService.user.getValue()
 
   constructor(private http: Http,
-              private socketService: SocketService,
               private userService: UserService,
               private global: GlobalService,
               private flowService: FlowService,
               private notification: NotificationService) {
     this.url = global.ip() + '/api/emails/';
 
-    this.getEmails()
-    this.user = this.userService.user.getValue()
-
-
-    this.socketService.io.on('email', email => {
-      console.log(email)
-      if (email.email.id == this.flow.id) {
-        this.reloadFlow(this.flow)
-      }
+    this.userService.user.subscribe(user => {
+      this.user = user
+      this.flowService.flow.subscribe(flow => {
+        this.flow = flow
+        this.reloadFlow()
+      })
     })
   }
 
-  getEmails() {
 
-    if (this.flow) {
-      this.reloadFlow(this.flow)
-    } else {
-      console.log('getting emails')
-      this.flowService.flow.subscribe(flow => {
-        this.reloadFlow(flow)
-        this.flow = flow
+  reloadFlow() {
+    console.log('loading emails')
+    if (this.flow.id) {
+
+      this.http.get(this.url + this.flow.id + '/' + this.user.id, this.options).first()
+        .map(res => res.json()).share().subscribe(emails => {
+
+        emails.sort(function (b, a) {
+          const c = a.id;
+          const d = b.id;
+          return c - d;
+        });
+        this.emails.next(emails)
       })
     }
   }
 
-  reloadFlow(flow) {
-    console.log('loading emails')
-    this.http.get(this.url + flow.id + '/' + this.user.id, this.options).first()
-      .first()
-      .map(res => res.json()).subscribe(emails => {
-
-      emails.sort(function (b, a) {
-        const c = a.id;
-        const d = b.id;
-        return c - d;
-      });
-      this.emails.next(emails)
-    })
-  }
-
   answerFlow(mail?: any) {
-    this.flowService.flow.subscribe(flow => {
-      this.post(this.user, flow, mail).then((result) => {
-        this.reloadFlow(flow)
-        console.log(result)
-      }, (error) => {
-        console.log(error)
-      })
+    this.post(mail).then((result) => {
+      this.reloadFlow()
+      console.log(result)
+    }, (error) => {
+      console.log(error)
     })
 
   }
 
-  post(user, flow, mail: any) {
+  post(mail: any) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()
 
       formData.append('title', mail.title)
       formData.append('content', mail.content)
-      formData.append('flow_id', flow.id)
-      formData.append('writer_id', user.id)
-      formData.append('sent_by', flow.writer_id == user.id ? 1 : 0)
+      formData.append('flow_id', this.flow.id)
+      formData.append('writer_id', this.user.id)
+      formData.append('sent_by', this.flow.writer_id == this.user.id ? 1 : 0)
 
       for (let i = 0; i < mail.files.length; i++) {
         formData.append('files', mail.files[i], mail.files[i].name)
@@ -109,7 +92,7 @@ export class EmailService {
   delete(id: number) {
     this.http.delete(this.url + '/' + id).subscribe(data => {
       console.log('email ' + id + ' removed')
-      this.getEmails()
+      this.reloadFlow()
       console.log('updating email list')
       this.notification.emailRemoved()
     })

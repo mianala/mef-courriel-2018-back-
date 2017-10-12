@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FroalaService} from '../../froala.service';
 import {NotificationService} from '../../notification.service';
+import {UserService} from '../../user.service';
+import {ReportService} from '../../service/report.service';
+import {MdDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-report',
@@ -10,27 +13,32 @@ import {NotificationService} from '../../notification.service';
 export class ReportComponent implements OnInit {
   options: any
   report: any
-  types
+  user
+  types = [
+    {
+      id: 2,
+      content: 'RAPPORT DE MISSION - COMPTE RENDU'
+    },
+    {
+      id: 3,
+      content: 'RAPPORT DE REUNION/ATELIER'
+    },
+    {
+      id: 4,
+      content: 'RAPPORT DE FORMATION'
+    }
+  ]
 
   constructor(private froalaService: FroalaService,
+              private userService: UserService,
+              private dialogRef: MdDialogRef<ReportComponent>,
+              private reportService: ReportService,
               private notification: NotificationService) {
     this.options = froalaService.getOptions()
+    this.user = userService.user.getValue()
 
-    this.types = [
-      {
-        id: 2,
-        content: 'RAPPORT DE MISSION'
-      },
-      {
-        id: 3,
-        content: 'RAPPORT DE REUNION/ATELIER'
-      },
-      {
-        id: 4,
-        content: 'RAPPORT DE FORMATION'
-      }
-    ]
     this.report = {}
+    this.report.files = []
   }
 
   ngOnInit() {
@@ -49,19 +57,22 @@ export class ReportComponent implements OnInit {
   }
 
   valid() {
-    console.log(this.report.title)
-    if (!this.report.n_arrive || !this.report.n_arrive_dg) {
+    if (!this.report.type || !this.report.title) {
       return false
     }
-
     return true
+  }
+
+  getFiles(files) {
+    this.report.files = this.report.files.concat(files)
   }
 
   submit() {
     if (!this.valid()) {
       this.notification.formError()
     } else {
-      console.log(this.report)
+      this.reportService.save(this.report)
+      this.dialogRef.close()
     }
   }
 

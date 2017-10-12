@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnDestroy, OnInit} from '@angular/core'
 import {FlowService} from '../../flow.service'
 import {EmailService} from '../../email.service'
 import {ActivatedRoute} from '@angular/router'
@@ -11,7 +11,7 @@ import {fadeInAnimation} from '../../animation/fadeIn'
   templateUrl: './email-page.component.html',
   styleUrls: ['./email-page.component.scss']
 })
-export class EmailPageComponent implements OnInit {
+export class EmailPageComponent implements OnInit, OnDestroy {
   mails
   flow
   connection;
@@ -21,7 +21,9 @@ export class EmailPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.flowService.reload()
+    if (!this.flowService.flow.getValue().id) {
+      this.flowService.reload()
+    }
 
     this.flowService.flow.subscribe(flow => {
       this.flow = flow
@@ -32,7 +34,7 @@ export class EmailPageComponent implements OnInit {
     })
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.connection.unsubscribe()
   }
 }

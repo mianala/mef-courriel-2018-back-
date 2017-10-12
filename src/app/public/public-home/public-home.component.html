@@ -1,6 +1,6 @@
 <div fxFlex fxLayout.sm="column" fxLayout.xs="column" class="header">
 
-  <section fxFlex="55" class="description">
+  <section fxFlex="" class="description">
     <img src="../../assets/img/logo.png" alt="" class="logo">
     <div class=""><h3 class="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A corporis distinctio
       maxime nam nesciunt, nostrum
@@ -38,7 +38,7 @@
         Eius error laudantium quia reiciendis!</p>
     </div>
   </section>
-  <section fxFlex="45" class="connexion">
+  <section *ngIf="!userService.connected.getValue()" fxFlex="" class="connexion" >
     <a routerLink="connexion">Connexion</a>
     <a routerLink="s-enregistrer">S'enregistrer</a>
   </section>

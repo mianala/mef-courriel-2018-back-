@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   title = 'app'
   connected: boolean
 
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
               public router: Router) {
 
   }
@@ -19,16 +19,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     // todo wait for a little before redirecting
-
-    this.userService.user.subscribe(
-      user => {
-        if (user.id) {
-          this.connected = true
-        } else {
-          this.connected = false
-        }
-      })
-
 
     // todo user login
   }

@@ -5,41 +5,46 @@ import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Flow} from '../models/Flow';
+import {SocketService} from './service/socket.service';
 import {Router} from "@angular/router";
-import {SocketService} from "./service/socket.service";
 
 @Injectable()
 export class FlowService {
   url: string
   flows = new BehaviorSubject([])
   flow = new BehaviorSubject(new Flow())
+  user
 
   constructor(private http: Http,
               private socketService: SocketService,
+              private router: Router,
               private notification: NotificationService,
               private userService: UserService,
               private global: GlobalService) {
     this.url = global.ip() + '/api/flows';
-
-    console.log('initializing flows')
-    this.getFlows()
+    this.user = this.userService.user.getValue()
+    this.user = this.userService.user.subscribe(user => {
+      this.user = user
+      this.update()
+    })
 
     this.socketService.io.on('flow', data => {
-      console.log(data)
-      this.update(this.userService.user.getValue())
+      this.update()
     })
-    this.socketService.io.on('email', () => {
-      this.update(this.userService.user.getValue())
+
+    this.socketService.io.on('email', (data) => {
+      console.log('got reload email')
+      this.update()
     })
 
     // todo realtime
   }
 
 
-  update(user) {
+  update() {
 
-    this.http.get(this.url + '/user/' + user.id).first()
-      .map(res => res.json()).subscribe(flows => {
+    this.http.get(this.url + '/user/' + this.user.id).first()
+      .map(res => res.json()).share().subscribe(flows => {
       {
         flows.sort(function (b, a) {
           const c = new Date(a.date_created);
@@ -49,20 +54,6 @@ export class FlowService {
         this.flows.next(flows)
       }
     })
-  }
-
-  getFlows() {
-
-    console.log('getting flows');
-    if (this.userService.user.getValue()) {
-      this.update(this.userService.user.getValue())
-    } else {
-
-      this.userService.user.subscribe(user => {
-          this.update(user)
-        }
-      )
-    }
   }
 
   reload() {
@@ -76,27 +67,31 @@ export class FlowService {
   setFlow(id: number) {
     console.log('setting flow ' + id)
 
-    this.http.get(this.url + '/' + this.userService.user.getValue().id + '/' + id)
-      .map(res => res.json()).subscribe(
-      flow => {
-        console.log(flow)
-        this.flow.next(flow)
-        localStorage.setItem('flow', JSON.stringify(flow))
-      })
+    if (this.flow.getValue().id === id) {
+
+    } else {
+      this.http.get(this.url + '/' + this.userService.user.getValue().id + '/' + id)
+        .map(res => res.json()).subscribe(
+        flow => {
+          console.log(flow)
+          this.flow.next(flow)
+          localStorage.setItem('flow', JSON.stringify(flow))
+        })
+    }
   }
 
   start(mail?: any) {
 
-    this.post(mail, this.userService.user.getValue()).then((result) => {
+    this.post(mail).then((result) => {
       console.log(result)
-      this.getFlows()
+      this.update()
     }, (error) => {
       console.log(error)
     })
 
   }
 
-  post(mail: any, user) {
+  post(mail: any) {
 
     console.log('posting mail')
     console.log(mail)
@@ -106,7 +101,7 @@ export class FlowService {
 
       formData.append('title', mail.title)
       formData.append('content', mail.content)
-      formData.append('starter_id', user.id)
+      formData.append('starter_id', this.user.id)
       formData.append('receiver_id', mail.user.id)
       if (mail.savedId) {
         formData.append('saved_id', mail.savedId)
@@ -138,11 +133,11 @@ export class FlowService {
   }
 
   delete(id: number) {
-    this.http.delete(this.url + '/' + id + '/' + this.userService.user.getValue().id).subscribe(data => {
+    this.http.delete(this.url + '/' + id + '/' + this.user.id).subscribe(data => {
       console.log('flow ' + id + ' removed')
       console.log('updating flow list')
       this.notification.flowRemoved()
-      this.getFlows()
+      this.update()
     })
   }
 }
