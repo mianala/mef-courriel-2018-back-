@@ -4,7 +4,6 @@ import {MasonryModule} from 'angular2-masonry';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MaterialModule, MdNativeDateModule} from '@angular/material';
 import {HttpModule} from '@angular/http';
 import {PublicHomeComponent} from './public/public-home/public-home.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -89,6 +88,7 @@ import { MessageComponent } from './menu/message/message.component';
 import { ArchiveComponent } from './menu/archive/archive.component';
 import {XhrService} from "./service/xhr.service";
 import {ReportService} from "./service/report.service";
+import {MaterialModule} from "../module/material";
 
 @NgModule({
   declarations: [
