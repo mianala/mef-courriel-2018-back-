@@ -1,42 +1,42 @@
-<div md-dialog-title>
+<div mat-dialog-title>
   <app-user-box [user]="user"></app-user-box>
 </div>
-<md-dialog-content class="content">
+<mat-dialog-content class="content">
   <form (ngSubmit)="submit()" class="form" fxLayout="column">
 
-    <md-input-container class="">
-      <input  type="number" required [(ngModel)]="saved.n_arrive" name="n_arrive" mdInput placeholder="N° arrivée">
-    </md-input-container>
-    <md-input-container class="">
-      <input  type="number" required [(ngModel)]="saved.n_arrive_dg" name="n_arrive_dg" mdInput placeholder="N° arrivée Direction Général">
-    </md-input-container>
-    <md-input-container class="">
-      <input  [(ngModel)]="saved.sender" required name="sender" mdInput placeholder="Expediteur">
-    </md-input-container>
-    <md-input-container>
-      <input  [(ngModel)]="saved.date" required name="date" mdInput [mdDatepicker]="picker" placeholder="Date">
-      <button mdSuffix [mdDatepickerToggle]="picker"></button>
-      <md-hint align="start">DD/MM/YYYY</md-hint>
-    </md-input-container>
-    <md-datepicker #picker></md-datepicker>
-    <md-input-container class="">
-      <input  [(ngModel)]="saved.ref" required name="ref" mdInput placeholder="Référence">
-    </md-input-container>
-    <md-input-container class="">
-      <input  [(ngModel)]="saved.title" required name="title" mdInput placeholder="Objet">
-    </md-input-container>
-    <md-input-container>
-      <input  mdInput [(ngModel)]="saved.received_date" required name="received_date" [mdDatepicker]="recieved_picker" placeholder="Reçu le">
-      <button mdSuffix [mdDatepickerToggle]="recieved_picker"></button>
-      <md-hint align="start">DD/MM/YYYY</md-hint>
-    </md-input-container>
-    <md-datepicker #recieved_picker></md-datepicker>
+    <mat-form-field class="">
+      <input  type="number" required [(ngModel)]="saved.n_arrive" name="n_arrive" matInput placeholder="N° arrivée">
+    </mat-form-field>
+    <mat-form-field class="">
+      <input  type="number" required [(ngModel)]="saved.n_arrive_dg" name="n_arrive_dg" matInput placeholder="N° arrivée Direction Général">
+    </mat-form-field>
+    <mat-form-field class="">
+      <input  [(ngModel)]="saved.sender" required name="sender" matInput placeholder="Expediteur">
+    </mat-form-field>
+    <mat-form-field>
+      <input  [(ngModel)]="saved.date" required name="date" matInput [matDatepicker]="picker" placeholder="Date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-hint align="start">DD/MM/YYYY</mat-hint>
+    </mat-form-field>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-form-field class="">
+      <input  [(ngModel)]="saved.ref" required name="ref" matInput placeholder="Référence">
+    </mat-form-field>
+    <mat-form-field class="">
+      <input  [(ngModel)]="saved.title" required name="title" matInput placeholder="Objet">
+    </mat-form-field>
+    <mat-form-field>
+      <input  matInput [(ngModel)]="saved.received_date" required name="received_date" [matDatepicker]="recieved_picker" placeholder="Reçu le">
+      <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
+      <mat-hint align="start">DD/MM/YYYY</mat-hint>
+    </mat-form-field>
+    <mat-datepicker #recieved_picker></mat-datepicker>
     <div class="froala" [froalaEditor]="options" [(froalaModel)]="saved.content"></div>
     <app-files [files]="saved.files"></app-files>
   </form>
-</md-dialog-content>
-<md-dialog-actions fxLayout="row" class="action-buttons">
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button (click)="submit()" md-button>ENREGISTRER</button>
-</md-dialog-actions>
+  <button (click)="submit()" mat-button>ENREGISTRER</button>
+</mat-dialog-actions>

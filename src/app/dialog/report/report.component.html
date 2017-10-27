@@ -1,84 +1,84 @@
-<div md-dialog-title>
+<div mat-dialog-title>
   <app-user-box [user]="user"></app-user-box>
 </div>
-<md-dialog-content class="content">
+<mat-dialog-content class="content">
   <h1>Rapport - Compte rendu</h1>
   <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="form" fxLayout="column">
 
-    <md-select name="type" placeholder="Type" [(ngModel)]="report.type" required>
-      <md-option *ngFor="let type of types" [value]="type.id">
+    <mat-select name="type" placeholder="Type" [(ngModel)]="report.type" required>
+      <mat-option *ngFor="let type of types" [value]="type.id">
         {{type.content}}
-      </md-option>
-    </md-select>
+      </mat-option>
+    </mat-select>
 
-    <md-input-container class="">
-      <input [(ngModel)]="report.title" name="title" required mdInput placeholder="Intitulé">
-    </md-input-container>
-    <md-input-container>
-      <input [(ngModel)]="report.date" name="date" required mdInput [mdDatepicker]="picker" placeholder="Date">
-      <button mdSuffix [mdDatepickerToggle]="picker"></button>
-      <md-hint align="start">DD/MM/YYYY</md-hint>
-    </md-input-container>
-    <md-datepicker #picker></md-datepicker>
+    <mat-form-field class="">
+      <input [(ngModel)]="report.title" name="title" required matInput placeholder="Intitulé">
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="report.date" name="date" required matInput [matDatepicker]="picker" placeholder="Date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-hint align="start">DD/MM/YYYY</mat-hint>
+    </mat-form-field>
+    <mat-datepicker #picker></mat-datepicker>
 
     <!--every report-->
-    <md-input-container class="">
-      <input [(ngModel)]="report.lieu" name="lieu" required mdInput placeholder="Lieu">
-    </md-input-container>
-    <md-input-container class="">
-      <input [(ngModel)]="report.objectif" name="objectif" required mdInput placeholder="Objectif">
-    </md-input-container>
-    <md-input-container class="">
-      <input [(ngModel)]="report.participants" name="participants" required mdInput placeholder="Participants">
-    </md-input-container>
-    <md-input-container class="">
-      <textarea [(ngModel)]="report.deroulement" name="deroulement" required mdInput
+    <mat-form-field class="">
+      <input [(ngModel)]="report.lieu" name="lieu" required matInput placeholder="Lieu">
+    </mat-form-field>
+    <mat-form-field class="">
+      <input [(ngModel)]="report.objectif" name="objectif" required matInput placeholder="Objectif">
+    </mat-form-field>
+    <mat-form-field class="">
+      <input [(ngModel)]="report.participants" name="participants" required matInput placeholder="Participants">
+    </mat-form-field>
+    <mat-form-field class="">
+      <textarea [(ngModel)]="report.deroulement" name="deroulement" required matInput
                 placeholder="Déroulement"></textarea>
-       </md-input-container>
-    <md-input-container class="">
-      <input [(ngModel)]="report.intervenants" name="intervenants" required mdInput placeholder="Intervenants">
-    </md-input-container>
+       </mat-form-field>
+    <mat-form-field class="">
+      <input [(ngModel)]="report.intervenants" name="intervenants" required matInput placeholder="Intervenants">
+    </mat-form-field>
 
-    <md-input-container class="" *ngIf="isMission()">
-      <input [(ngModel)]="report.attribution" name="attribution" required mdInput placeholder="Attribution pendant la mission">
-    </md-input-container>
-    <md-input-container class="" *ngIf="isMission()">
-      <input [(ngModel)]="report.problemes" name="problemes" required mdInput placeholder="Problèmes recontrés">
-    </md-input-container>
-    <md-input-container class="" *ngIf="isMission()">
-      <input [(ngModel)]="report.suggestions" name="suggestions" required mdInput placeholder="Suggestions">
-    </md-input-container>
-    <md-input-container class="" *ngIf="isMission()">
-      <input [(ngModel)]="report.personnes" name="personnes" required mdInput placeholder="Liste des personnes rencontrés">
-    </md-input-container>
+    <mat-form-field class="" *ngIf="isMission()">
+      <input [(ngModel)]="report.attribution" name="attribution" required matInput placeholder="Attribution pendant la mission">
+    </mat-form-field>
+    <mat-form-field class="" *ngIf="isMission()">
+      <input [(ngModel)]="report.problemes" name="problemes" required matInput placeholder="Problèmes recontrés">
+    </mat-form-field>
+    <mat-form-field class="" *ngIf="isMission()">
+      <input [(ngModel)]="report.suggestions" name="suggestions" required matInput placeholder="Suggestions">
+    </mat-form-field>
+    <mat-form-field class="" *ngIf="isMission()">
+      <input [(ngModel)]="report.personnes" name="personnes" required matInput placeholder="Liste des personnes rencontrés">
+    </mat-form-field>
 
     <!--is reunion-->
-    <md-input-container class="" *ngIf="isReunion()">
-      <textarea [(ngModel)]="report.points" name="points" required mdInput placeholder="Points soulevés"></textarea>
-    </md-input-container>
-    <md-input-container class="" *ngIf="isReunion()">
-      <input [(ngModel)]="report.impications" name="impications" mdInput
+    <mat-form-field class="" *ngIf="isReunion()">
+      <textarea [(ngModel)]="report.points" name="points" required matInput placeholder="Points soulevés"></textarea>
+    </mat-form-field>
+    <mat-form-field class="" *ngIf="isReunion()">
+      <input [(ngModel)]="report.impications" name="impications" matInput
              placeholder="Implication et/ou engagement du MFB">
-    </md-input-container>
-    <md-input-container class="">
-      <input [(ngModel)]="report.suite" name="suite" mdInput placeholder="Suite du programme">
-    </md-input-container>
-    <md-input-container class="" *ngIf="isFormation()">
-    <textarea [(ngModel)]="report.apport" name="apport" required mdInput
+    </mat-form-field>
+    <mat-form-field class="">
+      <input [(ngModel)]="report.suite" name="suite" matInput placeholder="Suite du programme">
+    </mat-form-field>
+    <mat-form-field class="" *ngIf="isFormation()">
+    <textarea [(ngModel)]="report.apport" name="apport" required matInput
               placeholder="Apport de la formation sur les activités proffessionnlles de l'agent"></textarea>
-    </md-input-container>
+    </mat-form-field>
 
     <!--is formation-->
-    <md-input-container class="" *ngIf="isFormation()">
-      <input [(ngModel)]="report.themes" name="themes" mdInput placeholder="Thèmes traités">
-    </md-input-container>
+    <mat-form-field class="" *ngIf="isFormation()">
+      <input [(ngModel)]="report.themes" name="themes" matInput placeholder="Thèmes traités">
+    </mat-form-field>
 
     <!--todo documents-->
     <app-files [files]="report.files" name="files" required></app-files>
   </form>
-</md-dialog-content>
-<md-dialog-actions fxLayout="row" class="action-buttons">
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button (click)="submit()" md-button>SOUMETRE RAPPORT</button>
-</md-dialog-actions>
+  <button (click)="submit()" mat-button>SOUMETRE RAPPORT</button>
+</mat-dialog-actions>

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {SavedService} from '../../saved.service';
 import {UserService} from '../../user.service';
 import {FlowService} from '../../flow.service';
@@ -16,7 +16,7 @@ export class DeleteButtonComponent implements OnInit {
   @Input() id
   @Input() type
 
-  constructor(public dialog: MdDialog,
+  constructor(public dialog: MatDialog,
               public userService: UserService,
               public emailService: EmailService,
               public savedService: SavedService,

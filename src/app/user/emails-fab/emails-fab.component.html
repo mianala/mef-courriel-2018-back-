@@ -1,6 +1,20 @@
-<button mdTooltipPosition="before" (click)="saveEmail()" mdTooltip="Enregistrer un courrier" class="save" md-mini-fab><md-icon>save</md-icon></button>
-<button mdTooltipPosition="before" (click)="report()" mdTooltip="Ecrire un compte rendu" class="save" md-mini-fab><md-icon>feedback</md-icon></button>
-<button mdTooltipPosition="before" *ngIf="answer" (click)="writeEmail()" mdTooltip="Ecrire" md-mini-fab class="write-email"><md-icon>edit</md-icon></button>
-<button mdTooltipPosition="before" *ngIf="!answer" (click)="writeEmail()" mdTooltip="Ecrire" md-fab class="write-email"><md-icon>edit</md-icon></button>
-<!--<button mdTooltipPosition="before" mdTooltip="Commencer une session" class="create-session" md-mini-fab><md-icon>assessment</md-icon></button>-->
-<button *ngIf="answer" mdTooltipPosition="before" (click)="answerEmail()" mdTooltip="Répondre" md-fab class="write-email"><md-icon>reply</md-icon></button>
+<button matTooltipPosition="before" (click)="saveEmail()" matTooltip="Enregistrer un courrier" class="save"
+        mat-mini-fab>
+  <mat-icon>save</mat-icon>
+</button>
+<button matTooltipPosition="before" (click)="report()" matTooltip="Ecrire un compte rendu" class="save" mat-mini-fab>
+  <mat-icon>feedback</mat-icon>
+</button>
+<button matTooltipPosition="before" *ngIf="answer" (click)="writeEmail()" matTooltip="Ecrire" mat-mini-fab
+        class="write-email">
+  <mat-icon>edit</mat-icon>
+</button>
+<button matTooltipPosition="before" *ngIf="!answer" (click)="writeEmail()" matTooltip="Ecrire" mat-fab
+        class="write-email">
+  <mat-icon>edit</mat-icon>
+</button>
+<!--<button matTooltipPosition="before" matTooltip="Commencer une session" class="create-session" mat-mini-fab><mat-icon>assessment</mat-icon></button>-->
+<button *ngIf="answer" matTooltipPosition="before" (click)="answerEmail()" matTooltip="Répondre" mat-fab
+        class="write-email">
+  <mat-icon>reply</mat-icon>
+</button>

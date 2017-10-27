@@ -3,7 +3,7 @@ import {FroalaService} from '../../froala.service';
 import {NotificationService} from '../../notification.service';
 import {UserService} from '../../user.service';
 import {ReportService} from '../../service/report.service';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-report',
@@ -31,7 +31,7 @@ export class ReportComponent implements OnInit {
 
   constructor(private froalaService: FroalaService,
               private userService: UserService,
-              private dialogRef: MdDialogRef<ReportComponent>,
+              private dialogRef: MatDialogRef<ReportComponent>,
               private reportService: ReportService,
               private notification: NotificationService) {
     this.options = froalaService.getOptions()

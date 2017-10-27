@@ -2,13 +2,13 @@
 
   <app-avatar [photo]="user.photo"></app-avatar>
   <div class="username">{{user.name}}</div>
-  <button md-icon-button [mdMenuTriggerFor]="menu">
-    <md-icon>keyboard_arrow_down</md-icon>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
 </div>
 
-<md-menu #menu="mdMenu">
-  <button md-menu-item (click)="logout()">
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="logout()">
     <span>Déconnexion</span>
   </button>
-</md-menu>
+</mat-menu>

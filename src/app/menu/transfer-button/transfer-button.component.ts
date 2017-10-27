@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DialogTransferMailComponent} from '../../dialog/dialog-transfer-mail/dialog-transfer-mail.component';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-transfer-button',
@@ -11,7 +11,7 @@ export class TransferButtonComponent implements OnInit {
 
   @Input() id
 
-  constructor(public dialog: MdDialog) {
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {DialogWriteToComponent} from '../../dialog/dialog-write-to/dialog-write-to.component';
 import {UserService} from '../../user.service';
 import {ActivatedRoute} from '@angular/router';
@@ -17,7 +17,7 @@ export class UserPageComponent implements OnInit {
 
   user: User
 
-  constructor(private userService: UserService, private route: ActivatedRoute, public dialog: MdDialog) {
+  constructor(private userService: UserService, private route: ActivatedRoute, public dialog: MatDialog) {
     this.user = new User
   }
 

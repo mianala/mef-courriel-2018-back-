@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {User} from '../../../models/User';
 import {UserService} from '../../user.service';
-import {MD_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA} from '@angular/material';
 import {FlowService} from '../../flow.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class DialogTransferMailComponent implements OnInit {
   savedId
 
   constructor
-  (@Inject(MD_DIALOG_DATA) public data: any,
+  (@Inject(MAT_DIALOG_DATA) public data: any,
    private user: User,
    private flowService: FlowService) {
     this.savedId = data

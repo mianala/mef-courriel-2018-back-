@@ -3,7 +3,7 @@ import {UserService} from '../../user.service';
 import {NotificationService} from '../../notification.service';
 import {SavedService} from '../../saved.service';
 import {FroalaService} from '../../froala.service';
-import {MdDialogRef} from "@angular/material";
+import {MatDialogRef} from "@angular/material";
 
 
 @Component({
@@ -17,7 +17,7 @@ export class DialogSaveMailComponent implements OnInit {
   user: any
 
   constructor(private froalaService: FroalaService,
-              private dialogRef: MdDialogRef<DialogSaveMailComponent>,
+              private dialogRef: MatDialogRef<DialogSaveMailComponent>,
               private userService: UserService,
               private notification: NotificationService,
               private savedService: SavedService) {

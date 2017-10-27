@@ -11,47 +11,50 @@
   <app-avatar-upload (avatarSelected)="avatarSelected($event)"></app-avatar-upload>
   <!--<form (ngSubmit)="submit()" (keyup.enter)="submit()" fxLayout="column">-->
   <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="form" fxLayout="column">
-    <md-select required name="entity" placeholder="Bureau" [(ngModel)]="user.entity">
-      <md-option *ngFor="let entity of entities" [value]="entity">
-        {{ entity.label }} - {{entity.title}}
-      </md-option>
-    </md-select>
-    <md-input-container>
-      <input required  name="im" [(ngModel)]="user.im" type="number" mdInput placeholder="IM">
-      <md-hint align="start">Si IM non attribué, laissez vide</md-hint>
-    </md-input-container>
-    <md-input-container>
-      <input required  name="name"  [(ngModel)]="user.name" mdInput placeholder="Prénom">
-      <md-hint align="start"><strong>"John, Marie"</strong></md-hint>
-    </md-input-container>
-    <md-input-container>
-      <input required  name="fullname" [(ngModel)]="user.fullname" mdInput placeholder="Nom complet">
-      <!--<md-hint align="start"><strong>Veillez inscrire votre nom complet</strong></md-hint>-->
-    </md-input-container>
-    <md-input-container>
-      <input required  name="funcitontitle" [(ngModel)]="user.functionTitle" mdInput placeholder="Titre de votre fonction">
-      <md-hint align="start"><strong>Votre fonction, "Chargé de mission, chargé d'étude, etc"</strong></md-hint>
-    </md-input-container>
-    <md-input-container>
-      <input required  name="email" [(ngModel)]="user.email" mdInput type="email" placeholder="Email">
-      <md-hint align="start">_______@__mail.com</md-hint>
-    </md-input-container>
-    <md-input-container>
-      <input  required name="username" [(ngModel)]="user.username" mdInput placeholder="Nom d'utilisateur">
-      <md-hint align="start"><strong>Utiliser pour la connexion</strong></md-hint>
-    </md-input-container>
-    <md-input-container>
+    <mat-form-field>
+<!--      <mat-select required name="entity" placeholder="Bureau" [(ngModel)]="user.entity">
+        <mat-option *ngFor="let entity of entities" [value]="entity">
+          {{ entity.label }} - {{entity.title}}
+        </mat-option>
+      </mat-select>-->
+    </mat-form-field>
+    <mat-form-field>
+      <input required name="im" [(ngModel)]="user.im" type="number" mdInput placeholder="IM">
+      <mat-hint align="start">Si IM non attribué, laissez vide</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input required name="name" [(ngModel)]="user.name" mdInput placeholder="Prénom">
+      <mat-hint align="start"><strong>"John, Marie"</strong></mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input required name="fullname" [(ngModel)]="user.fullname" mdInput placeholder="Nom complet">
+      <!--<mat-hint align="start"><strong>Veillez inscrire votre nom complet</strong></mat-hint>-->
+    </mat-form-field>
+    <mat-form-field>
+      <input required name="funcitontitle" [(ngModel)]="user.functionTitle" mdInput
+             placeholder="Titre de votre fonction">
+      <mat-hint align="start"><strong>Votre fonction, "Chargé de mission, chargé d'étude, etc"</strong></mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input required name="email" [(ngModel)]="user.email" mdInput type="email" placeholder="Email">
+      <mat-hint align="start">_______@__mail.com</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input required name="username" [(ngModel)]="user.username" mdInput placeholder="Nom d'utilisateur">
+      <mat-hint align="start"><strong>Utiliser pour la connexion</strong></mat-hint>
+    </mat-form-field>
+    <mat-form-field>
       <input required name="password" [(ngModel)]="user.password" mdInput type="password" placeholder="Mot de passe">
-    </md-input-container>
-    <!--<md-input-container>
+    </mat-form-field>
+    <!--<mat-form-field>
       <input name="confirm" mdInput type="password"
              placeholder="Confirmer votre mot de passe">
-    </md-input-container>-->
-  <!--</form>-->
+    </mat-form-field>-->
+    <!--</form>-->
   </form>
 
   <div fxLayout="row" class="action-buttons">
-    <button routerLink="/public" md-button>ANNULER</button>
-    <button (click)="submit()" md-button>S'ENREGISTRER</button>
+    <button routerLink="/public" mat-button>ANNULER</button>
+    <button (click)="submit()" mat-button>S'ENREGISTRER</button>
   </div>
 </div>

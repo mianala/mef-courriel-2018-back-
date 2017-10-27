@@ -86,9 +86,9 @@ import { FlowComponent } from './menu/flow/flow.component';
 import { SavedComponent } from './menu/saved/saved.component';
 import { MessageComponent } from './menu/message/message.component';
 import { ArchiveComponent } from './menu/archive/archive.component';
-import {XhrService} from "./service/xhr.service";
-import {ReportService} from "./service/report.service";
-import {MaterialModule} from "../module/material";
+import {XhrService} from './service/xhr.service';
+import {ReportService} from './service/report.service';
+import {MaterialModule} from '../module/material';
 
 @NgModule({
   declarations: [
@@ -163,7 +163,6 @@ import {MaterialModule} from "../module/material";
     FlexLayoutModule,
     HttpModule,
     FormsModule,
-    MdNativeDateModule,
     MaterialModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),

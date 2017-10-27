@@ -15,20 +15,20 @@ body {
     //froala unlicenced here for the 1st
     div:nth-child(4) {
       background-color: #fff !important;
-      a{
+      a {
         background-color: #fff !important;
       }
     }
     //froala unlicenced here for the 1st
     div:nth-child(3) {
       background-color: #fff !important;
-      a{
+      a {
         background-color: #fff !important;
       }
     }
   }
 
-  .md-dialog-container {
+  .mat-dialog-container {
     flex-basis: 600px;
   }
 
@@ -40,27 +40,30 @@ body {
     line-height: 30px !important;
   }
 
-.mat-sidenav-container {
-  background-color: #efefef;
+  .mat-sidenav-container {
+    background-color: #efefef;
+  }
+
+  .mat-sidenav-content {
+
+  }
 }
 
-.mat-sidenav-content {
-
-}
-
-}
-
-md-list-item[disabled]{
+mat-list-item[disabled] {
   opacity: .5;
   cursor: none;
 }
-md-icon{
-  padding-right: 16px ;
+
+html, body {
+  margin: 0;
 }
 
+mat-icon {
+  padding-right: 16px;
+}
 
-md-nav-list {
-  md-list-item {
+mat-nav-list {
+  mat-list-item {
     color: #fff !important;
   }
 }

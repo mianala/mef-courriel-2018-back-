@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {DialogWriteToComponent} from '../../dialog/dialog-write-to/dialog-write-to.component';
 
 @Component({
@@ -11,7 +11,7 @@ export class UserComponent implements OnInit {
 
   @Input() user;
 
-  constructor(public dialog: MdDialog) {
+  constructor(public dialog: MatDialog) {
   }
 
 

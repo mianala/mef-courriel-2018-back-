@@ -43,8 +43,8 @@ export class FlowService {
 
   update() {
 
-    this.http.get(this.url + '/user/' + this.user.id).first()
-      .map(res => res.json()).share().subscribe(flows => {
+    this.http.get(this.url + '/user/' + this.user.id)
+      .map(res => res.json()).subscribe(flows => {
       {
         flows.sort(function (b, a) {
           const c = new Date(a.date_created);

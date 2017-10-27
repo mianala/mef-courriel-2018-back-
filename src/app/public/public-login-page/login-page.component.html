@@ -10,15 +10,15 @@
 
   </header>
   <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="form" fxLayout="column">
-    <md-input-container>
-      <input name="id" mdInput required [(ngModel)]="user.id" placeholder="Identifiant">
-    </md-input-container>
-    <md-input-container>
-      <input name="password" required mdInput type="password" [(ngModel)]="user.password" placeholder="Mot de passe">
-    </md-input-container>
+    <mat-form-field>
+      <input name="id" matInput required [(ngModel)]="user.id" placeholder="Identifiant">
+    </mat-form-field>
+    <mat-form-field>
+      <input name="password" required matInput type="password" [(ngModel)]="user.password" placeholder="Mot de passe">
+    </mat-form-field>
   </form>
   <div fxLayout="row" class="action-buttons">
-    <button routerLink="/public" md-button>ANNULER</button>
-    <button (click)="submit()" md-button>CONNEXION</button>
+    <button routerLink="/public" mat-button>ANNULER</button>
+    <button (click)="submit()" mat-button>CONNEXION</button>
   </div>
 </div>

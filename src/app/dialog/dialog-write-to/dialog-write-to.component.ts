@@ -2,13 +2,13 @@
 
 
 import {Component, Inject, OnInit, SimpleChange, SimpleChanges} from '@angular/core'
-import {MD_DIALOG_DATA, MdDialogRef} from '@angular/material'
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material'
 import {EmailService} from '../../email.service'
 import {UserService} from '../../user.service';
 import {FlowService} from '../../flow.service';
 import {FroalaService} from '../../froala.service';
-import {Router} from "@angular/router";
-import {NotificationService} from "../../notification.service";
+import {Router} from '@angular/router';
+import {NotificationService} from '../../notification.service';
 
 @Component({
   selector: 'app-dialog-write-to',
@@ -21,8 +21,8 @@ export class DialogWriteToComponent implements OnInit {
   submit = function () {
   }
 
-  constructor(@Inject(MD_DIALOG_DATA) public data: any,
-              private dialogRef: MdDialogRef<DialogWriteToComponent>,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private dialogRef: MatDialogRef<DialogWriteToComponent>,
               private flowService: FlowService,
               private router: Router,
               private emailService: EmailService,

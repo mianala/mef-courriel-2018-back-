@@ -35,8 +35,8 @@ export class EmailService {
     console.log('loading emails')
     if (this.flow.id) {
 
-      this.http.get(this.url + this.flow.id + '/' + this.user.id, this.options).first()
-        .map(res => res.json()).share().subscribe(emails => {
+      this.http.get(this.url + this.flow.id + '/' + this.user.id, this.options)
+        .map(res => res.json()).subscribe(emails => {
 
         emails.sort(function (b, a) {
           const c = a.id;

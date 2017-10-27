@@ -1,19 +1,19 @@
-<div md-dialog-title>
+<div mat-dialog-title>
   <app-user-box [user]="user"></app-user-box>
 </div>
-<md-dialog-content class="content">
+<mat-form-field class="content">
 
 
   <app-user-autocomplete (userSelected)="selectUser($event)"></app-user-autocomplete>
-  <md-input-container class="">
-    <input [(ngModel)]="mail.title" mdInput placeholder="Sujet">
-  </md-input-container>
+  <mat-input-container class="">
+    <input [(ngModel)]="mail.title" matInput placeholder="Sujet">
+  </mat-input-container>
   <div class="froala" [froalaEditor]="options" [(froalaModel)]="mail.content"></div>
 
   <app-files [files]="mail.files"></app-files>
-</md-dialog-content>
-<md-dialog-actions fxLayout="row" class="action-buttons">
+</mat-form-field>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button><!-- Can optionally provide a result for the closing dialog. -->
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button md-button [md-dialog-close]="true" (click)="sendEmail()">ENVOYER</button>
-</md-dialog-actions>
+  <button mat-button (click)="sendEmail()">ENVOYER</button>
+</mat-dialog-actions>
