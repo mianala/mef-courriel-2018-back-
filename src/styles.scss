@@ -58,11 +58,13 @@ html, body {
   margin: 0;
 }
 
-mat-icon {
-  padding-right: 16px;
-}
 
 mat-nav-list {
+
+  mat-icon {
+    padding-right: 16px;
+  }
+
   mat-list-item {
     color: #fff !important;
   }

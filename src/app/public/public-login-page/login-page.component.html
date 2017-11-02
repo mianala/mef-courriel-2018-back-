@@ -10,10 +10,10 @@
 
   </header>
   <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="form" fxLayout="column">
-    <mat-form-field>
+    <mat-form-field fxFlex>
       <input name="id" matInput required [(ngModel)]="user.id" placeholder="Identifiant">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field fxFlex>
       <input name="password" required matInput type="password" [(ngModel)]="user.password" placeholder="Mot de passe">
     </mat-form-field>
   </form>
