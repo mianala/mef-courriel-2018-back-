@@ -89,6 +89,8 @@ import { ArchiveComponent } from './menu/archive/archive.component';
 import {XhrService} from './service/xhr.service';
 import {ReportService} from './service/report.service';
 import {MaterialModule} from '../module/material';
+import { ObservationsComponent } from './form/observations/observations.component';
+import { EntitiesComponent } from './form/entities/entities.component';
 
 @NgModule({
   declarations: [
@@ -156,6 +158,8 @@ import {MaterialModule} from '../module/material';
     SavedComponent,
     MessageComponent,
     ArchiveComponent,
+    ObservationsComponent,
+    EntitiesComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,35 +3,79 @@
 </div>
 <mat-dialog-content class="content">
   <form (ngSubmit)="submit()" class="form" fxLayout="column">
-
+    <!--arrive mfb-->
     <mat-form-field class="">
-      <input  type="number" required [(ngModel)]="saved.n_arrive" name="n_arrive" matInput placeholder="N° arrivée">
+      <input type="number" required [(ngModel)]="saved.n_arrive" name="n_arrive" matInput placeholder="N° arrivée MFB">
     </mat-form-field>
+    <!--arrive dgb (auto)-->
     <mat-form-field class="">
-      <input  type="number" required [(ngModel)]="saved.n_arrive_dg" name="n_arrive_dg" matInput placeholder="N° arrivée Direction Général">
+      <input type="number" required [(ngModel)]="saved.n_arrive_dg" name="n_arrive_dg" matInput
+             placeholder="N° arrivée Direction Général">
     </mat-form-field>
-    <mat-form-field class="">
-      <input  [(ngModel)]="saved.sender" required name="sender" matInput placeholder="Expediteur">
-    </mat-form-field>
+    <!--date arrivé-->
     <mat-form-field>
-      <input  [(ngModel)]="saved.date" required name="date" matInput [matDatepicker]="picker" placeholder="Date">
+      <input matInput [(ngModel)]="saved.received_date" required name="received_date" [matDatepicker]="recieved_picker"
+             placeholder="Reçu le">
+      <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
+
+
+      <mat-hint align="start">DD/MM/YYYY</mat-hint>
+    </mat-form-field>
+    <mat-datepicker #recieved_picker></mat-datepicker>
+    <!--expediteur-->
+    <mat-form-field class="">
+      <input [(ngModel)]="saved.sender" required name="sender" matInput placeholder="Expediteur">
+    </mat-form-field>
+    <!--date du courriel-->
+    <mat-form-field>
+      <input [(ngModel)]="saved.date" required name="date" matInput [matDatepicker]="picker" placeholder="Date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-hint align="start">DD/MM/YYYY</mat-hint>
     </mat-form-field>
     <mat-datepicker #picker></mat-datepicker>
+    <!--reference-->
     <mat-form-field class="">
-      <input  [(ngModel)]="saved.ref" required name="ref" matInput placeholder="Référence">
+      <input [(ngModel)]="saved.ref" required name="ref" matInput placeholder="Référence">
     </mat-form-field>
-    <mat-form-field class="">
-      <input  [(ngModel)]="saved.title" required name="title" matInput placeholder="Objet">
-    </mat-form-field>
+    <!--lettre be ... -->
     <mat-form-field>
-      <input  matInput [(ngModel)]="saved.received_date" required name="received_date" [matDatepicker]="recieved_picker" placeholder="Reçu le">
-      <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
-      <mat-hint align="start">DD/MM/YYYY</mat-hint>
+      <mat-select [(ngModel)]="saved.lettre" name="lettre" placeholder="Lettre/BE/...">
+        <mat-option>BE</mat-option>
+        <mat-option>Circulaire</mat-option>
+        <mat-option>Facture</mat-option>
+        <mat-option>Décision</mat-option>
+        <mat-option>Lettre</mat-option>
+        <mat-option>Arrêté</mat-option>
+        <mat-option>Decret</mat-option>
+      </mat-select>
     </mat-form-field>
-    <mat-datepicker #recieved_picker></mat-datepicker>
-    <div class="froala" [froalaEditor]="options" [(froalaModel)]="saved.content"></div>
+    <!--objet-->
+    <label for="objet">Objet:</label>
+    <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="saved.content"></div>
+
+    <!--type-->
+    <mat-form-field>
+      <mat-select [(ngModel)]="saved.type" name="type" placeholder="Type">
+        <mat-option>Originale</mat-option>
+        <mat-option>Copie</mat-option>
+        <mat-option>Enveloppe</mat-option>
+        <mat-option>Magazine</mat-option>
+        <mat-option>Mensuel</mat-option>
+        <!--<mat-option>Magasine</mat-option>-->
+      </mat-select>
+    </mat-form-field>
+    <!--switch if need to redirect-->
+
+    <!--redirected to-->
+    <mat-form-field class="" *ngIf="">
+      <input [(ngModel)]="saved.redirectedTo" required name="redirectedTo" matInput placeholder="Redirigé vers">
+    </mat-form-field>
+
+    <!--destinataires-->
+    <app-user-autocomplete></app-user-autocomplete>
+    <!--observations-->
+    <!--<app-observations></app-observations>-->
+    <!--date de depart auto-->
     <app-files [files]="saved.files"></app-files>
   </form>
 </mat-dialog-content>

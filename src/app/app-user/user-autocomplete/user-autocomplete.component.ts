@@ -15,14 +15,16 @@ export class UserAutocompleteComponent implements OnInit {
   userCtrl: FormControl
   filteredUsers: any
   users = []
+  input: string
   @Output() userSelected = new EventEmitter()
-  selectedUser: User
+  selectedUsers: User[]
 
   constructor(private userService: UserService) {
-
+    this.selectedUsers = []
+    this.input = ''
   }
 
-  filterUsers(val: string) {
+  filterUsers(val) {
     return val ? this.users.filter(
       user => {
         const lower = val.toString().toLowerCase()
@@ -50,10 +52,18 @@ export class UserAutocompleteComponent implements OnInit {
   }
 
   displayFn(user: User) {
-    return user ? user.name + ' ' + user.entity : user
+    return ''
+  }
+
+  remove(user) {
+    if (this.selectedUsers.indexOf(user) >= 0) {
+      this.selectedUsers.splice(this.selectedUsers.indexOf(user), 1)
+    }
   }
 
   selectUser(user: User) {
+    this.selectedUsers.push(user)
+    this.input = ''
     this.userSelected.emit(user)
   }
 

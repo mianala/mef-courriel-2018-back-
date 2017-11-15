@@ -1,8 +1,17 @@
+
 <mat-form-field>
-  <input  matInput placeholder="Destinataire" [matAutocomplete]="auto" [formControl]="userCtrl">
+  <input name="input" [(ngModel)]="input" matInput placeholder="Destinataire(s)"
+          [matAutocomplete]="auto"
+          [formControl]="userCtrl">
   <!--<input  matInput placeholder="Destinataire(s)" [matAutocomplete]="auto" [formControl]="userCtrl">-->
 </mat-form-field>
 
+<mat-chip-list #chipList>
+  <mat-chip *ngFor="let user of selectedUsers" [removable]="true" (remove)="remove(user)">
+    {{user.entity}} - {{ user.name }}
+    <mat-icon matChipRemove="">cancel</mat-icon>
+  </mat-chip>
+</mat-chip-list>
 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
   <mat-option (onSelectionChange)="selectUser(user)" *ngFor="let user of filteredUsers | async" [value]="user">
     <!--<app-user-avatar [photo]="user.photo"></app-user-avatar>-->

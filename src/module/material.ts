@@ -8,7 +8,8 @@ import {
   MatCardModule,
   MatAutocompleteModule,
   MatDatepickerModule, MatSnackBarModule,
-  MatNativeDateModule, MatInputModule, MatSidenavModule, MatListModule, MatTooltipModule
+  MatNativeDateModule, MatInputModule, MatSidenavModule, MatListModule, MatTooltipModule, MatSelectModule,
+  MatChipsModule
 } from '@angular/material';
 
 @NgModule({
@@ -21,9 +22,11 @@ import {
     MatInputModule,
     MatSidenavModule,
     MatInputModule,
+    MatSelectModule,
     MatSnackBarModule,
     MatAutocompleteModule,
     MatIconModule,
+    MatChipsModule,
     MatTooltipModule,
     MatListModule,
     MatCardModule
@@ -35,10 +38,12 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatSelectModule,
     MatSidenavModule,
     MatInputModule,
     MatSnackBarModule,
     MatAutocompleteModule,
+    MatChipsModule,
     MatIconModule,
     MatTooltipModule,
     MatListModule,

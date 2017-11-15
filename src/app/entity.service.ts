@@ -20,6 +20,11 @@ export class EntityService {
       .map(res => res.json())
   }
 
+  getDGBEntities() {
+    return this.http.get(this.url + '/dgb')
+      .map(res => res.json())
+  }
+
   getServices() {
     return this.http.get(this.url + '/services')
       .map(res => res.json())
