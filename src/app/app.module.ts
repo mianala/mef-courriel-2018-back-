@@ -77,20 +77,25 @@ import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
 import {GlobalService} from './global.service';
 import {TestService} from './test.service';
 import {TransferService} from './transfer.service';
-import { SavedPageComponent } from './saved-page/saved-page.component';
-import { TransferButtonComponent } from './menu/transfer-button/transfer-button.component';
-import { DeleteButtonComponent } from './menu/delete-button/delete-button.component';
-import { ReportComponent } from './dialog/report/report.component';
-import { NoMailComponent } from './util/no-mail/no-mail.component';
-import { FlowComponent } from './menu/flow/flow.component';
-import { SavedComponent } from './menu/saved/saved.component';
-import { MessageComponent } from './menu/message/message.component';
-import { ArchiveComponent } from './menu/archive/archive.component';
+import {SavedPageComponent} from './saved-page/saved-page.component';
+import {TransferButtonComponent} from './menu/transfer-button/transfer-button.component';
+import {DeleteButtonComponent} from './menu/delete-button/delete-button.component';
+import {ReportComponent} from './dialog/report/report.component';
+import {NoMailComponent} from './util/no-mail/no-mail.component';
+import {FlowComponent} from './menu/flow/flow.component';
+import {SavedComponent} from './menu/saved/saved.component';
+import {MessageComponent} from './menu/message/message.component';
+import {ArchiveComponent} from './menu/archive/archive.component';
 import {XhrService} from './service/xhr.service';
 import {ReportService} from './service/report.service';
 import {MaterialModule} from '../module/material';
-import { ObservationsComponent } from './form/observations/observations.component';
-import { EntitiesComponent } from './form/entities/entities.component';
+import {ObservationsComponent} from './form/observations/observations.component';
+import {EntitiesComponent} from './form/entities/entities.component';
+import {ProjectNavComponent} from './sidenav/project-nav/project-nav.component';
+import {ProjectListComponent} from './projects/project-list/project-list.component';
+import {ProjectComponent} from './projects/project/project.component';
+import {ProjectPageComponent} from './projects/project-page/project-page.component';
+import {ProjectService} from "./projects/project.service";
 
 @NgModule({
   declarations: [
@@ -160,6 +165,10 @@ import { EntitiesComponent } from './form/entities/entities.component';
     ArchiveComponent,
     ObservationsComponent,
     EntitiesComponent,
+    ProjectNavComponent,
+    ProjectListComponent,
+    ProjectComponent,
+    ProjectPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -189,6 +198,7 @@ import { EntitiesComponent } from './form/entities/entities.component';
     GlobalService,
     TransferService,
     EntityService, FroalaService, SavedService,
+    ProjectService,
     NotificationService, User, Flow, EmailService, FlowService, Email],
   bootstrap: [AppComponent]
 })

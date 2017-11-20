@@ -20,6 +20,9 @@ import {UsersPageComponent} from "./app-user/users-page/users-page.component";
 import {UserPageComponent} from "./app-user/user-page/user-page.component";
 import {SavedEmailsPageComponent} from "./saved/saved-emails-page/saved-emails-page.component";
 import {SavedEmailPageComponent} from "./saved/saved-email-page/saved-email-page.component";
+import {ProjectListComponent} from "./projects/project-list/project-list.component";
+import {ProjectComponent} from "./projects/project/project.component";
+import {ProjectPageComponent} from "./projects/project-page/project-page.component";
 
 export const router: Routes = [
 
@@ -28,7 +31,7 @@ export const router: Routes = [
       component: UserHomeDashboardComponent,
     },
     {
-      path: 'courriels',
+      path: 'messages',
       // component: EmailRouterComponent,
       children: [
         {
@@ -36,8 +39,22 @@ export const router: Routes = [
           component: EmailsPageComponent,
         },
         {
-          path: 'courriel',
+          path: 'message',
           component: EmailPageComponent,
+        },
+      ]
+    },
+    {
+      path: 'courriers',
+      // component: EmailRouterComponent,
+      children: [
+        {
+          path: '',
+          component: ProjectListComponent,
+        },
+        {
+          path: 'courrier',
+          component: ProjectPageComponent,
         },
       ]
     },
