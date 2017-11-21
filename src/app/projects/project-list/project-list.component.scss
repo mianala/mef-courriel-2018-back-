@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  padding: 1em;
+  mat-panel-title {
+    flex-basis: 0;
+    flex-direction: column;
+    .sender {
+      font-weight: bold;
+
+    }
+    .n {
+
+    }
+  }
+  mat-panel-description {
+    flex-basis: 0;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
