@@ -14,15 +14,11 @@ import {EmailPageComponent} from './flow/email-page/email-page.component';
 import {UserHomeDashboardComponent} from './user/user-home-dashboard/user-home-dashboard.component';
 import {SessionsPageComponent} from './session-directory/sessions-page/sessions-page.component';
 import {SessionPageComponent} from './session-directory/session-page/session-page.component';
-import {EmailRouterComponent} from "./flow/email-router/email-router.component";
-import {SessionRouterComponent} from "./session-directory/session-router/session-router.component";
-import {UsersPageComponent} from "./app-user/users-page/users-page.component";
-import {UserPageComponent} from "./app-user/user-page/user-page.component";
-import {SavedEmailsPageComponent} from "./saved/saved-emails-page/saved-emails-page.component";
-import {SavedEmailPageComponent} from "./saved/saved-email-page/saved-email-page.component";
-import {ProjectListComponent} from "./projects/project-list/project-list.component";
-import {ProjectComponent} from "./projects/project/project.component";
-import {ProjectPageComponent} from "./projects/project-page/project-page.component";
+import {UsersPageComponent} from './app-user/users-page/users-page.component';
+import {UserPageComponent} from './app-user/user-page/user-page.component';
+import {ProjectListComponent} from './projects/project-list/project-list.component';
+import {ProjectComponent} from './projects/project/project.component';
+import {ProjectPageComponent} from './projects/project-page/project-page.component';
 
 export const router: Routes = [
 
@@ -83,20 +79,6 @@ export const router: Routes = [
         {
           path: ':id',
           component: UserPageComponent,
-        }
-      ]
-    },
-    {
-      path: 'enregistres',
-      // component: SessionRouterComponent,
-      children: [
-        {
-          path: '',
-          component: SavedEmailsPageComponent,
-        },
-        {
-          path: 'enregistre',
-          component: SavedEmailPageComponent,
         }
       ]
     },

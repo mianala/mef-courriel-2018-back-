@@ -41,6 +41,11 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+  projectSaved() {
+    const message = 'Courriel enregistré avec succès';
+    this.openSnack(message);
+  }
+
   emailSaved() {
     const message = 'Courriel enregistré avec succès';
     this.openSnack(message);

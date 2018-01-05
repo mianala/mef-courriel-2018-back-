@@ -1,0 +1,15 @@
+mat-expansion-panel{
+  background-color: #eee;
+}
+.observation{
+  display: grid;
+  grid-template-columns: 1fr 6fr ;
+
+}
+
+.author{
+  text-align: right;
+  font-weight: bold;
+  text-decoration: underline;
+  display: grid;
+}

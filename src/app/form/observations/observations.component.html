@@ -1,12 +1,1 @@
 <!--list the observations-->
-<h3>Observations</h3>
-<mat-card *ngFor="let o of observations">
-  {{o.author}}
-  {{o.content}}
-</mat-card>
-<!--observation form-->
-<mat-form-field>
-  <input required type="text" matInput [(ngModel)]="author" placeholder="Auteur">
-</mat-form-field>
-<div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="content"></div>
-<button mat-button (click)="newObservationAdded()">Ajouter</button>

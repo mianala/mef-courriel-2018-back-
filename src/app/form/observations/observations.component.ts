@@ -1,4 +1,5 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
+import {FroalaService} from "../../froala.service";
 
 @Component({
   selector: 'app-observations',
@@ -8,28 +9,19 @@ import {Component, Input, OnInit, Output} from '@angular/core';
 export class ObservationsComponent implements OnInit {
   author
   content
-  observations = []
+  observations
   @Output() obs
   @Input() i
+  options
 
-  constructor() {
+  constructor(private froalaService: FroalaService) {
+    this.options = froalaService.getOptions()
   }
 
   ngOnInit() {
-    this.observations = this.i
+    this.observations = []
   }
 
-  newObservationAdded() {
-    this.observations.push({
-      author: this.author,
-      content: this.content
-    })
-
-    this.content = ''
-    this.author = ''
-
-    this.emit()
-  }
 
   emit() {
     this.obs.emit(this.observations)

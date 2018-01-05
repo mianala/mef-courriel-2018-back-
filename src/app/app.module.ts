@@ -49,9 +49,6 @@ import {UserAvatarComponent} from './app-user/user-avatar/user-avatar.component'
 import {UsersEntitiesLeadDepartementsComponent} from './app-user/users-entities-lead-departements/users-entities-lead-departements.component';
 import {UsersEntitiesDepartementsComponent} from './app-user/users-entities-departements/users-entities-departements.component';
 import {DialogSaveMailComponent} from './dialog/dialog-save-mail/dialog-save-mail.component';
-import {SavedEmailComponent} from './saved/saved-email/saved-email.component';
-import {SavedEmailPageComponent} from './saved/saved-email-page/saved-email-page.component';
-import {SavedEmailsPageComponent} from './saved/saved-emails-page/saved-emails-page.component';
 import {DialogTransferMailComponent} from './dialog/dialog-transfer-mail/dialog-transfer-mail.component';
 import {DialogWriteToComponent} from './dialog/dialog-write-to/dialog-write-to.component';
 import {UserService} from './user.service';
@@ -65,7 +62,6 @@ import {EmailService} from './email.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {NotificationService} from './notification.service';
 import {DialogFileComponent} from './dialog/dialog-file/dialog-file.component';
-import {SavedService} from './saved.service';
 import {FilesComponent} from './files/files.component';
 import {UploadButtonComponent} from './upload-button/upload-button.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
@@ -77,7 +73,6 @@ import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
 import {GlobalService} from './global.service';
 import {TestService} from './test.service';
 import {TransferService} from './transfer.service';
-import {SavedPageComponent} from './saved-page/saved-page.component';
 import {TransferButtonComponent} from './menu/transfer-button/transfer-button.component';
 import {DeleteButtonComponent} from './menu/delete-button/delete-button.component';
 import {ReportComponent} from './dialog/report/report.component';
@@ -95,6 +90,8 @@ import {ProjectNavComponent} from './sidenav/project-nav/project-nav.component';
 import {ProjectListComponent} from './projects/project-list/project-list.component';
 import {ProjectComponent} from './projects/project/project.component';
 import {ProjectPageComponent} from './projects/project-page/project-page.component';
+import {ThreadComponent} from './projects/thread/thread.component';
+import {DispatchComponent} from './projects/dialog/dispatch/dispatch.component';
 import {ProjectService} from "./projects/project.service";
 
 @NgModule({
@@ -142,9 +139,6 @@ import {ProjectService} from "./projects/project.service";
     UsersEntitiesLeadDepartementsComponent,
     UsersEntitiesDepartementsComponent,
     DialogSaveMailComponent,
-    SavedEmailComponent,
-    SavedEmailPageComponent,
-    SavedEmailsPageComponent,
     DialogTransferMailComponent,
     DialogWriteToComponent,
     EmailMessageComponent,
@@ -154,7 +148,6 @@ import {ProjectService} from "./projects/project.service";
     SafehtmlPipe,
     EntityFilterComponent,
     AvatarUploadComponent,
-    SavedPageComponent,
     TransferButtonComponent,
     DeleteButtonComponent,
     ReportComponent,
@@ -169,6 +162,8 @@ import {ProjectService} from "./projects/project.service";
     ProjectListComponent,
     ProjectComponent,
     ProjectPageComponent,
+    ThreadComponent,
+    DispatchComponent,
   ],
   imports: [
     BrowserModule,
@@ -185,6 +180,7 @@ import {ProjectService} from "./projects/project.service";
   ],
   entryComponents: [
     DialogSaveMailComponent,
+    DispatchComponent,
     DialogWriteToComponent,
     DialogTransferMailComponent,
     DialogWriteEmailComponent,
@@ -197,8 +193,7 @@ import {ProjectService} from "./projects/project.service";
     XhrService,
     GlobalService,
     TransferService,
-    EntityService, FroalaService, SavedService,
-    ProjectService,
+    EntityService, FroalaService, ProjectService,
     NotificationService, User, Flow, EmailService, FlowService, Email],
   bootstrap: [AppComponent]
 })

@@ -9,7 +9,7 @@ import {
   MatAutocompleteModule,
   MatDatepickerModule, MatSnackBarModule,
   MatNativeDateModule, MatInputModule, MatSidenavModule, MatListModule, MatTooltipModule, MatSelectModule,
-  MatChipsModule, MatExpansionModule
+  MatChipsModule, MatExpansionModule, MatCheckboxModule
 } from '@angular/material';
 
 @NgModule({
@@ -30,11 +30,13 @@ import {
     MatExpansionModule,
     MatTooltipModule,
     MatListModule,
+    MatCheckboxModule,
     MatCardModule
   ],
   exports: [
     MatButtonModule,
     MatMenuModule,
+    MatCheckboxModule,
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,

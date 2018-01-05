@@ -1,9 +1,26 @@
 :host{
+  h4,p,div{
+    margin:0.5em 0;
+  }
+
   flex-basis: 0;
   display: block;
-  mat-panel-description{
 
+  mat-panel-description{
     justify-content: space-between;
     align-items: center;
   }
+  .description{
+    .label{
+      text-decoration: underline;
+      text-align: right;
+    }
+    padding:0 20px;
+    display: grid;
+    grid-column-gap: 2em;
+    grid-template-columns: 1fr 4fr;
+    grid-auto-flow: row;
+  }
+
+
 }

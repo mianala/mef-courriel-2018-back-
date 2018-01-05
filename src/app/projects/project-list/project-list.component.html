@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let n of [0,0,0,0,0,0]" hideToggle="true">
+  <mat-expansion-panel hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="sender">PM Chef du Gouv</div>
@@ -12,39 +12,50 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <h4>
-      N° Arrivé DGB
-    </h4>
-    <p>- N° 055-2016/PM/SP</p>
-
-    <h4>
-      N° Arrivé MFB
-    </h4>
-    <p>- N° 055-2016/#######</p>
-
-    <h4>
-      Date du courrier
-    </h4>
-    <p>20 Décembre 2017</p>
-
-    <h4>
-      Objet
-    </h4>
-    <p>- Présentat° du rapport de la miss° d'évaluat° des besoins électoraux</p>
-
-    <h4>
-      Observation
-    </h4>
-    <p>Venant SG MFB : DGB : arrivée tardive mais ddeer tout de même cpte rendu - DGB pi DSSA - Pr info°</p>
-
-    <h4>
-      Pièces jointes
-    </h4>
+    <project></project>
 
     <mat-action-row>
-      <button mat-button color="primary">Voir ()</button>
       <button mat-button color="primary">Répondre</button>
-      <button mat-button color="primary">Dispatch</button>
+      <button mat-button color="primary" (click)="dispatch()">Dispatch</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+  <mat-expansion-panel hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="sender">PM Chef du Gouv</div>
+        <div class="n">- N° 055-2016/PM/SP</div>
+
+      </mat-panel-title>
+      <mat-panel-description>
+        - Présentat° du rapport de la miss° d'évaluat° des besoins électoraux
+        <!--<mat-icon>class</mat-icon>-->
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <thread [type]="'up'"></thread>
+
+    <mat-action-row>
+      <button mat-button color="primary">Répondre</button>
+      <button mat-button color="primary" (click)="dispatch()">Dispatch</button>
+    </mat-action-row>
+  </mat-expansion-panel><mat-expansion-panel hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="sender">PM Chef du Gouv</div>
+        <div class="n">- N° 055-2016/PM/SP</div>
+
+      </mat-panel-title>
+      <mat-panel-description>
+        - Présentat° du rapport de la miss° d'évaluat° des besoins électoraux
+        <!--<mat-icon>class</mat-icon>-->
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <thread [type]="'down'"></thread>
+
+    <mat-action-row>
+      <button mat-button color="primary">Répondre</button>
+      <button mat-button color="primary" (click)="dispatch()">Dispatch</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

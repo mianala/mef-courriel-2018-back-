@@ -1,0 +1,28 @@
+<div mat-dialog-title>
+  <h1>Envoyer le courrier</h1>
+</div>
+<mat-dialog-content class="content">
+  <h4>Destinataires</h4>
+
+  <div class="entities">
+    <mat-checkbox *ngFor="let entity of entities">{{entity.label}}</mat-checkbox>
+  </div>
+  <div class="" fxLayout="column">
+    <mat-checkbox>Tous les services rattachés</mat-checkbox>
+    <mat-checkbox>Tous les directions</mat-checkbox>
+  </div>
+
+
+  <h4>Observations:</h4>
+  <div class="observations">
+    <mat-checkbox *ngFor="let observation of observations">{{observation}}</mat-checkbox>
+  </div>
+  <h5>Autres observations</h5>
+  <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="thread.content"></div>
+
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
+  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button (click)="submit()" mat-button>ENREGISTRER</button>
+</mat-dialog-actions>

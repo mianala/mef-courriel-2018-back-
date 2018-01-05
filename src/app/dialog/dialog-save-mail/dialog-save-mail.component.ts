@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../user.service';
 import {NotificationService} from '../../notification.service';
-import {SavedService} from '../../saved.service';
 import {FroalaService} from '../../froala.service';
-import {MatDialogRef} from "@angular/material";
+import {MatDialogRef} from '@angular/material';
+import {ProjectService} from '../../projects/project.service';
 
 
 @Component({
@@ -20,9 +20,18 @@ export class DialogSaveMailComponent implements OnInit {
               private dialogRef: MatDialogRef<DialogSaveMailComponent>,
               private userService: UserService,
               private notification: NotificationService,
-              private savedService: SavedService) {
+              private projectService: ProjectService) {
     this.saved = {
-      content: ''
+      n_arrive: 'N° 055-2016/PM/SP',
+      n_arrive_dg: '3600',
+      sender: 'PM Chef du Gouv',
+      ref: 'N° 055-2016/PM/SP',
+      type: 1,
+      lettre: 1,
+      observations: '',
+      content: '- Présentat° du rapport de la miss° d\'évaluat° des besoins électoraux',
+      date: new Date(),
+      received_date: new Date(),
     }
 
     this.saved.files = []
@@ -52,9 +61,8 @@ export class DialogSaveMailComponent implements OnInit {
       this.notification.formError()
     } else {
       this.saved.user = this.user
-      this.savedService.save(this.saved)
-      this.notification.emailSaved();
-      this.dialogRef.close()
+      this.projectService.save(this.saved)
+      // this.dialogRef.close()
     }
   }
 

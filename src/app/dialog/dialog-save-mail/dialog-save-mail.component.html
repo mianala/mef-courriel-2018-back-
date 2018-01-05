@@ -5,7 +5,7 @@
   <form (ngSubmit)="submit()" class="form" fxLayout="column">
     <!--arrive mfb-->
     <mat-form-field class="">
-      <input type="number" required [(ngModel)]="saved.n_arrive" name="n_arrive" matInput placeholder="N° arrivée MFB">
+      <input type="text" required [(ngModel)]="saved.n_arrive" name="n_arrive" matInput placeholder="N° arrivée MFB">
     </mat-form-field>
     <!--arrive dgb (auto)-->
     <mat-form-field class="">
@@ -28,7 +28,7 @@
     </mat-form-field>
     <!--date du courriel-->
     <mat-form-field>
-      <input [(ngModel)]="saved.date" required name="date" matInput [matDatepicker]="picker" placeholder="Date">
+      <input [(ngModel)]="saved.date" required name="date" matInput [matDatepicker]="picker" placeholder="Date du courrier">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-hint align="start">DD/MM/YYYY</mat-hint>
     </mat-form-field>
@@ -40,28 +40,27 @@
     <!--lettre be ... -->
     <mat-form-field>
       <mat-select [(ngModel)]="saved.lettre" name="lettre" placeholder="Lettre/BE/...">
-        <mat-option>BE</mat-option>
-        <mat-option>Circulaire</mat-option>
-        <mat-option>Facture</mat-option>
-        <mat-option>Décision</mat-option>
-        <mat-option>Lettre</mat-option>
-        <mat-option>Arrêté</mat-option>
-        <mat-option>Decret</mat-option>
+        <mat-option [value]="1">Lettre</mat-option>
+        <mat-option [value]="2">BE</mat-option>
+        <mat-option [value]="3">Circulaire</mat-option>
+        <mat-option [value]="4">Facture</mat-option>
+        <mat-option [value]="5">Décision</mat-option>
+        <mat-option [value]="6">Arrêté</mat-option>
+        <mat-option [value]="7">Decret</mat-option>
       </mat-select>
     </mat-form-field>
     <!--objet-->
-    <label for="objet">Objet:</label>
+    <h4>Objet:</h4>
     <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="saved.content"></div>
 
     <!--type-->
     <mat-form-field>
       <mat-select [(ngModel)]="saved.type" name="type" placeholder="Type">
-        <mat-option>Originale</mat-option>
-        <mat-option>Copie</mat-option>
-        <mat-option>Enveloppe</mat-option>
-        <mat-option>Magazine</mat-option>
-        <mat-option>Mensuel</mat-option>
-        <!--<mat-option>Magasine</mat-option>-->
+        <mat-option [value]="1" >Originale</mat-option>
+        <mat-option [value]="2" >Copie</mat-option>
+        <mat-option [value]="3" >Enveloppe</mat-option>
+        <mat-option [value]="4" >Magazine</mat-option>
+        <mat-option [value]="5" >Mensuel</mat-option>
       </mat-select>
     </mat-form-field>
     <!--switch if need to redirect-->
@@ -72,9 +71,14 @@
     </mat-form-field>
 
     <!--destinataires-->
-    <app-user-autocomplete></app-user-autocomplete>
     <!--observations-->
-    <!--<app-observations></app-observations>-->
+
+
+    <h4>Observations:</h4>
+    <div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="observations"></div>
+
+
+
     <!--date de depart auto-->
     <app-files [files]="saved.files"></app-files>
   </form>

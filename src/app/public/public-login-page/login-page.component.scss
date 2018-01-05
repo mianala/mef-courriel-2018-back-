@@ -1,5 +1,8 @@
 :host {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background-color: #3949AB;
   height: 100%;
   .header{
@@ -12,8 +15,6 @@
     background-color: #fff;
     max-width: 500px !important;
     padding: 2em;
-    margin: auto;
-    border-radius: 2px;
 
     .form{
       margin-top: 2em;

@@ -28,8 +28,13 @@ body {
     }
   }
 
-  .mat-dialog-container {
-    flex-basis: 600px;
+  app-dialog-save-mail {
+  }
+
+  mat-dialog-content {
+    display: block;
+    max-height: 650px;
+    overflow: scroll;
   }
 
   .lorem {
@@ -58,11 +63,10 @@ html, body {
   margin: 0;
 }
 
-mat-form-field{
+mat-form-field {
   display: block;
-  width:100% !important;
+  width: 100% !important;
 }
-
 
 mat-nav-list {
 
@@ -80,4 +84,9 @@ mat-nav-list {
   bottom: 0;
   position: relative;
   justify-content: space-between;
+}
+
+.mat-expansion-panel-body {
+  margin: 0 !important;
+  padding: 0 !important;
 }

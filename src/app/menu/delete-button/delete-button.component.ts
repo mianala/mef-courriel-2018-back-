@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {SavedService} from '../../saved.service';
 import {UserService} from '../../user.service';
 import {FlowService} from '../../flow.service';
 import {EmailService} from '../../email.service';
@@ -19,7 +18,6 @@ export class DeleteButtonComponent implements OnInit {
   constructor(public dialog: MatDialog,
               public userService: UserService,
               public emailService: EmailService,
-              public savedService: SavedService,
               public flowService: FlowService) {
   }
 
@@ -31,8 +29,6 @@ export class DeleteButtonComponent implements OnInit {
       this.flowService.delete(this.id)
     } else if (this.type === 'email') {
       this.emailService.delete(this.id)
-    } else {
-      this.savedService.remove(this.id)
     }
   }
 }

@@ -1,0 +1,36 @@
+<div class="direction" *ngIf="type != 'sent'">
+  <div class="date">12 Novembre 2017</div>
+  <div class="top" >DGB</div>
+  <div class="top-id">######</div>
+  <div class="arrow">
+    <mat-icon  *ngIf="type == 'down'">arrow_downward</mat-icon>
+    <mat-icon  *ngIf="type == 'up'">arrow_upward</mat-icon>
+  </div>
+  <div class="Bottom">DSB</div>
+  <div class="bottom-id">######</div>
+</div>
+
+<div class="sent" *ngIf="type == 'sent'">
+  <div class="entity">DSSA</div>
+  <div class="status">Vu/Traité</div>
+  <div class="entity">DSB</div>
+  <div class="status">En cours</div>
+  <div class="entity">DRF</div>
+  <div class="status">Non traité</div>
+</div>
+
+
+<div class="observations">
+  <h4 *ngIf="type != 'up'">Observation</h4>
+  <h4 *ngIf="type == 'up'">Note</h4>
+  <mat-checkbox  *ngIf="type != 'up'">Me rendre compte</mat-checkbox>
+  <br>
+  <mat-checkbox  *ngIf="type != 'up'">Venir m'en parler</mat-checkbox>
+  <br>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias aliquam amet asperiores cum, cumque cupiditate
+  delectus deserunt earum eligendi explicabo fuga, laborum magni molestiae, obcaecati odit rerum totam unde?
+</div>
+
+<div class="attachments">
+  <h4>Pièce jointes</h4>
+</div>

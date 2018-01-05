@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SavedPageComponent } from './saved-page.component';
+import { DispatchComponent } from './dispatch.component';
 
-describe('SavedPageComponent', () => {
-  let component: SavedPageComponent;
-  let fixture: ComponentFixture<SavedPageComponent>;
+describe('DispatchComponent', () => {
+  let component: DispatchComponent;
+  let fixture: ComponentFixture<DispatchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SavedPageComponent ]
+      declarations: [ DispatchComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SavedPageComponent);
+    fixture = TestBed.createComponent(DispatchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

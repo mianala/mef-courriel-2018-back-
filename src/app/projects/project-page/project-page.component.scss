@@ -1,0 +1,27 @@
+:host {
+  project {
+    display: block;
+    padding: 2em;
+    background-color: #fff;
+  }
+
+  .thread-list {
+    display: block;
+
+    thread {
+      margin: 2em !important;
+    }
+  }
+
+  .entity {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    .label {
+      font-weight: bold;
+
+    }
+
+  }
+
+}
