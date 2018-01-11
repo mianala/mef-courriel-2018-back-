@@ -57,9 +57,8 @@ export class ProjectService {
   getProjects() {
     console.log('loading projects')
 
-    this.http.get(this.url + '/user/' + this.user.id)
+    this.http.get(this.url + '/entity/32')
       .map(res => res.json()).subscribe(projects => {
-
       projects.sort(function (b, a) {
         const c = a.id;
         const d = b.id;
@@ -112,6 +111,7 @@ export class ProjectService {
       formData.append('ref', project.ref)
       formData.append('type_id', project.type)
       formData.append('lettre_id', project.lettre)
+      formData.append('entity_id', project.entity_id)
       formData.append('title', project.content)
       formData.append('content', project.observations)
       formData.append('date', project.date)

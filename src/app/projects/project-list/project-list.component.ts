@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
 import {MatDialog} from "@angular/material";
+import {ProjectService} from "../project.service";
 
 @Component({
   selector: 'app-project-list',
@@ -8,11 +9,15 @@ import {MatDialog} from "@angular/material";
   styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
+  projects
 
-  constructor(public dialog: MatDialog,) {
+  constructor(public dialog: MatDialog, private projectService: ProjectService) {
   }
 
   ngOnInit() {
+    this.projectService.projects.subscribe(projects => {
+      this.projects = projects
+    })
   }
 
 

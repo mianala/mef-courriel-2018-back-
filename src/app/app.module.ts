@@ -46,9 +46,10 @@ import {UsersPageComponent} from './app-user/users-page/users-page.component';
 import {UserPageComponent} from './app-user/user-page/user-page.component';
 import {UserComponent} from './app-user/user/user.component';
 import {UserAvatarComponent} from './app-user/user-avatar/user-avatar.component';
-import {UsersEntitiesLeadDepartementsComponent} from './app-user/users-entities-lead-departements/users-entities-lead-departements.component';
+import {
+  UsersEntitiesLeadDepartementsComponent
+} from './app-user/users-entities-lead-departements/users-entities-lead-departements.component';
 import {UsersEntitiesDepartementsComponent} from './app-user/users-entities-departements/users-entities-departements.component';
-import {DialogSaveMailComponent} from './dialog/dialog-save-mail/dialog-save-mail.component';
 import {DialogTransferMailComponent} from './dialog/dialog-transfer-mail/dialog-transfer-mail.component';
 import {DialogWriteToComponent} from './dialog/dialog-write-to/dialog-write-to.component';
 import {UserService} from './user.service';
@@ -92,7 +93,9 @@ import {ProjectComponent} from './projects/project/project.component';
 import {ProjectPageComponent} from './projects/project-page/project-page.component';
 import {ThreadComponent} from './projects/thread/thread.component';
 import {DispatchComponent} from './projects/dialog/dispatch/dispatch.component';
-import {ProjectService} from "./projects/project.service";
+import {ProjectService} from './projects/project.service';
+import {DialogSaveProjectComponent} from './dialog/dialog-save-project/dialog-save-project.component';
+import {ThreadService} from "./thread/thread.service";
 
 @NgModule({
   declarations: [
@@ -138,7 +141,7 @@ import {ProjectService} from "./projects/project.service";
     UserAvatarComponent,
     UsersEntitiesLeadDepartementsComponent,
     UsersEntitiesDepartementsComponent,
-    DialogSaveMailComponent,
+    DialogSaveProjectComponent,
     DialogTransferMailComponent,
     DialogWriteToComponent,
     EmailMessageComponent,
@@ -179,7 +182,7 @@ import {ProjectService} from "./projects/project.service";
     routes
   ],
   entryComponents: [
-    DialogSaveMailComponent,
+    DialogSaveProjectComponent,
     DispatchComponent,
     DialogWriteToComponent,
     DialogTransferMailComponent,
@@ -190,6 +193,7 @@ import {ProjectService} from "./projects/project.service";
     TestService,
     SocketService,
     ReportService,
+    ThreadService,
     XhrService,
     GlobalService,
     TransferService,

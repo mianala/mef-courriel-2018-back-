@@ -1,5 +1,31 @@
 <mat-accordion>
-  <mat-expansion-panel hideToggle="true">
+
+  <!--projects -->
+  <mat-expansion-panel *ngFor="let project of projects" hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="sender">{{project.sender}}</div>
+        <div class="n">- N° {{project.n_arrive}}</div>
+
+      </mat-panel-title>
+      <mat-panel-description [innerHtml]="project.title">
+
+        <!--<mat-icon>class</mat-icon>-->
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <project [project]="project"></project>
+
+    <mat-action-row>
+      <!--<button mat-button color="primary">Archiver</button>-->
+      <!--<button mat-button color="primary">Répondre</button>-->
+      <button mat-button color="primary" (click)="dispatch()">Dispatch</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+
+<!--  <mat-expansion-panel hideToggle="true">
+
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="sender">PM Chef du Gouv</div>
@@ -8,7 +34,7 @@
       </mat-panel-title>
       <mat-panel-description>
         - Présentat° du rapport de la miss° d'évaluat° des besoins électoraux
-        <!--<mat-icon>class</mat-icon>-->
+        &lt;!&ndash;<mat-icon>class</mat-icon>&ndash;&gt;
       </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -28,7 +54,7 @@
       </mat-panel-title>
       <mat-panel-description>
         - Présentat° du rapport de la miss° d'évaluat° des besoins électoraux
-        <!--<mat-icon>class</mat-icon>-->
+        &lt;!&ndash;<mat-icon>class</mat-icon>&ndash;&gt;
       </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -38,7 +64,8 @@
       <button mat-button color="primary">Répondre</button>
       <button mat-button color="primary" (click)="dispatch()">Dispatch</button>
     </mat-action-row>
-  </mat-expansion-panel><mat-expansion-panel hideToggle="true">
+  </mat-expansion-panel>
+  <mat-expansion-panel hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="sender">PM Chef du Gouv</div>
@@ -47,7 +74,7 @@
       </mat-panel-title>
       <mat-panel-description>
         - Présentat° du rapport de la miss° d'évaluat° des besoins électoraux
-        <!--<mat-icon>class</mat-icon>-->
+        &lt;!&ndash;<mat-icon>class</mat-icon>&ndash;&gt;
       </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -57,5 +84,5 @@
       <button mat-button color="primary">Répondre</button>
       <button mat-button color="primary" (click)="dispatch()">Dispatch</button>
     </mat-action-row>
-  </mat-expansion-panel>
+  </mat-expansion-panel>-->
 </mat-accordion>

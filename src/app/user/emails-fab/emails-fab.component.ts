@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {DialogWriteEmailComponent} from '../../dialog/dialog-write-email/dialog-write-email.component';
 import {MatDialog} from '@angular/material';
-import {DialogSaveMailComponent} from '../../dialog/dialog-save-mail/dialog-save-mail.component';
 import {NavigationStart, Router} from '@angular/router';
 import {DialogWriteToComponent} from '../../dialog/dialog-write-to/dialog-write-to.component';
 import {ReportComponent} from '../../dialog/report/report.component';
+import {DialogSaveProjectComponent} from '../../dialog/dialog-save-project/dialog-save-project.component';
 
 @Component({
   selector: 'app-emails-fab',
@@ -41,8 +41,8 @@ export class EmailsFabComponent implements OnInit {
   }
 
   saveEmail() {
-    const dialogSaveEmail = this.dialog.open(DialogSaveMailComponent);
-    dialogSaveEmail.afterClosed().subscribe(result => {
+    const dialogSaveProject = this.dialog.open(DialogSaveProjectComponent);
+    dialogSaveProject.afterClosed().subscribe(result => {
     })
   }
 

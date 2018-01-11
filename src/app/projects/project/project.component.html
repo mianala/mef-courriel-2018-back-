@@ -3,37 +3,37 @@
   <h4 class="label">
     N° Arrivé DGB
   </h4>
-  <p>5600</p>
+  <p>{{project.n_arrive_dg}}</p>
 
   <h4 class="label">
     N° Arrivé MFB
   </h4>
-  <p>- N° 055-2016/#######</p>
+  <p>- N° {{project.n_arrive}}</p>
 
   <h4 class="label">
     Expéditeur
   </h4>
-  <p>PM Chef du Gouv</p>
+  <p>{{project.sender}}</p>
 
   <h4 class="label">
     Date du courrier
   </h4>
-  <p>20/12/2017</p>
+  <p>{{project.date | date}}</p>
 
   <h4 class="label">
     Objet
   </h4>
-  <p>- Présentat° du rapport de la miss° d'évaluat° des besoins électoraux</p>
+  <div [innerHtml]="project.title"></div>
 
   <h4 class="label">
     Observation
   </h4>
-  <p>Venant SG MFB : DGB : arrivée tardive mais ddeer tout de même cpte rendu - DGB pi DSSA - Pr info°</p>
-
+  <div [innerHtml]="project.content"></div>
+<!--
   <h4 class="label">
     Pièces jointes
   </h4>
   <div class="attachments">
     some attachements
-  </div>
+  </div>-->
 </div>

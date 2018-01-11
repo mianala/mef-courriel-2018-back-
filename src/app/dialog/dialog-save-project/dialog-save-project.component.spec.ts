@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogSaveMailComponent } from './dialog-save-mail.component';
+import { DialogSaveProjectComponent } from './dialog-save-project.component';
 
-describe('DialogSaveMailComponent', () => {
-  let component: DialogSaveMailComponent;
-  let fixture: ComponentFixture<DialogSaveMailComponent>;
+describe('DialogSaveProjectComponent', () => {
+  let component: DialogSaveProjectComponent;
+  let fixture: ComponentFixture<DialogSaveProjectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DialogSaveMailComponent ]
+      declarations: [ DialogSaveProjectComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogSaveMailComponent);
+    fixture = TestBed.createComponent(DialogSaveProjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
