@@ -19,17 +19,9 @@ export class ThreadService {
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()
 
-      formData.append('n_arrive', thread.n_arrive)
-      formData.append('n_arrive_dg', thread.n_arrive_dg)
-      formData.append('sender', thread.sender)
-      formData.append('ref', thread.ref)
-      formData.append('type_id', thread.type)
-      formData.append('lettre_id', thread.lettre)
-      formData.append('entity_id', thread.entity_id)
-      formData.append('title', thread.content)
-      formData.append('content', thread.observations)
-      formData.append('date', thread.date)
-      formData.append('received_date', thread.received_date)
+      formData.append('receivers', [1, 2, 3])
+      formData.append('projet_id', 150)
+      formData.append('content', thread.content)
 
       for (let i = 0; i < thread.files.length; i++) {
         formData.append('files', thread.files[i], thread.files[i].name)

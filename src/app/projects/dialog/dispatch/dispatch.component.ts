@@ -31,7 +31,8 @@ export class DispatchComponent implements OnInit {
       this.entities = data
     })
     this.thread = {
-      content: 'EN AYANT L\'HONNEUR DE VOUS TRANSMETTRE POUR NOTIFICATION'
+      content: 'EN AYANT L\'HONNEUR DE VOUS TRANSMETTRE POUR NOTIFICATION',
+      files: []
     }
   }
 
@@ -42,7 +43,8 @@ export class DispatchComponent implements OnInit {
   ngOnInit() {
   }
 
-  getFiles() {
+  getFiles(files) {
+    this.thread.files = this.thread.files.concat(files)
   }
 
   submit() {

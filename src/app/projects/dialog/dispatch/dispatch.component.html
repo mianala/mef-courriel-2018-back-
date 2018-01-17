@@ -1,5 +1,5 @@
 <div mat-dialog-title>
-  <h1>Envoyer le courrier</h1>
+  <h1>Dispatcher le courrier</h1>
 </div>
 <mat-dialog-content class="content">
   <h4>Destinataires</h4>
@@ -12,7 +12,6 @@
     <mat-checkbox>Tous les directions</mat-checkbox>
   </div>
 
-
   <h4>Observations:</h4>
   <div class="observations">
     <mat-checkbox *ngFor="let observation of observations">{{observation}}</mat-checkbox>
@@ -20,6 +19,7 @@
   <h5>Autres observations</h5>
   <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="thread.content"></div>
 
+  <app-files [files]="thread.files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>

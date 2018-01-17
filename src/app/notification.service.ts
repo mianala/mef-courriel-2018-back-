@@ -46,6 +46,11 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+  threadDispatched() {
+    const message = 'Le courriel a été dispatché';
+    this.openSnack(message);
+  }
+
   emailSaved() {
     const message = 'Courriel enregistré avec succès';
     this.openSnack(message);
