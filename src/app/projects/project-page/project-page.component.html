@@ -1,27 +1,11 @@
-<project></project>
+<project [project]="project"></project>
 <div class="thread-list">
-  <!--thread 1-->
-  <thread [type]="'down'"></thread>
-  <thread [type]="'up'"></thread>
-  <thread [type]="'sent'"></thread>
+  <div *ngFor="let thread of threads" >
 
-  <!--thread 2-->
-  <div class="entity">
-    <span class="label">DSSA - <u>Vu/traité</u></span>
-  </div>
-  <thread [type]="'down'"></thread>
-  <thread [type]="'up'"></thread>
+    <div class="entity">
+      <h3 class="label">ENTITY<!-- - <u>Vu/traité</u>--></h3>
+    </div>
+    <thread [thread]="thread"></thread>
 
-  <!--thread 2-->
-  <div class="entity">
-    <span class="label">DSB - <u>En cours</u></span>
   </div>
-  <thread [type]="'down'"></thread>
-  <thread [type]="'up'"></thread>
-
-  <!--thread 2-->
-  <div class="entity">
-    <span class="label">DRF - <u>Non traité</u></span>
-  </div>
-  <thread [type]="'down'"></thread>
 </div>

@@ -15,8 +15,6 @@ export class DispatchComponent implements OnInit {
   thread: any
   observations: any
   entities
-  checkedObservations
-  receivers
 
   constructor(private froalaService: FroalaService,
               private entityService: EntityService,
@@ -26,30 +24,63 @@ export class DispatchComponent implements OnInit {
 
     this.options = froalaService.getOptions()
     this.observations = this.projectService.observations
-    this.receivers = []
+
+    this.thread = {
+      content: 'EN AYANT L\'HONNEUR DE VOUS TRANSMETTRE POUR NOTIFICATION',
+      files: [],
+      checkedObservations: [],
+      receivers: []
+    }
     this.entityService.dgbEntities.subscribe(data => {
       this.entities = data
     })
-    this.thread = {
-      content: 'EN AYANT L\'HONNEUR DE VOUS TRANSMETTRE POUR NOTIFICATION',
-      files: []
-    }
-  }
-
-  checkEntity() {
+    this.projectService.project.subscribe(project => {
+      this.thread.project = project
+    })
 
   }
 
   ngOnInit() {
   }
 
+
+  checkEntity(id) {
+    this.toggleInArray(this.thread.receivers, id)
+    console.log(this.thread.receivers)
+  }
+
+  toggleObservation(observation) {
+    this.toggleInArray(this.thread.checkedObservations, observation)
+    console.log(this.thread.checkedObservations)
+  }
+
+
   getFiles(files) {
     this.thread.files = this.thread.files.concat(files)
   }
 
   submit() {
-    this.thread.receivers = this.receivers
+    let obs = ''
+
+    for (let o of this.thread.checkedObservations) {
+      obs += ' - ' + o + '<br>'
+    }
+
+    this.thread.content = obs.concat(this.thread.content)
+    console.log(this.thread)
     this.threadService.dispatch(this.thread)
+  }
+
+
+  // util
+  toggleInArray(array, value) {
+    const index = array.indexOf(value);
+
+    if (index === -1) {
+      array.push(value);
+    } else {
+      array.splice(index, 1);
+    }
   }
 
 }

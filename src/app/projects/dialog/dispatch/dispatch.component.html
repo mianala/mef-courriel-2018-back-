@@ -5,7 +5,7 @@
   <h4>Destinataires</h4>
 
   <div class="entities">
-    <mat-checkbox *ngFor="let entity of entities">{{entity.label}}</mat-checkbox>
+    <mat-checkbox *ngFor="let entity of entities" (click)="checkEntity(entity.id)">{{entity.label}}</mat-checkbox>
   </div>
   <div class="" fxLayout="column">
     <mat-checkbox>Tous les services rattachés</mat-checkbox>
@@ -14,7 +14,7 @@
 
   <h4>Observations:</h4>
   <div class="observations">
-    <mat-checkbox *ngFor="let observation of observations">{{observation}}</mat-checkbox>
+    <mat-checkbox *ngFor="let observation of observations" (click)="toggleObservation(observation)" >{{observation}}</mat-checkbox>
   </div>
   <h5>Autres observations</h5>
   <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="thread.content"></div>
@@ -24,5 +24,5 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button (click)="submit()" mat-button>ENREGISTRER</button>
+  <button (click)="submit()" mat-button>DISPATCH</button>
 </mat-dialog-actions>

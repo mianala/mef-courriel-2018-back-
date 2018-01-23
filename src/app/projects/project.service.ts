@@ -4,6 +4,7 @@ import {NotificationService} from '../notification.service';
 import {GlobalService} from '../global.service';
 import {UserService} from '../user.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {ThreadService} from "../thread/thread.service";
 
 
 @Injectable()
@@ -42,6 +43,7 @@ export class ProjectService {
 
   constructor(private global: GlobalService,
               private userService: UserService,
+              private threadService: ThreadService,
               private http: Http,
               private notification: NotificationService) {
     this.url = global.ip() + '/api/projects';
@@ -64,6 +66,7 @@ export class ProjectService {
         const d = b.id;
         return c - d;
       });
+      console.log(projects)
       this.projects.next(projects)
     })
   }
@@ -82,8 +85,8 @@ export class ProjectService {
     console.log('setting project ' + id)
     this.http.get(this.url + '/' + id)
       .map(res => res.json()).subscribe(project => {
-      console.log(project)
       this.project.next(project)
+      this.threadService.getProjectThreads(project.id)
       localStorage.setItem('project', JSON.stringify(project))
     })
   }

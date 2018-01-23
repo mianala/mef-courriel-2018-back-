@@ -6,14 +6,13 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./thread.component.scss']
 })
 export class ThreadComponent implements OnInit {
-  @Input() type
-  thread = {}
+  @Input() thread
 
   constructor() {
-
   }
 
   ngOnInit() {
+    this.thread.type = "down"
   }
 
 }
