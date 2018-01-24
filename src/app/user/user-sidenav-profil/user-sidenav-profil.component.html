@@ -1,7 +1,7 @@
 <div class="user">
 
   <app-avatar [photo]="user.photo"></app-avatar>
-  <div class="username">{{user.name}}</div>
+  <div class="username">{{user.name}} <br> {{user.entity}}</div>
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
