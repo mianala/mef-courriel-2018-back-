@@ -5,7 +5,7 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="sender">{{project.sender}}</div>
-        <div class="n">- N° {{project.n_arrive}}</div>
+        <div class="n">- {{project.n_arrive}}</div>
 
       </mat-panel-title>
       <mat-panel-description [innerHtml]="project.title">
@@ -23,24 +23,25 @@
       <button mat-button color="primary" (click)="dispatch(project.id)">Dispatch</button>
     </mat-action-row>
   </mat-expansion-panel>
-  <mat-expansion-panel *ngFor="let thread of threads" hideToggle="true">
+  <mat-expansion-panel *ngFor="let flow of flows" hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div class="sender">{{thread.project.entity.label}}</div>
-        <div class="n">{{thread.project.n_arrive}}</div>
+        <div class="sender">{{flow.thread.project.entity.label}}</div>
+        <div class="n">{{flow.thread.project.n_arrive}}</div>
 
       </mat-panel-title>
-      <mat-panel-description [innerHtml]="thread.project.title">
+      <mat-panel-description [innerHtml]="flow.thread.project.title">
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <thread [thread]="thread"></thread>
+    <thread [thread]="flow.thread"></thread>
 
     <mat-action-row>
       <!--<button mat-button color="primary">Archiver</button>-->
       <!--<button mat-button color="primary">Répondre</button>-->
-      <button mat-button color="primary" (click)="setProject(thread.project_id)" routerLink="courrier">Voir</button>
-      <button mat-button color="primary" (click)="dispatch(thread.project_id)">Dispatch</button>
+      <button mat-button color="primary" (click)="setProject(flow.thread.project_id)" routerLink="courrier">Voir
+      </button>
+      <button mat-button color="primary" (click)="dispatch(flow.thread.project_id)">Dispatch</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

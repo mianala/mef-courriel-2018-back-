@@ -31,10 +31,15 @@ export class DispatchComponent implements OnInit {
       checkedObservations: [],
       receivers: []
     }
-    this.entityService.dgbEntities.subscribe(data => {
-      this.entities = data
+    /*    this.entityService.dgbEntities.subscribe(data => {
+          this.entities = data
+        })*/
+
+    this.entityService.downEntities.subscribe(entities => {
+      this.entities = entities
     })
     this.projectService.project.subscribe(project => {
+      console.log(project)
       this.thread.project = project
     })
 

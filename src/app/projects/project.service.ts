@@ -57,16 +57,15 @@ export class ProjectService {
   }
 
   getProjects() {
-    console.log('loading projects')
+    console.log('loading projects of entity'  + this.user.entity_id)
 
-    this.http.get(this.url + '/entity/32')
+    this.http.get(this.url + '/entity/' + this.user.entity_id)
       .map(res => res.json()).subscribe(projects => {
       projects.sort(function (b, a) {
         const c = a.id;
         const d = b.id;
         return c - d;
       });
-      console.log(projects)
       this.projects.next(projects)
     })
   }
@@ -86,6 +85,7 @@ export class ProjectService {
     this.http.get(this.url + '/' + id)
       .map(res => res.json()).subscribe(project => {
       this.project.next(project)
+      console.log(project)
       this.threadService.getProjectThreads(project.id)
       localStorage.setItem('project', JSON.stringify(project))
     })
@@ -93,7 +93,6 @@ export class ProjectService {
 
   save(project: any) {
     this.post(project).then((result) => {
-      console.log(result)
       console.log('fetching result from the result of the post project')
       this.getProjects()
 

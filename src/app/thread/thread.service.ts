@@ -4,7 +4,6 @@ import {Http} from '@angular/http';
 import {NotificationService} from '../notification.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {UserService} from '../user.service';
-import {ProjectService} from '../projects/project.service';
 
 @Injectable()
 export class ThreadService {
@@ -24,12 +23,10 @@ export class ThreadService {
 
     this.user = this.userService.user.subscribe(user => {
       this.user = user
-      this.getThreads()
     })
   }
 
   getThreads() {
-
     console.log('loading threads')
 
     this.http.get(this.url)
@@ -40,8 +37,6 @@ export class ThreadService {
         const d = b.id;
         return c - d;
       });
-
-
       this.threads.next(threads)
     })
   }
@@ -77,8 +72,8 @@ export class ThreadService {
       const xhr = new XMLHttpRequest()
 
       formData.append('receivers', thread.receivers)
-      formData.append('entity_id', 32)
-      formData.append('sender_entity_id', 31)
+      formData.append('entity_id', this.user.entity_id)
+      formData.append('sender_entity_id', this.user.entity_id)
       formData.append('project_id', thread.project.id)
       formData.append('content', thread.content)
 

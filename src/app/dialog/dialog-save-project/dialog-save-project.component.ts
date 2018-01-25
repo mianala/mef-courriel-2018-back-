@@ -31,7 +31,6 @@ export class DialogSaveProjectComponent implements OnInit {
       observations: 'Some observations',
       content: '- Présentat° du rapport de la miss° d\'évaluat° des besoins électoraux',
       date: new Date(),
-      entity_id: 32,
       received_date: new Date(),
     }
 
@@ -62,6 +61,7 @@ export class DialogSaveProjectComponent implements OnInit {
       this.notification.formError()
     } else {
       this.project.user = this.user
+      this.project.entity_id = this.user.entity_id
       this.projectService.save(this.project)
       this.dialogRef.close()
     }

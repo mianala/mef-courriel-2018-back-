@@ -3,6 +3,7 @@ import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
 import {MatDialog} from "@angular/material";
 import {ProjectService} from "../project.service";
 import {ThreadService} from "../../thread/thread.service";
+import {FlowService} from "../../flow.service";
 
 @Component({
   selector: 'app-project-list',
@@ -11,9 +12,11 @@ import {ThreadService} from "../../thread/thread.service";
 })
 export class ProjectListComponent implements OnInit {
   projects
-  threads
+  flows
 
-  constructor(public threadService: ThreadService, public dialog: MatDialog, private projectService: ProjectService) {
+  constructor(public threadService: ThreadService,
+              public flowService: FlowService
+    , public dialog: MatDialog, private projectService: ProjectService) {
     this.projects = []
   }
 
@@ -23,8 +26,8 @@ export class ProjectListComponent implements OnInit {
       this.projects = projects
     })
 
-    this.threadService.threads.subscribe(threads => {
-      this.threads = threads
+    this.flowService.flows.subscribe(flows => {
+      this.flows = flows
     })
   }
 

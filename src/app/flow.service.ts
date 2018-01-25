@@ -25,19 +25,8 @@ export class FlowService {
     this.user = this.userService.user.getValue()
     this.user = this.userService.user.subscribe(user => {
       this.user = user
-      this.update()
+      this.getFlows()
     })
-
-    this.socketService.io.on('flow', data => {
-      this.update()
-    })
-
-    this.socketService.io.on('email', (data) => {
-      console.log('got reload email')
-      this.update()
-    })
-
-    // todo realtime
   }
 
 
@@ -80,11 +69,28 @@ export class FlowService {
     }
   }
 
+  getFlows() {
+
+    console.log('loading flows')
+
+    this.http.get(this.url + '/entity/' + this.user.entity_id)
+      .map(res => res.json()).subscribe(flows => {
+
+      flows.sort(function (b, a) {
+        const c = a.id;
+        const d = b.id;
+        return c - d;
+      });
+      console.log(flows)
+      this.flows.next(flows)
+    })
+  }
+
   start(mail?: any) {
 
     this.post(mail).then((result) => {
       console.log(result)
-      this.update()
+      // this.update()
     }, (error) => {
       console.log(error)
     })
