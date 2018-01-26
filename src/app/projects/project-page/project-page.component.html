@@ -1,11 +1,11 @@
 <project [project]="project"></project>
 <div class="thread-list">
-  <div *ngFor="let thread of threads" >
+  <div *ngFor="let flow of flows" >
 
     <div class="entity">
-      <h3 class="label">ENTITY<!-- - <u>Vu/traité</u>--></h3>
+      <!--<h3 class="label">{{thread.entity.label}}&lt;!&ndash; - <u>Vu/traité</u>&ndash;&gt;</h3>-->
     </div>
-    <thread [thread]="thread"></thread>
+    <flow [flow]="flow"></flow>
 
   </div>
 </div>

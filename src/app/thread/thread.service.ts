@@ -72,8 +72,8 @@ export class ThreadService {
       const xhr = new XMLHttpRequest()
 
       formData.append('receivers', thread.receivers)
-      formData.append('entity_id', this.user.entity_id)
-      formData.append('sender_entity_id', this.user.entity_id)
+      formData.append('entity_id', this.user.entity.id)
+      formData.append('sender_entity_id', this.user.entity.id)
       formData.append('project_id', thread.project.id)
       formData.append('content', thread.content)
 

@@ -1,16 +1,4 @@
-<div class="direction" *ngIf="thread.type != 'sent'">
-  <div class="date">{{thread.date | date}}</div>
-  <div class="top">{{thread.project.entity.label}}</div>
-  <div class="top-id">{{thread.project.n_arrive}}</div>
-  <div class="arrow">
-    <mat-icon *ngIf="thread.type == 'down'">arrow_downward</mat-icon>
-    <mat-icon *ngIf="thread.type == 'up'">arrow_upward</mat-icon>
-  </div>
-  <div class="Bottom">DSB</div>
-  <div class="bottom-id">######</div>
-</div>
-
-<div class="sent" *ngIf="thread.type == 'sent'">
+<div class="sent">
   <div class="entity">DSSA</div>
   <div class="status">Vu/Traité</div>
   <div class="entity">DSB</div>

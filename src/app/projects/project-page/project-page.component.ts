@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from "../project.service";
 import {ThreadService} from "../../thread/thread.service";
+import {FlowService} from "../../flow.service";
 
 @Component({
   selector: 'app-project-page',
@@ -9,14 +10,16 @@ import {ThreadService} from "../../thread/thread.service";
 })
 export class ProjectPageComponent implements OnInit {
   project
-  threads
+  flows
 
-  constructor(private projectService: ProjectService, private threadService: ThreadService) {
+  constructor(private projectService: ProjectService,
+              private flowService: FlowService) {
     this.projectService.project.subscribe(project => {
       this.project = project
     })
-    this.threadService.projectThreads.subscribe(threads => {
-      this.threads = threads
+
+    this.flowService.projectFlows.subscribe(flows => {
+      this.flows = flows
     })
   }
 

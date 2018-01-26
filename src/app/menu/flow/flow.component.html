@@ -1,6 +1,22 @@
-<button  mat-icon-button [matMenuTriggerFor]="menu">
-  <mat-icon>more_vert</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-  <app-delete-button [id]="id" [type]="type"></app-delete-button>
-</mat-menu>
+<div class="direction">
+  <div class="date">{{flow.thread.date | date}}</div>
+  <div class="top">{{flow.thread.project.entity.label}}</div>
+  <div class="top-id">{{flow.thread.project.n_arrive}}</div>
+  <div class="arrow">
+    <mat-icon *ngIf="flow.thread.type == 'down'">arrow_downward</mat-icon>
+    <mat-icon *ngIf="flow.thread.type == 'up'">arrow_upward</mat-icon>
+  </div>
+  <div class="Bottom">{{flow.entity.label}}</div>
+  <div class="bottom-id">{{flow.n_arrive}}</div>
+</div>
+
+
+<div class="observations">
+  <h4 *ngIf="flow.thread.type != 'up'">Observation</h4>
+  <h4 *ngIf="flow.thread.type == 'up'">Note</h4>
+  <div [innerHtml]="flow.thread.observations"></div>
+</div>
+
+<div class="attachments">
+  <h4>Pièce jointes</h4>
+</div>

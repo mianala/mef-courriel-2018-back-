@@ -23,7 +23,6 @@ export class DialogSaveProjectComponent implements OnInit {
               private projectService: ProjectService) {
     this.project = {
       n_arrive: 'N° 055-2016/PM/SP',
-      n_arrive_dg: '3600',
       sender: 'PM Chef du Gouv',
       ref: 'N° 055-2016/PM/SP',
       type: 1,
@@ -45,7 +44,7 @@ export class DialogSaveProjectComponent implements OnInit {
 
   valid() {
     console.log(this.project.n_arrive)
-    if (!this.project.n_arrive || !this.project.n_arrive_dg) {
+    if (!this.project.n_arrive) {
       return false
     }
 

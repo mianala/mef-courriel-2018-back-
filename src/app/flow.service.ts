@@ -7,11 +7,13 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Flow} from '../models/Flow';
 import {SocketService} from './service/socket.service';
 import {Router} from "@angular/router";
+import {ProjectService} from "./projects/project.service";
 
 @Injectable()
 export class FlowService {
   url: string
   flows = new BehaviorSubject([])
+  projectFlows = new BehaviorSubject([])
   flow = new BehaviorSubject(new Flow())
   user
 
@@ -20,12 +22,18 @@ export class FlowService {
               private router: Router,
               private notification: NotificationService,
               private userService: UserService,
+              private projectService: ProjectService,
               private global: GlobalService) {
     this.url = global.ip() + '/api/flows';
     this.user = this.userService.user.getValue()
     this.user = this.userService.user.subscribe(user => {
       this.user = user
       this.getFlows()
+    })
+
+    this.projectService.project.subscribe(project => {
+      console.log(project)
+      this.getProjectFlows(project.id)
     })
   }
 
@@ -83,6 +91,19 @@ export class FlowService {
       });
       console.log(flows)
       this.flows.next(flows)
+    })
+  }
+
+  getProjectFlows(id) {
+    console.log('loading project flows  ' + id)
+    this.http.get(this.url + '/project/' + id)
+      .map(res => res.json()).subscribe(flows => {
+      flows.sort(function (b, a) {
+        const c = a.id;
+        const d = b.id;
+        return c - d;
+      });
+      this.projectFlows.next(flows)
     })
   }
 

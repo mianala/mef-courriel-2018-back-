@@ -23,7 +23,7 @@
       <button mat-button color="primary" (click)="dispatch(project.id)">Dispatch</button>
     </mat-action-row>
   </mat-expansion-panel>
-  <mat-expansion-panel *ngFor="let flow of flows" hideToggle="true">
+  <mat-expansion-panel *ngFor="let flow of flows" hideToggle="true"&>
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="sender">{{flow.thread.project.entity.label}}</div>
@@ -34,7 +34,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <thread [thread]="flow.thread"></thread>
+    <flow [flow]="flow"></flow>
 
     <mat-action-row>
       <!--<button mat-button color="primary">Archiver</button>-->

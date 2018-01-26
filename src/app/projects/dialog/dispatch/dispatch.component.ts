@@ -36,6 +36,7 @@ export class DispatchComponent implements OnInit {
         })*/
 
     this.entityService.downEntities.subscribe(entities => {
+      console.log(entities)
       this.entities = entities
     })
     this.projectService.project.subscribe(project => {

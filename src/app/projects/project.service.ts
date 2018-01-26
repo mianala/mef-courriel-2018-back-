@@ -38,7 +38,7 @@ export class ProjectService {
     'SUITE A VOTRE DEMANDE']
   url: string;
   projects = new BehaviorSubject([])
-  project = new BehaviorSubject([])
+  project = new BehaviorSubject({})
   user
 
   constructor(private global: GlobalService,
@@ -50,14 +50,23 @@ export class ProjectService {
     this.user = this.userService.user.getValue()
     console.log('initializing projects')
 
+
     this.user = this.userService.user.subscribe(user => {
       this.user = user
       this.getProjects()
+
     })
+
+    if (localStorage.getItem('project')) {
+      this.project.next(JSON.parse(localStorage.getItem('project')))
+    } else {
+    }
+
+
   }
 
   getProjects() {
-    console.log('loading projects of entity'  + this.user.entity_id)
+    console.log('loading projects of entity' + this.user.entity_id)
 
     this.http.get(this.url + '/entity/' + this.user.entity_id)
       .map(res => res.json()).subscribe(projects => {
@@ -85,7 +94,6 @@ export class ProjectService {
     this.http.get(this.url + '/' + id)
       .map(res => res.json()).subscribe(project => {
       this.project.next(project)
-      console.log(project)
       this.threadService.getProjectThreads(project.id)
       localStorage.setItem('project', JSON.stringify(project))
     })
@@ -108,7 +116,6 @@ export class ProjectService {
       const xhr = new XMLHttpRequest()
 
       formData.append('n_arrive', project.n_arrive)
-      formData.append('n_arrive_dg', project.n_arrive_dg)
       formData.append('sender', project.sender)
       formData.append('ref', project.ref)
       formData.append('type_id', project.type)

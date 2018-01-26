@@ -22,7 +22,7 @@ export class UserService {
 
 
     if (localStorage.getItem('user')) {
-      this.setUser(JSON.parse(localStorage.getItem('user')))
+      this.user.next(JSON.parse(localStorage.getItem('user')))
     } else {
       this.connect()
     }
@@ -34,11 +34,6 @@ export class UserService {
       } else {
         this.connected.next(false)
       }
-    })
-
-    this.connected.subscribe(e => {
-      console.log('user status')
-      console.log(e)
     })
   }
 
@@ -67,12 +62,8 @@ export class UserService {
     this.http.post(this.url + '/user', {type: 'user'}, this.options)
       .map(res => res.json())
       .subscribe(user => {
-        this.setUser(user)
+        this.user.next(user)
       })
-  }
-
-  setUser(user) {
-    this.user.next(user)
   }
 
   redirectIfConnected() {
