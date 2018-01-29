@@ -66,6 +66,7 @@ export class ThreadService {
   }
 
   dispatch(thread) {
+    console.log(this.user)
 
     return new Promise((resolve, reject) => {
       const formData: any = new FormData()

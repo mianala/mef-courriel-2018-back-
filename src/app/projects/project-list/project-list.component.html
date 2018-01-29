@@ -8,7 +8,7 @@
         <div class="n">- {{project.n_arrive}}</div>
 
       </mat-panel-title>
-      <mat-panel-description [innerHtml]="project.title">
+      <mat-panel-description [innerHtml]="project.title| slice:0:150">
 
         <!--<mat-icon>class</mat-icon>-->
       </mat-panel-description>
@@ -23,7 +23,7 @@
       <button mat-button color="primary" (click)="dispatch(project.id)">Dispatch</button>
     </mat-action-row>
   </mat-expansion-panel>
-  <mat-expansion-panel *ngFor="let flow of flows" hideToggle="true"&>
+  <mat-expansion-panel *ngFor="let flow of flows" hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="sender">{{flow.thread.project.entity.label}}</div>

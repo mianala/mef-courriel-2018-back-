@@ -38,7 +38,9 @@ export class ProjectService {
     'SUITE A VOTRE DEMANDE']
   url: string;
   projects = new BehaviorSubject([])
-  project = new BehaviorSubject({})
+  project = new BehaviorSubject({
+    id: 0,
+  })
   user
 
   constructor(private global: GlobalService,

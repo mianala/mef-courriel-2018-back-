@@ -19,4 +19,5 @@
 
 <div class="attachments">
   <h4>Pièce jointes</h4>
+  <file *ngFor="let file of flow.thread.files" [file]="file"></file>
 </div>

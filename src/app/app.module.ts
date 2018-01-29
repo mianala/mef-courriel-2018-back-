@@ -96,6 +96,7 @@ import {DispatchComponent} from './projects/dialog/dispatch/dispatch.component';
 import {ProjectService} from './projects/project.service';
 import {DialogSaveProjectComponent} from './dialog/dialog-save-project/dialog-save-project.component';
 import {ThreadService} from "./thread/thread.service";
+import { FileComponent } from './file/file.component';
 
 @NgModule({
   declarations: [
@@ -167,6 +168,7 @@ import {ThreadService} from "./thread/thread.service";
     ProjectPageComponent,
     ThreadComponent,
     DispatchComponent,
+    FileComponent,
   ],
   imports: [
     BrowserModule,

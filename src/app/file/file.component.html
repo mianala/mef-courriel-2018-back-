@@ -1,0 +1,9 @@
+<a  target="_blank" [href]="file.src" class="file-icon">
+  <img *ngIf="pdf()" src="../assets/img/file_icons/pdf.svg" alt="">
+  <img *ngIf="doc()" src="../assets/img/file_icons/doc.svg" alt="">
+  <img *ngIf="img()" src="{{file.src}}" alt="">
+</a>
+<div class="file-info">
+  <a target="_blank" [href]="file.src" class="title">{{file.originalname}}</a>
+  <div class="filesize">{{file.ko}}</div>
+</div>
