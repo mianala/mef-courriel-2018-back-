@@ -12,8 +12,7 @@
 
 
 <div class="observations">
-  <h4 *ngIf="flow.thread.type != 'up'">Observation</h4>
-  <h4 *ngIf="flow.thread.type == 'up'">Note</h4>
+  <h4>Observation</h4>
   <div [innerHtml]="flow.thread.observations"></div>
 </div>
 

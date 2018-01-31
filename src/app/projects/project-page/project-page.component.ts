@@ -14,18 +14,17 @@ export class ProjectPageComponent implements OnInit {
   flows
 
   constructor(private projectService: ProjectService,
-              private flowService: FlowService) {
+              private flowService: FlowService,
+              private threadService: ThreadService,
+              ) {
     this.projectService.project.subscribe(project => {
       this.project = project
     })
 
-// if owner
     this.threadService.projectThreads.subscribe(threads => {
       this.threads = threads
     })
-  }
 
-// if not receiver
     this.flowService.projectFlows.subscribe(flows => {
       this.flows = flows
     })
