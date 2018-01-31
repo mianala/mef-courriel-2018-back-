@@ -1,20 +1,17 @@
 <div class="sent">
-  <div class="entity">DSSA</div>
-  <div class="status">Vu/Traité</div>
-  <div class="entity">DSB</div>
-  <div class="status">En cours</div>
-  <div class="entity">DRF</div>
-  <div class="status">Non traité</div>
+
+  <div *ngFor="let flow of thread.flows" class="entity">{{flow.entity.label}}</div>
+  <!-- <div *ngFor="let flow of thread.flows" class="status">Vu/Traité</div> -->
 </div>
 
 
 <div class="observations">
-  <h4 *ngIf="thread.type != 'up'">Observation</h4>
-  <h4 *ngIf="thread.type == 'up'">Note</h4>
+  <h4>Observation</h4>
   <div [innerHtml]="thread.observations"></div>
 </div>
 
 <div class="attachments">
   <h4>Pièce jointes</h4>
+  <file *ngFor="let file of thread.files" [file]="file"></file>
 
 </div>

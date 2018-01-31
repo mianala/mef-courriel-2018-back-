@@ -10,6 +10,7 @@ import {FlowService} from "../../flow.service";
 })
 export class ProjectPageComponent implements OnInit {
   project
+  threads
   flows
 
   constructor(private projectService: ProjectService,
@@ -18,6 +19,13 @@ export class ProjectPageComponent implements OnInit {
       this.project = project
     })
 
+// if owner
+    this.threadService.projectThreads.subscribe(threads => {
+      this.threads = threads
+    })
+  }
+
+// if not receiver
     this.flowService.projectFlows.subscribe(flows => {
       this.flows = flows
     })

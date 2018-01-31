@@ -51,8 +51,10 @@
     </mat-form-field>
     <!--objet-->
     <h4>Objet:</h4>
-    <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="project.content"></div>
-
+    <mat-form-field class="">
+      <textarea [(ngModel)]="project.content" required name="content" matInput placeholder="Objet"></textarea>
+    </mat-form-field>
+    <!-- <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="project.content"></div> -->
     <!--type-->
     <mat-form-field>
       <mat-select [(ngModel)]="project.type" name="type" placeholder="Type">
