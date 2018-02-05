@@ -86,4 +86,9 @@ export class NotificationService {
     this.snackBar.open(message, '', this.getConfig());
   }
 
+  answered() {
+    const message = 'Courriel envoyé';
+    this.snackBar.open(message, '', this.getConfig());
+  }
+
 }

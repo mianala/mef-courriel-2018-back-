@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'project',
@@ -8,11 +10,15 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ProjectComponent implements OnInit {
   @Input() project
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
 
   }
 
   ngOnInit() {
+  }
+
+  dispatch(){
+    this.dialog.open(DispatchComponent);
   }
 
 }

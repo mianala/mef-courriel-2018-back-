@@ -4,6 +4,7 @@ import {MatDialog} from "@angular/material";
 import {ProjectService} from "../project.service";
 import {ThreadService} from "../../thread/thread.service";
 import {FlowService} from "../../flow.service";
+import {AnswerComponent} from "../../dialog/answer/answer.component";
 
 @Component({
   selector: 'app-project-list',
@@ -39,6 +40,10 @@ export class ProjectListComponent implements OnInit {
   dispatch(id) {
     this.projectService.setProject(id)
     this.dialog.open(DispatchComponent);
+  }
+
+  answer(id) {
+    this.dialog.open(AnswerComponent);
   }
 
 }

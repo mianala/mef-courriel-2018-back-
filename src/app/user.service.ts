@@ -11,7 +11,9 @@ import {User} from '../models/User';
 export class UserService {
   url: string
   options = new RequestOptions({withCredentials: true});
-  user = new BehaviorSubject(new User())
+  user = new BehaviorSubject({
+    entity_id: 0
+  })
   connected = new BehaviorSubject(false)
 
   constructor(private http: Http,

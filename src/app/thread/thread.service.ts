@@ -45,13 +45,17 @@ export class ThreadService {
 
 
     this.http.get(this.url + '/' + id)
-      .map(res => res.json()).subscribe(threads => {
-      threads.sort(function (b, a) {
+      .map(res => res.json()).subscribe(projectThreads => {
+      projectThreads.sort(function (b, a) {
         const c = a.id;
         const d = b.id;
         return c - d;
       });
-      this.projectThreads.next(threads)
+
+      console.log('got the threads')
+      console.log(projectThreads)
+
+      this.projectThreads.next(projectThreads)
     })
   }
 

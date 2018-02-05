@@ -97,6 +97,8 @@ import {ProjectService} from './projects/project.service';
 import {DialogSaveProjectComponent} from './dialog/dialog-save-project/dialog-save-project.component';
 import {ThreadService} from "./thread/thread.service";
 import { FileComponent } from './file/file.component';
+import { AnswerComponent } from './dialog/answer/answer.component';
+import {MessageService} from "./message.service";
 
 @NgModule({
   declarations: [
@@ -169,6 +171,7 @@ import { FileComponent } from './file/file.component';
     ThreadComponent,
     DispatchComponent,
     FileComponent,
+    AnswerComponent,
   ],
   imports: [
     BrowserModule,
@@ -187,6 +190,7 @@ import { FileComponent } from './file/file.component';
     DialogSaveProjectComponent,
     DispatchComponent,
     DialogWriteToComponent,
+    AnswerComponent,
     DialogTransferMailComponent,
     DialogWriteEmailComponent,
     ReportComponent
@@ -195,6 +199,7 @@ import { FileComponent } from './file/file.component';
     TestService,
     SocketService,
     ReportService,
+    MessageService,
     ThreadService,
     XhrService,
     GlobalService,

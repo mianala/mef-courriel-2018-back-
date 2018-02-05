@@ -17,10 +17,7 @@
     <project [project]="project"></project>
 
     <mat-action-row>
-      <!--<button mat-button color="primary">Archiver</button>-->
-      <!--<button mat-button color="primary">Répondre</button>-->
       <button mat-button color="primary" (click)="setProject(project.id)" routerLink="courrier">Voir</button>
-      <button mat-button color="primary" (click)="setProject(project.id)" routerLink="courrier">Repondre</button>
       <button mat-button color="primary" (click)="dispatch(project.id)">Dispatch</button>
     </mat-action-row>
   </mat-expansion-panel>
@@ -42,9 +39,9 @@
       <!--<button mat-button color="primary">Répondre</button>-->
       <button mat-button color="primary" (click)="setProject(flow.thread.project_id)" routerLink="courrier">Voir
       </button>
-      <button mat-button color="primary" (click)="setProject(flow.thread.project_id)" routerLink="courrier">Repondre
+      <button mat-button color="primary" (click)="answer(flow.thread.project_id)"><i class="material-icons">reply</i> Repondre
       </button>
-      <button mat-button color="primary" (click)="dispatch(flow.thread.project_id)">Dispatch</button>
+      <button mat-button color="primary" (click)="dispatch(flow.thread.project_id)"><i class="material-icons">send</i> Dispatcher</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
