@@ -10,7 +10,7 @@ import {UserService} from '../../user.service';
 })
 export class EmailMessageComponent implements OnInit {
   @Input() mail
-  user: User
+  user: any
 
   constructor(private flowService: FlowService, private userService: UserService) {
     if (!this.userService.user.getValue()) {
@@ -19,7 +19,7 @@ export class EmailMessageComponent implements OnInit {
   }
 
   ngOnInit() {
-    const writer = this.userService.user.getValue().id === this.mail.writer_id
+    const writer = this.userService.user.getValue()['id'] === this.mail.writer_id
     if (writer) {
       this.user = this.userService.user.getValue()
     } else {

@@ -5,15 +5,12 @@ import {Router} from '@angular/router';
 import {GlobalService} from './global.service';
 import {NotificationService} from './notification.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {User} from '../models/User';
 
 @Injectable()
 export class UserService {
   url: string
   options = new RequestOptions({withCredentials: true});
-  user = new BehaviorSubject({
-    entity_id: 0
-  })
+  user = new BehaviorSubject({})
   connected = new BehaviorSubject(false)
 
   constructor(private http: Http,
@@ -31,13 +28,14 @@ export class UserService {
 
 
     this.user.subscribe(user => {
-      if (user.id) {
+      if (user['id']) {
         this.connected.next(true)
       } else {
         this.connected.next(false)
       }
     })
   }
+
 
 
   login(id: string, password: string) {
@@ -70,8 +68,8 @@ export class UserService {
 
   redirectIfConnected() {
     this.user.subscribe(user => {
-      if (user.id) {
-        this.route.navigateByUrl('/public')
+      if (user['id']) {
+        this.route.navigateByUrl('/courriels')
       }
     })
   }
@@ -144,7 +142,7 @@ export class UserService {
     this.http.post(this.url + '/user', {type: 'logout'}, this.options)
       .map(res => res.json()).subscribe(data => {
       localStorage.clear()
-      this.user.next(new User())
+      this.user.next({})
       this.notification.loggedOut()
       this.route.navigateByUrl('/public')
     });

@@ -36,11 +36,9 @@ export class DispatchComponent implements OnInit {
         })*/
 
     this.entityService.downEntities.subscribe(entities => {
-      console.log(entities)
       this.entities = entities
     })
     this.projectService.project.subscribe(project => {
-      console.log(project)
       this.thread.project = project
     })
 
@@ -52,12 +50,10 @@ export class DispatchComponent implements OnInit {
 
   checkEntity(id) {
     this.toggleInArray(this.thread.receivers, id)
-    console.log(this.thread.receivers)
   }
 
   toggleObservation(observation) {
     this.toggleInArray(this.thread.checkedObservations, observation)
-    console.log(this.thread.checkedObservations)
   }
 
 
@@ -73,7 +69,6 @@ export class DispatchComponent implements OnInit {
     }
 
     this.thread.content = obs.concat(this.thread.content)
-    console.log(this.thread)
     this.threadService.dispatch(this.thread)
   }
 

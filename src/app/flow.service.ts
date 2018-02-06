@@ -32,15 +32,14 @@ export class FlowService {
     })
 
     this.projectService.project.subscribe(project => {
-      console.log(project)
-      this.getProjectFlows(project.id)
+      this.getProjectFlows(project['id'])
     })
   }
 
 
   update() {
 
-    this.http.get(this.url + '/user/' + this.user.id)
+    this.http.get(this.url + '/user/' + this.user['id'])
       .map(res => res.json()).subscribe(flows => {
       {
         flows.sort(function (b, a) {
@@ -64,10 +63,10 @@ export class FlowService {
   setFlow(id: number) {
     console.log('setting flow ' + id)
 
-    if (this.flow.getValue().id === id) {
+    if (this.flow.getValue()['id'] === id) {
 
     } else {
-      this.http.get(this.url + '/' + this.userService.user.getValue().id + '/' + id)
+      this.http.get(this.url + '/' + this.userService.user.getValue() + '/' + id)
         .map(res => res.json()).subscribe(
         flow => {
           console.log(flow)
@@ -85,11 +84,10 @@ export class FlowService {
       .map(res => res.json()).subscribe(flows => {
 
       flows.sort(function (b, a) {
-        const c = a.id;
-        const d = b.id;
+        const c = a['id'];
+        const d = b['id'];
         return c - d;
       });
-      console.log(flows)
       this.flows.next(flows)
     })
   }
@@ -99,8 +97,8 @@ export class FlowService {
     this.http.get(this.url + '/project/' + id)
       .map(res => res.json()).subscribe(flows => {
       flows.sort(function (b, a) {
-        const c = a.id;
-        const d = b.id;
+        const c = a['id'];
+        const d = b['id'];
         return c - d;
       });
       this.projectFlows.next(flows)
@@ -128,8 +126,8 @@ export class FlowService {
 
       formData.append('title', mail.title)
       formData.append('content', mail.content)
-      formData.append('starter_id', this.user.id)
-      formData.append('receiver_id', mail.user.id)
+      formData.append('starter_id', this.user['id'])
+      formData.append('receiver_id', mail.user['id'])
       if (mail.savedId) {
         formData.append('saved_id', mail.savedId)
       } else {
@@ -160,7 +158,7 @@ export class FlowService {
   }
 
   delete(id: number) {
-    this.http.delete(this.url + '/' + id + '/' + this.user.id).subscribe(data => {
+    this.http.delete(this.url + '/' + id + '/' + this.user['id']).subscribe(data => {
       console.log('flow ' + id + ' removed')
       console.log('updating flow list')
       this.notification.flowRemoved()

@@ -35,7 +35,7 @@ export class EmailService {
     console.log('loading emails')
     if (this.flow.id) {
 
-      this.http.get(this.url + this.flow.id + '/' + this.user.id, this.options)
+      this.http.get(this.url + this.flow.id + '/' + this.user['id'], this.options)
         .map(res => res.json()).subscribe(emails => {
 
         emails.sort(function (b, a) {
@@ -66,8 +66,8 @@ export class EmailService {
       formData.append('title', mail.title)
       formData.append('content', mail.content)
       formData.append('flow_id', this.flow.id)
-      formData.append('writer_id', this.user.id)
-      formData.append('sent_by', this.flow.writer_id == this.user.id ? 1 : 0)
+      formData.append('writer_id', this.user['id'])
+      formData.append('sent_by', this.flow.writer_id == this.user['id'] ? 1 : 0)
 
       for (let i = 0; i < mail.files.length; i++) {
         formData.append('files', mail.files[i], mail.files[i].name)

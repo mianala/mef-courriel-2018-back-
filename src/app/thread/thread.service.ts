@@ -53,7 +53,6 @@ export class ThreadService {
       });
 
       console.log('got the threads')
-      console.log(projectThreads)
 
       this.projectThreads.next(projectThreads)
     })
@@ -73,6 +72,7 @@ export class ThreadService {
     console.log(this.user)
 
     return new Promise((resolve, reject) => {
+
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()
 

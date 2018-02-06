@@ -9,6 +9,7 @@ export class EntityService {
   url: string
   downEntities = new BehaviorSubject([])
   entities = new BehaviorSubject([])
+  entity = new BehaviorSubject({})
   dgbEntities = new BehaviorSubject([])
   user
 
@@ -24,6 +25,12 @@ export class EntityService {
 
     this.user = this.userService.user.subscribe(user => {
       this.user = user
+
+      const entity = user['entity']
+      entity['numero'] = entity['n_depart'] + entity['label']
+
+      this.entity.next(user['entity'])
+
       this.getDownEntities()
     })
 
@@ -44,8 +51,8 @@ export class EntityService {
   }
 
   getDownEntities() {
-    console.log('getting down entity ' + this.user.entity.entity)
-    this.http.get(this.url + '/down/' + this.user.entity.entity + '-')
+    console.log('getting down entity ' + this.user['entity'].entity)
+    this.http.get(this.url + '/down/' + this.user['entity'].entity + '-')
       .map(res => res.json()).subscribe(entities => {
       this.downEntities.next(entities)
     })

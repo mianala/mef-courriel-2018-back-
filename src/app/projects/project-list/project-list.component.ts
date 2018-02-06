@@ -5,6 +5,8 @@ import {ProjectService} from "../project.service";
 import {ThreadService} from "../../thread/thread.service";
 import {FlowService} from "../../flow.service";
 import {AnswerComponent} from "../../dialog/answer/answer.component";
+import {MessageService} from "../../message.service";
+import {EntityService} from "../../entity.service";
 
 @Component({
   selector: 'app-project-list',
@@ -15,9 +17,13 @@ export class ProjectListComponent implements OnInit {
   projects
   flows
 
+
   constructor(public threadService: ThreadService,
-              public flowService: FlowService
-    , public dialog: MatDialog, private projectService: ProjectService) {
+              public flowService: FlowService,
+              public messageService: MessageService,
+              public entityService: EntityService,
+              public dialog: MatDialog,
+              private projectService: ProjectService) {
     this.projects = []
   }
 
@@ -28,6 +34,7 @@ export class ProjectListComponent implements OnInit {
     })
 
     this.flowService.flows.subscribe(flows => {
+      console.log(flows)
       this.flows = flows
     })
   }
@@ -42,7 +49,12 @@ export class ProjectListComponent implements OnInit {
     this.dialog.open(DispatchComponent);
   }
 
-  answer(id) {
+  answer(id, entity_id) {
+    this.messageService.messageData.next({
+      flow_id: id,
+      entity_id: entity_id,
+    })
+
     this.dialog.open(AnswerComponent);
   }
 

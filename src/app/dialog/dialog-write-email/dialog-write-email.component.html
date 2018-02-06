@@ -1,19 +1,77 @@
 <div mat-dialog-title>
   <app-user-box [user]="user"></app-user-box>
 </div>
-<form class="content">
+<mat-dialog-content class="content">
+  <form (ngSubmit)="submit()" class="form" fxLayout="column">
+    <!--arrive mfb auto-->
+    <mat-form-field class="">
+      <input type="text" disabled required [(ngModel)]="project.n_arrive" name="n_arrive" matInput
+             placeholder="N° du courrier">
+    </mat-form-field>
+    <!--arrive entity (auto)-->
+    <!--date arrivé-->
+    <mat-datepicker #recieved_picker></mat-datepicker>
+    <!--expediteur-->
+    <!--date du courriel-->
+    <!--reference-->
+    <!--lettre be ... -->
+    <mat-form-field>
+      <mat-select [(ngModel)]="project.lettre" name="lettre" placeholder="Lettre/BE/...">
+        <mat-option [value]="1">Lettre</mat-option>
+        <mat-option [value]="2">BE</mat-option>
+        <mat-option [value]="3">Circulaire</mat-option>
+        <mat-option [value]="4">Facture</mat-option>
+        <mat-option [value]="5">Décision</mat-option>
+        <mat-option [value]="6">Arrêté</mat-option>
+        <mat-option [value]="7">Decret</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!--objet-->
+    <h4>Objet:</h4>
+    <mat-form-field class="">
+      <textarea [(ngModel)]="project.content" required name="content" matInput placeholder="Objet"></textarea>
+    </mat-form-field>
+    <!-- <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="project.content"></div> -->
+    <!--type-->
+    <!--switch if need to redirect-->
+
+    <!--redirected to-->
+    <mat-form-field class="" *ngIf="">
+      <input [(ngModel)]="project.redirectedTo" required name="redirectedTo" matInput placeholder="Redirigé vers">
+    </mat-form-field>
+
+    <!--destinataires-->
+    <!--observations-->
 
 
-  <app-user-autocomplete (userSelected)="selectUser($event)"></app-user-autocomplete>
-  <mat-form-field class="">
-    <input [(ngModel)]="mail.title" name="title" matInput placeholder="Sujet">
-  </mat-form-field>
-  <div class="froala" [froalaEditor]="options" [(froalaModel)]="mail.content"></div>
+    <h4>Destinataires</h4>
+    <!--entities-->
 
-  <app-files [files]="mail.files"></app-files>
-</form>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Destinataire" aria-label="Destinataire" [matAutocomplete]="auto" [formControl]="entityCtrl">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let entity of filteredEntities | async" [value]="entity.name">
+          <span>{{ entity.label }}</span> |
+          <small>Population: {{entity.title}}</small>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <h4>Observations:</h4>
+
+    <div class="observations">
+      <mat-checkbox *ngFor="let observation of observations" (click)="toggleObservation(observation)">{{observation}}
+      </mat-checkbox>
+    </div>
+    <div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="project.observations"></div>
+
+
+    <!--date de depart auto-->
+    <app-files [files]="project.files"></app-files>
+  </form>
+</mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
-  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button><!-- Can optionally provide a result for the closing dialog. -->
+  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button mat-button (click)="sendEmail()">ENVOYER</button>
+  <button (click)="submit()" mat-button>ENREGISTRER</button>
 </mat-dialog-actions>
