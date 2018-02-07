@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
 import {MatDialog} from "@angular/material";
+import {EntityService} from "../../entity.service";
 
 @Component({
   selector: 'project',
@@ -10,14 +11,14 @@ import {MatDialog} from "@angular/material";
 export class ProjectComponent implements OnInit {
   @Input() project
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public entityService: EntityService) {
 
   }
 
   ngOnInit() {
   }
 
-  dispatch(){
+  dispatch() {
     this.dialog.open(DispatchComponent);
   }
 

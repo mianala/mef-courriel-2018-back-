@@ -1,22 +1,43 @@
 <mat-nav-list>
-  <mat-list-item routerLink="/courriers">
+  <mat-list-item routerLink="/courriels">
     <mat-icon class="mat-18">markunread_mailbox</mat-icon>
     <span>Boite</span>
   </mat-list-item>
-  <mat-list-item >
-    <mat-icon class="mat-18">send</mat-icon>
+  <mat-list-item routerLink="/envoyes">
+    <mat-icon  class="mat-18">send</mat-icon>
     <span>Envoyés</span>
   </mat-list-item>
-<!--  <mat-list-item>
-    &lt;!&ndash;<mat-icon class="mat-18">people_outline</mat-icon>&ndash;&gt;
-    <span>En cours (16)</span>
+  <!--  <mat-list-item >
+      <mat-icon class="mat-18">send</mat-icon>
+      <span>Envoyés</span>
+    </mat-list-item>
+    <mat-list-item >
+      <mat-icon class="mat-18">send</mat-icon>
+      <span>Envoyés</span>
+    </mat-list-item>-->
+  <mat-list-item routerLink="/enregistres">
+    <mat-icon  class="mat-18">save</mat-icon>
+    <span>Enregistrés</span>
   </mat-list-item>
-  <mat-list-item>
-    &lt;!&ndash;<mat-icon class="mat-18">people_outline</mat-icon>&ndash;&gt;
-    <span>Traités</span>
+  <mat-list-item routerLink="/rapports">
+    <mat-icon  class="mat-18">assignment</mat-icon>
+    <span>Rapports</span>
   </mat-list-item>
-  <mat-list-item>
-    &lt;!&ndash;<mat-icon class="mat-18">people_outline</mat-icon>&ndash;&gt;
-    <span>Tout les courriers </span>
-  </mat-list-item>-->
+
+  <mat-list-item routerLink="/entite">
+    <mat-icon  class="mat-18">contact_mail</mat-icon>
+    <span>{{label}}</span>
+  </mat-list-item>
+  <!--  <mat-list-item>
+      &lt;!&ndash;<mat-icon class="mat-18">people_outline</mat-icon>&ndash;&gt;
+      <span>En cours (16)</span>
+    </mat-list-item>
+    <mat-list-item>
+      &lt;!&ndash;<mat-icon class="mat-18">people_outline</mat-icon>&ndash;&gt;
+      <span>Traités</span>
+    </mat-list-item>
+    <mat-list-item>
+      &lt;!&ndash;<mat-icon class="mat-18">people_outline</mat-icon>&ndash;&gt;
+      <span>Tout les courriers </span>
+    </mat-list-item>-->
 </mat-nav-list>

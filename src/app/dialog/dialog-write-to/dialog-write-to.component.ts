@@ -37,7 +37,7 @@ export class DialogWriteToComponent implements OnInit {
     this.submit = this.answerFlow
     if (router.url.includes('/courriels/courriel')) {
       this.flowService.flow.subscribe(flow => {
-        this.mail.user = flow.user;
+        this.mail.user = flow['user'];
       })
     } else {
       this.mail.user = data

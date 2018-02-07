@@ -3,7 +3,7 @@
   <mat-icon>save</mat-icon>
 </button>
 <button matTooltipPosition="before" (click)="report()" matTooltip="Ecrire un compte rendu" class="save" mat-mini-fab>
-  <mat-icon>feedback</mat-icon>
+  <mat-icon>assignment</mat-icon>
 </button>
 <button matTooltipPosition="before" *ngIf="answer" (click)="writeEmail()" matTooltip="Ecrire" mat-mini-fab
         class="write-email">
@@ -11,7 +11,7 @@
 </button>
 <button matTooltipPosition="before" *ngIf="!answer" (click)="writeEmail()" matTooltip="Ecrire" mat-fab
         class="write-email">
-  <mat-icon>edit</mat-icon>
+  <mat-icon>send</mat-icon>
 </button>
 <!--<button matTooltipPosition="before" matTooltip="Commencer une session" class="create-session" mat-mini-fab><mat-icon>assessment</mat-icon></button>-->
 <button *ngIf="answer" matTooltipPosition="before" (click)="answerEmail()" matTooltip="Répondre" mat-fab

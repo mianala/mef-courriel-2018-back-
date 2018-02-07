@@ -17,8 +17,8 @@
     <project [project]="project"></project>
 
     <mat-action-row>
-      <button mat-button color="primary" (click)="setProject(project.id)" routerLink="courrier">Voir</button>
-      <button mat-button color="primary" (click)="dispatch(project.id)">Dispatch</button>
+      <button mat-button color="primary" (click)="projectService.setProject(project.id)" routerLink="/courriels/courriel">Voir</button>
+      <button mat-button color="primary" *ngIf="entityService.downEntities.getValue().length > 0" (click)="dispatch(project.id)">Dispatch</button>
     </mat-action-row>
   </mat-expansion-panel>
   <mat-expansion-panel *ngFor="let flow of flows" hideToggle="true">
@@ -37,11 +37,11 @@
     <mat-action-row>
       <!--<button mat-button color="primary">Archiver</button>-->
       <!--<button mat-button color="primary">Répondre</button>-->
-      <button mat-button color="primary" (click)="setProject(flow.thread.project_id)" routerLink="courrier">Voir
+      <button mat-button color="primary" (click)="projectService.setProject(flow.thread.project_id)" routerLink="/courriels/courriel">Voir
       </button>
-      <button mat-button color="primary" (click)="answer(flow.id, flow.thread.entity_id)"><i class="material-icons">reply</i> Repondre
+      <button mat-button color="primary" (click)="answer(flow.id, flow.thread.entity_id)"><i class="material-icons">reply</i> Répondre
       </button>
-      <button mat-button color="primary" *ngIf="" (click)="dispatch(flow.thread.project_id)"><i class="material-icons">send</i> Dispatcher</button>
+      <button mat-button color="primary" *ngIf="entityService.downEntities.getValue().length > 0" (click)="dispatch(flow.thread.project_id)"><i class="material-icons">send</i> Dispatcher</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

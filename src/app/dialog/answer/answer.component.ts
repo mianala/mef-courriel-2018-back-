@@ -17,6 +17,7 @@ import {FlowService} from "../../flow.service";
 export class AnswerComponent implements OnInit {
   message
   options
+  entity
 
   constructor(private froalaService: FroalaService,
               private entityService: EntityService,
@@ -26,11 +27,13 @@ export class AnswerComponent implements OnInit {
               private messageService: MessageService,
               private dialogRef: MatDialogRef<DispatchComponent>) {
     this.message = {
-      flow_id: '1',
-      entity_id: '2',
+      flow_id: '0',
+      entity_id: '0',
       files: [],
       content: 'some content'
     }
+
+    this.entity = this.entityService.entity.getValue()
     this.messageService.messageData.subscribe(messageData => {
       console.log(messageData)
       this.message.flow_id = messageData['flow_id']

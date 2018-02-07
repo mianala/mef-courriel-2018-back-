@@ -1,0 +1,24 @@
+<mat-accordion>
+
+  <!--projects -->
+  <mat-expansion-panel *ngFor="let project of projects" hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="sender">{{project.sender}}</div>
+        <div class="n">- {{project.n_arrive}}</div>
+
+      </mat-panel-title>
+      <mat-panel-description [innerHtml]="project.title| slice:0:150">
+
+        <!--<mat-icon>class</mat-icon>-->
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <project [project]="project"></project>
+
+    <mat-action-row>
+      <button mat-button color="primary" (click)="setProject(project.id)" routerLink="/courriels/courrier">Voir</button>
+      <button mat-button color="primary" (click)="dispatch(project.id)">Dispatch</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

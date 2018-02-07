@@ -19,6 +19,10 @@ import {UserPageComponent} from './app-user/user-page/user-page.component';
 import {ProjectListComponent} from './projects/project-list/project-list.component';
 import {ProjectComponent} from './projects/project/project.component';
 import {ProjectPageComponent} from './projects/project-page/project-page.component';
+import {ThreadsComponent} from "./threads/threads/threads.component";
+import {ProjectsComponent} from "./projects/projects/projects.component";
+import {ReportsComponent} from "./reports/reports/reports.component";
+import {EntityPageComponent} from "./entities/entity-page/entity-page.component";
 
 export const router: Routes = [
 
@@ -33,15 +37,15 @@ export const router: Routes = [
         {
           path: '',
           component: EmailsPageComponent,
-        },
+        }, /*
         {
           path: 'message',
           component: EmailPageComponent,
-        },
+        },*/
       ]
     },
     {
-      path: 'courriers',
+      path: 'courriels',
       // component: EmailRouterComponent,
       children: [
         {
@@ -49,7 +53,7 @@ export const router: Routes = [
           component: ProjectListComponent,
         },
         {
-          path: 'courrier',
+          path: 'courriel',
           component: ProjectPageComponent,
         },
       ]
@@ -65,6 +69,46 @@ export const router: Routes = [
         {
           path: 'session',
           component: SessionPageComponent,
+        }
+      ]
+    },
+    {
+      path: 'envoyes',
+      // component: SessionRouterComponent,
+      children: [
+        {
+          path: '',
+          component: ThreadsComponent,
+        }
+      ]
+    },
+    {
+      path: 'enregistres',
+      // component: SessionRouterComponent,
+      children: [
+        {
+          path: '',
+          component: ProjectsComponent,
+        }
+      ]
+    },
+    {
+      path: 'entite',
+      // component: SessionRouterComponent,
+      children: [
+        {
+          path: '',
+          component: EntityPageComponent,
+        }
+      ]
+    },
+    {
+      path: 'rapports',
+      // component: SessionRouterComponent,
+      children: [
+        {
+          path: '',
+          component: ReportsComponent,
         }
       ]
     },
@@ -87,8 +131,8 @@ export const router: Routes = [
       children: [
         {
           path: '',
-          component: PublicHomeComponent,
-        },
+          component: LoginPageComponent,
+        }, /*
         {
           path: 'connexion',
           component: LoginPageComponent,
@@ -96,7 +140,7 @@ export const router: Routes = [
         {
           path: 's-enregistrer',
           component: SignUpPageComponent,
-        },
+        },*/
       ]
     },
     {

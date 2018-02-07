@@ -41,20 +41,6 @@
     }
   }
 
-  .sent {
-    display: grid;
-    padding:2em 1em;
-    grid-template-columns: 1fr 2fr;
-    .entity {
-      font-weight:bold;
-      text-align: right;
-    }
-    div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
 
   .date {
     text-align: center;

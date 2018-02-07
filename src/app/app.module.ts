@@ -99,6 +99,11 @@ import {ThreadService} from "./thread/thread.service";
 import { FileComponent } from './file/file.component';
 import { AnswerComponent } from './dialog/answer/answer.component';
 import {MessageService} from "./message.service";
+import { ProjectsComponent } from './projects/projects/projects.component';
+import { ThreadsComponent } from './threads/threads/threads.component';
+import { ReportItemComponent } from './reports/report-item/report-item.component';
+import { ReportsComponent } from './reports/reports/reports.component';
+import { EntityPageComponent } from './entities/entity-page/entity-page.component';
 
 @NgModule({
   declarations: [
@@ -172,6 +177,11 @@ import {MessageService} from "./message.service";
     DispatchComponent,
     FileComponent,
     AnswerComponent,
+    ProjectsComponent,
+    ThreadsComponent,
+    ReportItemComponent,
+    ReportsComponent,
+    EntityPageComponent,
   ],
   imports: [
     BrowserModule,

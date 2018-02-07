@@ -16,14 +16,14 @@ import {EntityService} from "../../entity.service";
 export class ProjectListComponent implements OnInit {
   projects
   flows
-
+  downEntities
 
   constructor(public threadService: ThreadService,
               public flowService: FlowService,
               public messageService: MessageService,
               public entityService: EntityService,
               public dialog: MatDialog,
-              private projectService: ProjectService) {
+              public projectService: ProjectService) {
     this.projects = []
   }
 
@@ -34,7 +34,6 @@ export class ProjectListComponent implements OnInit {
     })
 
     this.flowService.flows.subscribe(flows => {
-      console.log(flows)
       this.flows = flows
     })
   }

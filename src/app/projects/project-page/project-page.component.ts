@@ -18,7 +18,7 @@ export class ProjectPageComponent implements OnInit {
   constructor(private projectService: ProjectService,
               private flowService: FlowService,
               private userService: UserService,
-              private threadService: ThreadService,) {
+              private threadService: ThreadService) {
     this.projectService.project.subscribe(project => {
       this.project = project
 
@@ -35,8 +35,6 @@ export class ProjectPageComponent implements OnInit {
     this.userService.user.subscribe(user => {
       this.user = user
     })
-
-
   }
 
   ngOnInit() {

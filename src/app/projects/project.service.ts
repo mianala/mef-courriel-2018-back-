@@ -54,8 +54,11 @@ export class ProjectService {
 
 
     this.user = this.userService.user.subscribe(user => {
-      this.user = user
-      this.getProjects()
+      if (user['id']) {
+
+        this.user = user
+        this.getProjects()
+      }
 
     })
 
@@ -68,7 +71,7 @@ export class ProjectService {
   }
 
   getProjects() {
-    console.log('loading projects of entity' + this.user.entity_id)
+    console.log('loading projects of entity ' + this.user.entity_id)
 
     this.http.get(this.url + '/entity/' + this.user.entity_id)
       .map(res => res.json()).subscribe(projects => {
@@ -77,6 +80,7 @@ export class ProjectService {
         const d = b.id;
         return c - d;
       });
+
       this.projects.next(projects)
     })
   }
@@ -92,11 +96,11 @@ export class ProjectService {
   }
 
   setProject(id: number) {
+    this.threadService.getProjectThreads(id)
     console.log('setting project ' + id)
     this.http.get(this.url + '/' + id)
       .map(res => res.json()).subscribe(project => {
       this.project.next(project)
-      this.threadService.getProjectThreads(project.id)
       localStorage.setItem('project', JSON.stringify(project))
     })
   }

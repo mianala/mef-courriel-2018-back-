@@ -1,7 +1,9 @@
-<div class="sent">
-
-  <div *ngFor="let flow of thread.flows" class="entity">{{flow.entity.label}}</div>
-  <!-- <div *ngFor="let flow of thread.flows" class="status">Vu/Traité</div> -->
+<div class="all-sent">
+  <div class="date">{{thread.date | date}}</div>
+  <div class="sent" *ngFor="let flow of thread.flows">
+    <div class="entity">{{flow.entity.label}}</div>
+    <div>{{flow.entity.n_arrive}}</div>
+  </div>
 </div>
 
 

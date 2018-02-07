@@ -21,7 +21,7 @@ export class EmailPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (!this.flowService.flow.getValue().id) {
+    if (!this.flowService.flow.getValue()['id']) {
       this.flowService.reload()
     }
 

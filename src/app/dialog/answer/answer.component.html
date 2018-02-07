@@ -3,7 +3,8 @@
 </div>
 <mat-dialog-content class="content">
   <mat-form-field class="">
-    <input type="text" disabled required name="n_arrive" [value]="entityService.entity.numero" matInput
+    <input type="text" disabled required name="n_arrive"
+           [value]="entity.n_depart +'/DGBCOURIEL/'+ entity.label" matInput
            placeholder="N° ">
   </mat-form-field>
   <h5>Objet</h5>

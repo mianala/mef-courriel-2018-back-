@@ -2,16 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {EntityService} from "../../entity.service";
 
 @Component({
-  selector: 'app-project-nav',
-  templateUrl: './project-nav.component.html',
-  styleUrls: ['./project-nav.component.scss']
+  selector: 'app-entity-page',
+  templateUrl: './entity-page.component.html',
+  styleUrls: ['./entity-page.component.scss']
 })
-export class ProjectNavComponent implements OnInit {
-  label
+export class EntityPageComponent implements OnInit {
+  entity
 
   constructor(private entityService: EntityService) {
     this.entityService.entity.subscribe(entity => {
-      this.label = entity['label']
+      this.entity = entity
     })
   }
 

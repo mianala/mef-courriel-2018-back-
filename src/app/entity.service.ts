@@ -16,7 +16,7 @@ export class EntityService {
   constructor(private http: Http,
               private userService: UserService,
               private global: GlobalService) {
-    this.url = global.ip() + '/api/entities/';
+    this.url = global.ip() + '/api/entities';
 
     this.http.get(this.url)
       .map(res => res.json()).subscribe(data => {
@@ -24,14 +24,15 @@ export class EntityService {
     })
 
     this.user = this.userService.user.subscribe(user => {
-      this.user = user
+      if (user['id']) {
 
-      const entity = user['entity']
-      entity['numero'] = entity['n_depart'] + entity['label']
+        this.user = user
 
-      this.entity.next(user['entity'])
+        const entity = user['entity']
+        this.entity.next(user['entity'])
 
-      this.getDownEntities()
+        this.getDownEntities()
+      }
     })
 
     this.http.get(this.url + '/dgb')

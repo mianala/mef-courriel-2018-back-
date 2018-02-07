@@ -4,6 +4,7 @@ import {Http} from '@angular/http';
 import {NotificationService} from '../notification.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {UserService} from '../user.service';
+import {ProjectService} from "../projects/project.service";
 
 @Injectable()
 export class ThreadService {
@@ -17,19 +18,24 @@ export class ThreadService {
 
   constructor(private http: Http,
               private userService: UserService,
-              private notification: NotificationService, private global: GlobalService) {
+              private notification: NotificationService,
+              private global: GlobalService) {
     this
       .url = global.ip() + '/api/threads';
 
     this.user = this.userService.user.subscribe(user => {
-      this.user = user
+      if (user['id']) {
+        this.user = user
+        this.getThreads()
+      }
     })
+
   }
 
   getThreads() {
-    console.log('loading threads')
+    console.log('loading threads ' + this.user.entity.id)
 
-    this.http.get(this.url)
+    this.http.get(this.url + '/entity/' + this.user.entity.id)
       .map(res => res.json()).subscribe(threads => {
 
       threads.sort(function (b, a) {
@@ -42,6 +48,7 @@ export class ThreadService {
   }
 
   getProjectThreads(id) {
+    console.log('getting the project threads')
 
 
     this.http.get(this.url + '/' + id)
@@ -52,7 +59,7 @@ export class ThreadService {
         return c - d;
       });
 
-      console.log('got the threads')
+      console.log('got the project threads')
 
       this.projectThreads.next(projectThreads)
     })

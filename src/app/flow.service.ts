@@ -14,7 +14,7 @@ export class FlowService {
   url: string
   flows = new BehaviorSubject([])
   projectFlows = new BehaviorSubject([])
-  flow = new BehaviorSubject(new Flow())
+  flow = new BehaviorSubject({})
   user
 
   constructor(private http: Http,
@@ -27,8 +27,10 @@ export class FlowService {
     this.url = global.ip() + '/api/flows';
     this.user = this.userService.user.getValue()
     this.user = this.userService.user.subscribe(user => {
-      this.user = user
-      this.getFlows()
+      if (user['id']) {
+        this.user = user
+        this.getFlows()
+      }
     })
 
     this.projectService.project.subscribe(project => {

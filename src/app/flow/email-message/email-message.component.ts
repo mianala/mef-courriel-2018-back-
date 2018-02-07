@@ -23,7 +23,7 @@ export class EmailMessageComponent implements OnInit {
     if (writer) {
       this.user = this.userService.user.getValue()
     } else {
-      this.user = this.flowService.flow.getValue().user
+      this.user = this.flowService.flow.getValue()['user']
     }
   }
 
