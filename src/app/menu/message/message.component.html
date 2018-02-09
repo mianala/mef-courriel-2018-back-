@@ -1,3 +1,24 @@
-<p>
-  message works!
-</p>
+<div class="direction">
+  <div class="date">{{message.date | date}}</div>
+  <div class="top">{{message.receiver_entity.label}}</div>
+  <div class="top-id">{{message.flow.thread.n_depart}}</div>
+  <div class="arrow">
+    <mat-icon *ngIf="message.type == 'down'">arrow_downward</mat-icon>
+    <mat-icon *ngIf="message.type == 'up'">arrow_upward</mat-icon>
+  </div>
+  <div class="Bottom">{{message.sender_entity.label}}</div>
+  <div class="bottom-id">{{message.n_arrive}}</div>
+</div>
+
+
+<div class="observations">
+  <h4>Réf</h4>
+  <div>{{message.flow.thread.project.n_arrive}}</div>
+  <h4>Note</h4>
+  <div [innerHtml]="message.content"></div>
+</div>
+
+<div class="attachments">
+  <h4 *ngIf="message.files.length > 0">Pièce jointes</h4>
+  <file *ngFor="let file of message.files" [file]="file"></file>
+</div>

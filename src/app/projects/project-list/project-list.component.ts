@@ -16,6 +16,7 @@ import {EntityService} from "../../entity.service";
 export class ProjectListComponent implements OnInit {
   projects
   flows
+  messages
   downEntities
 
   constructor(public threadService: ThreadService,
@@ -35,6 +36,9 @@ export class ProjectListComponent implements OnInit {
 
     this.flowService.flows.subscribe(flows => {
       this.flows = flows
+    })
+    this.messageService.messages.subscribe(messages => {
+      this.messages = messages
     })
   }
 

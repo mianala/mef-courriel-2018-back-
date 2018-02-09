@@ -1,7 +1,7 @@
 <div class="direction">
   <div class="date">{{flow.thread.date | date}}</div>
   <div class="top">{{flow.thread.entity.label}}</div>
-  <div class="top-id">{{flow.thread.project.n_arrive}}</div>
+  <div class="top-id">{{flow.thread.n_depart}}</div>
   <div class="arrow">
     <mat-icon *ngIf="flow.thread.type == 'down'">arrow_downward</mat-icon>
     <mat-icon *ngIf="flow.thread.type == 'up'">arrow_upward</mat-icon>
@@ -16,7 +16,7 @@
   <div [innerHtml]="flow.thread.observations"></div>
 </div>
 
-<div class="attachments">
-  <h4>Pièce jointes</h4>
+<div  class="attachments">
+  <h4 *ngIf="flow.thread.files.concat(flow.thread.project.files).length > 0">Pièce jointes</h4>
   <file *ngFor="let file of flow.thread.files.concat(flow.thread.project.files)" [file]="file"></file>
 </div>

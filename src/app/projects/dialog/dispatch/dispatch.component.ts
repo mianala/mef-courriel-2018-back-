@@ -70,6 +70,7 @@ export class DispatchComponent implements OnInit {
 
     this.thread.content = obs.concat(this.thread.content)
     this.threadService.dispatch(this.thread)
+    this.dialogRef.close()
   }
 
 

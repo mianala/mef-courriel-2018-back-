@@ -13,7 +13,7 @@
 </div>
 
 <div class="attachments">
-  <h4>Pièce jointes</h4>
-  <file *ngFor="let file of thread.files" [file]="file"></file>
+  <h4  *ngIf="thread.files.concat(thread.project.files).length > 0">Pièce jointes</h4>
+  <file *ngFor="let file of thread.files.concat(thread.project.files)" [file]="file"></file>
 
 </div>

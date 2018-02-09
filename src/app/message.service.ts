@@ -12,22 +12,28 @@ export class MessageService {
   user
 
   messages = new BehaviorSubject([])
+  sentMessages = new BehaviorSubject([])
   message = new BehaviorSubject([])
   messageData = new BehaviorSubject({})
+
   constructor(private http: Http,
               private userService: UserService,
               private notification: NotificationService, private global: GlobalService) {
-  this.url = global.ip() + '/api/messages';
+    this.url = global.ip() + '/api/messages';
 
     this.userService.user.subscribe(user => {
-      this.user = user
+      if (user['id']) {
+
+        this.user = user
+        this.getMessages()
+      }
     })
   }
 
   getMessages() {
     console.log('loading messages')
 
-    this.http.get(this.url)
+    this.http.get(this.url + '/entity/' + this.user.entity_id)
       .map(res => res.json()).subscribe(messages => {
 
       messages.sort(function (b, a) {
@@ -35,7 +41,17 @@ export class MessageService {
         const d = b.id;
         return c - d;
       });
-      this.messages.next(messages)
+
+      const received_messages = messages.filter(message => message.sender_entity.id !== this.user.entity.id)
+      const sentMessages = messages.filter(message => message.sender_entity.id === this.user.entity.id)
+
+      console.log('sent messages')
+      console.log(sentMessages)
+      console.log('received messages')
+      console.log(received_messages)
+
+      this.messages.next(received_messages)
+      this.sentMessages.next(sentMessages)
     })
   }
 

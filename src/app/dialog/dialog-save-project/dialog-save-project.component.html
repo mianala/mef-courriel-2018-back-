@@ -88,5 +88,5 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button (click)="submit()" mat-button>ENREGISTRER</button>
+  <button mat-dialog-close="" (click)="submit()" mat-button>ENREGISTRER</button>
 </mat-dialog-actions>

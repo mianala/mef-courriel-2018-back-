@@ -30,7 +30,7 @@ export class AnswerComponent implements OnInit {
       flow_id: '0',
       entity_id: '0',
       files: [],
-      content: 'some content'
+      content: ''
     }
 
     this.entity = this.entityService.entity.getValue()
@@ -52,6 +52,7 @@ export class AnswerComponent implements OnInit {
   }
 
   submit() {
+    this.dialogRef.close()
     this.messageService.send(this.message)
   }
 

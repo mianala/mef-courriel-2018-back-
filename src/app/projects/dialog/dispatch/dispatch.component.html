@@ -25,5 +25,5 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button (click)="submit()" mat-button>DISPATCH</button>
+  <button matDialogClose="" (click)="submit()" mat-button>DISPATCH</button>
 </mat-dialog-actions>

@@ -7,6 +7,8 @@ import {ProjectService} from "../../projects/project.service";
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith, map} from 'rxjs/operators';
+import {MatDialogRef} from "@angular/material";
+import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
 
 @Component({
   selector: 'app-dialog-write-email',
@@ -24,20 +26,21 @@ export class DialogWriteEmailComponent implements OnInit {
   entityCtrl: FormControl
   filteredEntities: Observable<any[]>;
 
-  constructor(private flowService: FlowService,
-              private entityService: EntityService,
-              private projectService: ProjectService,
-              private froala: FroalaService,
-              private userService: UserService) {
+  constructor(public flowService: FlowService,
+              public entityService: EntityService,
+              public projectService: ProjectService,
+              public froala: FroalaService,
+              public userService: UserService,
+              private dialogRef: MatDialogRef<DispatchComponent>) {
     this.observations = this.projectService.observations
     this.project = {
       title: '',
-      n_arrive: 'N° 055-2016/PM/SP',
+      n_arrive: this.entityService.entity.getValue()['numero'],
       sender: 'PM Chef du Gouv',
       ref: 'N° 055-2016/PM/SP',
       type: 1,
       lettre: 1,
-      observations: 'Some observations',
+      observations: 'Autre observations',
       content: '- Présentat° du rapport de la miss° d\'évaluat° des besoins électoraux',
       date: new Date(),
       received_date: new Date(),
@@ -56,13 +59,12 @@ export class DialogWriteEmailComponent implements OnInit {
     this.entityService.entities.subscribe(entities => {
 
       this.entities = entities
-      //  setting up the controller
-      this.entityCtrl = new FormControl()
-      this.filteredEntities = this.entityCtrl.valueChanges.pipe(
-        startWith(''),
-        map(entity => entity ? this.filterEntities(entity['label']) : this.entities.slice())
-      )
 
+      entities.sort(function (b, a) {
+        const c = a.entity;
+        const d = b.entity;
+        return c - d;
+      });
     })
   }
 
@@ -95,6 +97,7 @@ export class DialogWriteEmailComponent implements OnInit {
     this.project.user = this.user
     this.project.savedId = 0
     this.flowService.start(this.project)
+    this.dialogRef.close()
   }
 
   getFiles(files) {

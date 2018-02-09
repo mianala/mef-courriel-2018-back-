@@ -27,7 +27,7 @@ export class DialogSaveProjectComponent implements OnInit {
       ref: 'N° 055-2016/PM/SP',
       type: 1,
       lettre: 1,
-      observations: 'Some observations',
+      observations: 'Autre observations',
       content: '- Présentat° du rapport de la miss° d\'évaluat° des besoins électoraux',
       date: new Date(),
       received_date: new Date(),

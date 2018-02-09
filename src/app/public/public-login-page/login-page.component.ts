@@ -18,11 +18,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.redirectIfConnected()
   }
 
   submit() {
-
-
     this.userService.redirectIfConnected()
     this.userService.login(this.user.id, this.user.password)
   }

@@ -15,7 +15,7 @@
     <!--date du courriel-->
     <!--reference-->
     <!--lettre be ... -->
-    <mat-form-field>
+    <!--<mat-form-field>
       <mat-select [(ngModel)]="project.lettre" name="lettre" placeholder="Lettre/BE/...">
         <mat-option [value]="1">Lettre</mat-option>
         <mat-option [value]="2">BE</mat-option>
@@ -25,7 +25,7 @@
         <mat-option [value]="6">Arrêté</mat-option>
         <mat-option [value]="7">Decret</mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field>-->
     <!--objet-->
     <h4>Objet:</h4>
     <mat-form-field class="">
@@ -47,7 +47,10 @@
     <h4>Destinataires</h4>
     <!--entities-->
 
-    <mat-form-field class="example-full-width">
+    <div class="entities">
+      <mat-checkbox *ngFor="let entity of entities" (click)="checkEntity(entity.id)"><strong>{{entity.label}}</strong> - {{entity.title | slice:0:35}}...</mat-checkbox>
+    </div>
+<!--    <mat-form-field class="example-full-width">
       <input matInput placeholder="Destinataire" aria-label="Destinataire" [matAutocomplete]="auto" [formControl]="entityCtrl">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let entity of filteredEntities | async" [value]="entity.name">
@@ -55,7 +58,7 @@
           <small>Population: {{entity.title}}</small>
         </mat-option>
       </mat-autocomplete>
-    </mat-form-field>
+    </mat-form-field>-->
 
     <h4>Observations:</h4>
 
