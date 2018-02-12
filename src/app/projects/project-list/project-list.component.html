@@ -1,31 +1,4 @@
 <mat-accordion>
-
-  <!--projects -->
-  <mat-expansion-panel *ngFor="let project of projects" hideToggle="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <div class="sender">{{project.sender}}</div>
-        <div class="n">- {{project.n_arrive}}</div>
-
-      </mat-panel-title>
-      <mat-panel-description [innerHtml]="project.title| slice:0:150">
-
-        <!--<mat-icon>class</mat-icon>-->
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <project [project]="project"></project>
-
-    <mat-action-row>
-      <button mat-button color="primary" (click)="projectService.setProject(project.id)"
-              routerLink="/courriels/courriel">Voir
-      </button>
-      <button mat-button color="primary" *ngIf="entityService.downEntities.getValue().length > 0"
-              (click)="dispatch(project.id)">Dispatch
-      </button>
-    </mat-action-row>
-  </mat-expansion-panel>
-
   <!--flows-->
   <mat-expansion-panel *ngFor="let flow of flows" hideToggle="true">
     <mat-expansion-panel-header>
@@ -46,11 +19,29 @@
       <button mat-button color="primary" (click)="projectService.setProject(flow.thread.project_id)"
               routerLink="/courriels/courriel">Voir
       </button>
+      <button mat-button color="primary">
+        <mat-icon class="mat-18">check</mat-icon>
+        Traité/Vu
+      </button>
       <button mat-button color="primary" (click)="answer(flow.id, flow.thread.entity_id)"><i class="material-icons">reply</i>
         Répondre
       </button>
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon class="mat-18">swap_horiz</mat-icon>
+          Déclasser
+        </button>
+        <button mat-menu-item>
+          <mat-icon class="mat-18">share</mat-icon>
+          Partager
+        </button>
+      </mat-menu>
+
       <button mat-button color="primary" *ngIf="entityService.downEntities.getValue().length > 0"
-              (click)="dispatch(flow.thread.project_id)"><i class="material-icons">send</i> Dispatcher
+              (click)="dispatch(flow.thread.project_id)"><i class="material-icons">call_split</i> Dispatcher
+      </button>
+      <button mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
       </button>
     </mat-action-row>
   </mat-expansion-panel>
@@ -75,7 +66,7 @@
       <button mat-button color="primary" (click)="projectService.setProject(message.flow.thread.project_id)"
               routerLink="/courriels/courriel">Voir
       </button>
-      <button mat-button color="primary" (click)="answer(message.id, message.thread.entity_id)"><i
+      <button mat-button color="primary" (click)="answer(message.id, message.sender_entity_id)"><i
         class="material-icons">reply</i> Répondre
       </button>
     </mat-action-row>

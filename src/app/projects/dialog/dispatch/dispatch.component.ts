@@ -50,6 +50,7 @@ export class DispatchComponent implements OnInit {
 
   checkEntity(id) {
     this.toggleInArray(this.thread.receivers, id)
+    console.log(this.thread.receivers)
   }
 
   toggleObservation(observation) {

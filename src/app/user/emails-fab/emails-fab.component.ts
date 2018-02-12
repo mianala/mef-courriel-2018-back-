@@ -33,13 +33,6 @@ export class EmailsFabComponent implements OnInit {
     })
   }
 
-  answerEmail() {
-    const dialogWriteEmail = this.dialog.open(DialogWriteToComponent)
-    ;
-    dialogWriteEmail.afterClosed().subscribe(result => {
-    })
-  }
-
   saveEmail() {
     const dialogSaveProject = this.dialog.open(DialogSaveProjectComponent);
     dialogSaveProject.afterClosed().subscribe(result => {

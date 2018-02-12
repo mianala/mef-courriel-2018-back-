@@ -18,7 +18,13 @@
 
     <mat-action-row>
       <button mat-button color="primary" (click)="setProject(project.id)" routerLink="/courriels/courrier">Voir</button>
-      <button mat-button color="primary" (click)="dispatch(project.id)">Dispatch</button>
+      <button mat-button color="primary" (click)="writeEmail()">
+        <mat-icon class="mat-18">send</mat-icon>
+        Envoyer
+      </button>
+      <button mat-button color="primary" (click)="dispatch(project.id)">
+        <mat-icon class="mat-18">call_split</mat-icon>
+        Dispatch</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

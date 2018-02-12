@@ -45,10 +45,7 @@ export class MessageService {
       const received_messages = messages.filter(message => message.sender_entity.id !== this.user.entity.id)
       const sentMessages = messages.filter(message => message.sender_entity.id === this.user.entity.id)
 
-      console.log('sent messages')
-      console.log(sentMessages)
-      console.log('received messages')
-      console.log(received_messages)
+      console.log('we got our messages')
 
       this.messages.next(received_messages)
       this.sentMessages.next(sentMessages)

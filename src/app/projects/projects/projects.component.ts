@@ -5,6 +5,7 @@ import {MatDialog} from "@angular/material";
 import {MessageService} from "../../message.service";
 import {ProjectService} from "../project.service";
 import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
+import {DialogWriteEmailComponent} from "../../dialog/dialog-write-email/dialog-write-email.component";
 
 @Component({
   selector: 'app-projects',
@@ -34,6 +35,11 @@ export class ProjectsComponent implements OnInit {
     this.projectService.setProject(id)
   }
 
+  writeEmail() {
+    const dialogWriteEmail = this.dialog.open(DialogWriteEmailComponent);
+    dialogWriteEmail.afterClosed().subscribe(result => {
+    })
+  }
   dispatch(id) {
     this.projectService.setProject(id)
     this.dialog.open(DispatchComponent);

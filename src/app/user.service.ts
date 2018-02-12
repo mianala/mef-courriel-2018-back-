@@ -37,7 +37,6 @@ export class UserService {
   }
 
 
-
   login(id: string, password: string) {
     this.http
       .post(
@@ -138,10 +137,10 @@ export class UserService {
   }
 
   logout() {
-    console.log('loggin out')
+    console.log('logging out')
+    localStorage.clear()
     this.http.post(this.url + '/user', {type: 'logout'}, this.options)
       .map(res => res.json()).subscribe(data => {
-      localStorage.clear()
       this.user.next({})
       this.notification.loggedOut()
       this.route.navigateByUrl('/public')
