@@ -26,6 +26,10 @@
       <button mat-button color="primary" (click)="answer(flow.id, flow.thread.entity_id)"><i class="material-icons">reply</i>
         Répondre
       </button>
+
+      <button mat-button color="primary" *ngIf="entityService.downEntities.getValue().length > 0"
+              (click)="dispatch(flow.thread.project_id)"><i class="material-icons">call_split</i> Dispatcher
+      </button>
       <mat-menu #appMenu="matMenu">
         <button mat-menu-item>
           <mat-icon class="mat-18">swap_horiz</mat-icon>
@@ -36,10 +40,6 @@
           Partager
         </button>
       </mat-menu>
-
-      <button mat-button color="primary" *ngIf="entityService.downEntities.getValue().length > 0"
-              (click)="dispatch(flow.thread.project_id)"><i class="material-icons">call_split</i> Dispatcher
-      </button>
       <button mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">
         <mat-icon>more_vert</mat-icon>
       </button>
@@ -66,8 +66,27 @@
       <button mat-button color="primary" (click)="projectService.setProject(message.flow.thread.project_id)"
               routerLink="/courriels/courriel">Voir
       </button>
+
+      <button mat-button color="primary">
+        <mat-icon class="mat-18">check</mat-icon>
+        Traité/Vu
+      </button>
       <button mat-button color="primary" (click)="answer(message.id, message.sender_entity_id)"><i
         class="material-icons">reply</i> Répondre
+      </button>
+
+      <mat-menu #appMenu2="matMenu">
+        <button mat-menu-item>
+          <mat-icon class="mat-18">swap_horiz</mat-icon>
+          Déclasser
+        </button>
+        <button mat-menu-item>
+          <mat-icon class="mat-18">share</mat-icon>
+          Partager
+        </button>
+      </mat-menu>
+      <button mat-icon-button color="primary" [matMenuTriggerFor]="appMenu2">
+        <mat-icon>more_vert</mat-icon>
       </button>
     </mat-action-row>
   </mat-expansion-panel>
