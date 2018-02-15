@@ -87,6 +87,7 @@ export class ThreadService {
       formData.append('entity_id', this.user.entity.id)
       formData.append('sender_entity_id', this.user.entity.id)
       formData.append('project_id', thread.project.id)
+      formData.append('user_id', this.user.id)
       formData.append('content', thread.content)
 
       for (let i = 0; i < thread.files.length; i++) {

@@ -27,6 +27,7 @@ export class DispatchComponent implements OnInit {
 
     this.thread = {
       content: 'EN AYANT L\'HONNEUR DE VOUS TRANSMETTRE POUR NOTIFICATION',
+      direction: 1,
       files: [],
       checkedObservations: [],
       receivers: []
