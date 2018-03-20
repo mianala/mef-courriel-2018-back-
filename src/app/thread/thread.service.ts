@@ -89,6 +89,7 @@ export class ThreadService {
       formData.append('project_id', thread.project.id)
       formData.append('user_id', this.user.id)
       formData.append('content', thread.content)
+      formData.append('direction', 1)
 
       for (let i = 0; i < thread.files.length; i++) {
         formData.append('files', thread.files[i], thread.files[i].name)

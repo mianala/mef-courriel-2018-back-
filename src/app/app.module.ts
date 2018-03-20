@@ -104,9 +104,7 @@ import { ThreadsComponent } from './threads/threads/threads.component';
 import { ReportItemComponent } from './reports/report-item/report-item.component';
 import { ReportsComponent } from './reports/reports/reports.component';
 import { EntityPageComponent } from './entities/entity-page/entity-page.component';
-import { FlowListComponent } from './flows/flow-list/flow-list.component';
-import { FlowAccordionComponent } from './flows/flow-accordion/flow-accordion.component';
-import { FlowAccordionItemComponent } from './flows/flow-accordion-item/flow-accordion-item.component';
+import { FlowsComponent } from './flows/flows/flows.component';
 
 @NgModule({
   declarations: [
@@ -185,9 +183,7 @@ import { FlowAccordionItemComponent } from './flows/flow-accordion-item/flow-acc
     ReportItemComponent,
     ReportsComponent,
     EntityPageComponent,
-    FlowListComponent,
-    FlowAccordionComponent,
-    FlowAccordionItemComponent,
+    FlowsComponent,
   ],
   imports: [
     BrowserModule,

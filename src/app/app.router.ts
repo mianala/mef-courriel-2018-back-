@@ -31,20 +31,6 @@ export const router: Routes = [
       component: UserHomeDashboardComponent,
     },
     {
-      path: 'messages',
-      // component: EmailRouterComponent,
-      children: [
-        {
-          path: '',
-          component: EmailsPageComponent,
-        }, /*
-        {
-          path: 'message',
-          component: EmailPageComponent,
-        },*/
-      ]
-    },
-    {
       path: 'courriels',
       // component: EmailRouterComponent,
       children: [

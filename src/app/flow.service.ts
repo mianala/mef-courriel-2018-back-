@@ -12,7 +12,16 @@ import {ProjectService} from "./projects/project.service";
 @Injectable()
 export class FlowService {
   url: string
+
+  //in boite
   flows = new BehaviorSubject([])
+  // in traité
+  treated_flows = new BehaviorSubject([])
+  // in expediés
+  shipped_flows = new BehaviorSubject([])
+  // in dispatché
+  dispatched_flows = new BehaviorSubject([])
+
   projectFlows = new BehaviorSubject([])
   flow = new BehaviorSubject({})
   user

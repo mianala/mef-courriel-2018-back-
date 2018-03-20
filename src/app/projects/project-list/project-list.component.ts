@@ -1,11 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
 import {MatDialog} from "@angular/material";
-import {ProjectService} from "../project.service";
-import {ThreadService} from "../../thread/thread.service";
 import {FlowService} from "../../flow.service";
-import {AnswerComponent} from "../../dialog/answer/answer.component";
-import {MessageService} from "../../message.service";
 import {EntityService} from "../../entity.service";
 
 @Component({
@@ -14,51 +9,19 @@ import {EntityService} from "../../entity.service";
   styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
-  projects
   flows
-  messages
-  downEntities
 
-  constructor(public threadService: ThreadService,
-              public flowService: FlowService,
-              public messageService: MessageService,
+  constructor(public flowService: FlowService,
               public entityService: EntityService,
-              public dialog: MatDialog,
-              public projectService: ProjectService) {
-    this.projects = []
+              public dialog: MatDialog) {
+    flowService.flows.subscribe(flows => {
+      this.flows = flows
+    })
   }
 
   ngOnInit() {
 
-    this.projectService.projects.subscribe(projects => {
-      this.projects = projects
-    })
-
-    this.flowService.flows.subscribe(flows => {
-      this.flows = flows
-    })
-    this.messageService.messages.subscribe(messages => {
-      this.messages = messages
-    })
   }
 
-  setProject(id) {
-    this.projectService.setProject(id)
-  }
-
-
-  dispatch(id) {
-    this.projectService.setProject(id)
-    this.dialog.open(DispatchComponent);
-  }
-
-  answer(id, entity_id) {
-    this.messageService.messageData.next({
-      flow_id: id,
-      entity_id: entity_id,
-    })
-
-    this.dialog.open(AnswerComponent);
-  }
 
 }

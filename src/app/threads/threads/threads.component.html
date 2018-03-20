@@ -16,36 +16,10 @@
     <thread [thread]="thread"></thread>
 
     <mat-action-row>
-      <button mat-button color="primary" (click)="projecService.setProject(thread.project_id)"
+      <button mat-button color="primary" (click)="projectService.setProject(thread.project_id)"
               routerLink="/courriels/courriel">Voir
       </button>
     </mat-action-row>
   </mat-expansion-panel>
 
-
-  <!--messages-->
-  <mat-expansion-panel *ngFor="let message of messages" hideToggle="true">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <div class="sender">N° {{message.sender_entity.n_depart}} -  {{message.date|date}}</div>
-        <!--<div class="n"> {{message.date|date}}</div>-->
-
-      </mat-panel-title>
-      <mat-panel-description [innerHtml]="message.flow.thread.project.title">
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <message [message]="message"></message>
-
-    <mat-action-row>
-      <!--<button mat-button color="primary">Archiver</button>-->
-      <!--<button mat-button color="primary">Répondre</button>-->
-      <button mat-button color="primary" (click)="projectService.setProject(message.thread.project_id)"
-              routerLink="/courriels/courriel">Voir
-      </button>
-      <button mat-button color="primary" (click)="answer(message.id, message.thread.entity_id)"><i
-        class="material-icons">reply</i> Répondre
-      </button>
-    </mat-action-row>
-  </mat-expansion-panel>
 </mat-accordion>

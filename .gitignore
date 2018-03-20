@@ -23,7 +23,7 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
+desktop.ini
 # misc
 /.sass-cache
 /connect.lock
@@ -32,6 +32,8 @@
 npm-debug.log
 testem.log
 /typings
+
+
 /src/assets
 
 # e2e
