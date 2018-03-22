@@ -1,8 +1,7 @@
 <div class="all-sent">
   <div class="date">{{thread.date | date}}</div>
-  <div class="sent" *ngFor="let flow of thread.flows">
-    <div class="entity">{{flow.entity.label}}</div>
-    <div>{{flow.entity.n_arrive}}</div>
+  <div class="sent">
+    <div>{{thread.receivers}}</div>
   </div>
 </div>
 
@@ -13,7 +12,7 @@
 </div>
 
 <div class="attachments">
-  <h4  *ngIf="thread.files.concat(thread.project.files).length > 0">Pièce jointes</h4>
-  <file *ngFor="let file of thread.files.concat(thread.project.files)" [file]="file"></file>
+  <h4  *ngIf="thread.files.concat(thread.project_files).length > 0">Pièce jointes</h4>
+  <file *ngFor="let file of thread.files.concat(thread.project_files)" [file]="file"></file>
 
 </div>

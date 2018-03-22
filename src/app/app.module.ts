@@ -80,7 +80,6 @@ import {ReportComponent} from './dialog/report/report.component';
 import {NoMailComponent} from './util/no-mail/no-mail.component';
 import {FlowComponent} from './menu/flow/flow.component';
 import {SavedComponent} from './menu/saved/saved.component';
-import {MessageComponent} from './menu/message/message.component';
 import {ArchiveComponent} from './menu/archive/archive.component';
 import {XhrService} from './service/xhr.service';
 import {ReportService} from './service/report.service';
@@ -98,7 +97,6 @@ import {DialogSaveProjectComponent} from './dialog/dialog-save-project/dialog-sa
 import {ThreadService} from "./thread/thread.service";
 import { FileComponent } from './file/file.component';
 import { AnswerComponent } from './dialog/answer/answer.component';
-import {MessageService} from "./message.service";
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ThreadsComponent } from './threads/threads/threads.component';
 import { ReportItemComponent } from './reports/report-item/report-item.component';
@@ -166,7 +164,6 @@ import { FlowsComponent } from './flows/flows/flows.component';
     NoMailComponent,
     FlowComponent,
     SavedComponent,
-    MessageComponent,
     ArchiveComponent,
     ObservationsComponent,
     EntitiesComponent,
@@ -211,7 +208,6 @@ import { FlowsComponent } from './flows/flows/flows.component';
     TestService,
     SocketService,
     ReportService,
-    MessageService,
     ThreadService,
     XhrService,
     GlobalService,

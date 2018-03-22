@@ -45,20 +45,6 @@ export const router: Routes = [
       ]
     },
     {
-      path: 'sessions',
-      // component: SessionRouterComponent,
-      children: [
-        {
-          path: '',
-          component: SessionsPageComponent,
-        },
-        {
-          path: 'session',
-          component: SessionPageComponent,
-        }
-      ]
-    },
-    {
       path: 'envoyes',
       // component: SessionRouterComponent,
       children: [
@@ -128,15 +114,6 @@ export const router: Routes = [
           component: SignUpPageComponent,
         },*/
       ]
-    },
-    {
-      path: 'connexion',
-      component: LoginPageComponent
-    }
-    ,
-    {
-      path: 's-inscrire',
-      component: SignUpPageComponent
     }
   ]
 ;

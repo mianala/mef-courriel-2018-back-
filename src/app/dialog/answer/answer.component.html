@@ -8,9 +8,9 @@
            placeholder="N° ">
   </mat-form-field>
   <h5>Objet</h5>
-  <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="message.content"></div>
+  <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="answer.content"></div>
 
-  <app-files [files]="message.files"></app-files>
+  <app-files [files]="answer.files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>

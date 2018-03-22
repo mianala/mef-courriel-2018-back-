@@ -10,7 +10,6 @@ export class FlowComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.flow.thread.type = 'down'
   }
 
 }

@@ -121,7 +121,8 @@ export class ProjectService {
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()
 
-      formData.append('n_arrive', project.n_arrive)
+      formData.append('arrive', project.n_arrive)
+      formData.append('user_id', 'user_id', this.user.id) // user_id
       formData.append('sender', project.sender)
       formData.append('ref', project.ref)
       formData.append('type_id', project.type)
@@ -129,8 +130,8 @@ export class ProjectService {
       formData.append('entity_id', project.entity_id)
       formData.append('title', project.content)
       formData.append('content', project.observations)
-      formData.append('date', project.date)
-      formData.append('received_date', project.received_date)
+      formData.append('date', this.global.toOracleDate(project.date))
+      formData.append('received_date', this.global.toOracleDate(project.received_date))
 
       for (let i = 0; i < project.files.length; i++) {
         formData.append('files', project.files[i], project.files[i].name)

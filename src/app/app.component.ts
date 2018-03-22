@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {SocketService} from "./service/socket.service";
 import {ProjectService} from "./projects/project.service";
 import {ThreadService} from "./thread/thread.service";
-import {MessageService} from "./message.service";
 import {FlowService} from "./flow.service";
 
 @Component({
@@ -20,7 +19,6 @@ export class AppComponent implements OnInit {
               public router: Router,
               public projectService: ProjectService,
               public threadService: ThreadService,
-              public messageService: MessageService,
               public flowService: FlowService,
               public socketService: SocketService) {
   }
@@ -33,7 +31,6 @@ export class AppComponent implements OnInit {
         console.log('Socket got some messages')
         this.projectService.getProjects()
         this.threadService.getThreads()
-        this.messageService.getMessages()
         this.flowService.getFlows()
       })
     })

@@ -6,7 +6,6 @@ import {MatDialog} from "@angular/material";
 import {ThreadService} from "../../thread/thread.service";
 import {ProjectService} from "../../projects/project.service";
 import {AnswerComponent} from "../../dialog/answer/answer.component";
-import {MessageService} from "../../message.service";
 
 @Component({
   selector: 'flows',
@@ -16,12 +15,12 @@ import {MessageService} from "../../message.service";
 export class FlowsComponent implements OnInit {
   @Input() flows
 
-  constructor(public threadService: ThreadService,
+  constructor(
               public flowService: FlowService,
-              public messageService: MessageService,
               public entityService: EntityService,
               public dialog: MatDialog,
               public projectService: ProjectService) {
+
   }
 
   ngOnInit() {
@@ -31,6 +30,9 @@ export class FlowsComponent implements OnInit {
     return true
   }
   shareable() {
+    return true
+  }
+  shippable() {
     return true
   }
   answerable() {
@@ -52,9 +54,9 @@ export class FlowsComponent implements OnInit {
   }
 
   answer(id, entity_id) {
-    this.messageService.messageData.next({
-      flow_id: id,
-      entity_id: entity_id,
+    this.flowService.answerData.next({
+      flow_id : id,
+      entity_id: entity_id
     })
 
     this.dialog.open(AnswerComponent);

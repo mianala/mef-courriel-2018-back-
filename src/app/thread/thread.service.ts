@@ -13,6 +13,7 @@ export class ThreadService {
 
   projectThreads = new BehaviorSubject([])
   threads = new BehaviorSubject([])
+  _threads = new BehaviorSubject([])
   thread = new BehaviorSubject([])
 
 
@@ -29,7 +30,6 @@ export class ThreadService {
         this.getThreads()
       }
     })
-
   }
 
   getThreads() {
@@ -84,7 +84,6 @@ export class ThreadService {
       const xhr = new XMLHttpRequest()
 
       formData.append('receivers', thread.receivers)
-      formData.append('entity_id', this.user.entity.id)
       formData.append('sender_entity_id', this.user.entity.id)
       formData.append('project_id', thread.project.id)
       formData.append('user_id', this.user.id)
@@ -110,5 +109,6 @@ export class ThreadService {
       this.notification.threadDispatched()
     });
   }
+
 
 }

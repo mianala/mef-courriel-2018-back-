@@ -1,22 +1,24 @@
+
 <div class="direction">
-  <div class="date">{{flow.thread.date | date}}</div>
-  <div class="top">{{flow.thread.entity.label}}</div>
-  <div class="top-id">{{flow.thread.n_depart}}</div>
+  <div class="date">{{flow.date | date}}</div>
+  <div class="top"><span *ngIf="flow.direction == 1">{{flow.sender_entity_label}}</span><span *ngIf="flow.direction == 2">{{flow.entity.label}}</span></div>
+  <div class="top-id"><span *ngIf="flow.direction == 1">{{flow.n_depart}}</span><span *ngIf="flow.direction == 2">{{flow.n_arrive}}</span></div>
   <div class="arrow">
-    <mat-icon *ngIf="flow.thread.type == 'down'">arrow_downward</mat-icon>
-    <mat-icon *ngIf="flow.thread.type == 'up'">arrow_upward</mat-icon>
+    <mat-icon *ngIf="flow.direction == 1">arrow_downward</mat-icon>
+    <mat-icon *ngIf="flow.direction == 2">arrow_upward</mat-icon>
   </div>
-  <div class="Bottom">{{flow.entity.label}}</div>
-  <div class="bottom-id">{{flow.n_arrive}}</div>
+  <div class="Bottom"><span *ngIf="flow.direction == 2">{{flow.sender_entity_label}}</span><span *ngIf="flow.direction == 1">{{flow.entity.label}}</span></div>
+  <div class="bottom-id"><span *ngIf="flow.direction == 2">{{flow.n_depart}}</span><span *ngIf="flow.direction == 1">{{flow.n_arrive}}</span></div>
 </div>
 
 
 <div class="observations">
-  <h4>Observation</h4>
-  <div [innerHtml]="flow.thread.observations"></div>
+  <h4 *ngIf="!flow.answer">Observation</h4>
+  <h4 *ngIf="flow.answer">Note</h4>
+  <div [innerHtml]="flow.content"></div>
 </div>
 
-<div  class="attachments">
+<div class="attachments">
   <h4 *ngIf="flow.thread.files.concat(flow.thread.project.files).length > 0">Pièce jointes</h4>
   <file *ngFor="let file of flow.thread.files.concat(flow.thread.project.files)" [file]="file"></file>
 </div>

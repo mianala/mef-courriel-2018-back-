@@ -15,6 +15,7 @@ export class ProjectListComponent implements OnInit {
               public entityService: EntityService,
               public dialog: MatDialog) {
     flowService.flows.subscribe(flows => {
+      console.log(flows)
       this.flows = flows
     })
   }

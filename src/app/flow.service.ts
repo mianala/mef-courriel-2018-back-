@@ -15,6 +15,7 @@ export class FlowService {
 
   //in boite
   flows = new BehaviorSubject([])
+  sent_flows = new BehaviorSubject([])
   // in traité
   treated_flows = new BehaviorSubject([])
   // in expediés
@@ -24,6 +25,7 @@ export class FlowService {
 
   projectFlows = new BehaviorSubject([])
   flow = new BehaviorSubject({})
+  answerData = new BehaviorSubject({flow_id:0,entity_id:0})
   user
 
   constructor(private http: Http,
@@ -165,6 +167,38 @@ export class FlowService {
       xhr.open('POST', this.url, true);
       xhr.send(formData)
       this.notification.emailSent()
+    });
+  }
+
+  answerFlow(answer){
+    console.log(this.user)
+
+    return new Promise((resolve, reject) => {
+      const formData: any = new FormData()
+      const xhr = new XMLHttpRequest()
+
+      formData.append('flow_id', this.answerData.getValue().flow_id)
+      formData.append('sender_entity_id', this.user.entity.id)
+      formData.append('user_id', this.user.id)
+      formData.append('content', answer.content)
+
+      for (let i = 0; i < answer.files.length; i++) {
+        formData.append('files', answer.files[i], answer.files[i].name)
+      }
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('POST', this.url+'/reply', true);
+      xhr.send(formData)
+      this.notification.answered()
     });
   }
 
