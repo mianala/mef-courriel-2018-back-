@@ -34,10 +34,11 @@ testem.log
 /typings
 
 
-/src/assets
-!/src/assets/javascripts
-!/src/assets/stylesheets
-!/src/assets/img
+/src/assets/users
+/src/assets/images
+/src/assets/loharano
+/src/assets/users
+/src/assets/files
 
 # e2e
 /e2e/*.js
