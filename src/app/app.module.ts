@@ -103,6 +103,12 @@ import { ReportItemComponent } from './reports/report-item/report-item.component
 import { ReportsComponent } from './reports/reports/reports.component';
 import { EntityPageComponent } from './entities/entity-page/entity-page.component';
 import { FlowsComponent } from './flows/flows/flows.component';
+import { TemplatePageComponent } from './template-page/template-page.component';
+import { TemplateComponent } from './template/template.component';
+import { ExportComponent } from './dialog/export/export.component';
+import { DecommissionComponent } from './dialog/decommission/decommission.component';
+import { ShareComponent } from './dialog/share/share.component';
+import { UpdateComponent } from './user/update/update.component';
 
 @NgModule({
   declarations: [
@@ -181,6 +187,12 @@ import { FlowsComponent } from './flows/flows/flows.component';
     ReportsComponent,
     EntityPageComponent,
     FlowsComponent,
+    TemplatePageComponent,
+    TemplateComponent,
+    ExportComponent,
+    DecommissionComponent,
+    ShareComponent,
+    UpdateComponent,
   ],
   imports: [
     BrowserModule,

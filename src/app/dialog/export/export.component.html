@@ -1,0 +1,13 @@
+<div mat-dialog-title>
+  <h1>Exporter</h1>
+</div>
+<mat-dialog-content class="content">
+  <h4>Destinataires</h4>
+
+  <app-files [files]="thread.files"></app-files>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
+  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button matDialogClose="" (click)="submit()" mat-button>Exporter</button>
+</mat-dialog-actions>

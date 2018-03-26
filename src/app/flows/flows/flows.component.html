@@ -16,6 +16,10 @@
         <mat-icon class="mat-18">check</mat-icon>
         Traité/Vu
       </button>
+      <button *ngIf="exportable()" mat-button color="primary" (click)="export(flow.id)">
+        <mat-icon class="mat-18">file_upload</mat-icon>
+        Exporter
+      </button>
       <button *ngIf="answerable()" mat-button color="primary" (click)="answer(flow.id, flow.sender_entity_id)"><i
         class="material-icons">reply</i>
         Répondre
@@ -24,15 +28,15 @@
               (click)="dispatch(flow.project_id)"><i class="material-icons">call_split</i> Dispatcher
       </button>
       <mat-menu #appMenu="matMenu">
-        <button *ngIf="decommissionable()" mat-menu-item>
+        <button *ngIf="decommissionable()" (click)="decommission(flow.id)" mat-menu-item>
           <mat-icon class="mat-18">swap_horiz</mat-icon>
           Déclasser
         </button>
-        <button *ngIf="shippable()" mat-menu-item>
+        <button *ngIf="shippable()" (click)="ship(flow.id)" mat-menu-item>
           <mat-icon class="mat-18">file_upload</mat-icon>
           Livrer
         </button>
-        <button *ngIf="shareable()" mat-menu-item>
+        <button *ngIf="shareable()" (click)="flow.share()" mat-menu-item>
           <mat-icon class="mat-18">share</mat-icon>
           Partager
         </button>

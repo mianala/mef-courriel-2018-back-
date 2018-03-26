@@ -4,6 +4,7 @@ import {NotificationService} from '../../notification.service';
 import {FroalaService} from '../../froala.service';
 import {MatDialogRef} from '@angular/material';
 import {ProjectService} from '../../projects/project.service';
+import {FlowService} from "../../flow.service";
 
 
 @Component({
@@ -19,6 +20,7 @@ export class DialogSaveProjectComponent implements OnInit {
   constructor(private froalaService: FroalaService,
               private dialogRef: MatDialogRef<DialogSaveProjectComponent>,
               private userService: UserService,
+              private flowService: FlowService,
               private notification: NotificationService,
               private projectService: ProjectService) {
     this.project = {
@@ -42,9 +44,24 @@ export class DialogSaveProjectComponent implements OnInit {
 
   }
 
-  valid() {
-    console.log(this.project.n_arrive)
+  new_project() {
     if (!this.project.n_arrive) {
+      return false
+    }
+
+    return true
+  }
+
+  submit_project(){
+
+  }
+
+  import_flow(){
+    this.flowService.importFlow(this.project)
+  }
+
+  imported() {
+    if (!this.project.status_id) {
       return false
     }
 
@@ -56,7 +73,8 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   submit() {
-    if (!this.valid()) {
+
+    if (!this.new_project()) {
       this.notification.formError()
     } else {
       this.project.user = this.user

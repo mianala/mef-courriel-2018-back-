@@ -23,6 +23,8 @@ import {ThreadsComponent} from "./threads/threads/threads.component";
 import {ProjectsComponent} from "./projects/projects/projects.component";
 import {ReportsComponent} from "./reports/reports/reports.component";
 import {EntityPageComponent} from "./entities/entity-page/entity-page.component";
+import {UpdateComponent} from "./user/update/update.component";
+import {TemplatePageComponent} from "./template-page/template-page.component";
 
 export const router: Routes = [
 
@@ -65,6 +67,16 @@ export const router: Routes = [
       ]
     },
     {
+      path: 'utilisateur',
+      // component: SessionRouterComponent,
+      children: [
+        {
+          path: 'mis-a-jour',
+          component: UpdateComponent,
+        }
+      ]
+    },
+    {
       path: 'entite',
       // component: SessionRouterComponent,
       children: [
@@ -99,20 +111,16 @@ export const router: Routes = [
       ]
     },
     {
+      path: 'templates',
+      component: TemplatePageComponent,
+    },
+    {
       path: 'public',
       children: [
         {
           path: '',
           component: LoginPageComponent,
-        }, /*
-        {
-          path: 'connexion',
-          component: LoginPageComponent,
         },
-        {
-          path: 's-enregistrer',
-          component: SignUpPageComponent,
-        },*/
       ]
     }
   ]

@@ -6,6 +6,8 @@ import {MatDialog} from "@angular/material";
 import {ThreadService} from "../../thread/thread.service";
 import {ProjectService} from "../../projects/project.service";
 import {AnswerComponent} from "../../dialog/answer/answer.component";
+import {ExportComponent} from "../../dialog/export/export.component";
+import {ShareComponent} from "../../dialog/share/share.component";
 
 @Component({
   selector: 'flows',
@@ -42,6 +44,9 @@ export class FlowsComponent implements OnInit {
   treatable() {
     return true
   }
+  exportable() {
+    return true
+  }
 
   setProject(id) {
     this.projectService.setProject(id)
@@ -51,6 +56,21 @@ export class FlowsComponent implements OnInit {
   dispatch(id) {
     this.projectService.setProject(id)
     this.dialog.open(DispatchComponent);
+  }
+
+  ship(id) {
+    this.flowService.setFlow(id)
+    this.dialog.open(ExportComponent);
+  }
+
+  share(id) {
+    this.flowService.setFlow(id)
+    this.dialog.open(ShareComponent);
+  }
+
+  decommission(id) {
+    this.flowService.setFlow(id)
+    this.dialog.open(ExportComponent);
   }
 
   answer(id, entity_id) {

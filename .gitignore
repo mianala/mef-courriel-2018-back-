@@ -35,6 +35,9 @@ testem.log
 
 
 /src/assets
+!/src/assets/javascripts
+!/src/assets/stylesheets
+!/src/assets/img
 
 # e2e
 /e2e/*.js

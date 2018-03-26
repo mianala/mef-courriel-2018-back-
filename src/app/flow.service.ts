@@ -5,8 +5,6 @@ import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Flow} from '../models/Flow';
-import {SocketService} from './service/socket.service';
-import {Router} from "@angular/router";
 import {ProjectService} from "./projects/project.service";
 
 @Injectable()
@@ -25,12 +23,11 @@ export class FlowService {
 
   projectFlows = new BehaviorSubject([])
   flow = new BehaviorSubject({})
-  answerData = new BehaviorSubject({flow_id:0,entity_id:0})
+  shipped_flow = new BehaviorSubject({})
+  answerData = new BehaviorSubject({})
   user
 
   constructor(private http: Http,
-              private socketService: SocketService,
-              private router: Router,
               private notification: NotificationService,
               private userService: UserService,
               private projectService: ProjectService,
@@ -177,7 +174,7 @@ export class FlowService {
       const formData: any = new FormData()
       const xhr = new XMLHttpRequest()
 
-      formData.append('flow_id', this.answerData.getValue().flow_id)
+      formData.append('flow_id', this.answerData.getValue()['flow_id'])
       formData.append('sender_entity_id', this.user.entity.id)
       formData.append('user_id', this.user.id)
       formData.append('content', answer.content)
@@ -199,6 +196,140 @@ export class FlowService {
       xhr.open('POST', this.url+'/reply', true);
       xhr.send(formData)
       this.notification.answered()
+    });
+  }
+
+  ship(answer){
+    console.log(this.user)
+
+    return new Promise((resolve, reject) => {
+      const formData: any = new FormData()
+      const xhr = new XMLHttpRequest()
+
+      formData.append('flow_id', this.answerData.getValue()['flow_id'])
+      formData.append('sender_entity_id', this.user.entity.id)
+      formData.append('destination', answer.destination)
+      formData.append('content', answer.content)
+      formData.append('be', answer.be)
+      formData.append('user_id', this.user.id)
+
+      for (let i = 0; i < answer.files.length; i++) {
+        formData.append('files', answer.files[i], answer.files[i].name)
+      }
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('POST', this.url+'/ship', true);
+      xhr.send(formData)
+
+    //  ship notification
+    });
+  }
+
+  decommission(flow){
+    console.log(this.user)
+
+    return new Promise((resolve, reject) => {
+      const formData: any = new FormData()
+      const xhr = new XMLHttpRequest()
+
+      formData.append('flow_id', this.flow.getValue()['id'])
+      formData.append('sender_entity_id', flow.entity.id)
+      formData.append('entity_id', this.user.entity.id)
+      formData.append('user_id', this.user.id)
+
+      for (let i = 0; i < flow.files.length; i++) {
+        formData.append('files', flow.files[i], flow.files[i].name)
+      }
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('POST', this.url+'/decommission', true);
+      xhr.send(formData)
+
+    //  decommission notification
+    });
+  }
+
+  share(flow){
+    console.log(this.user)
+
+    return new Promise((resolve, reject) => {
+      const formData: any = new FormData()
+      const xhr = new XMLHttpRequest()
+
+      formData.append('flow_id', this.flow.getValue()['id'])
+      formData.append('sender_entity_id', flow.entity.id)
+      formData.append('entity_id', this.user.entity.id)
+      formData.append('receivers', flow.receivers)
+      formData.append('user_id', this.user.id)
+
+      for (let i = 0; i < flow.files.length; i++) {
+        formData.append('files', flow.files[i], flow.files[i].name)
+      }
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('POST', this.url+'/decommission', true);
+      xhr.send(formData)
+
+    //  decommission notification
+    });
+  }
+
+  importFlow(imported){
+    console.log(this.user)
+
+    return new Promise((resolve, reject) => {
+      const formData: any = new FormData()
+      const xhr = new XMLHttpRequest()
+
+      formData.append('flow_id', this.shipped_flow.getValue()['id'])
+      formData.append('content', imported.content)
+      formData.append('status_id', imported.status)
+      formData.append('user_id', this.user.id)
+
+      for (let i = 0; i < imported.files.length; i++) {
+        formData.append('files', imported.files[i], imported.files[i].name)
+      }
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('POST', this.url+'/ship', true);
+      xhr.send(formData)
+    //  import notification
     });
   }
 

@@ -65,6 +65,17 @@ export class UserService {
       })
   }
 
+
+  updateLogin(credentials) {
+
+    // de redirect to login
+    this.http.post(this.url + '/user/update-login', credentials, this.options)
+      .map(res => res.json())
+      .subscribe(user => {
+        this.user.next(user)
+      })
+  }
+
   redirectIfConnected() {
     this.user.subscribe(user => {
       if (user['id']) {
