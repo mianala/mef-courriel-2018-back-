@@ -38,6 +38,7 @@ export class FlowService {
       if (user['id']) {
         this.user = user
         this.getFlows()
+        this.getSentFlows()
       }
     })
 
@@ -76,10 +77,9 @@ export class FlowService {
     if (this.flow.getValue()['id'] === id) {
 
     } else {
-      this.http.get(this.url + '/' + this.userService.user.getValue() + '/' + id)
+      this.http.get(this.url + '/' + this.userService.user.getValue()['entity_id'] + '/' + id)
         .map(res => res.json()).subscribe(
         flow => {
-          console.log(flow)
           this.flow.next(flow)
           localStorage.setItem('flow', JSON.stringify(flow))
         })
@@ -99,6 +99,38 @@ export class FlowService {
         return c - d;
       });
       this.flows.next(flows)
+    })
+  }
+
+  getSentFlows() {
+
+    console.log('loading flows')
+
+    this.http.get(this.url + '/entity/sent/' + this.user.entity_id)
+      .map(res => res.json()).subscribe(flows => {
+
+      flows.sort(function (b, a) {
+        const c = a['id'];
+        const d = b['id'];
+        return c - d;
+      });
+      this.sent_flows.next(flows)
+    })
+  }
+
+  getShippedFlows() {
+
+    console.log('loading flows')
+
+    this.http.get(this.url + '/shipped/' + this.user.entity_id)
+      .map(res => res.json()).subscribe(flows => {
+
+      flows.sort(function (b, a) {
+        const c = a['id'];
+        const d = b['id'];
+        return c - d;
+      });
+      this.shipped_flows.next(flows)
     })
   }
 

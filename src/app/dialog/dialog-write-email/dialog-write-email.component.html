@@ -9,23 +9,9 @@
              placeholder="N° du courrier">
     </mat-form-field>
     <!--arrive entity (auto)-->
-    <!--date arrivé-->
-    <mat-datepicker #recieved_picker></mat-datepicker>
     <!--expediteur-->
     <!--date du courriel-->
     <!--reference-->
-    <!--lettre be ... -->
-    <!--<mat-form-field>
-      <mat-select [(ngModel)]="project.lettre" name="lettre" placeholder="Lettre/BE/...">
-        <mat-option [value]="1">Lettre</mat-option>
-        <mat-option [value]="2">BE</mat-option>
-        <mat-option [value]="3">Circulaire</mat-option>
-        <mat-option [value]="4">Facture</mat-option>
-        <mat-option [value]="5">Décision</mat-option>
-        <mat-option [value]="6">Arrêté</mat-option>
-        <mat-option [value]="7">Decret</mat-option>
-      </mat-select>
-    </mat-form-field>-->
     <!--objet-->
     <h4>Objet:</h4>
     <mat-form-field class="">
@@ -50,23 +36,6 @@
     <div class="entities">
       <mat-checkbox *ngFor="let entity of entities" (click)="checkEntity(entity.id)"><strong>{{entity.label}}</strong> - {{entity.title | slice:0:35}}...</mat-checkbox>
     </div>
-<!--    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Destinataire" aria-label="Destinataire" [matAutocomplete]="auto" [formControl]="entityCtrl">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let entity of filteredEntities | async" [value]="entity.name">
-          <span>{{ entity.label }}</span> |
-          <small>Population: {{entity.title}}</small>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>-->
-
-    <h4>Observations:</h4>
-
-    <div class="observations">
-      <mat-checkbox *ngFor="let observation of observations" (click)="toggleObservation(observation)">{{observation}}
-      </mat-checkbox>
-    </div>
-    <div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="project.observations"></div>
 
 
     <!--date de depart auto-->

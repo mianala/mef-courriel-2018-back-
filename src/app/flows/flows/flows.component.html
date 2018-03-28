@@ -2,7 +2,7 @@
   <mat-expansion-panel *ngFor="let flow of flows" hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div class="n"> N{{flow.n_arrive}} - {{flow.sender_entity_label}}</div>
+        <div class="n"> N{{flow.n_depart}} - {{flow.sender_header}}</div>
 
       </mat-panel-title>
       <mat-panel-description [innerHtml]="flow.project_title">
@@ -16,7 +16,7 @@
         <mat-icon class="mat-18">check</mat-icon>
         Traité/Vu
       </button>
-      <button *ngIf="exportable()" mat-button color="primary" (click)="export(flow.id)">
+      <button *ngIf="exportable()" mat-button color="primary" (click)="ship(flow.id)">
         <mat-icon class="mat-18">file_upload</mat-icon>
         Exporter
       </button>
@@ -32,11 +32,11 @@
           <mat-icon class="mat-18">swap_horiz</mat-icon>
           Déclasser
         </button>
-        <button *ngIf="shippable()" (click)="ship(flow.id)" mat-menu-item>
-          <mat-icon class="mat-18">file_upload</mat-icon>
-          Livrer
+        <button *ngIf="sendable()" (click)="send(flow.id)" mat-menu-item>
+          <mat-icon class="mat-18">send</mat-icon>
+          Envoyer
         </button>
-        <button *ngIf="shareable()" (click)="flow.share()" mat-menu-item>
+        <button *ngIf="shareable()" (click)="share(flow.id)" mat-menu-item>
           <mat-icon class="mat-18">share</mat-icon>
           Partager
         </button>

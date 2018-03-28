@@ -24,7 +24,6 @@ export class DialogWriteEmailComponent implements OnInit {
   entities
   observations
   entityCtrl: FormControl
-  filteredEntities: Observable<any[]>;
 
   constructor(public flowService: FlowService,
               public entityService: EntityService,
@@ -56,7 +55,7 @@ export class DialogWriteEmailComponent implements OnInit {
     this.project.files = []
     this.options = this.froala.getOptions()
 
-    this.entityService.entities.subscribe(entities => {
+    this.entityService.relativeEntities.subscribe(entities => {
 
       this.entities = entities
 

@@ -8,6 +8,7 @@ import {ProjectService} from "../../projects/project.service";
 import {AnswerComponent} from "../../dialog/answer/answer.component";
 import {ExportComponent} from "../../dialog/export/export.component";
 import {ShareComponent} from "../../dialog/share/share.component";
+import {DecommissionComponent} from "../../dialog/decommission/decommission.component";
 
 @Component({
   selector: 'flows',
@@ -47,7 +48,9 @@ export class FlowsComponent implements OnInit {
   exportable() {
     return true
   }
-
+  sendable(id) {
+    return true
+  }
   setProject(id) {
     this.projectService.setProject(id)
   }
@@ -70,8 +73,13 @@ export class FlowsComponent implements OnInit {
 
   decommission(id) {
     this.flowService.setFlow(id)
-    this.dialog.open(ExportComponent);
+    this.dialog.open(DecommissionComponent);
   }
+
+  send(id) {
+    this.flowService.setFlow(id)
+  }
+
 
   answer(id, entity_id) {
     this.flowService.answerData.next({

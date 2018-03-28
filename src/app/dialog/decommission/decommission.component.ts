@@ -1,5 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FlowService} from "../../flow.service";
+import {MatDialogRef} from "@angular/material";
+import {FormControl} from '@angular/forms';
+import {EntityService} from "../../entity.service";
+import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
+import {FroalaService} from "../../froala.service";
 
 @Component({
   selector: 'app-decommission',
@@ -8,9 +13,29 @@ import {FlowService} from "../../flow.service";
 })
 export class DecommissionComponent implements OnInit {
   flow
+  previousFlow
+  entities
+  options
 
-  constructor(private flowService: FlowService) {
+  constructor(private entityService: EntityService,
+              private froalaService: FroalaService,
+              private flowService: FlowService,
+              public dialogRef: MatDialogRef<DispatchComponent>) {
 
+    this.options = froalaService.getOptions()
+
+    this.flow = {
+      content: ''
+    }
+    this.entityService.relativeEntities.subscribe(entities => {
+      this.entities = entities
+
+      entities.sort(function (b, a) {
+        const c = a.entity;
+        const d = b.entity;
+        return c - d;
+      });
+    })
   }
 
   ngOnInit() {
@@ -18,6 +43,6 @@ export class DecommissionComponent implements OnInit {
 
   submit() {
     this.flowService.decommission(this.flow)
+    this.dialogRef.close()
   }
-
 }

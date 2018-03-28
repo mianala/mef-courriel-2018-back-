@@ -2,9 +2,21 @@
   <h1>Exporter</h1>
 </div>
 <mat-dialog-content class="content">
-  <h4>Destinataires</h4>
 
-  <app-files [files]="thread.files"></app-files>
+  <!--depart auto-->
+  <mat-form-field class="">
+    <input type="text" disabled required [(ngModel)]="previousFlow.n_depart" name="depart" matInput
+           placeholder="N° du courrier">
+  </mat-form-field>
+  <mat-form-field class="">
+    <input [(ngModel)]="flow.receiver" required name="receiver" matInput placeholder="Destinaire">
+  </mat-form-field>
+  <mat-radio-group>
+    <mat-radio-button value="1">Signature</mat-radio-button>
+    <mat-radio-button value="2">Avis</mat-radio-button>
+    <mat-radio-button value="3">BE</mat-radio-button>
+  </mat-radio-group>
+  <app-files [files]="flow.files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>

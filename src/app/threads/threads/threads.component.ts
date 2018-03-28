@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ThreadService} from "../../thread/thread.service";
 import {ProjectService} from "../../projects/project.service";
+import {FlowService} from "../../flow.service";
 
 @Component({
   selector: 'app-threads',
@@ -8,17 +9,17 @@ import {ProjectService} from "../../projects/project.service";
   styleUrls: ['./threads.component.scss']
 })
 export class ThreadsComponent implements OnInit {
-  threads
+  flows
 
-  constructor(private threadService: ThreadService,private projectService:ProjectService) {
-    this.threads = []
+  constructor(private flowService: FlowService) {
+    this.flows = []
   }
 
   ngOnInit() {
 
-    this.threadService.threads.subscribe(threads => {
-      console.log(threads)
-      this.threads = threads
+    this.flowService.sent_flows.subscribe(flows => {
+      console.log(flows)
+      this.flows = flows
     })}
 
 }

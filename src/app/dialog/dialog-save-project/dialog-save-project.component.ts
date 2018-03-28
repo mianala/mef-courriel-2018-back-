@@ -14,6 +14,9 @@ import {FlowService} from "../../flow.service";
 })
 export class DialogSaveProjectComponent implements OnInit {
   project: any
+  exported: any
+  imported: any
+  files: any
   options: any
   user: any
 
@@ -23,6 +26,7 @@ export class DialogSaveProjectComponent implements OnInit {
               private flowService: FlowService,
               private notification: NotificationService,
               private projectService: ProjectService) {
+    this.imported = {}
     this.project = {
       n_arrive: 'N° 055-2016/PM/SP',
       sender: 'PM Chef du Gouv',
@@ -35,7 +39,7 @@ export class DialogSaveProjectComponent implements OnInit {
       received_date: new Date(),
     }
 
-    this.project.files = []
+    this.files = []
     this.user = this.userService.user.getValue();
     this.options = froalaService.getOptions()
   }
@@ -44,7 +48,7 @@ export class DialogSaveProjectComponent implements OnInit {
 
   }
 
-  new_project() {
+  isProject() {
     if (!this.project.n_arrive) {
       return false
     }
@@ -60,7 +64,7 @@ export class DialogSaveProjectComponent implements OnInit {
     this.flowService.importFlow(this.project)
   }
 
-  imported() {
+  isImported() {
     if (!this.project.status_id) {
       return false
     }
@@ -69,7 +73,7 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   getFiles(files) {
-    this.project.files = this.project.files.concat(files)
+    this.files = this.files.concat(files)
   }
 
   submit() {

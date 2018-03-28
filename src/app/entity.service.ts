@@ -8,6 +8,7 @@ import {UserService} from "./user.service";
 export class EntityService {
   url: string
   downEntities = new BehaviorSubject([])
+  relativeEntities = new BehaviorSubject([])
   entities = new BehaviorSubject([])
   entity = new BehaviorSubject({})
   dgbEntities = new BehaviorSubject([])
@@ -33,6 +34,7 @@ export class EntityService {
         this.entity.next(entity)
 
         this.getDownEntities()
+        this.getRelativeEntities()
       }
     })
 
@@ -57,6 +59,16 @@ export class EntityService {
     this.http.get(this.url + '/down/' + this.user['entity'].entity + '-')
       .map(res => res.json()).subscribe(entities => {
       this.downEntities.next(entities)
+    })
+  }
+
+  getRelativeEntities() {
+    console.log('getting down entity ' + this.user['entity'].entity)
+
+    //sends 1-3-1 to the api
+    this.http.get(this.url + '/relative/' + this.user['entity'].entity)
+      .map(res => res.json()).subscribe(entities => {
+      this.relativeEntities.next(entities)
     })
   }
 

@@ -109,6 +109,7 @@ import { ExportComponent } from './dialog/export/export.component';
 import { DecommissionComponent } from './dialog/decommission/decommission.component';
 import { ShareComponent } from './dialog/share/share.component';
 import { UpdateComponent } from './user/update/update.component';
+import { SendComponent } from './dialog/send/send.component';
 
 @NgModule({
   declarations: [
@@ -193,6 +194,7 @@ import { UpdateComponent } from './user/update/update.component';
     DecommissionComponent,
     ShareComponent,
     UpdateComponent,
+    SendComponent,
   ],
   imports: [
     BrowserModule,
@@ -214,7 +216,11 @@ import { UpdateComponent } from './user/update/update.component';
     AnswerComponent,
     DialogTransferMailComponent,
     DialogWriteEmailComponent,
-    ReportComponent
+    ReportComponent,
+    SendComponent,
+    DecommissionComponent,
+    ExportComponent,
+    ShareComponent
   ],
   providers: [UserService,
     TestService,

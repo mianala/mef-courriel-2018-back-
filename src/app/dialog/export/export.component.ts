@@ -8,8 +8,17 @@ import {FlowService} from "../../flow.service";
 })
 export class ExportComponent implements OnInit {
   flow
+  previousFlow
 
-  constructor(private flowService:FlowService) {
+  constructor(private flowService: FlowService) {
+    this.flow = {
+      files:[]
+    }
+
+    flowService.flow.subscribe(flow => {
+      this.previousFlow = flow
+      console.log(this.previousFlow)
+    })
   }
 
   ngOnInit() {
@@ -20,7 +29,7 @@ export class ExportComponent implements OnInit {
     this.flowService.ship(this.flow)
   }
 
-  ship(){
+  submit() {
 
   }
 }
