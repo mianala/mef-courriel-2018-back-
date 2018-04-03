@@ -8,11 +8,11 @@
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="logout()">
-    <span>Profile</span>
+  <button mat-menu-item routerLink="/profile">
+    <span>Profile </span>
   </button>
-  <button mat-menu-item (click)="logout()">
-    <span>Changer login </span>
+  <button mat-menu-item  routerLink="/profile/mis-a-jour">
+    <span>Changer login</span>
   </button>
   <button mat-menu-item (click)="logout()">
     <span>Déconnexion</span>

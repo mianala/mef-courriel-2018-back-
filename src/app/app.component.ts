@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
       socket.on('message', (msg) => {
         console.log('Socket got some messages')
         this.projectService.getProjects()
-        this.threadService.getThreads()
         this.flowService.getFlows()
       })
     })

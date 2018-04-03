@@ -11,10 +11,8 @@ export class ThreadService {
   url: string;
   user
 
-  projectThreads = new BehaviorSubject([])
+  project_threads = new BehaviorSubject([])
   threads = new BehaviorSubject([])
-  _threads = new BehaviorSubject([])
-  thread = new BehaviorSubject([])
 
 
   constructor(private http: Http,
@@ -24,36 +22,22 @@ export class ThreadService {
     this
       .url = global.ip() + '/api/threads';
 
+
     this.user = this.userService.user.subscribe(user => {
       if (user['id']) {
         this.user = user
-        this.getThreads()
       }
     })
   }
 
-  getThreads() {
-    console.log('loading threads ' + this.user.entity.id)
-
-    this.http.get(this.url + '/entity/' + this.user.entity.id)
-      .map(res => res.json()).subscribe(threads => {
-
-      threads.sort(function (b, a) {
-        const c = a.id;
-        const d = b.id;
-        return c - d;
-      });
-      this.threads.next(threads)
-    })
-  }
 
   getProjectThreads(id) {
     console.log('getting the project threads')
 
 
     this.http.get(this.url + '/' + id)
-      .map(res => res.json()).subscribe(projectThreads => {
-      projectThreads.sort(function (b, a) {
+      .map(res => res.json()).subscribe(project_threads => {
+      project_threads.sort(function (b, a) {
         const c = a.id;
         const d = b.id;
         return c - d;
@@ -61,17 +45,7 @@ export class ThreadService {
 
       console.log('got the project threads')
 
-      this.projectThreads.next(projectThreads)
-    })
-  }
-
-  setThread(id: number) {
-    console.log('setting thread ' + id)
-    this.http.get(this.url + '/' + id)
-      .map(res => res.json()).subscribe(thread => {
-      console.log(thread)
-      this.thread.next(thread)
-      localStorage.setItem('thread', JSON.stringify(thread))
+      this.project_threads.next(project_threads)
     })
   }
 

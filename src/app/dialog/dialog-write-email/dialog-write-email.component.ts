@@ -93,9 +93,9 @@ export class DialogWriteEmailComponent implements OnInit {
   }
 
   submit() {
-    this.project.user = this.user
-    this.project.savedId = 0
-    this.flowService.start(this.project)
+
+    
+    
     this.dialogRef.close()
   }
 

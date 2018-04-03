@@ -11,7 +11,7 @@ import {UserService} from "../../user.service";
 })
 export class ProjectPageComponent implements OnInit {
   project
-  projectThreads
+  threads
   flows
   user
 
@@ -24,11 +24,11 @@ export class ProjectPageComponent implements OnInit {
 
     })
 
-    this.threadService.projectThreads.subscribe(projectThreads => {
-      this.projectThreads = projectThreads
+    this.threadService.project_threads.subscribe(projectThreads => {
+      this.threads = projectThreads
     })
 
-    this.flowService.projectFlows.subscribe(flows => {
+    this.flowService.project_flows.subscribe(flows => {
       this.flows = flows
     })
 

@@ -16,6 +16,7 @@ export class DialogSaveProjectComponent implements OnInit {
   project: any
   exported: any
   imported: any
+  be: any
   files: any
   options: any
   user: any
@@ -56,11 +57,11 @@ export class DialogSaveProjectComponent implements OnInit {
     return true
   }
 
-  submit_project(){
+  submit_project() {
 
   }
 
-  import_flow(){
+  import_flow() {
     this.flowService.importFlow(this.project)
   }
 
@@ -77,15 +78,11 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   submit() {
-
-    if (!this.new_project()) {
-      this.notification.formError()
-    } else {
-      this.project.user = this.user
-      this.project.entity_id = this.user.entity_id
-      this.projectService.save(this.project)
-      this.dialogRef.close()
-    }
+    this.project.user = this.user
+    this.project.entity_id = this.user.entity_id
+    this.project.files = this.files
+    this.projectService.save(this.project)
+    this.dialogRef.close()
   }
 
 }

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {EntityService} from "../../entity.service";
-import {ThreadService} from "../../thread/thread.service";
 import {MatDialogRef} from "@angular/material";
 import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
+import {FlowService} from "../../flow.service";
 
 @Component({
   selector: 'app-share',
@@ -10,15 +10,15 @@ import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.compone
   styleUrls: ['./share.component.scss']
 })
 export class ShareComponent implements OnInit {
-  thread
+  flow
   entities
 
   constructor(private entityService: EntityService,
-              private threadService: ThreadService,
+              private flowService: FlowService,
               public dialogRef: MatDialogRef<DispatchComponent>) {
 
 
-    this.thread = {
+    this.flow = {
       receivers: []
     }
     this.entityService.relativeEntities.subscribe(entities => {
@@ -36,7 +36,7 @@ export class ShareComponent implements OnInit {
   }
 
   checkEntity(id) {
-    this.toggleInArray(this.thread.receivers, id)
+    this.toggleInArray(this.flow.receivers, id)
   }
 
   // util
@@ -51,13 +51,13 @@ export class ShareComponent implements OnInit {
   }
 
   submit() {
-    let obs = ''
+    let receivers = ''
 
-    for (let o of this.thread.checkedObservations) {
-      obs += ' - ' + o + '<br>'
+    for (let o of this.flow.receivers) {
+      receivers += ' - ' + o + '<br>'
     }
 
-    this.threadService.dispatch(this.thread)
+    this.flowService.share(this.flow)
     this.dialogRef.close()
   }
 

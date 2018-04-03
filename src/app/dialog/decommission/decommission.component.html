@@ -1,13 +1,14 @@
 <div mat-dialog-title>
   <h1>Declasser </h1>
+  <h5>{{previousFlow.n_depart}}</h5>
 </div>
 <mat-dialog-content class="content">
 
   <h4>Destinataire</h4>
   <!--entities-->
 
-  <mat-radio-group [(ngModel)]="flow.receiver">
-    <mat-radio-button *ngFor="let entity of entities" [value]="entity.id"><strong>{{entity.label}}</strong> -
+  <mat-radio-group [(ngModel)]="flow.entity">
+    <mat-radio-button *ngFor="let entity of entities" [value]="entity"><strong>{{entity.label}}</strong> -
       {{entity.title}}
     </mat-radio-button>
   </mat-radio-group>

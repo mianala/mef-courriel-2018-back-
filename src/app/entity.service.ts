@@ -30,7 +30,7 @@ export class EntityService {
         this.user = user
 
         const entity = user['entity']
-        entity.numero = entity.n_depart + '/DGBCOURIEL/' + entity.label
+        entity.numero = entity.n_depart + '-2018/'+ entity.header
         this.entity.next(entity)
 
         this.getDownEntities()

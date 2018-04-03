@@ -25,6 +25,8 @@ import {ReportsComponent} from "./reports/reports/reports.component";
 import {EntityPageComponent} from "./entities/entity-page/entity-page.component";
 import {UpdateComponent} from "./user/update/update.component";
 import {TemplatePageComponent} from "./template-page/template-page.component";
+import {ProfilComponent} from "./user/profil/profil.component";
+import {BeComponent} from "./print/be/be.component";
 
 export const router: Routes = [
 
@@ -67,9 +69,13 @@ export const router: Routes = [
       ]
     },
     {
-      path: 'utilisateur',
+      path: 'profile',
       // component: SessionRouterComponent,
       children: [
+        {
+          path: '',
+          component: ProfilComponent
+        },
         {
           path: 'mis-a-jour',
           component: UpdateComponent,
@@ -113,6 +119,10 @@ export const router: Routes = [
     {
       path: 'templates',
       component: TemplatePageComponent,
+    },
+    {
+      path: 'impression-BE',
+      component: BeComponent,
     },
     {
       path: 'public',

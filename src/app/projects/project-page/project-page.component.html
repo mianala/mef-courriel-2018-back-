@@ -1,20 +1,4 @@
 <project [project]="project"></project>
 
 <!--threads-->
-<div class="thread-list">
-  <div *ngFor="let thread of projectThreads">
-    <thread [thread]="thread"></thread>
-  </div>
-
-</div>
-
-<!--flows-->
-<div class="thread-list">
-  <div *ngFor="let flow of flows">
-
-    <div class="entity">
-    </div>
-    <flow [flow]="flow"></flow>
-
-  </div>
-</div>
+<flows [flows]="flows"></flows>

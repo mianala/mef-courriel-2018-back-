@@ -27,6 +27,12 @@ export class DecommissionComponent implements OnInit {
     this.flow = {
       content: ''
     }
+    this.flowService.flow.subscribe(flow => {
+      console.log(flow)
+      this.previousFlow = flow
+    })
+
+
     this.entityService.relativeEntities.subscribe(entities => {
       this.entities = entities
 

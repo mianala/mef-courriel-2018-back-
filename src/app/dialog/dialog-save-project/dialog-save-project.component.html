@@ -3,26 +3,8 @@
 </div>
 <mat-dialog-content class="content">
   <mat-tab-group>
-    <mat-tab label="Import">
 
-      <mat-form-field class="">
-        <input type="text" disabled required [(ngModel)]="imported.n_depart" name="Réference" matInput
-               placeholder="N° du courrier">
-      </mat-form-field>
 
-      <!--auto filled expediteur-->
-      <mat-form-field class="">
-        <input [(ngModel)]="imported.sender" required name="receiver" matInput placeholder="Expediteur">
-      </mat-form-field>
-      <!--Observation-->
-      <h5>Observation</h5>
-      <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="imported.content"></div>
-
-      <mat-radio-group [(ngModel)]="imported.status_id" >
-        <mat-radio-button value="1">Signé</mat-radio-button>
-        <mat-radio-button value="2">Avis favorable</mat-radio-button>
-      </mat-radio-group>
-    </mat-tab>
     <mat-tab label="Enregistrement">
       <form (ngSubmit)="submit()" class="form" fxLayout="column">
         <!--arrive mfb-->
@@ -103,11 +85,31 @@
 
         <h4>Observations:</h4>
         <div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="project.observations"></div>
-
-
         <!--date de depart auto-->
       </form>
 
+    </mat-tab>
+
+
+    <mat-tab label="Import">
+
+      <mat-form-field class="">
+        <input type="text" disabled required [(ngModel)]="imported.n_depart" name="Réference" matInput
+               placeholder="N° du courrier">
+      </mat-form-field>
+
+      <!--auto filled expediteur-->
+      <mat-form-field class="">
+        <input [(ngModel)]="imported.sender" required name="receiver" matInput placeholder="Expediteur">
+      </mat-form-field>
+      <!--Observation-->
+      <h5>Observation</h5>
+      <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="imported.content"></div>
+
+      <mat-radio-group [(ngModel)]="imported.status_id">
+        <mat-radio-button value="1">Signé</mat-radio-button>
+        <mat-radio-button value="2">Avis favorable</mat-radio-button>
+      </mat-radio-group>
     </mat-tab>
   </mat-tab-group>
   <app-files [files]="files"></app-files>

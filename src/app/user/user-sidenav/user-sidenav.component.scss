@@ -10,7 +10,8 @@
 
 :host {
   background-color: #3949AB;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
   width: 200px;
   color: #eee;
 }

@@ -9,6 +9,7 @@ import {AnswerComponent} from "../../dialog/answer/answer.component";
 import {ExportComponent} from "../../dialog/export/export.component";
 import {ShareComponent} from "../../dialog/share/share.component";
 import {DecommissionComponent} from "../../dialog/decommission/decommission.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'flows',
@@ -17,19 +18,25 @@ import {DecommissionComponent} from "../../dialog/decommission/decommission.comp
 })
 export class FlowsComponent implements OnInit {
   @Input() flows
+  @Input() visibility:boolean
+  @Input() author:boolean
 
-  constructor(
+
+  constructor(public router:Router,
               public flowService: FlowService,
               public entityService: EntityService,
               public dialog: MatDialog,
               public projectService: ProjectService) {
-
+    this.visibility = true
   }
 
   ngOnInit() {
   }
 
-  decommissionable() {
+  decommissionable(flow) {
+    if(flow.direction != 1 ){
+      return false
+    }
     return true
   }
   shareable() {
@@ -38,8 +45,11 @@ export class FlowsComponent implements OnInit {
   shippable() {
     return true
   }
-  answerable() {
+  viewable() {
     return true
+  }
+  answerable() {
+    return !this.author
   }
 
   treatable() {
@@ -55,10 +65,9 @@ export class FlowsComponent implements OnInit {
     this.projectService.setProject(id)
   }
 
-
-  dispatch(id) {
+  view(id) {
     this.projectService.setProject(id)
-    this.dialog.open(DispatchComponent);
+    this.router.navigateByUrl('/courriels/courriel')
   }
 
   ship(id) {
@@ -88,5 +97,11 @@ export class FlowsComponent implements OnInit {
     })
 
     this.dialog.open(AnswerComponent);
+  }
+
+
+  dispatch(id) {
+    this.projectService.setProject(id)
+    this.dialog.open(DispatchComponent);
   }
 }
