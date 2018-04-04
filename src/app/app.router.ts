@@ -121,7 +121,7 @@ export const router: Routes = [
       component: TemplatePageComponent,
     },
     {
-      path: 'impression-BE',
+      path: 'BE',
       component: BeComponent,
     },
     {

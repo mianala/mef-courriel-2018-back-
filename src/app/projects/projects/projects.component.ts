@@ -5,6 +5,7 @@ import {MatDialog} from "@angular/material";
 import {ProjectService} from "../project.service";
 import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
 import {DialogWriteEmailComponent} from "../../dialog/dialog-write-email/dialog-write-email.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-projects',
@@ -15,6 +16,7 @@ export class ProjectsComponent implements OnInit {
   projects
 
   constructor(
+    public router:Router,
     public flowService: FlowService,
     public entityService: EntityService,
     public dialog: MatDialog,
@@ -31,6 +33,7 @@ export class ProjectsComponent implements OnInit {
 
   setProject(id) {
     this.projectService.setProject(id)
+    this.router.navigateByUrl('/courriels/courriel')
   }
 
   writeEmail() {

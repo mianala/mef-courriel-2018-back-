@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FlowService} from "../../flow.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-export',
@@ -7,43 +8,59 @@ import {FlowService} from "../../flow.service";
   styleUrls: ['./export.component.scss']
 })
 export class ExportComponent implements OnInit {
-  be
-  observations
-  label
-  number
-  flow
-  previousFlow
+  be;
+  title;
+  count;
+  flow;
+  previousFlow;
 
-  constructor(private flowService: FlowService) {
-    this.be = {}
-    this.observations = []
+  constructor(private flowService: FlowService,
+              private router: Router) {
+    this.be = {
+      sender: 'LE DIRECTEUR DE LA SYNTHESE BUDGETAIRE',
+      receiver_label: 'Monsieur LE DIRECTEUR GENERAL DU BUDGET',
+      observation: 'En ayant l\'honneur de vous transmettre a titre de compte rendu',
+      attached_files: [
+        {title: 'Compte rendu', count: '02'},
+        {title: 'Compte rendu', count: '02'},
+        {title: 'Compte rendu', count: '02'},
+        {title: 'Compte rendu', count: '02'},
+      ]
+    };
+
     this.flow = {
       files: []
-    }
+    };
 
     flowService.flow.subscribe(flow => {
-      this.previousFlow = flow
-      console.log(this.previousFlow)
+      this.previousFlow = flow;
+      this.be.author = this.previousFlow.sender_entity_label
     })
   }
 
-  addObservation() {
-    this.observations.push({
-      label: this.label,
-      number: this.number
+  addAttach() {
+    this.be.attached_files.push({
+      title: this.title,
+      count: this.count
     })
   }
 
-  removeObservation(d) {
-    const index = this.be.observaitons.indexOf(d)
-    this.observations = this.observations.slice(index, 1)
+  removeAttach(d) {
+    const index = this.be.attached_files.indexOf(d);
+    this.be.attached_files.splice(index, 1)
   }
 
   ngOnInit() {
   }
 
+  preview() {
+    this.be.numero = this.previousFlow.numero;
+    this.flowService.be.next(this.be);
+    this.router.navigateByUrl('/BE')
+  }
+
   getFiles(files) {
-    this.flow.files = this.flow.files.concat(files)
+    this.flow.files = this.flow.files.concat(files);
     this.flowService.ship(this.flow)
   }
 
@@ -57,15 +74,6 @@ export class ExportComponent implements OnInit {
 
   submit() {
     if (this.isBe()) {
-
-      // transfor, observations into a string
-
-      let observations = ''
-
-      for (let o of this.observations) {
-        observations += o.label + '-' + o.numer + ','
-      }
-      this.flow.observations = observations
 
       this.flowService.shipWithBe(this.flow, this.be)
     } else {

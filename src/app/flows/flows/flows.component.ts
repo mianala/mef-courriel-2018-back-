@@ -55,14 +55,13 @@ export class FlowsComponent implements OnInit {
   treatable() {
     return true
   }
+
   exportable() {
     return true
   }
+
   sendable(id) {
     return true
-  }
-  setProject(id) {
-    this.projectService.setProject(id)
   }
 
   view(id) {
@@ -89,7 +88,6 @@ export class FlowsComponent implements OnInit {
     this.flowService.setFlow(id)
   }
 
-
   answer(id, entity_id) {
     this.flowService.answerData.next({
       flow_id : id,
@@ -98,7 +96,6 @@ export class FlowsComponent implements OnInit {
 
     this.dialog.open(AnswerComponent);
   }
-
 
   dispatch(id) {
     this.projectService.setProject(id)

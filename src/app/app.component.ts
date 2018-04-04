@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   constructor(public userService: UserService,
               public router: Router,
               public projectService: ProjectService,
-              public threadService: ThreadService,
               public flowService: FlowService,
               public socketService: SocketService) {
   }

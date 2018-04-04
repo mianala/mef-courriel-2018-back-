@@ -5,7 +5,6 @@ import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Flow} from '../models/Flow';
-import {ProjectService} from "./projects/project.service";
 import {Router} from "@angular/router";
 
 @Injectable()
@@ -32,7 +31,6 @@ export class FlowService {
   constructor(private http: Http,
               private notification: NotificationService,
               private userService: UserService,
-              private projectService: ProjectService,
               private global: GlobalService
     ,
               router: Router
@@ -94,6 +92,10 @@ export class FlowService {
   getFlows() {
 
     console.log('loading flows')
+
+    if (this.user.entity_id == undefined) {
+      return false
+    }
 
     this.http.get(this.url + '/entity/' + this.user.entity_id)
       .map(res => res.json()).subscribe(flows => {

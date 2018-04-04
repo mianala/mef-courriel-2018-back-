@@ -1,12 +1,15 @@
 <!--The whole content below can be removed with the new code.-->
-<mat-sidenav-container fullscreen class="user-home">
-  <mat-sidenav *ngIf="userService.connected.getValue()" fxHide.xs="" #sidenav [mode]="'side'" opened="true">
-    <div app-user-sidenav></div>
-  </mat-sidenav>
+<div class="container">
 
-  <router-outlet></router-outlet>
+  <mat-sidenav-container fullscreen class="user-home">
+    <mat-sidenav *ngIf="userService.connected.getValue()" fxHide.xs="" fxHide.sm="" #sidenav [mode]="'side'"
+                 opened="true">
+      <div app-user-sidenav></div>
+    </mat-sidenav>
 
-</mat-sidenav-container>
-<app-emails-fab *ngIf="userService.connected.getValue()"></app-emails-fab>
-<!--<app-emails-fab></app-emails-fab>-->
+    <router-outlet></router-outlet>
 
+  </mat-sidenav-container>
+  <app-emails-fab *ngIf="userService.connected.getValue()"></app-emails-fab>
+
+</div>

@@ -44,6 +44,7 @@ export class ThreadService {
       });
 
       console.log('got the project threads')
+      console.log(project_threads)
 
       this.project_threads.next(project_threads)
     })

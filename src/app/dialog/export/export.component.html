@@ -1,11 +1,11 @@
 <div mat-dialog-title>
   <h1>Exporter</h1>
 </div>
-<mat-dialog-content class="content">
+<mat-dialog-content class="">
 
   <!--depart auto-->
   <mat-form-field class="">
-    <input type="text" disabled required [(ngModel)]="previousFlow.n_depart" name="depart" matInput
+    <input type="text" disabled required [(ngModel)]="previousFlow.numero" name="depart" matInput
            placeholder="N° du courrier">
   </mat-form-field>
   <mat-form-field class="">
@@ -16,41 +16,43 @@
     <mat-radio-button value="2">Avis</mat-radio-button>
     <mat-radio-button value="3">Signature</mat-radio-button>
   </mat-radio-group>
-  <div *ngIf="isBe()">
-    <!-- receiver entity -->
+  <div style="margin-top: 1em;" *ngIf="isBe()">
     <mat-form-field class="">
-      <input matInput [(ngModel)]="be.entity" placeholder="Bureau Destinataire">
-    </mat-form-field>
-    <!-- sender entity -->
-    <mat-form-field class="">
-      <input matInput [(ngModel)]="be.author" placeholder="Expediteur">
-    </mat-form-field>
-    <!-- receiver title -->
-    <mat-form-field class="">
-      <input matInput [(ngModel)]="be.receiver" placeholder="Destinataire">
-    </mat-form-field>
-    <!-- Numero of the content -->
-    <mat-form-field class="">
-      <input matInput [(ngModel)]="be.numero" placeholder="N">
-    </mat-form-field>
-    <!-- Numero of the content -->
-    <mat-form-field class="">
-      <input matInput [(ngModel)]="be.observation" placeholder="Observation">
+      <input matInput [(ngModel)]="be.sender" placeholder="Expéditeur">
     </mat-form-field>
 
-    <div *ngFor="let d of observations">
-      <span>{{d.label}}</span>
-      <span>{{d.number}}</span>
-      <mat-icon (click)="removeObservation(d)">add</mat-icon>
+    <mat-form-field class="">
+      <input [(ngModel)]="be.receiver_label" required name="receiver_label" matInput placeholder="Label destinaire">
+    </mat-form-field>
+    <!-- observation of the content -->
+    <mat-form-field class="">
+      <textarea matInput [(ngModel)]="be.observation" placeholder="Observation"></textarea>
+    </mat-form-field>
+
+    <div *ngIf="be.attached_files.length" class="designation-row" fxLayout="row" class="content">
+      <div fxFlex="70">DESIGNATION</div>
+      <div fxFlex="20">NOMBRE</div>
+      <mat-icon fxFlex="10"></mat-icon>
     </div>
-    <div>
-      <mat-form-field class="">
-        <input matInput [(ngModel)]="label" placeholder="Designation">
+
+    <div fxLayout="row" class="designation-row" *ngFor="let d of be.attached_files">
+      <div fxFlex="70">{{d.title}}</div>
+      <div fxFlex="20">{{d.count}}</div>
+      <button mat-icon-button=""  fxFlex="10" (click)="removeAttach(d)" color="warn">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+
+    <div fxLayout="row" class="content">
+      <mat-form-field fxFlex="70" class="">
+        <input matInput [(ngModel)]="title" placeholder="Designation">
       </mat-form-field>
-      <mat-form-field class="">
-        <input matInput [(ngModel)]="number" placeholder="Quantite">
+      <mat-form-field fxFlex="20" class="">
+        <input matInput [(ngModel)]="count" placeholder="Nombre">
       </mat-form-field>
-      <mat-icon (click)="addObservation()">add</mat-icon>
+      <button mat-icon-button="" fxFlex="10" (click)="addAttach()" color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
   </div>
 
@@ -60,5 +62,6 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
+  <button  *ngIf="isBe()" matDialogClose="" (click)="preview()" mat-button>Preview</button>
   <button matDialogClose="" (click)="submit()" mat-button>Exporter</button>
 </mat-dialog-actions>

@@ -1,0 +1,50 @@
+:host{
+  font-family: "Times New Roman";
+  padding: 25px;
+  display: block;
+  background-color: #fff;
+}
+
+.static-header img{
+  width: 100%;
+}
+
+header{
+  text-align: center;
+  margin-top: 30px;
+}
+.title{
+  margin: 60px 0px 30px 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.id{
+  margin: 60px 0px 30px 0;
+  font-weight: bold;
+}
+
+.table-headers{
+  border: 1px solid black;
+  border-bottom: 0;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}
+.observation{
+  text-align: center;
+  padding-left: 10px;
+  border-left: 1px solid black;
+}
+.number{
+  text-align: center;
+}
+
+.block
+{
+}
+.content-wrapper{
+  padding: 10px;
+  min-height: 300px;
+  border: 1px solid black;
+}

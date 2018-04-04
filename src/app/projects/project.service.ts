@@ -5,6 +5,7 @@ import {GlobalService} from '../global.service';
 import {UserService} from '../user.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {ThreadService} from "../thread/thread.service";
+import {FlowService} from "../flow.service";
 
 
 @Injectable()
@@ -46,6 +47,7 @@ export class ProjectService {
   constructor(private global: GlobalService,
               private userService: UserService,
               private threadService: ThreadService,
+              private flowService: FlowService,
               private http: Http,
               private notification: NotificationService) {
     this.url = global.ip() + '/api/projects';
@@ -59,7 +61,6 @@ export class ProjectService {
         this.user = user
         this.getProjects()
       }
-
     })
 
     if (localStorage.getItem('project')) {
@@ -71,6 +72,10 @@ export class ProjectService {
   }
 
   getProjects() {
+    if(this.user.entity_id == undefined){
+      return false
+    }
+
     console.log('loading projects of entity ' + this.user.entity_id)
 
     this.http.get(this.url + '/entity/' + this.user.entity_id)
@@ -97,12 +102,14 @@ export class ProjectService {
 
   setProject(id: number) {
     this.threadService.getProjectThreads(id)
+    this.flowService.getProjectFlows(id)
     console.log('setting project ' + id)
     this.http.get(this.url + '/' + id)
       .map(res => res.json()).subscribe(project => {
       this.project.next(project)
       localStorage.setItem('project', JSON.stringify(project))
     })
+
   }
 
   save(project: any) {

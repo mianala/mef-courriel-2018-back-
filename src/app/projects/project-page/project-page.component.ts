@@ -11,21 +11,14 @@ import {UserService} from "../../user.service";
 })
 export class ProjectPageComponent implements OnInit {
   project
-  threads
   flows
   user
 
   constructor(private projectService: ProjectService,
               private flowService: FlowService,
-              private userService: UserService,
-              private threadService: ThreadService) {
+              private userService: UserService) {
     this.projectService.project.subscribe(project => {
       this.project = project
-
-    })
-
-    this.threadService.project_threads.subscribe(projectThreads => {
-      this.threads = projectThreads
     })
 
     this.flowService.project_flows.subscribe(flows => {
