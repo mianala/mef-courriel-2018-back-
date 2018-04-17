@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {DialogWriteEmailComponent} from '../../dialog/dialog-write-email/dialog-write-email.component';
+import {DialogWriteEmailComponent} from '../../dialog/write/write.component';
 import {MatDialog} from '@angular/material';
 import {NavigationStart, Router} from '@angular/router';
-import {DialogWriteToComponent} from '../../dialog/dialog-write-to/dialog-write-to.component';
 import {ReportComponent} from '../../dialog/report/report.component';
-import {DialogSaveProjectComponent} from '../../dialog/dialog-save-project/dialog-save-project.component';
+import {DialogSaveProjectComponent} from "../../dialog/save-import/dialog-save-project.component";
 
 @Component({
   selector: 'app-emails-fab',

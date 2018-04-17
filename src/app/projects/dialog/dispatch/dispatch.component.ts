@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
-import {FroalaService} from '../../../froala.service';
-import {ProjectService} from '../../project.service';
-import {EntityService} from '../../../entity.service';
-import {ThreadService} from "../../../thread/thread.service";
+import {FroalaService} from '../../../service/froala.service';
+import {ProjectService} from '../../../service/project.service';
+import {EntityService} from '../../../service/entity.service';
+import {ThreadService} from "../../../service/thread.service";
 
 @Component({
   selector: 'app-dispatch',

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FlowService} from "../../flow.service";
+import {FlowService} from "../../service/flow.service";
 import {Router} from "@angular/router";
+import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
+import {MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-export',
@@ -15,25 +17,27 @@ export class ExportComponent implements OnInit {
   previousFlow;
 
   constructor(private flowService: FlowService,
-              private router: Router) {
+              private router: Router,
+              private dialogRef: MatDialogRef<DispatchComponent>
+  ) {
     this.be = {
       sender: 'LE DIRECTEUR DE LA SYNTHESE BUDGETAIRE',
       receiver_label: 'Monsieur LE DIRECTEUR GENERAL DU BUDGET',
       observation: 'En ayant l\'honneur de vous transmettre a titre de compte rendu',
       attached_files: [
-        {title: 'Compte rendu', count: '02'},
-        {title: 'Compte rendu', count: '02'},
-        {title: 'Compte rendu', count: '02'},
-        {title: 'Compte rendu', count: '02'},
+        {title: 'Compte rendu', count: '01'},
       ]
     };
 
     this.flow = {
-      files: []
+      ship_for: 3,
+      receiver: '',
+      files: [],
     };
 
     flowService.flow.subscribe(flow => {
       this.previousFlow = flow;
+      this.flow.flow_id = flow['id']
       this.be.author = this.previousFlow.sender_entity_label
     })
   }
@@ -55,7 +59,9 @@ export class ExportComponent implements OnInit {
 
   preview() {
     this.be.numero = this.previousFlow.numero;
+    this.be.sender_header = this.previousFlow.sender_be_header;
     this.flowService.be.next(this.be);
+    // window.open('http://localhost:4200/BE')
     this.router.navigateByUrl('/BE')
   }
 
@@ -79,5 +85,7 @@ export class ExportComponent implements OnInit {
     } else {
       this.flowService.ship(this.flow)
     }
+
+    this.dialogRef.close()
   }
 }

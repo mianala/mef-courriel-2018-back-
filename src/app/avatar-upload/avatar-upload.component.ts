@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NotificationService} from '../notification.service';
+import {NotificationService} from '../service/notification.service';
 
 @Component({
   selector: 'app-avatar-upload',

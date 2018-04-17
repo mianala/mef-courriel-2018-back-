@@ -1,48 +1,49 @@
 <mat-nav-list>
   <mat-list-item routerLink="/courriels">
     <mat-icon class="mat-18">markunread_mailbox</mat-icon>
-    <span>Boite</span>
+    <span>Boite ({{flow_count}})</span>
   </mat-list-item>
   <mat-list-item routerLink="/envoyes">
     <mat-icon class="mat-18">send</mat-icon>
-    <span>Envoyés</span>
-  </mat-list-item>
-  <h4 class="nav-header">
-    _____
-  </h4>
-  <mat-list-item routerLink="/enregistres">
-    <mat-icon class="mat-18">save</mat-icon>
-    <span>Enregistrés</span>
-  </mat-list-item>
-
-  <mat-list-item routerLink="/enregistres">
-    <mat-icon class="mat-18">save</mat-icon>
-    <span>Dispatchés</span>
+    <span>Envoyés ({{sent_count}})</span>
   </mat-list-item>
 
   <mat-list-item>
     <mat-icon class="mat-18">checked</mat-icon>
-    <span>Traités</span>
+    <span>Traités ({{treated_count}})</span>
+  </mat-list-item>
+  <h4 class="nav-header">
+    _____
+  </h4>
+  <mat-list-item routerLink="/enregistres">
+    <mat-icon class="mat-18">save</mat-icon>
+    <span>Enregistrés ({{saved_count}})</span>
+  </mat-list-item>
+
+  <mat-list-item routerLink="/dispatches">
+    <mat-icon class="mat-18">call_split</mat-icon>
+    <span>Dispatchés ({{dispatched_count}})</span>
   </mat-list-item>
 
   <h4 class="nav-header">
     _____
   </h4>
-  <mat-list-item>
+  <mat-list-item routerLink="/exportes">
     <mat-icon class="mat-18">file_upload</mat-icon>
-    <span>Exportés</span>
+    <span>Exportés ({{shipped_count}})</span>
   </mat-list-item>
-  <mat-list-item>
+  <mat-list-item routerLink="/importes">
     <mat-icon class="mat-18">file_download</mat-icon>
-    <span>Importés</span>
+    <span>Importés ({{returned_count}})</span>
   </mat-list-item>
+
   <!--
     <mat-list-item>
       <mat-icon class="mat-18">library_books</mat-icon>
       <span>Tous les courriels</span>
     </mat-list-item>-->
 
-  <mat-list-item  routerLink="/templates">
+  <mat-list-item routerLink="/templates">
     <mat-icon class="mat-18">library_books</mat-icon>
     <span>Templates</span>
   </mat-list-item>

@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {UserService} from '../../user.service';
-import {FlowService} from '../../flow.service';
-import {EmailService} from '../../email.service';
+import {UserService} from '../../service/user.service';
+import {FlowService} from '../../service/flow.service';
+import {EmailService} from '../../service/email.service';
 
 @Component({
   selector: 'app-delete-button',

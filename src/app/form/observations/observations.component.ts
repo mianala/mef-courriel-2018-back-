@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {FroalaService} from "../../froala.service";
+import {FroalaService} from "../../service/froala.service";
 
 @Component({
   selector: 'app-observations',

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FlowService} from '../../flow.service';
+import {FlowService} from '../../service/flow.service';
 
 @Component({
   selector: 'app-user-sidenav-mailmenu',

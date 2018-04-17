@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {DialogWriteToComponent} from '../../dialog/dialog-write-to/dialog-write-to.component';
-import {UserService} from '../../user.service';
+import {UserService} from '../../service/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {User} from '../../../models/User';
 import {fadeInAnimation} from '../../animation/fadeIn'
@@ -22,12 +21,7 @@ export class UserPageComponent implements OnInit {
   }
 
   writeTo() {
-    const dialogWriteEmail = this.dialog.open(DialogWriteToComponent, {
-        data: this.user
-      })
-    ;
-    dialogWriteEmail.afterClosed().subscribe(result => {
-    })
+
   }
 
   ngOnInit() {

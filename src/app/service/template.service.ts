@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
-import {GlobalService} from "../global.service";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {EnvService} from "./env.service";
 
 @Injectable()
 export class TemplateService {
@@ -9,9 +9,9 @@ export class TemplateService {
   url: string
   templates = new BehaviorSubject([])
 
-  constructor(private http: Http,
-              private global: GlobalService) {
-    this.url = global.ip() + '/api/files';
+  constructor(private http: Http) {
+    this.url = EnvService.ip() + '/api/files';
+    this.getTemplates()
   }
 
   getTemplates(){

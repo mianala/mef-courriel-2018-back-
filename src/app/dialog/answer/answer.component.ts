@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
-import {EntityService} from '../../entity.service';
-import {ThreadService} from '../../thread/thread.service';
-import {FroalaService} from '../../froala.service';
+import {EntityService} from '../../service/entity.service';
+import {ThreadService} from '../../service/thread.service';
+import {FroalaService} from '../../service/froala.service';
 import {DispatchComponent} from '../../projects/dialog/dispatch/dispatch.component';
-import {ProjectService} from '../../projects/project.service';
-import {FlowService} from "../../flow.service";
+import {ProjectService} from '../../service/project.service';
+import {FlowService} from "../../service/flow.service";
 
 @Component({
   selector: 'app-answer',
@@ -27,7 +27,7 @@ export class AnswerComponent implements OnInit {
       flow_id: '0',
       entity_id: '0',
       files: [],
-      content: ''
+      content: 'AYANT L\'HONNEUR DE VOUS TRANSMETTRE A TITRE DE COMPTE RENDU'
     }
 
     this.entity = this.entityService.entity.getValue()

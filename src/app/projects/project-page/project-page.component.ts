@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ProjectService} from "../project.service";
-import {ThreadService} from "../../thread/thread.service";
-import {FlowService} from "../../flow.service";
-import {UserService} from "../../user.service";
+import {ProjectService} from "../../service/project.service";
+import {ThreadService} from "../../service/thread.service";
+import {FlowService} from "../../service/flow.service";
+import {UserService} from "../../service/user.service";
+import {FilterService} from "../../service/filter.service";
 
 @Component({
   selector: 'app-project-page',
@@ -16,13 +17,21 @@ export class ProjectPageComponent implements OnInit {
 
   constructor(private projectService: ProjectService,
               private flowService: FlowService,
+              public filter: FilterService,
               private userService: UserService) {
     this.projectService.project.subscribe(project => {
       this.project = project
     })
 
-    this.flowService.project_flows.subscribe(flows => {
-      this.flows = flows
+    this.flowService.project_flows.subscribe(unfiltered_flows => {
+
+      this.filter.query.subscribe(query => {
+
+        let flows = unfiltered_flows.filter(flow => {
+          return flow.sender_entity_label.toLowerCase().includes(query.toLowerCase()) || flow.sender_title.toLowerCase().includes(query.toLowerCase())
+        })
+        this.flows = flows
+      })
     })
 
     this.userService.user.subscribe(user => {

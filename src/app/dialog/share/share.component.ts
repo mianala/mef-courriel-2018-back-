@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {EntityService} from "../../entity.service";
+import {EntityService} from "../../service/entity.service";
 import {MatDialogRef} from "@angular/material";
 import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
-import {FlowService} from "../../flow.service";
+import {FlowService} from "../../service/flow.service";
 
 @Component({
   selector: 'app-share',

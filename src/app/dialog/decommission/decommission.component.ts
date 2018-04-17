@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FlowService} from "../../flow.service";
+import {FlowService} from "../../service/flow.service";
 import {MatDialogRef} from "@angular/material";
 import {FormControl} from '@angular/forms';
-import {EntityService} from "../../entity.service";
+import {EntityService} from "../../service/entity.service";
 import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
-import {FroalaService} from "../../froala.service";
+import {FroalaService} from "../../service/froala.service";
 
 @Component({
   selector: 'app-decommission',

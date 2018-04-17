@@ -1,0 +1,129 @@
+<div mat-dialog-title>
+  <app-user-box [user]="user"></app-user-box>
+</div>
+<mat-dialog-content class="content">
+  <mat-tab-group>
+
+    <mat-tab label="Import">
+
+      <mat-form-field class="">
+        <input type="text" required [(ngModel)]="imported.ref" name="Réference" matInput
+               placeholder="Réference">
+      </mat-form-field>
+
+      <mat-form-field class="">
+        <input type="text" required [(ngModel)]="imported.numero" name="Réference" matInput
+               placeholder="N° du courrier">
+      </mat-form-field>
+
+      <!--auto filled expediteur-->
+      <mat-form-field class="">
+        <input [(ngModel)]="imported.sender" required name="receiver" matInput placeholder="Expediteur">
+      </mat-form-field>
+      <!--Observation-->
+      <h5>Observation</h5>
+      <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="imported.content"></div>
+
+      <mat-radio-group [(ngModel)]="imported.status_id">
+        <mat-radio-button value="1">Signé</mat-radio-button>
+        <mat-radio-button value="2">Avis favorable</mat-radio-button>
+      </mat-radio-group>
+    </mat-tab>
+
+    <mat-tab label="Enregistrement">
+      <form (ngSubmit)="submit()" class="form" fxLayout="column">
+        <!--arrive mfb-->
+
+
+
+        <mat-form-field class="">
+          <input type="text" required [(ngModel)]="project.n_arrive" name="n_arrive" matInput
+                 placeholder="N° du courrier">
+        </mat-form-field>
+        <!--arrive entity (auto)-->
+        <mat-form-field class="">
+          <input type="text" disabled required name="n_arrive" value="1001" matInput
+                 placeholder="N° arrivée {{user.entity.label}}">
+        </mat-form-field>
+        <!--date arrivé-->
+        <mat-form-field>
+          <input matInput [(ngModel)]="project.received_date" required name="received_date"
+                 [matDatepicker]="recieved_picker"
+                 placeholder="Reçu le">
+          <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
+
+
+          <mat-hint align="start">MM/DD/YYYY</mat-hint>
+        </mat-form-field>
+        <mat-datepicker #recieved_picker></mat-datepicker>
+        <!--expediteur-->
+        <mat-form-field class="">
+          <input [(ngModel)]="project.sender" required name="sender" matInput placeholder="Expediteur">
+        </mat-form-field>
+        <!--date du courriel-->
+        <mat-form-field>
+          <input [(ngModel)]="project.date" required name="date" matInput [matDatepicker]="picker"
+                 placeholder="Date du courrier">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-hint align="start">MM/DD/YYYY</mat-hint>
+        </mat-form-field>
+        <mat-datepicker #picker></mat-datepicker>
+        <!--reference-->
+        <mat-form-field class="">
+          <input [(ngModel)]="project.ref" required name="ref" matInput placeholder="Référence">
+        </mat-form-field>
+        <!--lettre be ... -->
+        <mat-form-field>
+          <mat-select [(ngModel)]="project.lettre" name="lettre" placeholder="Lettre/BE/...">
+            <mat-option [value]="1">Lettre</mat-option>
+            <mat-option [value]="2">BE</mat-option>
+            <mat-option [value]="3">Circulaire</mat-option>
+            <mat-option [value]="4">Facture</mat-option>
+            <mat-option [value]="5">Décision</mat-option>
+            <mat-option [value]="6">Arrêté</mat-option>
+            <mat-option [value]="7">Decret</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!--objet-->
+        <h4>Objet:</h4>
+        <mat-form-field class="">
+          <textarea [(ngModel)]="project.content" required name="content" matInput placeholder="Objet"></textarea>
+        </mat-form-field>
+        <!-- <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="project.content"></div> -->
+        <!--type-->
+        <mat-form-field>
+          <mat-select [(ngModel)]="project.type" name="type" placeholder="Type">
+            <mat-option [value]="1">Originale</mat-option>
+            <mat-option [value]="2">Copie</mat-option>
+            <mat-option [value]="3">Enveloppe</mat-option>
+            <mat-option [value]="4">Magazine</mat-option>
+            <mat-option [value]="5">Mensuel</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!--switch if need to redirect-->
+
+        <!--redirected to-->
+        <mat-form-field class="" *ngIf="">
+          <input [(ngModel)]="project.redirectedTo" required name="redirectedTo" matInput placeholder="Redirigé vers">
+        </mat-form-field>
+
+        <!--destinataires-->
+        <!--observations-->
+
+
+        <h4>Observations:</h4>
+        <div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="project.observations"></div>
+        <!--date de depart auto-->
+      </form>
+
+    </mat-tab>
+
+
+  </mat-tab-group>
+  <app-files [files]="files"></app-files>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
+  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button mat-dialog-close="" (click)="submit()" mat-button>ENREGISTRER</button>
+</mat-dialog-actions>

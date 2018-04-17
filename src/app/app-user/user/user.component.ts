@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {DialogWriteToComponent} from '../../dialog/dialog-write-to/dialog-write-to.component';
 
 @Component({
   selector: '[app-user]',
@@ -16,12 +15,6 @@ export class UserComponent implements OnInit {
 
 
   writeTo() {
-    const dialogWriteEmail = this.dialog.open(DialogWriteToComponent, {
-        data: this.user
-      })
-    ;
-    dialogWriteEmail.afterClosed().subscribe(result => {
-    })
   }
 
   ngOnInit() {

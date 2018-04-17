@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
-import {GlobalService} from '../global.service';
-import {UserService} from "../user.service";
+import {GlobalService} from './global.service';
+import {UserService} from "./user.service";
 import {XhrService} from "./xhr.service";
+import {EnvService} from "./env.service";
 
 @Injectable()
 export class ReportService {
@@ -13,7 +14,7 @@ export class ReportService {
               private userService: UserService,
               private xhrService: XhrService,
               private global: GlobalService) {
-    this.url = global.ip() + '/api/reports';
+    this.url = EnvService.ip() + '/api/reports';
     this.user = this.userService.user.getValue()
   }
 

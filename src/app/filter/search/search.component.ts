@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FilterService} from "../../filter.service";
+import {FilterService} from "../../service/filter.service";
 
 @Component({
   selector: 'search',
@@ -17,8 +17,8 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateQuery() {
-    this.filterService.query.next(this.query)
+  updateQuery(query) {
+    this.filterService.query.next(query)
   }
 
 }

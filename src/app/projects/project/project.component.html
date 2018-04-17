@@ -29,7 +29,7 @@
     Observation
   </h4>
   <div [innerHtml]="project.content"></div>
-  <h4 *ngIf="project.files" class="label">
+  <h4  *ngIf="project['files'].length > 0" class="label">
     Pièces jointes
   </h4>
   <div class="attachments">

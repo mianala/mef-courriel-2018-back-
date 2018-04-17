@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core'
 import {FormControl} from '@angular/forms'
 import 'rxjs/add/operator/startWith'
 import 'rxjs/add/operator/map'
-import {UserService} from '../../user.service'
+import {UserService} from '../../service/user.service'
 import {User} from "../../../models/User"
 
 @Component({

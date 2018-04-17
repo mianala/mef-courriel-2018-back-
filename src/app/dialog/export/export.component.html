@@ -11,6 +11,11 @@
   <mat-form-field class="">
     <input [(ngModel)]="flow.receiver" required name="receiver" matInput placeholder="Destinaire">
   </mat-form-field>
+
+  <!-- observation of the content -->
+  <mat-form-field class="">
+    <textarea matInput [(ngModel)]="be.observation" placeholder="Objet"></textarea>
+  </mat-form-field>
   <mat-radio-group [(ngModel)]="flow.ship_for">
     <mat-radio-button value="1">BE</mat-radio-button>
     <mat-radio-button value="2">Avis</mat-radio-button>
@@ -24,10 +29,6 @@
     <mat-form-field class="">
       <input [(ngModel)]="be.receiver_label" required name="receiver_label" matInput placeholder="Label destinaire">
     </mat-form-field>
-    <!-- observation of the content -->
-    <mat-form-field class="">
-      <textarea matInput [(ngModel)]="be.observation" placeholder="Observation"></textarea>
-    </mat-form-field>
 
     <div *ngIf="be.attached_files.length" class="designation-row" fxLayout="row" class="content">
       <div fxFlex="70">DESIGNATION</div>
@@ -39,7 +40,7 @@
       <div fxFlex="70">{{d.title}}</div>
       <div fxFlex="20">{{d.count}}</div>
       <button mat-icon-button=""  fxFlex="10" (click)="removeAttach(d)" color="warn">
-        <mat-icon>remove</mat-icon>
+        <mat-icon>remove_circle_outline</mat-icon>
       </button>
     </div>
 
@@ -51,7 +52,7 @@
         <input matInput [(ngModel)]="count" placeholder="Nombre">
       </mat-form-field>
       <button mat-icon-button="" fxFlex="10" (click)="addAttach()" color="primary">
-        <mat-icon>add</mat-icon>
+        <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
   </div>

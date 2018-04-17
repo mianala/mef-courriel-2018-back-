@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FilterService} from "../../filter.service";
+import {FilterService} from "../../service/filter.service";
 
 @Component({
   selector: 'direction',

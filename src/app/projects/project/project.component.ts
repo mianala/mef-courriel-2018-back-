@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
 import {MatDialog} from "@angular/material";
-import {EntityService} from "../../entity.service";
+import {EntityService} from "../../service/entity.service";
 
 @Component({
   selector: 'project',

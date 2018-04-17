@@ -5,23 +5,8 @@
     background-color: #fff;
   }
 
-  .thread-list {
+  .flow-container {
     display: block;
-
-    thread, flow {
-      margin: 2em !important;
-    }
+    padding: 1em;
   }
-
-  .entity {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    .label {
-      font-weight: bold;
-
-    }
-
-  }
-
 }

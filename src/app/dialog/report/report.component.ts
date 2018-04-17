@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FroalaService} from '../../froala.service';
-import {NotificationService} from '../../notification.service';
-import {UserService} from '../../user.service';
+import {FroalaService} from '../../service/froala.service';
+import {NotificationService} from '../../service/notification.service';
+import {UserService} from '../../service/user.service';
 import {ReportService} from '../../service/report.service';
 import {MatDialogRef} from '@angular/material';
 
