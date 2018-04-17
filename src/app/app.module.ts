@@ -103,6 +103,7 @@ import { ReturnedPageComponent } from './page/returned-page/returned-page.compon
 import {TemplateService} from "./service/template.service";
 import { DispatchedPageComponent } from './page/dispatched-page/dispatched-page.component';
 import {DialogSaveProjectComponent} from "./dialog/save-import/dialog-save-project.component";
+import {EnvService} from "./service/env.service";
 
 @NgModule({
   declarations: [
@@ -209,6 +210,7 @@ import {DialogSaveProjectComponent} from "./dialog/save-import/dialog-save-proje
     SocketService,
     ReportService,
     ThreadService,
+    EnvService,
     TemplateService,
     XhrService,
     FilterService,
