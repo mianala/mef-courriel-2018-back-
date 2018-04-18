@@ -36,7 +36,7 @@ export class DialogSaveProjectComponent implements OnInit {
 
     this.form_max_date = new Date()
 
-      this.project = {
+    this.project = {
       n_arrive: '',
       sender: '',
       ref: '',
@@ -75,6 +75,10 @@ export class DialogSaveProjectComponent implements OnInit {
 
   }
 
+  valid() {
+    return !(this.project.n_arrive.length < 3 || this.project.sender.length < 3 || this.project.content.length < 3);
+  }
+
   import_flow() {
     this.flowService.importFlow(this.project)
   }
@@ -92,11 +96,16 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   submit() {
-    this.project.user = this.user
-    this.project.entity_id = this.user.entity_id
-    this.project.files = this.files
-    this.projectService.save(this.project)
-    this.dialogRef.close()
+
+    if (this.valid()) {
+      this.project.user = this.user
+      this.project.entity_id = this.user.entity_id
+      this.project.files = this.files
+      this.projectService.save(this.project)
+      this.dialogRef.close()
+    }else{
+      this.notification.formError()
+    }
   }
 
 }

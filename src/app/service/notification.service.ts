@@ -60,12 +60,6 @@ export class NotificationService {
     const message = 'Courriel envoyé avec succès';
     this.openSnack(message);
   }
-
-  savedRemoved() {
-    const message = 'Courriel supprimé';
-    this.openSnack(message);
-  }
-
   flowRemoved() {
     const message = 'Courriel supprimé';
     this.openSnack(message);
