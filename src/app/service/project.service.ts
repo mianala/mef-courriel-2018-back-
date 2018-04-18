@@ -153,7 +153,7 @@ export class ProjectService {
       const xhr = new XMLHttpRequest()
 
       formData.append('arrive', project.n_arrive)
-      formData.append('user_id', 'user_id', this.user.id) // user_id
+      formData.append('user_id', this.user.id) // user_id
       formData.append('sender', project.sender)
       formData.append('ref', project.ref)
       formData.append('type_id', project.type)

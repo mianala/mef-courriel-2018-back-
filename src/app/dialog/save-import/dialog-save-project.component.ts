@@ -21,6 +21,7 @@ export class DialogSaveProjectComponent implements OnInit {
   options: any
   user: any
   shipped_flows
+  form_max_date: Date
 
   constructor(private froalaService: FroalaService,
               private dialogRef: MatDialogRef<DialogSaveProjectComponent>,
@@ -29,17 +30,20 @@ export class DialogSaveProjectComponent implements OnInit {
               private notification: NotificationService,
               private projectService: ProjectService) {
     this.imported = {
-      ref:'',
-      numero:'',
+      ref: '',
+      numero: '',
     }
-    this.project = {
-      n_arrive: 'N° 055-2016/PM/SP',
-      sender: 'PM Chef du Gouv',
-      ref: 'N° 055-2016/PM/SP',
+
+    this.form_max_date = new Date()
+
+      this.project = {
+      n_arrive: '',
+      sender: '',
+      ref: '',
       type: 1,
       lettre: 1,
-      observations: 'Autre observations',
-      content: '- Présentat° du rapport de la miss° d\'évaluat° des besoins électoraux',
+      observations: '',
+      content: '',
       date: new Date(),
       received_date: new Date(),
     }

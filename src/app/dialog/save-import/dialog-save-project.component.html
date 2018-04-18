@@ -13,21 +13,22 @@
         <mat-form-field class="">
           <input type="text" required [(ngModel)]="project.n_arrive" name="n_arrive" matInput
                  placeholder="N° du courrier">
+          <mat-hint align="start">ex: N° 055-2016/PM/SP</mat-hint>
         </mat-form-field>
         <!--arrive entity (auto)-->
-        <mat-form-field class="">
-          <input type="text" disabled required name="n_arrive" value="1001" matInput
-                 placeholder="N° arrivée {{user.entity.label}}">
-        </mat-form-field>
+        <!--<mat-form-field class="">-->
+          <!--<input type="text" disabled required name="n_arrive" value="1001" matInput-->
+                 <!--placeholder="N° arrivée {{user.entity.label}}">-->
+        <!--</mat-form-field>-->
         <!--date arrivé-->
         <mat-form-field>
-          <input matInput [(ngModel)]="project.received_date" required name="received_date"
+          <input matInput [max]="form_max_date"  [(ngModel)]="project.received_date" required name="received_date"
                  [matDatepicker]="recieved_picker"
                  placeholder="Reçu le">
           <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
 
 
-          <mat-hint align="start">MM/DD/YYYY</mat-hint>
+          <mat-hint align="start">DD/MM/YYYY</mat-hint>
         </mat-form-field>
         <mat-datepicker #recieved_picker></mat-datepicker>
         <!--expediteur-->
@@ -36,15 +37,16 @@
         </mat-form-field>
         <!--date du courriel-->
         <mat-form-field>
-          <input [(ngModel)]="project.date" required name="date" matInput [matDatepicker]="picker"
+          <input [max]="form_max_date" [(ngModel)]="project.date" required name="date" matInput [matDatepicker]="picker"
                  placeholder="Date du courrier">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-hint align="start">MM/DD/YYYY</mat-hint>
+          <mat-hint align="start">DD/MM/YYYY</mat-hint>
         </mat-form-field>
         <mat-datepicker #picker></mat-datepicker>
         <!--reference-->
         <mat-form-field class="">
           <input [(ngModel)]="project.ref" required name="ref" matInput placeholder="Référence">
+          <mat-hint align="start">ex: N° 055-2016/PM/SP</mat-hint>
         </mat-form-field>
         <!--lettre be ... -->
         <mat-form-field>
