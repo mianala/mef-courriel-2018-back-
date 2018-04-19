@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {ProjectService} from "../../service/project.service";
+import {FilterService} from "../../service/filter.service";
 
 @Component({
   selector: 'app-saved',
@@ -9,14 +10,26 @@ import {ProjectService} from "../../service/project.service";
 })
 export class SavedComponent implements OnInit {
   projects
+
+
   constructor(
     public router:Router,
+    public filter: FilterService,
     private projectService: ProjectService) {
 
     this.projects = []
-    this.projectService.projects.subscribe(projects => {
-      console.log(projects)
-      this.projects = projects
+
+
+
+    this.projectService.projects.subscribe(unfiltered_projects => {
+
+
+      this.filter.query.subscribe(query => {
+        let projects = unfiltered_projects.filter(project => {
+          return project.sender.toLowerCase().includes(query.toLowerCase())
+        })
+        this.projects = projects
+      })
     })
   }
 
