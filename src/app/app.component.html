@@ -2,14 +2,44 @@
 <div class="container">
 
   <mat-sidenav-container fullscreen class="user-home">
-    <mat-sidenav *ngIf="userService.connected.getValue()" fxHide.xs="" fxHide.sm="" #sidenav [mode]="'side'"
-                 opened="true">
+    <mat-sidenav  #sidenav *ngIf="userService.connected.getValue()" [mode]="sidenav_mode"
+                 [opened]="sidenav_status">
       <div app-user-sidenav></div>
     </mat-sidenav>
+    <section>
 
-    <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
+    </section>
 
   </mat-sidenav-container>
-  <app-emails-fab *ngIf="userService.connected.getValue()"></app-emails-fab>
+  <div id="fab-container" *ngIf="userService.connected.getValue()">
+    <button matTooltipPosition="before" (click)="saveEmail()" matTooltip="Enregistrer un courrier" class="save"
+            mat-mini-fab>
+      <mat-icon>save</mat-icon>
+    </button>
+    <!--
+    <button matTooltipPosition="before" (click)="report()" matTooltip="Ecrire un compte rendu" class="save" mat-mini-fab>
+      <mat-icon>assignment</mat-icon>
+    </button>-->
+    <!--
+    <button matTooltipPosition="before" *ngIf="answer" (click)="writeEmail()" matTooltip="Ecrire" mat-mini-fab
+            class="write-email">
+      <mat-icon>edit</mat-icon>
+    </button>-->
+    <button matTooltipPosition="before" (click)="writeEmail()" matTooltip="Ecrire" mat-fab
+            class="write-email">
+      <mat-icon>send</mat-icon>
+    </button>
+    <button fxShow [fxShow.xs]="" (click)="toggleSidenav()" matTooltip="Menu" mat-fab
+            class="write-email">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <!--<button matTooltipPosition="before" matTooltip="Commencer une session" class="create-session" mat-mini-fab><mat-icon>assessment</mat-icon></button>-->
+    <!--<button *ngIf="answer" matTooltipPosition="before" (click)="answerEmail()" matTooltip="Répondre" mat-fab
+            class="write-email">
+      <mat-icon>reply</mat-icon>
+    </button>-->
+
+  </div>
 
 </div>

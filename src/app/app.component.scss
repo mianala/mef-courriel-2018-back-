@@ -1,0 +1,12 @@
+#fab-container{
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  flex-direction:column;
+  right: 20px;
+  z-index:10;
+  button{
+    align-self: center;
+    margin-bottom: 1em;
+  }
+}

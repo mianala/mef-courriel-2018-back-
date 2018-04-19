@@ -5,6 +5,10 @@ import {SocketService} from "./service/socket.service";
 import {ProjectService} from "./service/project.service";
 import {ThreadService} from "./service/thread.service";
 import {FlowService} from "./service/flow.service";
+import {DialogSaveProjectComponent} from "./dialog/save-import/dialog-save-project.component";
+import {ReportComponent} from "./dialog/report/report.component";
+import {DialogWriteEmailComponent} from "./dialog/write/write.component";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-root',
@@ -14,15 +18,17 @@ import {FlowService} from "./service/flow.service";
 export class AppComponent implements OnInit {
   title = 'app'
   connected: boolean
-
-
-  show
+  sidenav_status
+  sidenav_mode
 
   constructor(public userService: UserService,
               public router: Router,
               public projectService: ProjectService,
               public flowService: FlowService,
+              public dialog: MatDialog,
               public socketService: SocketService) {
+    this.sidenav_status = true
+    this.sidenav_mode = 'side'
   }
 
   ngOnInit() {
@@ -41,6 +47,27 @@ export class AppComponent implements OnInit {
     // todo wait for a little before redirecting
 
     // todo user login
+  }
+
+
+  writeEmail() {
+    const dialogWriteEmail = this.dialog.open(DialogWriteEmailComponent);
+    dialogWriteEmail.afterClosed().subscribe(result => {
+    })
+  }
+
+  saveEmail() {
+    const dialogSaveProject = this.dialog.open(DialogSaveProjectComponent);
+    dialogSaveProject.afterClosed().subscribe(result => {
+    })
+  }
+
+  report() {
+    const dialogReport = this.dialog.open(ReportComponent);
+  }
+
+  toggleSidenav() {
+    this.sidenav_status = this.sidenav_status != true;
   }
 
 

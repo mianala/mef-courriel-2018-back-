@@ -27,7 +27,6 @@ import {SessionMessageboxComponent} from './session-directory/session-messagebox
 import {SessionMessageComponent} from './session-directory/session-message/session-message.component';
 import {SessionFileComponent} from './session-directory/session-file/session-file.component';
 import {AvatarComponent} from './app-user/avatar/avatar.component';
-import {EmailsFabComponent} from './user/emails-fab/emails-fab.component';
 import {DialogWriteEmailComponent} from './dialog/write/write.component';
 import {UserBoxComponent} from './app-user/user-box/user-box.component';
 import {UserAutocompleteComponent} from './app-user/user-autocomplete/user-autocomplete.component';
@@ -129,7 +128,6 @@ import {EnvService} from "./service/env.service";
     SessionMessageComponent,
     SessionFileComponent,
     AvatarComponent,
-    EmailsFabComponent,
     DialogWriteEmailComponent,
     UserBoxComponent,
     UserAutocompleteComponent,
