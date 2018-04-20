@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Observable';
 import {startWith, map} from 'rxjs/operators';
 import {MatDialogRef} from "@angular/material";
 import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
+import {GlobalService} from "../../service/global.service";
 
 @Component({
   selector: 'app-dialog-write-email',
@@ -31,7 +32,7 @@ export class DialogWriteEmailComponent implements OnInit {
               public froala: FroalaService,
               public userService: UserService,
               private dialogRef: MatDialogRef<DispatchComponent>) {
-    this.observations = this.projectService.observations
+    this.observations = GlobalService.observations
     this.project = {
       title: '',
       n_arrive: this.entityService.entity.getValue()['numero'],

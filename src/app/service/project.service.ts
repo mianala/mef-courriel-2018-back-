@@ -12,32 +12,6 @@ import {EnvService} from "./env.service";
 @Injectable()
 export class ProjectService {
 
-  observations = [
-    'POUR LECTURE TOURNANTE',
-    'M\'EN FAIRE UNE NOTE',
-    'M\'EN PARLER AU TELEPHONE',
-    'POUR AVIS',
-    'ME REPRESENTER',
-    'GARDER EN INSTANCE',
-    'ME PARLER',
-    'POUR CLASSEMENT',
-    'POUR OBSERVATION',
-    'POUR SIGNATURE',
-    'VOTRE ATTENTION',
-    'NOTER ET CLASSER',
-    'DOSSIER TRES IMPORTANTS',
-    'POUR LA SUITE A DONNER',
-    'POUR ATTRIBUTION',
-    'POUR INFORMATION',
-    'ME RENDRE COMPTE',
-    'VENIR M\'EN PARLER',
-    'POUR PROCEDURE A SUIVRE',
-    'POUR ETUDE ET M\'EN PARLER',
-    'POUR APPROBATION',
-    'PROJET A REDIGER',
-    'COMME CONVENU',
-    'NOTER ET RETOURNER',
-    'SUITE A VOTRE DEMANDE']
   url: string;
   dispatched_projects = new BehaviorSubject([])
   projects = new BehaviorSubject([])

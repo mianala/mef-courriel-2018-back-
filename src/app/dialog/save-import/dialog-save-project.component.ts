@@ -5,6 +5,7 @@ import {FroalaService} from '../../service/froala.service';
 import {MatDialogRef} from '@angular/material';
 import {ProjectService} from '../../service/project.service';
 import {FlowService} from "../../service/flow.service";
+import {GlobalService} from "../../service/global.service";
 
 
 @Component({
@@ -21,6 +22,8 @@ export class DialogSaveProjectComponent implements OnInit {
   options: any
   user: any
   shipped_flows
+  letter_types
+  in_types
   form_max_date: Date
 
   constructor(private froalaService: FroalaService,
@@ -34,14 +37,18 @@ export class DialogSaveProjectComponent implements OnInit {
       numero: '',
     }
 
+    this.letter_types = GlobalService.letter_types
+    this.in_types = GlobalService.in_types
+
+
     this.form_max_date = new Date()
 
     this.project = {
       n_arrive: '',
       sender: '',
       ref: '',
-      type: 1,
-      lettre: 1,
+      type: 0,
+      lettre: 0,
       observations: '',
       content: '',
       date: new Date(),

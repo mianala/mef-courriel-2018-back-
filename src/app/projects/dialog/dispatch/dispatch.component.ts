@@ -4,6 +4,7 @@ import {FroalaService} from '../../../service/froala.service';
 import {ProjectService} from '../../../service/project.service';
 import {EntityService} from '../../../service/entity.service';
 import {ThreadService} from "../../../service/thread.service";
+import {GlobalService} from "../../../service/global.service";
 
 @Component({
   selector: 'app-dispatch',
@@ -13,7 +14,7 @@ import {ThreadService} from "../../../service/thread.service";
 export class DispatchComponent implements OnInit {
   options: any
   thread: any
-  observations: any
+  observations = GlobalService.observations
   entities
 
   constructor(private froalaService: FroalaService,
@@ -23,8 +24,6 @@ export class DispatchComponent implements OnInit {
               private dialogRef: MatDialogRef<DispatchComponent>) {
 
     this.options = froalaService.getOptions()
-    this.observations = this.projectService.observations
-
     this.thread = {
       content: '',
       direction: 1,
@@ -32,9 +31,6 @@ export class DispatchComponent implements OnInit {
       checkedObservations: [],
       receivers: []
     }
-    /*    this.entityService.dgbEntities.subscribe(data => {
-          this.entities = data
-        })*/
 
     this.entityService.downEntities.subscribe(entities => {
       this.entities = entities

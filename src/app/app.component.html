@@ -6,7 +6,7 @@
                  [opened]="sidenav_status">
       <div app-user-sidenav></div>
     </mat-sidenav>
-    <section>
+    <section id="container-section">
 
       <router-outlet></router-outlet>
     </section>
@@ -21,11 +21,7 @@
     <button matTooltipPosition="before" (click)="report()" matTooltip="Ecrire un compte rendu" class="save" mat-mini-fab>
       <mat-icon>assignment</mat-icon>
     </button>-->
-    <!--
-    <button matTooltipPosition="before" *ngIf="answer" (click)="writeEmail()" matTooltip="Ecrire" mat-mini-fab
-            class="write-email">
-      <mat-icon>edit</mat-icon>
-    </button>-->
+
     <button matTooltipPosition="before" (click)="writeEmail()" matTooltip="Ecrire" mat-fab
             class="write-email">
       <mat-icon>send</mat-icon>

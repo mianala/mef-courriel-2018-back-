@@ -51,31 +51,24 @@
         <!--lettre be ... -->
         <mat-form-field>
           <mat-select [(ngModel)]="project.lettre" name="lettre" placeholder="Lettre/BE/...">
-            <mat-option [value]="1">Lettre</mat-option>
-            <mat-option [value]="2">BE</mat-option>
-            <mat-option [value]="3">Circulaire</mat-option>
-            <mat-option [value]="4">Facture</mat-option>
-            <mat-option [value]="5">Décision</mat-option>
-            <mat-option [value]="6">Arrêté</mat-option>
-            <mat-option [value]="7">Decret</mat-option>
+            <mat-option  *ngFor="let lettre of letter_types; let i = index" [value]="i">{{lettre}}</mat-option>
           </mat-select>
         </mat-form-field>
+
+
         <!--objet-->
         <h4>Objet:</h4>
         <mat-form-field class="">
           <textarea [(ngModel)]="project.content" required name="content" matInput placeholder="Objet"></textarea>
         </mat-form-field>
-        <!-- <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="project.content"></div> -->
-        <!--type-->
+
         <mat-form-field>
           <mat-select [(ngModel)]="project.type" name="type" placeholder="Type">
-            <mat-option [value]="1">Originale</mat-option>
-            <mat-option [value]="2">Copie</mat-option>
-            <mat-option [value]="3">Enveloppe</mat-option>
-            <mat-option [value]="4">Magazine</mat-option>
-            <mat-option [value]="5">Mensuel</mat-option>
+            <mat-option  *ngFor="let in_t of in_types; let i = index" [value]="i">{{in_t}}</mat-option>
           </mat-select>
         </mat-form-field>
+
+
         <!--switch if need to redirect-->
 
         <!--redirected to-->
