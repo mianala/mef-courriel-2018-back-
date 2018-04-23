@@ -15,27 +15,15 @@ export class FileComponent implements OnInit {
   }
 
   pdf() {
-    if (this.file.mimetype === 'application/pdf') {
-      return true
-    } else {
-      return false
-    }
+    return this.file.mimetype === 'application/pdf';
   }
 
   img() {
-    if (this.file.mimetype === 'image/jpg') {
-      return true
-    } else {
-      return false
-    }
+    return this.file.mimetype === 'image/jpg';
   }
 
   doc() {
-    if (!this.pdf() && !this.img()) {
-      return true
-    } else {
-      return false
-    }
+    return !this.pdf() && !this.img();
   }
 
 }

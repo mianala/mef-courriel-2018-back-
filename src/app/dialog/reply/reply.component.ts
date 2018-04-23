@@ -8,11 +8,11 @@ import {ProjectService} from '../../service/project.service';
 import {FlowService} from "../../service/flow.service";
 
 @Component({
-  selector: 'app-answer',
-  templateUrl: './answer.component.html',
-  styleUrls: ['./answer.component.scss']
+  selector: 'app-reply',
+  templateUrl: './reply.component.html',
+  styleUrls: ['./reply.component.scss']
 })
-export class AnswerComponent implements OnInit {
+export class ReplyComponent implements OnInit {
   answer
   options
   entity
@@ -27,7 +27,7 @@ export class AnswerComponent implements OnInit {
       flow_id: '0',
       entity_id: '0',
       files: [],
-      content: 'AYANT L\'HONNEUR DE VOUS TRANSMETTRE A TITRE DE COMPTE RENDU'
+      content: ''
     }
 
     this.entity = this.entityService.entity.getValue()

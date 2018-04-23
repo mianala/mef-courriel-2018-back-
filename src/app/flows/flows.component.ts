@@ -5,7 +5,7 @@ import {DispatchComponent} from "../projects/dialog/dispatch/dispatch.component"
 import {MatDialog} from "@angular/material";
 import {ThreadService} from "../service/thread.service";
 import {ProjectService} from "../service/project.service";
-import {AnswerComponent} from "../dialog/answer/answer.component";
+import {ReplyComponent} from "../dialog/reply/reply.component";
 import {ExportComponent} from "../dialog/export/export.component";
 import {ShareComponent} from "../dialog/share/share.component";
 import {DecommissionComponent} from "../dialog/decommission/decommission.component";
@@ -39,10 +39,8 @@ export class FlowsComponent implements OnInit {
   }
 
   decommissionable(flow) {
-    if (flow.direction != 1) {
-      return false
-    }
-    return true
+    return flow.direction == 1;
+
   }
 
   shareable(flow) {
@@ -50,10 +48,8 @@ export class FlowsComponent implements OnInit {
   }
 
   shippable(flow) {
-    if (flow.direction != 2) {
-      return false
-    }
-    return true
+    return flow.direction == 2;
+
   }
 
   viewable(flow) {
@@ -61,17 +57,13 @@ export class FlowsComponent implements OnInit {
   }
 
   answerable(flow) {
-    if(flow.sender_entity_id == this.user.entity_id){
-      return false
-    }
-    return true
+    return flow.sender_entity_id != this.user.entity_id;
+
   }
 
   treatable(flow) {
-    if(flow.sender_entity_id == this.user.entity_id){
-      return false
-    }
-    return true
+    return flow.sender_entity_id != this.user.entity_id;
+
   }
 
 
@@ -109,7 +101,7 @@ export class FlowsComponent implements OnInit {
       entity_id: entity_id
     })
 
-    this.dialog.open(AnswerComponent);
+    this.dialog.open(ReplyComponent);
   }
 
   dispatch(id) {

@@ -79,7 +79,7 @@ import {DispatchComponent} from './projects/dialog/dispatch/dispatch.component';
 import {ProjectService} from './service/project.service';
 import {ThreadService} from "./service/thread.service";
 import { FileComponent } from './files/file/file.component';
-import { AnswerComponent } from './dialog/answer/answer.component';
+import {ReplyComponent} from './dialog/reply/reply.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { ReportItemComponent } from './reports/report-item/report-item.component';
@@ -158,7 +158,7 @@ import {EnvService} from "./service/env.service";
     ProjectPageComponent,
     DispatchComponent,
     FileComponent,
-    AnswerComponent,
+    ReplyComponent,
     ProjectsComponent,
     ThreadsComponent,
     ReportItemComponent,
@@ -194,7 +194,7 @@ import {EnvService} from "./service/env.service";
   ],
   entryComponents: [
     DispatchComponent,
-    AnswerComponent,
+    ReplyComponent,
     DialogSaveProjectComponent,
     DialogWriteEmailComponent,
     ReportComponent,

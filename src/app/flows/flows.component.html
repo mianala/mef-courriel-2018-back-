@@ -5,12 +5,12 @@
       <mat-panel-title>
         <span> {{flow.date | date:'d/M/yyyy'}} - </span>
         <!--<div class="n" *ngIf="flow.direction != 4"> {{flow.numero}}</div>-->
-        <div class="n" *ngIf="flow.direction != 4"> N {{flow.n_depart}} - {{flow.sender_entity_label}}</div>
+        <div class="n" *ngIf="flow.direction != 4">{{flow.sender_entity_label}}</div>
         <div class="n" *ngIf="flow.direction == 4"> N {{flow.n_arrive}} - {{flow.destination}}</div>
       </mat-panel-title>
       <mat-panel-description>
 
-        Ref :  {{flow.project_ref}}
+        {{flow.project_title}}
       </mat-panel-description>
     </mat-expansion-panel-header>
     <flow [flow]="flow"></flow>
