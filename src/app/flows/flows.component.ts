@@ -17,7 +17,7 @@ import {UserService} from "../service/user.service";
   templateUrl: './flows.component.html',
   styleUrls: ['./flows.component.scss']
 })
-export class FlowsComponent implements OnInit {
+export class FlowsComponent implements OnInit{
   @Input() flows
   @Input() visibility: boolean
   user
@@ -63,8 +63,16 @@ export class FlowsComponent implements OnInit {
 
   treatable(flow) {
     return flow.sender_entity_id != this.user.entity_id;
-
   }
+
+  treat(flow) {
+    this.flowService.treat(flow.id)
+  }
+
+  /*
+  untreat(flow) {
+    this.flowService.untreat(flow.id)
+  }*/
 
 
   sendable(id) {

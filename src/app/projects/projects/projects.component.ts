@@ -36,6 +36,10 @@ export class ProjectsComponent implements OnInit {
     return false
   }
 
+  viewable(project){
+    return project.dispatched == 1
+  }
+
   writeEmail() {
     const dialogWriteEmail = this.dialog.open(DialogWriteEmailComponent);
     dialogWriteEmail.afterClosed().subscribe(result => {

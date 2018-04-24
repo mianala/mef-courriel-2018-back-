@@ -42,8 +42,11 @@ export class ThreadService {
       });
 
       console.log('got the project threads')
-      console.log(project_threads)
 
+
+      if(this.project_threads.getValue() == project_threads){
+        return false
+      }
       this.project_threads.next(project_threads)
     })
   }

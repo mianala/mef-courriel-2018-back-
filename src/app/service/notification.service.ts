@@ -60,6 +60,25 @@ export class NotificationService {
     const message = 'Courriel envoyé avec succès';
     this.openSnack(message);
   }
+
+  flowReceived() {
+    const message = 'Boite, mis a jour';
+    this.openSnack(message);
+  }
+
+  flowTreated() {
+    const message = 'Courrier traité';
+    this.openSnack(message);
+  }
+
+  invalidReceiver() {
+    const message = 'Veillez bien verifier les destinataires';
+    this.openSnack(message);
+  }
+  invalidObservation() {
+    const message = 'Veillez bien verifier les observations';
+    this.openSnack(message);
+  }
   flowRemoved() {
     const message = 'Courriel supprimé';
     this.openSnack(message);

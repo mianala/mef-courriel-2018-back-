@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, RequestOptions} from '@angular/http';
 import {UserService} from './user.service';
 import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
@@ -12,6 +12,7 @@ import {EnvService} from "./env.service";
 @Injectable()
 export class FlowService {
   url: string
+  options = new RequestOptions({withCredentials: true});
 
   //in boite
   flows = new BehaviorSubject([])
@@ -37,8 +38,7 @@ export class FlowService {
   constructor(private http: Http,
               private notification: NotificationService,
               private userService: UserService,
-              router: Router
-  ) {
+              router: Router) {
     this
       .url = EnvService.ip() + '/api/flows';
     this
@@ -80,10 +80,7 @@ export class FlowService {
     }
   }
 
-  setFlow(id
-            :
-            number
-  ) {
+  setFlow(id: number) {
     console.log('setting flow ' + id)
     this.http.get(this.url + '/' + this.userService.user.getValue()['entity_id'] + '/' + id)
       .map(res => res.json()).subscribe(
@@ -92,6 +89,25 @@ export class FlowService {
         console.log('flow set')
         console.log(flow)
         localStorage.setItem('flow', JSON.stringify(flow))
+      })
+  }
+
+  untreat(id: number) {
+    console.log('treating flow ' + id)
+    this.http.post(this.url + '/treat', {id: id}, this.options)
+      .map(res => res.json())
+      .subscribe(user => {
+        this.user.next(user)
+      })
+  }
+
+
+  treat(id: number) {
+    console.log('treating flow ' + id)
+    this.http.post(this.url + '/treat', {id: id}, this.options)
+      .subscribe(result => {
+        console.log(result)
+        this.notification.flowTreated()
       })
   }
 
@@ -111,6 +127,11 @@ export class FlowService {
         const d = b['id'];
         return c - d;
       });
+
+      if(this.flows.getValue() == flows){
+        return false
+      }
+
       this.flows.next(flows)
     })
   }
@@ -127,6 +148,12 @@ export class FlowService {
         const d = b['id'];
         return c - d;
       });
+
+
+      if(this.sent_flows.getValue() == flows){
+        return false
+      }
+
       this.sent_flows.next(flows)
     })
   }
@@ -143,6 +170,13 @@ export class FlowService {
         const d = b['id'];
         return c - d;
       });
+
+
+
+      if(this.shipped_flows.getValue() == flows){
+        return false
+      }
+
       this.shipped_flows.next(flows)
     })
   }
@@ -159,6 +193,12 @@ export class FlowService {
         const d = b['id'];
         return c - d;
       });
+
+
+      if(this.returned_flows.getValue() == flows){
+        return false
+      }
+
       this.returned_flows.next(flows)
     })
   }
@@ -172,6 +212,12 @@ export class FlowService {
         const d = b['id'];
         return c - d;
       });
+
+
+      if(this.project_flows.getValue() == flows){
+        return false
+      }
+
       this.project_flows.next(flows)
     })
   }
@@ -187,10 +233,7 @@ export class FlowService {
 
   }
 
-  post(mail
-         :
-         any
-  ) {
+  post(mail: any) {
 
     console.log('posting mail')
     console.log(mail)
@@ -470,10 +513,7 @@ export class FlowService {
     });
   }
 
-  delete(id
-           :
-           number
-  ) {
+  delete(id: number) {
     this.http.delete(this.url + '/' + id + '/' + this.user['id']).subscribe(data => {
       console.log('flow ' + id + ' removed')
       console.log('updating flow list')

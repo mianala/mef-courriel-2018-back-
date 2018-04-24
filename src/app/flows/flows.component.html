@@ -3,7 +3,6 @@
   <mat-expansion-panel *ngFor="let flow of flows" hideToggle="visibility">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <span> {{flow.date | date:'d/M/yyyy'}} - </span>
         <!--<div class="n" *ngIf="flow.direction != 4"> {{flow.numero}}</div>-->
         <div class="n" *ngIf="flow.direction != 4">{{flow.sender_entity_label}}</div>
         <div class="n" *ngIf="flow.direction == 4"> N {{flow.n_arrive}} - {{flow.destination}}</div>
