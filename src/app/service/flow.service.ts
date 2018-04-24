@@ -48,6 +48,7 @@ export class FlowService {
       if (user['id']) {
         this.user = user
         this.getFlows()
+        this.getTreatedFlows()
         this.getSentFlows()
         this.getShippedFlows()
         this.getReturnedFlows()
@@ -155,6 +156,28 @@ export class FlowService {
       }
 
       this.sent_flows.next(flows)
+    })
+  }
+
+  getTreatedFlows() {
+
+    console.log('loading treated flows')
+
+    this.http.get(this.url + '/entity/treated/' + this.user.entity_id)
+      .map(res => res.json()).subscribe(flows => {
+
+      flows.sort(function (b, a) {
+        const c = a['id'];
+        const d = b['id'];
+        return c - d;
+      });
+
+
+      if(this.treated_flows.getValue() == flows){
+        return false
+      }
+
+      this.treated_flows.next(flows)
     })
   }
 

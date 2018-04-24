@@ -62,7 +62,7 @@ export class FlowsComponent implements OnInit{
   }
 
   treatable(flow) {
-    return flow.sender_entity_id != this.user.entity_id;
+    return flow.sender_entity_id != this.user.entity_id && flow.status_id != 1;
   }
 
   treat(flow) {

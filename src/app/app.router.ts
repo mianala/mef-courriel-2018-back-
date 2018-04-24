@@ -21,6 +21,7 @@ import {ShippedPageComponent} from "./page/shipped-page/shipped-page.component";
 import {ReturnedPageComponent} from "./page/returned-page/returned-page.component";
 import {SavedComponent} from "./menu/saved/saved.component";
 import {DispatchedPageComponent} from "./page/dispatched-page/dispatched-page.component";
+import {TreatedComponent} from "./page/treated/treated.component";
 
 export const router: Routes = [
 
@@ -43,22 +44,22 @@ export const router: Routes = [
       ]
     },
     {
-      path: 'envoyes',
-      // component: SessionRouterComponent,
-      children: [
-        {
-          path: '',
-          component: ThreadsComponent,
-        }
-      ]
-    },
-    {
       path: 'exportes',
       // component: SessionRouterComponent,
       children: [
         {
           path: '',
           component: ShippedPageComponent,
+        }
+      ]
+    },
+    {
+      path: 'traites',
+      // component: SessionRouterComponent,
+      children: [
+        {
+          path: '',
+          component: TreatedComponent,
         }
       ]
     },
