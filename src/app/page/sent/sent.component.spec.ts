@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThreadsComponent } from './threads.component';
+import { ThreadsComponent } from './sent.component';
 
 describe('ThreadsComponent', () => {
   let component: ThreadsComponent;

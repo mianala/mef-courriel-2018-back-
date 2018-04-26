@@ -81,7 +81,7 @@ import {ThreadService} from "./service/thread.service";
 import { FileComponent } from './files/file/file.component';
 import {ReplyComponent} from './dialog/reply/reply.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
-import { ThreadsComponent } from './threads/threads.component';
+import { SentComponent } from './page/sent/sent.component';
 import { ReportItemComponent } from './reports/report-item/report-item.component';
 import { ReportsComponent } from './reports/reports/reports.component';
 import { EntityPageComponent } from './entities/entity-page/entity-page.component';
@@ -161,7 +161,7 @@ import { TreatedComponent } from './page/treated/treated.component';
     FileComponent,
     ReplyComponent,
     ProjectsComponent,
-    ThreadsComponent,
+    SentComponent,
     ReportItemComponent,
     ReportsComponent,
     EntityPageComponent,

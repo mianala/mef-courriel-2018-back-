@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ThreadService} from "../service/thread.service";
-import {ProjectService} from "../service/project.service";
-import {FlowService} from "../service/flow.service";
+import {ThreadService} from "../../service/thread.service";
+import {ProjectService} from "../../service/project.service";
+import {FlowService} from "../../service/flow.service";
 
 @Component({
   selector: 'app-threads',
-  templateUrl: './threads.component.html',
-  styleUrls: ['./threads.component.scss']
+  templateUrl: './sent.component.html',
+  styleUrls: ['./sent.component.scss']
 })
-export class ThreadsComponent implements OnInit {
+export class SentComponent implements OnInit {
   flows
 
   constructor(private flowService: FlowService) {
