@@ -21,16 +21,6 @@
                  <!--placeholder="N° arrivée {{user.entity.label}}">-->
         <!--</mat-form-field>-->
         <!--date arrivé-->
-        <mat-form-field>
-          <input matInput [max]="form_max_date"  [(ngModel)]="project.received_date" required name="received_date"
-                 [matDatepicker]="recieved_picker"
-                 placeholder="Reçu le">
-          <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
-
-
-          <mat-hint align="start">DD/MM/YYYY</mat-hint>
-        </mat-form-field>
-        <mat-datepicker #recieved_picker></mat-datepicker>
         <!--expediteur-->
         <mat-form-field class="">
           <input [(ngModel)]="project.sender" required name="sender" matInput placeholder="Expediteur">
@@ -43,6 +33,14 @@
           <mat-hint align="start">DD/MM/YYYY</mat-hint>
         </mat-form-field>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-form-field>
+          <input matInput [max]="form_max_date" [min]="project.date"  [(ngModel)]="project.received_date" required name="received_date"
+                 [matDatepicker]="recieved_picker"
+                 placeholder="Reçu le">
+          <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
+          <mat-hint align="start">DD/MM/YYYY</mat-hint>
+        </mat-form-field>
+        <mat-datepicker #recieved_picker></mat-datepicker>
         <!--reference-->
         <mat-form-field class="">
           <input [(ngModel)]="project.ref" required name="ref" matInput placeholder="Référence">
