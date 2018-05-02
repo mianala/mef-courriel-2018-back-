@@ -17,11 +17,11 @@ export class ProjectComponent implements OnInit {
   constructor(public dialog: MatDialog, public entityService: EntityService) {
     this.letter_types = GlobalService.letter_types
     this.in_types = GlobalService.in_types
+    console.log(this.project)
 
   }
 
   ngOnInit() {
-    console.log(this.project)
 
   }
 

@@ -15,16 +15,15 @@ import {FilterService} from "../../service/filter.service";
 export class ProjectsComponent implements OnInit {
   @Input() projects;
 
-  constructor(
-    public router: Router,
-    public entityService: EntityService,
-    public filter: FilterService,
-    public dialog: MatDialog,
-    private projectService: ProjectService) {
+  constructor(public router: Router,
+              public entityService: EntityService,
+              public filter: FilterService,
+              public dialog: MatDialog,
+              private projectService: ProjectService) {
+
   }
 
   ngOnInit() {
-
   }
 
   sameday(project) {
@@ -50,7 +49,7 @@ export class ProjectsComponent implements OnInit {
 
   treatable(project) {
 
-    return project.status_id == 0
+    return project.status_id != 1
   }
 
   treat(project) {

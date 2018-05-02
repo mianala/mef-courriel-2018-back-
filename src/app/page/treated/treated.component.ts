@@ -17,7 +17,7 @@ export class TreatedComponent implements OnInit {
 
   ngOnInit() {
     this.filter.query.subscribe(query => {
-      this.flowService.flows.subscribe(uflows => {
+      this.flowService.treated_flows.subscribe(uflows => {
         this.flows = uflows.filter(flow => {
           return flow.sender_entity_label.toLowerCase().includes(query.toLowerCase()) || flow.content.toLowerCase().includes(query.toLowerCase())
         })
