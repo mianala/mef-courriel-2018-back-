@@ -13,7 +13,6 @@
         <mat-form-field class="">
           <input type="text" required [(ngModel)]="project.n_arrive" name="n_arrive" matInput
                  placeholder="N° du courrier">
-          <mat-hint align="start">ex: N° 055-2016/PM/SP</mat-hint>
         </mat-form-field>
         <!--arrive entity (auto)-->
         <!--<mat-form-field class="">-->
@@ -30,7 +29,6 @@
           <input [max]="form_max_date" [(ngModel)]="project.date" required name="date" matInput [matDatepicker]="picker"
                  placeholder="Date du courrier">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-hint align="start">DD/MM/YYYY</mat-hint>
         </mat-form-field>
         <mat-datepicker #picker></mat-datepicker>
         <mat-form-field>
@@ -53,9 +51,7 @@
 
         <!--objet-->
         <h4>Objet:</h4>
-        <mat-form-field class="">
-          <textarea [(ngModel)]="project.content" required name="content" matInput placeholder="Objet"></textarea>
-        </mat-form-field>
+        <div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="project.content"></div>
 
         <mat-form-field>
           <mat-select [(ngModel)]="project.type" name="type" placeholder="Document">
@@ -72,11 +68,13 @@
         </mat-form-field>
 
         <!--destinataires-->
-        <!--observations-->
 
+        <!--observations-->
         <h4>Observations:</h4>
-        <div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="project.observations"></div>
-        <!--date de depart auto-->
+        <mat-form-field class="">
+          <textarea [(ngModel)]="project.observations" required name="content" matInput placeholder="Observations"></textarea>
+        </mat-form-field>
+
       </form>
 
     </mat-tab>

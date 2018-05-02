@@ -1,16 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
 import {ProjectService} from "../../service/project.service";
 import {FilterService} from "../../service/filter.service";
 
 @Component({
-  selector: 'app-saved',
-  templateUrl: './saved.component.html',
-  styleUrls: ['./saved.component.scss']
+  selector: 'app-all-projects',
+  templateUrl: './all-projects.component.html',
+  styleUrls: ['./all-projects.component.scss']
 })
-export class SavedComponent implements OnInit {
+export class AllProjectsComponent implements OnInit {
   projects
-
 
   constructor(
     public filter: FilterService,
@@ -18,7 +16,7 @@ export class SavedComponent implements OnInit {
     this.projects = []
 
     this.filter.query.subscribe(query => {
-      this.projectService.projects.subscribe(uprojects => {
+      this.projectService.all_projects.subscribe(uprojects => {
         this.projects = FilterService.filterProject(uprojects,query)
 
       })

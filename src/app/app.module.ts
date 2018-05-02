@@ -101,6 +101,7 @@ import {EnvService} from "./service/env.service";
 import { TreatedComponent } from './page/treated/treated.component';
 import { TreatedProjectComponent } from './page/treated-project/treated-project.component';
 import {ComposeComponent} from "./dialog/compose/compose.component";
+import { AllProjectsComponent } from './page/all-projects/all-projects.component';
 
 @NgModule({
   declarations: [
@@ -174,6 +175,7 @@ import {ComposeComponent} from "./dialog/compose/compose.component";
     DispatchedPageComponent,
     TreatedComponent,
     TreatedProjectComponent,
+    AllProjectsComponent,
   ],
   imports: [
     BrowserModule,

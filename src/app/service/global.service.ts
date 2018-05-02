@@ -41,15 +41,16 @@ export class GlobalService {
     'Facture',
     'Décision',
     'Arrêté',
-    'LetBEtre',
-    'Decret']
+    'Decret',
+    'Magazine',
+    'Mensuel',
+  ]
+
 
   static in_types = [
     'Originale',
     'Copie',
-    'Enveloppe',
-    'Magazine',
-    'Mensuel']
+    'Enveloppe']
 
 
   toOracleDate(in_date) {

@@ -17,10 +17,9 @@ export class DispatchedPageComponent implements OnInit {
     this.projects = [];
 
     this.filter.query.subscribe(query => {
+      console.log(query)
       this.projectService.dispatched_projects.subscribe(uprojects => {
-        this.projects = uprojects.filter(project => {
-          return project.sender.toLowerCase().includes(query.toLowerCase()) || project.content.toLowerCase().includes(query.toLowerCase())
-        })
+        this.projects = FilterService.filterProject(uprojects,query)
       })
     })
   }

@@ -15,9 +15,14 @@
   <h4 class="nav-header">
     _____
   </h4>
-  <mat-list-item routerLink="/projets/enregistres">
+  <mat-list-item routerLink="/projets/tous">
     <mat-icon class="mat-18">folder</mat-icon>
-    <span>Projets ({{saved_count}})</span>
+    <span>Projets ({{project_count}})</span>
+  </mat-list-item>
+
+  <mat-list-item routerLink="/projets/enregistres">
+    <mat-icon class="mat-18">new_releases</mat-icon>
+    <span>Nouveaux ({{saved_count}})</span>
   </mat-list-item>
 
   <mat-list-item routerLink="/projets/dispatches">

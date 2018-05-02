@@ -42,7 +42,7 @@ export class SocketService {
           }
           const participants = content.participants
           if (participants.includes(this.entity.toString())) {
-            this.projectService.getProjects()
+            this.projectService.getAllProjects()
           }
         });
 
@@ -54,9 +54,7 @@ export class SocketService {
           }
           const participants = content.participants
           if (participants.includes(this.entity)) {
-            this.projectService.getProjects()
-            this.projectService.getTreatedProjects()
-            this.projectService.getDispatchedProjects()
+            this.projectService.getAllProjects()
           }
         });
 
@@ -101,8 +99,7 @@ export class SocketService {
           }
           const participants = content.participants
           if (participants.includes(this.entity)) {
-            this.projectService.getProjects()
-            this.projectService.getTreatedProjects()
+            this.projectService.getAllProjects()
             this.notification.projectTreated()
           }
         });
@@ -117,8 +114,7 @@ export class SocketService {
           const participants = content.participants
 
           if (participants[0] == this.entity.toString()) {
-            this.projectService.getProjects();
-            this.projectService.getDispatchedProjects();
+            this.projectService.getAllProjects();
             this.flowService.getSentFlows();
           } else if (participants.includes(this.entity.toString())) {
             this.flowService.getFlows()
@@ -134,7 +130,6 @@ export class SocketService {
           const participants = content.participants
 
           if (participants[0] == this.entity.toString()) {
-            this.projectService.getDispatchedProjects();
             this.flowService.getSentFlows();
           } else if (participants.includes(this.entity.toString())) {
             this.flowService.getFlows()

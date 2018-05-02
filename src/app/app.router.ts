@@ -23,6 +23,7 @@ import {SavedComponent} from "./page/saved/saved.component";
 import {DispatchedPageComponent} from "./page/dispatched-page/dispatched-page.component";
 import {TreatedComponent} from "./page/treated/treated.component";
 import {TreatedProjectComponent} from "./page/treated-project/treated-project.component";
+import {AllProjectsComponent} from "./page/all-projects/all-projects.component";
 
 export const router: Routes = [
 
@@ -86,11 +87,14 @@ export const router: Routes = [
     },
     {
       path: 'projets',
-      // component: SessionRouterComponent,
       children: [
         {
           path: 'enregistres',
           component: SavedComponent,
+        },
+        {
+          path: 'tous',
+          component: AllProjectsComponent,
         },
         {
           path: 'dispatches',

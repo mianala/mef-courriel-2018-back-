@@ -8,6 +8,7 @@ import {ThreadService} from "./thread.service";
 import {FlowService} from "./flow.service";
 import {EnvService} from "./env.service";
 import {XhrService} from "./xhr.service";
+import {FilterService} from "./filter.service";
 
 
 @Injectable()
@@ -17,6 +18,7 @@ export class ProjectService {
   dispatched_projects = new BehaviorSubject([]);
   treated_projects = new BehaviorSubject([]);
   projects = new BehaviorSubject([]);
+  all_projects = new BehaviorSubject([]);
   project = new BehaviorSubject({
     id: 0,
   });
@@ -39,11 +41,15 @@ export class ProjectService {
       if (user['id']) {
 
         this.user = user;
-        this.getProjects();
-        this.getDispatchedProjects();
-        this.getTreatedProjects()
+        this.getAllProjects();
       }
     });
+
+    this.all_projects.subscribe(projects => {
+      this.getSavedProjects(projects)
+      this.getTreatedProjects(projects)
+      this.getDispatchedProjects(projects)
+    })
 
     if (localStorage.getItem('project')) {
       const project = JSON.parse(localStorage.getItem('project'));
@@ -52,61 +58,53 @@ export class ProjectService {
     }
   }
 
-  getProjects() {
+  getSavedProjects(projects){
+
+    let ps = FilterService.savedProjects(projects)
+
+    if (this.projects.getValue() == ps) {
+      return false
+    }
+    this.projects.next(ps)
+  }
+  getDispatchedProjects(projects){
+
+    let ps = FilterService.dispatchedProjects(projects)
+
+    if (this.projects.getValue() == ps) {
+      return false
+    }
+    this.dispatched_projects.next(ps)
+  }
+  getTreatedProjects(projects){
+
+    let ps = FilterService.treatedProjects(projects)
+
+    if (this.treated_projects.getValue() == ps) {
+      return false
+    }
+    this.treated_projects.next(ps)
+  }
+
+
+  getAllProjects() {
     if (this.user.entity_id == undefined) {
       return false
     }
 
-    console.log('loading projects of entity ' + this.user.entity_id);
+    console.log('loading all projects ' + this.user.entity_id);
 
-    this.http.get(this.url + '/entity/' + this.user.entity_id)
+    this.http.get(this.url + '/all/' + this.user.entity_id)
       .map(res => res.json()).subscribe(projects => {
       projects.sort(GlobalService.sortByDate);
 
       if (this.projects.getValue() == projects) {
         return
       }
-      this.projects.next(projects)
+      this.all_projects.next(projects)
     })
   }
 
-  getDispatchedProjects() {
-    if (this.user.entity_id == undefined) {
-      return false
-    }
-
-    console.log('loading projects of entity ' + this.user.entity_id);
-
-    this.http.get(this.url + '/dispatched/' + this.user.entity_id)
-      .map(res => res.json()).subscribe(projects => {
-      projects.sort(GlobalService.sortByDate);
-
-
-      if (this.dispatched_projects.getValue() == projects) {
-        return false
-      }
-      this.dispatched_projects.next(projects)
-    })
-  }
-
-  getTreatedProjects() {
-    if (this.user.entity_id == undefined) {
-      return false
-    }
-
-    console.log('loading treated projects of entity ' + this.user.entity_id);
-
-    this.http.get(this.url + '/treated/' + this.user.entity_id)
-      .map(res => res.json()).subscribe(projects => {
-      projects.sort(GlobalService.sortByDate);
-
-
-      if (this.treated_projects.getValue() == projects) {
-        return false
-      }
-      this.treated_projects.next(projects)
-    })
-  }
 
   reload() {
     // todo if nothing in the actual project
@@ -155,14 +153,6 @@ export class ProjectService {
 
   }
 
-  remove(id: number) {
-    this.http.delete(this.url + '/' + id + '/' + this.user.id).subscribe(data => {
-      console.log('project ' + id + ' removed');
-      console.log('updating project list');
-      this.getProjects()
-      // this.notification.projectRemoved()
-    })
-  }
 
   treat(project) {
     const id = project.id
