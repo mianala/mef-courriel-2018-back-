@@ -3,12 +3,12 @@ import {UserService} from './service/user.service';
 import {Router} from '@angular/router';
 import {SocketService} from "./service/socket.service";
 import {ProjectService} from "./service/project.service";
-import {ThreadService} from "./service/thread.service";
 import {FlowService} from "./service/flow.service";
 import {DialogSaveProjectComponent} from "./dialog/save-import/dialog-save-project.component";
 import {ReportComponent} from "./dialog/report/report.component";
-import {DialogWriteEmailComponent} from "./dialog/write/write.component";
 import {MatDialog} from "@angular/material";
+import {MediaChange, ObservableMedia} from "@angular/flex-layout";
+import {ComposeComponent} from "./dialog/compose/compose.component";
 
 @Component({
   selector: 'app-root',
@@ -25,25 +25,22 @@ export class AppComponent implements OnInit {
               public router: Router,
               public projectService: ProjectService,
               public flowService: FlowService,
+              private media: ObservableMedia,
               public dialog: MatDialog,
               public socketService: SocketService) {
+
+
+    this.media.subscribe((media: MediaChange) => {
+        this.sidenav_status = !(media.mqAlias == 'sm' || media.mqAlias == 'xs')
+      }
+    )
+
     this.sidenav_status = true
     this.sidenav_mode = 'side'
   }
 
   ngOnInit() {
-    const socket = this.socketService.io
-    socket.on('connect', () => {
-      console.log('Socket connected')
-      socket.on('message', (msg) => {
-        console.log(msg)
-        this.projectService.getProjects()
-        this.projectService.getDispatchedProjects()
-        this.flowService.getFlows()
-        this.flowService.getSentFlows()
-        this.flowService.getShippedFlows()
-      })
-    })
+
     // todo wait for a little before redirecting
 
     // todo user login
@@ -51,7 +48,7 @@ export class AppComponent implements OnInit {
 
 
   writeEmail() {
-    const dialogWriteEmail = this.dialog.open(DialogWriteEmailComponent);
+    const dialogWriteEmail = this.dialog.open(ComposeComponent);
     dialogWriteEmail.afterClosed().subscribe(result => {
     })
   }

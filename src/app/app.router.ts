@@ -19,9 +19,10 @@ import {ProfilComponent} from "./user/profil/profil.component";
 import {BeComponent} from "./print/be/be.component";
 import {ShippedPageComponent} from "./page/shipped-page/shipped-page.component";
 import {ReturnedPageComponent} from "./page/returned-page/returned-page.component";
-import {SavedComponent} from "./menu/saved/saved.component";
+import {SavedComponent} from "./page/saved/saved.component";
 import {DispatchedPageComponent} from "./page/dispatched-page/dispatched-page.component";
 import {TreatedComponent} from "./page/treated/treated.component";
+import {TreatedProjectComponent} from "./page/treated-project/treated-project.component";
 
 export const router: Routes = [
 
@@ -84,22 +85,20 @@ export const router: Routes = [
       ]
     },
     {
-      path: 'enregistres',
+      path: 'projets',
       // component: SessionRouterComponent,
       children: [
         {
-          path: '',
+          path: 'enregistres',
           component: SavedComponent,
-        }
-      ]
-    },
-    {
-      path: 'dispatches',
-      // component: SessionRouterComponent,
-      children: [
+        },
         {
-          path: '',
+          path: 'dispatches',
           component: DispatchedPageComponent,
+        },
+        {
+          path: 'traites',
+          component: TreatedProjectComponent,
         }
       ]
     },

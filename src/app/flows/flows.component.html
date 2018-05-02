@@ -2,24 +2,28 @@
   <!--todo: I should user class here to classify the in out and up and down-->
   <mat-expansion-panel *ngFor="let flow of flows" hideToggle="visibility">
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <mat-panel-title class="entity-label">
         <!--<div class="n" *ngIf="flow.direction != 4"> {{flow.numero}}</div>-->
-        <div class="n" *ngIf="flow.direction != 4">{{flow.sender_entity_label}}</div>
-        <div class="n" *ngIf="flow.direction == 4"> N {{flow.n_arrive}} - {{flow.destination}}</div>
+        <div class="n" *ngIf="sent(flow)">à {{flow.entity_label}}</div>
+        <div class="n" *ngIf="received(flow)">{{flow.sender_entity_label}}</div>
+        <div class="n" *ngIf="exported(flow)">{{flow.destination}}</div>
       </mat-panel-title>
-      <mat-panel-description>
-
-        {{flow.project_title}}
+      <mat-panel-description class="flow-content">
+        <div [innerHtml]="flow.content"></div>
       </mat-panel-description>
+      <div class="flow-date" *ngIf="!sameDay(flow)">{{flow.date|date}}</div>
+      <div class="flow-date" *ngIf="sameDay(flow)">{{flow.date|date:'shortTime'}}</div>
     </mat-expansion-panel-header>
     <flow [flow]="flow"></flow>
 
 
     <mat-action-row>
-      <button *ngIf="treatable(flow)" (click)="treat(flow)" mat-button color="primary">
-        <mat-icon class="mat-18">check</mat-icon>
-        Traité/Vu
+
+      <button *ngIf="viewable(flow)"  color="primary" (click)="view(flow.project_id)" mat-button>
+        <mat-icon class="mat-18">folder_open</mat-icon>
+        Voir projet
       </button>
+
       <button *ngIf="shippable(flow)" mat-button color="primary" (click)="ship(flow.id)">
         <mat-icon class="mat-18">file_upload</mat-icon>
         Exporter
@@ -36,7 +40,7 @@
           <mat-icon class="mat-18">call_missed_outgoing</mat-icon>
           Déclasser
         </button>
-        <button *ngIf="sendable(flow)" (click)="send(flow.id)" mat-menu-item>
+        <button *ngIf="submitable(flow)" (click)="submit(flow.id)" mat-menu-item>
           <mat-icon class="mat-18">arrow_upward</mat-icon>
           Soumetre
         </button>
@@ -44,12 +48,12 @@
           <mat-icon class="mat-18">share</mat-icon>
           Partager
         </button>
-        <button *ngIf="viewable(flow)" (click)="view(flow.project_id)" mat-menu-item>
-          <mat-icon class="mat-18">eye</mat-icon>
-          Voir
+        <button *ngIf="treatable(flow)" (click)="treat(flow)" mat-menu-item color="primary">
+          <mat-icon class="mat-18">check</mat-icon>
+          Traité/Vu
         </button>
       </mat-menu>
-      <button mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">
+      <button *ngIf="treatable(flow)" mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">
         <mat-icon>more_vert</mat-icon>
       </button>
     </mat-action-row>

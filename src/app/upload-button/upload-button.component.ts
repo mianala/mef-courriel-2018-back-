@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {NotificationService} from "../service/notification.service";
 
 @Component({
   selector: 'app-upload-button',
@@ -8,7 +9,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class UploadButtonComponent implements OnInit {
   @Output() fileSelect = new EventEmitter()
 
-  constructor() {
+  constructor(private notification: NotificationService) {
   }
 
   ngOnInit() {
@@ -17,7 +18,13 @@ export class UploadButtonComponent implements OnInit {
   selectFile(files) {
     let array = []
     for (let i = 0; i < files.length; i++) {
-      array.push(files[i])
+      let file = files[i]
+      if (file.size > 100000000) {
+        this.notification.fileTooHeavy()
+        break
+      }else{
+        array.push(file)
+      }
     }
 
     this.fileSelect.emit(array)

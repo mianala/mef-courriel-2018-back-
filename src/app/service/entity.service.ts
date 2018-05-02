@@ -30,11 +30,12 @@ export class EntityService {
         this.user = user
 
         const entity = user['entity']
-        entity.numero = entity.n_depart + '-2018/'+ entity.header
+        entity.numero = (entity.n_depart+1) + '-2018/'+ entity.header
         this.entity.next(entity)
 
 
         this.getDownEntities()
+        this.getUpEntity()
         this.getRelativeEntities()
       }
     })
@@ -83,9 +84,9 @@ export class EntityService {
 
   getUpEntity() {
     console.log('getting down entity ' + this.user['entity'].entity)
-    this.http.get(this.url + '/up/' + this.user['entity'].entity + '-')
+    this.http.get(this.url + '/up/' + this.user['entity'].entity )
       .map(res => res.json()).subscribe(entity => {
-      this.upEntity.next(entity)
+      this.upEntity.next(entity[0])
     })
   }
 

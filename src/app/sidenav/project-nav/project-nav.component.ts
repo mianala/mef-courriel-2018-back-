@@ -16,6 +16,7 @@ export class ProjectNavComponent implements OnInit {
 
   saved_count: number
   dispatched_count: number
+  treated_project_count: number
 
   shipped_count: number
   returned_count: number
@@ -57,6 +58,9 @@ export class ProjectNavComponent implements OnInit {
 
     this.projectService.projects.subscribe(projects => {
       this.saved_count = projects.length
+    })
+    this.projectService.treated_projects.subscribe(projects => {
+      this.treated_project_count = projects.length
     })
   }
 

@@ -1,0 +1,27 @@
+
+mat-panel-description{
+  flex-grow: 3;
+}
+
+.panel-header{
+
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+}
+
+.entity-label{
+
+  display: flex;
+  align-items: center;
+}
+.flow-content{
+
+  display: flex;
+  align-items: center;
+}
+
+.flow-date{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

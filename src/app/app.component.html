@@ -14,7 +14,7 @@
   </mat-sidenav-container>
   <div id="fab-container" *ngIf="userService.connected.getValue()">
     <button matTooltipPosition="before" (click)="saveEmail()" matTooltip="Enregistrer un courrier" class="save"
-            mat-mini-fab>
+            mat-fab>
       <mat-icon>save</mat-icon>
     </button>
     <!--

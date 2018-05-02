@@ -20,7 +20,7 @@ export class DispatchComponent implements OnInit {
 
   constructor(private froalaService: FroalaService,
               private entityService: EntityService,
-              public notification:NotificationService,
+              public notification: NotificationService,
               private projectService: ProjectService,
               private threadService: ThreadService,
               private dialogRef: MatDialogRef<DispatchComponent>) {
@@ -69,28 +69,33 @@ export class DispatchComponent implements OnInit {
     }
 
 
-    if(!this.validReceiver()){
+    if (!this.validReceiver()) {
       return false
     }
-    if(!this.validObservation(obs.concat(this.thread.content))){
+    if (!this.validObservation(obs.concat(this.thread.content))) {
       return false
     }
 
     this.thread.content = obs.concat(this.thread.content);
-    this.threadService.dispatch(this.thread);
-    this.dialogRef.close()
+
+    //updating button into loading button
+    this.threadService.dispatch(this.thread, () => {
+      this.notification.threadDispatched()
+      this.dialogRef.close()
+    });
   }
 
-  validReceiver(){
-    if( this.thread.receivers.length == 0 ){
+  validReceiver() {
+    if (this.thread.receivers.length == 0) {
       this.notification.invalidReceiver();
       return false
     }
     return true
 
   }
-  validObservation(content){
-    if( content.length == 0 ){
+
+  validObservation(content) {
+    if (content.length == 0) {
       this.notification.invalidObservation();
       return false
     }

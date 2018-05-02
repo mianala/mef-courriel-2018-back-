@@ -1,8 +1,8 @@
 <div class="content">
 
-  <div class="description">
+  <div *ngIf="!composed()" class="description">
     <h4 class="label">
-      N° Arrivé {{entityService.entity.getValue().label}}
+      N° Arrivé {{entityService.entity.getValue()['label']}}
     </h4>
     <div>{{project.n_arrive_dg}}
       <mat-chip-list>
@@ -15,7 +15,7 @@
     <h4 class="label">
       N° du courrier
     </h4>
-    <div>- {{project.n_arrive}}</div>
+    <div>{{project.n_arrive}}</div>
   </div>
 
   <div class="description">
@@ -26,13 +26,16 @@
   </div>
 
   <div class="description">
-    <h4 class="label">
+    <h4 *ngIf="!composed()" class="label">
       Date du courrier
     </h4>
-    <div>{{project.date | date}}</div>
+    <h4 *ngIf="composed()" class="label">
+      Date
+    </h4>
+    <div>{{project.date | date:'medium'}}</div>
   </div>
 
-  <div class="description">
+  <div *ngIf="!composed()" class="description">
     <h4 class="label">
       Date de réception
     </h4>
@@ -46,15 +49,19 @@
     <div [innerHtml]="project.title"></div>
   </div>
 
-  <div class="description">
+  <div *ngIf="project.content" class="description">
     <h4 class="label">
       Observation
     </h4>
     <div [innerHtml]="project.content"></div>
   </div>
-
-
-  <div class="description">
+  <div *ngIf="!composed() && project.ref" class="description">
+    <h4 class="label">
+      Référence
+    </h4>
+    <div [innerHtml]="project.ref"></div>
+  </div>
+  <div class="description" *ngIf="project['files']">
     <h4 *ngIf="project['files'].length > 0" class="label">
       Pièces jointes
     </h4>

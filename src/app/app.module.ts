@@ -11,11 +11,8 @@ import {LoginPageComponent} from './public/public-login-page/login-page.componen
 import {routes} from './app.router';
 import {UserSidenavComponent} from './user/user-sidenav/user-sidenav.component';
 import {UserToolbarComponent} from './app-user/user-toolbar/user-toolbar.component';
-import {UserHomeContainerComponent} from './user/user-home-container/user-home-container.component';
 import {UserSidenavProfilComponent} from './user/user-sidenav-profil/user-sidenav-profil.component';
 import {UserSidenavTimeComponent} from './user/user-sidenav-time/user-sidenav-time.component';
-import {UserSidenavMailmenuComponent} from './user/user-sidenav-mailmenu/user-sidenav-mailmenu.component';
-import {UserSidenavUsermenuComponent} from './user/user-sidenav-usermenu/user-sidenav-usermenu.component';
 import {UserHomeDashboardComponent} from './user/user-home-dashboard/user-home-dashboard.component';
 import {SessionsPageComponent} from './session-directory/sessions-page/sessions-page.component';
 import {SessionPageComponent} from './session-directory/session-page/session-page.component';
@@ -27,7 +24,6 @@ import {SessionMessageboxComponent} from './session-directory/session-messagebox
 import {SessionMessageComponent} from './session-directory/session-message/session-message.component';
 import {SessionFileComponent} from './session-directory/session-file/session-file.component';
 import {AvatarComponent} from './app-user/avatar/avatar.component';
-import {DialogWriteEmailComponent} from './dialog/write/write.component';
 import {UserBoxComponent} from './app-user/user-box/user-box.component';
 import {UserAutocompleteComponent} from './app-user/user-autocomplete/user-autocomplete.component';
 import {SessionRouterComponent} from './session-directory/session-router/session-router.component';
@@ -60,11 +56,10 @@ import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
 import {GlobalService} from './service/global.service';
 import {TestService} from './service/test.service';
 import {TransferService} from './service/transfer.service';
-import {DeleteButtonComponent} from './menu/delete-button/delete-button.component';
 import {ReportComponent} from './dialog/report/report.component';
 import {NoMailComponent} from './util/no-mail/no-mail.component';
 import {FlowComponent} from './menu/flow/flow.component';
-import {SavedComponent} from './menu/saved/saved.component';
+import {SavedComponent} from './page/saved/saved.component';
 import {ArchiveComponent} from './menu/archive/archive.component';
 import {XhrService} from './service/xhr.service';
 import {ReportService} from './service/report.service';
@@ -104,6 +99,8 @@ import { DispatchedPageComponent } from './page/dispatched-page/dispatched-page.
 import {DialogSaveProjectComponent} from "./dialog/save-import/dialog-save-project.component";
 import {EnvService} from "./service/env.service";
 import { TreatedComponent } from './page/treated/treated.component';
+import { TreatedProjectComponent } from './page/treated-project/treated-project.component';
+import {ComposeComponent} from "./dialog/compose/compose.component";
 
 @NgModule({
   declarations: [
@@ -112,11 +109,8 @@ import { TreatedComponent } from './page/treated/treated.component';
     LoginPageComponent,
     UserSidenavComponent,
     UserToolbarComponent,
-    UserHomeContainerComponent,
     UserSidenavProfilComponent,
     UserSidenavTimeComponent,
-    UserSidenavMailmenuComponent,
-    UserSidenavUsermenuComponent,
     UserHomeDashboardComponent,
     SessionsPageComponent,
     SessionPageComponent,
@@ -129,7 +123,7 @@ import { TreatedComponent } from './page/treated/treated.component';
     SessionMessageComponent,
     SessionFileComponent,
     AvatarComponent,
-    DialogWriteEmailComponent,
+    ComposeComponent,
     UserBoxComponent,
     UserAutocompleteComponent,
     SessionRouterComponent,
@@ -145,7 +139,6 @@ import { TreatedComponent } from './page/treated/treated.component';
     SafehtmlPipe,
     EntityFilterComponent,
     AvatarUploadComponent,
-    DeleteButtonComponent,
     ReportComponent,
     NoMailComponent,
     FlowComponent,
@@ -180,6 +173,7 @@ import { TreatedComponent } from './page/treated/treated.component';
     ReturnedPageComponent,
     DispatchedPageComponent,
     TreatedComponent,
+    TreatedProjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -198,7 +192,7 @@ import { TreatedComponent } from './page/treated/treated.component';
     DispatchComponent,
     ReplyComponent,
     DialogSaveProjectComponent,
-    DialogWriteEmailComponent,
+    ComposeComponent,
     ReportComponent,
     SendComponent,
     DecommissionComponent,

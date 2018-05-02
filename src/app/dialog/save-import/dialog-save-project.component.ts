@@ -108,9 +108,13 @@ export class DialogSaveProjectComponent implements OnInit {
       this.project.user = this.user
       this.project.entity_id = this.user.entity_id
       this.project.files = this.files
-      this.projectService.save(this.project)
-      this.dialogRef.close()
-    }else{
+
+      //change to loading button
+      this.projectService.save(this.project, () => {
+        this.notification.projectSaved()
+        this.dialogRef.close()
+      })
+    } else {
       this.notification.formError()
     }
   }

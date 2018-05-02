@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ThreadService} from "../../service/thread.service";
-import {ProjectService} from "../../service/project.service";
 import {FlowService} from "../../service/flow.service";
 
 @Component({
@@ -16,9 +14,7 @@ export class SentComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.flowService.sent_flows.subscribe(flows => {
-      console.log(flows)
       this.flows = flows
     })
   }

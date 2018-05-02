@@ -12,13 +12,21 @@
 
         <!--<mat-icon>class</mat-icon>-->
       </mat-panel-description>
+      <div class="project-date" *ngIf="!sameday(project)">{{project.date|date}}</div>
+      <div class="project-date" *ngIf="sameday(project)" >{{project.date|date:'shortTime'}}</div>
     </mat-expansion-panel-header>
 
     <project [project]="project"></project>
 
     <mat-action-row>
       <button mat-button color="primary"  *ngIf="viewable(project)" (click)="setProject(project.id)" routerLink="/courriels/courriel">Voir</button>
-      <button mat-button color="primary" *ngIf="submitable()" (click)="writeEmail()">
+
+      <button *ngIf="treatable(project)" (click)="treat(project)" mat-button="" color="primary">
+        <mat-icon class="mat-18">check</mat-icon>
+        Traité/Vu
+      </button>
+
+      <button mat-button color="primary" *ngIf="submitable()" (click)="submit()">
         <mat-icon class="mat-18">arrow_upward</mat-icon>
         Soumetre
       </button>

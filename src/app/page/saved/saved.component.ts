@@ -13,22 +13,17 @@ export class SavedComponent implements OnInit {
 
 
   constructor(
-    public router:Router,
+    public router: Router,
     public filter: FilterService,
     private projectService: ProjectService) {
-
     this.projects = []
 
-
-
-    this.projectService.projects.subscribe(unfiltered_projects => {
-
-
-      this.filter.query.subscribe(query => {
-        let projects = unfiltered_projects.filter(project => {
-          return project.sender.toLowerCase().includes(query.toLowerCase())
+    this.filter.query.subscribe(query => {
+      this.projectService.projects.subscribe(uprojects => {
+        console.log(uprojects)
+        this.projects = uprojects.filter(project => {
+          return project.sender.toLowerCase().includes(query.toLowerCase()) || project.content.toLowerCase().includes(query.toLowerCase())
         })
-        this.projects = projects
       })
     })
   }

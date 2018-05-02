@@ -1,24 +1,14 @@
 <div class="direction">
-  <div class="date">{{flow.date | date}}</div>
+  <div class="date">{{flow.date | date:'medium'}}</div>
   <!--<div class="date">{{flow.date | date:'medium'}}</div>-->
 
-  <div class="top" *ngIf="flow.direction == 1"> {{flow.sender_entity_label}}</div>
-  <div class="top" *ngIf="flow.direction == 2"> {{flow.entity_label}}</div>
-  <div class="top" *ngIf="flow.direction == 3 || flow.direction == 4"> {{flow.destination}}</div>
-
-  <div class="top-id" *ngIf="flow.direction == 1">{{flow.n_depart}}</div>
-  <div class="top-id" *ngIf="flow.direction == 2">{{flow.n_arrive}}</div>
+  <div class="top"> {{up_label()}}</div>
+  <div class="top-id">{{up_n()}}</div>
   <div class="arrow">
-    <mat-icon *ngIf="flow.direction == 1">arrow_downward</mat-icon>
-    <mat-icon *ngIf="flow.direction == 2">arrow_upward</mat-icon>
-    <mat-icon *ngIf="flow.direction == 3">arrow_back</mat-icon>
-    <mat-icon *ngIf="flow.direction == 4">arrow_forward</mat-icon>
+    <mat-icon>{{arrow()}}</mat-icon>
   </div>
-  <div class="bottom" *ngIf="flow.direction == 1 || flow.direction == 4"> {{flow.entity_label}}</div>
-  <div class="bottom" *ngIf="flow.direction == 2  || flow.direction == 3 ">{{flow.sender_entity_label}}</div>
-
-  <div class="bottom-id" *ngIf="flow.direction == 1 || flow.direction == 4">{{flow.n_arrive}}</div>
-  <div class="bottom-id" *ngIf="flow.direction == 2  || flow.direction == 3">{{flow.n_depart}}</div>
+  <div class="bottom" > {{down_label()}}</div>
+  <div class="bottom-id">{{down_n()}}</div>
 </div>
 
 

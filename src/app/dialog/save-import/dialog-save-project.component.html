@@ -41,18 +41,15 @@
           <mat-hint align="start">DD/MM/YYYY</mat-hint>
         </mat-form-field>
         <mat-datepicker #recieved_picker></mat-datepicker>
-        <!--reference-->
-        <mat-form-field class="">
-          <input [(ngModel)]="project.ref" required name="ref" matInput placeholder="Référence">
-          <mat-hint align="start">ex: N° 055-2016/PM/SP</mat-hint>
-        </mat-form-field>
-        <!--lettre be ... -->
+
         <mat-form-field>
-          <mat-select [(ngModel)]="project.lettre" name="lettre" placeholder="Lettre/BE/...">
+          <mat-select [(ngModel)]="project.lettre" name="lettre" placeholder="Type">
             <mat-option  *ngFor="let lettre of letter_types; let i = index" [value]="i">{{lettre}}</mat-option>
           </mat-select>
         </mat-form-field>
-
+        <mat-form-field class="">
+          <input [(ngModel)]="project.ref" name="ref" matInput placeholder="Référence ">
+        </mat-form-field>
 
         <!--objet-->
         <h4>Objet:</h4>
@@ -61,7 +58,7 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-select [(ngModel)]="project.type" name="type" placeholder="Type">
+          <mat-select [(ngModel)]="project.type" name="type" placeholder="Document">
             <mat-option  *ngFor="let in_t of in_types; let i = index" [value]="i">{{in_t}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -77,7 +74,6 @@
         <!--destinataires-->
         <!--observations-->
 
-
         <h4>Observations:</h4>
         <div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="project.observations"></div>
         <!--date de depart auto-->
@@ -85,6 +81,7 @@
 
     </mat-tab>
 
+<!--
     <mat-tab label="Import">
 
       <mat-form-field class="">
@@ -97,11 +94,11 @@
                placeholder="N° du courrier">
       </mat-form-field>
 
-      <!--auto filled expediteur-->
+      &lt;!&ndash;auto filled expediteur&ndash;&gt;
       <mat-form-field class="">
         <input [(ngModel)]="imported.sender" required name="receiver" matInput placeholder="Expediteur">
       </mat-form-field>
-      <!--Observation-->
+      &lt;!&ndash;Observation&ndash;&gt;
       <h5>Observation</h5>
       <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="imported.content"></div>
 
@@ -109,7 +106,7 @@
         <mat-radio-button value="1">Signé</mat-radio-button>
         <mat-radio-button value="2">Avis favorable</mat-radio-button>
       </mat-radio-group>
-    </mat-tab>
+    </mat-tab>-->
 
 
   </mat-tab-group>
@@ -118,5 +115,5 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button mat-dialog-close="" (click)="submit()" mat-button>ENREGISTRER</button>
+  <button mat-dialog-close="" disabled="false" (click)="submit()" mat-button>ENREGISTRER</button>
 </mat-dialog-actions>

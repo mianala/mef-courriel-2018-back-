@@ -158,6 +158,4 @@ export class UserService {
       this.route.navigateByUrl('/public')
     });
   }
-
-
 }

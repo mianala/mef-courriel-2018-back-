@@ -1,0 +1,57 @@
+<div mat-dialog-title>
+  <app-user-box [user]="user"></app-user-box>
+</div>
+<mat-dialog-content fxLayout="column" class="content">
+  <!--arrive mfb auto-->
+  <mat-form-field class="">
+    <input type="text" disabled required [(ngModel)]="composition.n_arrive" name="n_arrive" matInput
+           placeholder="N° du courrier">
+  </mat-form-field>
+
+  <h4>Objet:</h4>
+  <mat-form-field class="">
+    <textarea [(ngModel)]="composition.title" required name="content" matInput placeholder="Objet"></textarea>
+  </mat-form-field>
+
+  <h4>Note / Observations</h4>
+  <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="composition.content"></div>
+
+
+  <mat-radio-group onchange="updateDirection()" [(ngModel)]="composition.direction">
+    <mat-radio-button *ngIf="canSubmit()" value="1">Envoyer a {{canSubmit()}}</mat-radio-button>
+    <mat-radio-button *ngIf="canShare()" value="2">Horizontale</mat-radio-button>
+    <mat-radio-button value="3">Dispatch</mat-radio-button>
+  </mat-radio-group>
+  <h4 *ngIf="!forSubmit()">Destinataires</h4>
+  <!--entities-->
+
+  <div *ngIf="forDispatch()" class="entities">
+    <mat-checkbox *ngFor="let entity of downEntities" (click)="checkEntity(entity.id)">
+      <strong>{{entity.label}}</strong>
+      -
+      {{entity.title | slice:0:35}}...
+    </mat-checkbox>
+  </div>
+  <div *ngIf="forShare()" class="entities">
+    <mat-checkbox *ngFor="let entity of relativeEntities" (click)="checkEntity(entity.id)">
+      <strong>{{entity.label}}</strong> -
+      {{entity.title | slice:0:35}}...
+    </mat-checkbox>
+  </div>
+
+
+  <!--date de depart auto-->
+  <app-files [files]="composition.files"></app-files>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
+  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button *ngIf="!forSubmit()" (click)="submit()" mat-button>
+    <mat-icon class="mat-18">call_split</mat-icon>
+    Dispatcher
+  </button>
+  <button *ngIf="forSubmit()" (click)="submit()" mat-button>
+    <mat-icon class="mat-18">send</mat-icon>
+    Envoyer
+  </button>
+</mat-dialog-actions>

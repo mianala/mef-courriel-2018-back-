@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FlowService} from "../../service/flow.service";
+import {FilterService} from "../../service/filter.service";
 
 @Component({
   selector: 'app-treated',
@@ -9,15 +10,18 @@ import {FlowService} from "../../service/flow.service";
 export class TreatedComponent implements OnInit {
   flows
 
-  constructor(private flowService: FlowService) {
+  constructor(public filter: FilterService,
+              private flowService: FlowService) {
     this.flows = []
   }
 
   ngOnInit() {
-
-    this.flowService.treated_flows.subscribe(flows => {
-      console.log(flows)
-      this.flows = flows
+    this.filter.query.subscribe(query => {
+      this.flowService.flows.subscribe(uflows => {
+        this.flows = uflows.filter(flow => {
+          return flow.sender_entity_label.toLowerCase().includes(query.toLowerCase()) || flow.content.toLowerCase().includes(query.toLowerCase())
+        })
+      })
     })
   }
 

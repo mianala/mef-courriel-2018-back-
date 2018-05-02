@@ -42,7 +42,7 @@ export class NotificationService {
   }
 
   projectSaved() {
-    const message = 'Courriel enregistré avec succès';
+    const message = 'Projet enregistré avec succès';
     this.openSnack(message);
   }
 
@@ -67,7 +67,12 @@ export class NotificationService {
   }
 
   flowTreated() {
-    const message = 'Courrier traité';
+    const message = 'Courriel traité';
+    this.openSnack(message);
+  }
+
+  projectTreated() {
+    const message = 'Projet traité';
     this.openSnack(message);
   }
 
@@ -76,6 +81,10 @@ export class NotificationService {
     this.openSnack(message);
   }
   invalidObservation() {
+    const message = 'Veillez bien verifier les observations';
+    this.openSnack(message);
+  }
+  invalidTitle() {
     const message = 'Veillez bien verifier les observations';
     this.openSnack(message);
   }
@@ -89,9 +98,18 @@ export class NotificationService {
     this.openSnack(message);
   }
 
-
   formError() {
     const message = 'Veuillez bien remplir le formulaire';
+    this.openSnack(message);
+  }
+
+  fileTooHeavy() {
+    const message = 'Fichier trop volumineux';
+    this.openSnack(message);
+  }
+
+  noFile() {
+    const message = 'Fichier';
     this.openSnack(message);
   }
 
@@ -100,6 +118,11 @@ export class NotificationService {
   }
 
   answered() {
+    const message = 'Courriel envoyé';
+    this.snackBar.open(message, '', this.getConfig());
+  }
+
+  sent() {
     const message = 'Courriel envoyé';
     this.snackBar.open(message, '', this.getConfig());
   }

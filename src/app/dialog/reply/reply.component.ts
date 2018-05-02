@@ -6,6 +6,7 @@ import {FroalaService} from '../../service/froala.service';
 import {DispatchComponent} from '../../projects/dialog/dispatch/dispatch.component';
 import {ProjectService} from '../../service/project.service';
 import {FlowService} from "../../service/flow.service";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-reply',
@@ -21,6 +22,7 @@ export class ReplyComponent implements OnInit {
               private entityService: EntityService,
               private projectService: ProjectService,
               private flowService: FlowService,
+              private notification: NotificationService,
               private threadService: ThreadService,
               private dialogRef: MatDialogRef<DispatchComponent>) {
     this.answer = {
@@ -32,7 +34,6 @@ export class ReplyComponent implements OnInit {
 
     this.entity = this.entityService.entity.getValue()
     this.flowService.answerData.subscribe(answerData => {
-      console.log(answerData)
       this.answer.flow_id = answerData['flow_id']
       this.answer.entity_id = answerData['entity_id']
     })
@@ -48,9 +49,23 @@ export class ReplyComponent implements OnInit {
     this.answer.files = this.answer.files.concat(files)
   }
 
+  valid() {
+    return this.answer.content.length > 3
+  }
+
   submit() {
-    this.dialogRef.close()
-    this.flowService.answerFlow(this.answer)
+
+    if (!this.valid()) {
+      this.notification.invalidObservation()
+      return
+    }
+
+
+    //update button into loading button
+    this.flowService.answerFlow(this.answer, () => {
+      this.notification.answered()
+      this.dialogRef.close()
+    })
   }
 
 }

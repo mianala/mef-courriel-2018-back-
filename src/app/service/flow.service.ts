@@ -8,49 +8,47 @@ import {Flow} from '../../models/Flow';
 import {Router} from "@angular/router";
 import {ProjectService} from "./project.service";
 import {EnvService} from "./env.service";
+import {XhrService} from "./xhr.service";
 
 @Injectable()
 export class FlowService {
-  url: string
+  url: string;
   options = new RequestOptions({withCredentials: true});
 
   //in boite
-  flows = new BehaviorSubject([])
-  sent_flows = new BehaviorSubject([])
+  flows = new BehaviorSubject([]);
+  sent_flows = new BehaviorSubject([]);
   // in traité
-  treated_flows = new BehaviorSubject([])
+  treated_flows = new BehaviorSubject([]);
   // in expediés
-  shipped_flows = new BehaviorSubject([])
+  shipped_flows = new BehaviorSubject([]);
   //imported
-  returned_flows = new BehaviorSubject([])
-  // in dispatché
-  dispatched_flows = new BehaviorSubject([])
-  project_flows = new BehaviorSubject([])
+  returned_flows = new BehaviorSubject([]);
 
-  flow = new BehaviorSubject({})
-  be = new BehaviorSubject({})
-  shipped_flow = new BehaviorSubject({})
-  answerData = new BehaviorSubject({})
-  user
+  project_flows = new BehaviorSubject([]);
 
-  static flow_count
+  flow = new BehaviorSubject({});
+  be = new BehaviorSubject({});
+  shipped_flow = new BehaviorSubject({});
+  answerData = new BehaviorSubject({});
+  user;
 
   constructor(private http: Http,
               private notification: NotificationService,
               private userService: UserService,
-              router: Router) {
+              private xhr: XhrService) {
     this
       .url = EnvService.ip() + '/api/flows';
     this
-      .user = this.userService.user.getValue()
+      .user = this.userService.user.getValue();
     this
       .user = this.userService.user.subscribe(user => {
       if (user['id']) {
-        this.user = user
-        this.getFlows()
-        this.getTreatedFlows()
-        this.getSentFlows()
-        this.getShippedFlows()
+        this.user = user;
+        this.getFlows();
+        this.getTreatedFlows();
+        this.getSentFlows();
+        this.getShippedFlows();
         this.getReturnedFlows()
       }
     })
@@ -74,27 +72,27 @@ export class FlowService {
   }
 
   reload() {
-    console.log('reloading flow')
-    const flow = localStorage.getItem('flow')
+    console.log('reloading flow');
+    const flow = localStorage.getItem('flow');
     if (flow) {
       this.flow.next(JSON.parse(flow))
     }
   }
 
   setFlow(id: number) {
-    console.log('setting flow ' + id)
+    console.log('setting flow ' + id);
     this.http.get(this.url + '/' + this.userService.user.getValue()['entity_id'] + '/' + id)
       .map(res => res.json()).subscribe(
       flow => {
-        this.flow.next(flow)
-        console.log('flow set')
-        console.log(flow)
+        this.flow.next(flow);
+        console.log('flow set');
+        console.log(flow);
         localStorage.setItem('flow', JSON.stringify(flow))
       })
   }
 
   untreat(id: number) {
-    console.log('treating flow ' + id)
+    console.log('treating flow ' + id);
     this.http.post(this.url + '/treat', {id: id}, this.options)
       .map(res => res.json())
       .subscribe(user => {
@@ -104,17 +102,16 @@ export class FlowService {
 
 
   treat(id: number) {
-    console.log('treating flow ' + id)
-    this.http.post(this.url + '/treat', {id: id}, this.options)
+    console.log('treating flow ' + id);
+    this.http.post(this.url + '/treat', {id: id,entity_id:this.user.entity_id}, this.options)
       .subscribe(result => {
         console.log(result)
-        this.notification.flowTreated()
       })
   }
 
   getFlows() {
 
-    console.log('loading flows')
+    console.log('loading flows');
 
     if (this.user.entity_id == undefined) {
       return false
@@ -123,13 +120,9 @@ export class FlowService {
     this.http.get(this.url + '/entity/' + this.user.entity_id)
       .map(res => res.json()).subscribe(flows => {
 
-      flows.sort(function (b, a) {
-        const c = a['id'];
-        const d = b['id'];
-        return c - d;
-      });
+      flows.sort(GlobalService.sortByDate);
 
-      if(this.flows.getValue() == flows){
+      if (this.flows.getValue() == flows) {
         return false
       }
 
@@ -139,19 +132,15 @@ export class FlowService {
 
   getSentFlows() {
 
-    console.log('loading flows')
+    console.log('loading flows');
 
     this.http.get(this.url + '/entity/sent/' + this.user.entity_id)
       .map(res => res.json()).subscribe(flows => {
 
-      flows.sort(function (b, a) {
-        const c = a['id'];
-        const d = b['id'];
-        return c - d;
-      });
+      flows.sort(GlobalService.sortByDate);
 
 
-      if(this.sent_flows.getValue() == flows){
+      if (this.sent_flows.getValue() == flows) {
         return false
       }
 
@@ -161,19 +150,15 @@ export class FlowService {
 
   getTreatedFlows() {
 
-    console.log('loading treated flows')
+    console.log('loading treated flows');
 
     this.http.get(this.url + '/entity/treated/' + this.user.entity_id)
       .map(res => res.json()).subscribe(flows => {
 
-      flows.sort(function (b, a) {
-        const c = a['id'];
-        const d = b['id'];
-        return c - d;
-      });
+      flows.sort(GlobalService.sortByDate);
 
 
-      if(this.treated_flows.getValue() == flows){
+      if (this.treated_flows.getValue() == flows) {
         return false
       }
 
@@ -183,20 +168,15 @@ export class FlowService {
 
   getShippedFlows() {
 
-    console.log('loading shipped flows')
+    console.log('loading shipped flows');
 
     this.http.get(this.url + '/shipped/' + this.user.entity_id)
       .map(res => res.json()).subscribe(flows => {
 
-      flows.sort(function (b, a) {
-        const c = a['id'];
-        const d = b['id'];
-        return c - d;
-      });
+      flows.sort(GlobalService.sortByDate);
 
 
-
-      if(this.shipped_flows.getValue() == flows){
+      if (this.shipped_flows.getValue() == flows) {
         return false
       }
 
@@ -206,174 +186,62 @@ export class FlowService {
 
   getReturnedFlows() {
 
-    console.log('loading shipped flows')
+    console.log('loading shipped flows');
 
     this.http.get(this.url + '/returned/' + this.user.entity_id)
       .map(res => res.json()).subscribe(flows => {
 
-      flows.sort(function (b, a) {
-        const c = a['id'];
-        const d = b['id'];
-        return c - d;
-      });
-
-
-      if(this.returned_flows.getValue() == flows){
+      flows.sort(GlobalService.sortByDate);
+      if (this.returned_flows.getValue() == flows) {
         return false
       }
-
       this.returned_flows.next(flows)
     })
   }
 
   getProjectFlows(id) {
-    console.log('loading project flows  ' + id)
+    console.log('loading project flows  ' + id);
     this.http.get(this.url + '/project/' + id)
       .map(res => res.json()).subscribe(flows => {
-      flows.sort(function (b, a) {
-        const c = a['id'];
-        const d = b['id'];
-        return c - d;
-      });
-
-
-      if(this.project_flows.getValue() == flows){
+      flows.sort(GlobalService.sortByDate);
+      if (this.project_flows.getValue() == flows) {
         return false
       }
-
       this.project_flows.next(flows)
     })
   }
 
-  start(mail ?: any) {
+  answerFlow(answer,next) {
+    const formData: any = new FormData();
 
-    this.post(mail).then((result) => {
-      console.log(result)
-      // this.update()
-    }, (error) => {
-      console.log(error)
+    formData.append('flow_id', this.answerData.getValue()['flow_id']);
+    formData.append('sender_entity_id', this.user.entity.id);
+    formData.append('entity_id', this.answerData.getValue()['entity_id']);
+    formData.append('user_id', this.user.id);
+    formData.append('content', answer.content);
+
+    for (let i = 0; i < answer.files.length; i++) {
+      formData.append('files', answer.files[i], answer.files[i].name)
+    }
+
+    this.xhr.promise(this.url + '/reply', formData, () => {
+      next()
     })
-
   }
 
-  post(mail: any) {
-
-    console.log('posting mail')
-    console.log(mail)
-    return new Promise((resolve, reject) => {
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
-
-      formData.append('title', mail.title)
-      formData.append('content', mail.content)
-      formData.append('starter_id', this.user['id'])
-      formData.append('receiver_id', mail.user['id'])
-      if (mail.savedId) {
-        formData.append('saved_id', mail.savedId)
-      } else {
-        formData.append('saved_id', 0)
-
-      }
-
-      if (mail.files) {
-        for (let i = 0; i < mail.files.length; i++) {
-          formData.append('files', mail.files[i], mail.files[i].name)
-        }
-      }
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(JSON.parse(xhr.response));
-          } else {
-            reject(xhr.response);
-          }
-        }
-      }
-
-      xhr.open('POST', this.url, true);
-      xhr.send(formData)
-      this.notification.emailSent()
-    });
-  }
-
-  answerFlow(answer) {
-    console.log(this.user)
-
-    return new Promise((resolve, reject) => {
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
-
-      formData.append('flow_id', this.answerData.getValue()['flow_id'])
-      formData.append('sender_entity_id', this.user.entity.id)
-      formData.append('user_id', this.user.id)
-      formData.append('content', answer.content)
-
-      for (let i = 0; i < answer.files.length; i++) {
-        formData.append('files', answer.files[i], answer.files[i].name)
-      }
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      }
-
-      xhr.open('POST', this.url + '/reply', true);
-      xhr.send(formData)
-      this.notification.answered()
-    });
-  }
-
-
-  submit(flow) {
-    console.log(this.user)
-
-    return new Promise((resolve, reject) => {
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
-
-      formData.append('flow_id', this.flow.getValue()['id'])
-      formData.append('sender_entity_id', this.user.entity.id)
-      formData.append('user_id', this.user.id)
-      formData.append('content', flow.content)
-
-      for (let i = 0; i < flow.files.length; i++) {
-        formData.append('files', flow.files[i], flow.files[i].name)
-      }
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      }
-
-      xhr.open('POST', this.url + '/reply', true);
-      xhr.send(formData)
-      this.notification.answered()
-    });
-  }
 
   ship(flow) {
-    console.log(this.user)
+    console.log(this.user);
 
     return new Promise((resolve, reject) => {
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
+      const formData: any = new FormData();
+      const xhr = new XMLHttpRequest();
 
-      formData.append('flow_id', flow.flow_id)
-      formData.append('sender_entity_id', this.user.entity.id)
-      formData.append('destination', flow.receiver)
-      formData.append('ship_for', flow.ship_for)
-      formData.append('user_id', this.user.id)
+      formData.append('flow_id', flow.flow_id);
+      formData.append('sender_entity_id', this.user.entity.id);
+      formData.append('destination', flow.receiver);
+      formData.append('ship_for', flow.ship_for);
+      formData.append('user_id', this.user.id);
 
       for (let i = 0; i < flow.files.length; i++) {
         formData.append('files', flow.files[i], flow.files[i].name)
@@ -382,14 +250,14 @@ export class FlowService {
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            console.log('we got a response')
-            console.log(xhr.response)
+            console.log('we got a response');
+            console.log(xhr.response);
             resolve(xhr.response);
           } else {
             reject(xhr.response);
           }
         }
-      }
+      };
 
       xhr.open('POST', this.url + '/ship', true);
       xhr.send(formData)
@@ -399,23 +267,23 @@ export class FlowService {
   }
 
   shipWithBe(flow, be) {
-    console.log(this.user)
+    console.log(this.user);
 
     return new Promise((resolve, reject) => {
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
+      const formData: any = new FormData();
+      const xhr = new XMLHttpRequest();
 
-      formData.append('flow_id', this.flow.getValue()['flow_id'])
-      formData.append('sender_entity_id', this.user.entity.id)
-      formData.append('destination', flow.receiver)
-      formData.append('ship_for', flow.ship_for)
-      formData.append('user_id', this.user.id)
-      formData.append('be_entity', be.entity)
-      formData.append('be_author', be.author)
-      formData.append('be_receiver', be.receiver)
-      formData.append('be_numero', be.numero)
-      formData.append('be_observation', be.observation)
-      formData.append('be_content', be.content)
+      formData.append('flow_id', this.flow.getValue()['flow_id']);
+      formData.append('sender_entity_id', this.user.entity.id);
+      formData.append('destination', flow.receiver);
+      formData.append('ship_for', flow.ship_for);
+      formData.append('user_id', this.user.id);
+      formData.append('be_entity', be.entity);
+      formData.append('be_author', be.author);
+      formData.append('be_receiver', be.receiver);
+      formData.append('be_numero', be.numero);
+      formData.append('be_observation', be.observation);
+      formData.append('be_content', be.content);
 
       for (let i = 0; i < flow.files.length; i++) {
         formData.append('files', flow.files[i], flow.files[i].name)
@@ -426,8 +294,8 @@ export class FlowService {
           if (xhr.status === 200) {
             resolve(xhr.response);
             // we got the be from the server we can print it
-            console.log(xhr.response)
-            be.next(xhr.response)
+            console.log(xhr.response);
+            be.next(xhr.response);
 
             // now we open the page of be
             // router.navigateByUrl('/impression-BE')
@@ -437,7 +305,7 @@ export class FlowService {
             reject(xhr.response);
           }
         }
-      }
+      };
 
       xhr.open('POST', this.url + '/ship/be', true);
       xhr.send(formData)
@@ -447,17 +315,17 @@ export class FlowService {
   }
 
   decommission(flow) {
-    console.log('decommissioning')
+    console.log('decommissioning');
 
     return new Promise((resolve, reject) => {
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
+      const formData: any = new FormData();
+      const xhr = new XMLHttpRequest();
 
-      formData.append('flow_id', this.flow.getValue()['id'])
-      formData.append('sender_entity_id', this.user.entity.id)
-      formData.append('entity_id', flow.entity.id)
-      formData.append('reason', flow.content)
-      formData.append('user_id', this.user.id)
+      formData.append('flow_id', this.flow.getValue()['id']);
+      formData.append('sender_entity_id', this.user.entity.id);
+      formData.append('entity_id', flow.entity.id);
+      formData.append('reason', flow.content);
+      formData.append('user_id', this.user.id);
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -467,7 +335,7 @@ export class FlowService {
             reject(xhr.response);
           }
         }
-      }
+      };
 
       xhr.open('POST', this.url + '/decommission', true);
       xhr.send(formData)
@@ -477,15 +345,15 @@ export class FlowService {
   }
 
   share(flow) {
-    console.log(this.user)
+    console.log(this.user);
 
     return new Promise((resolve, reject) => {
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
+      const formData: any = new FormData();
+      const xhr = new XMLHttpRequest();
 
-      formData.append('flow_id', this.flow.getValue()['id'])
-      formData.append('receivers', flow.receivers)
-      formData.append('user_id', this.user.id)
+      formData.append('flow_id', this.flow.getValue()['id']);
+      formData.append('receivers', flow.receivers);
+      formData.append('user_id', this.user.id);
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -495,7 +363,7 @@ export class FlowService {
             reject(xhr.response);
           }
         }
-      }
+      };
 
       xhr.open('POST', this.url + '/share', true);
       xhr.send(formData)
@@ -505,16 +373,16 @@ export class FlowService {
   }
 
   importFlow(imported) {
-    console.log(this.user)
+    console.log(this.user);
 
     return new Promise((resolve, reject) => {
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
+      const formData: any = new FormData();
+      const xhr = new XMLHttpRequest();
 
-      formData.append('flow_id', this.shipped_flow.getValue()['id'])
-      formData.append('content', imported.content)
-      formData.append('status_id', imported.status)
-      formData.append('user_id', this.user.id)
+      formData.append('flow_id', this.shipped_flow.getValue()['id']);
+      formData.append('content', imported.content);
+      formData.append('status_id', imported.status);
+      formData.append('user_id', this.user.id);
 
       for (let i = 0; i < imported.files.length; i++) {
         formData.append('files', imported.files[i], imported.files[i].name)
@@ -528,20 +396,11 @@ export class FlowService {
             reject(xhr.response);
           }
         }
-      }
+      };
 
       xhr.open('POST', this.url + '/ship', true);
       xhr.send(formData)
       //  import notification
     });
-  }
-
-  delete(id: number) {
-    this.http.delete(this.url + '/' + id + '/' + this.user['id']).subscribe(data => {
-      console.log('flow ' + id + ' removed')
-      console.log('updating flow list')
-      this.notification.flowRemoved()
-      this.update()
-    })
   }
 }

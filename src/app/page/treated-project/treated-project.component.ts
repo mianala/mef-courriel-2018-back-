@@ -1,19 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
 import {ProjectService} from "../../service/project.service";
 import {FilterService} from "../../service/filter.service";
 
 @Component({
-  selector: 'app-dispatched-page',
-  templateUrl: './dispatched-page.component.html',
-  styleUrls: ['./dispatched-page.component.scss']
+  selector: 'app-treated-project',
+  templateUrl: './treated-project.component.html',
+  styleUrls: ['./treated-project.component.scss']
 })
-export class DispatchedPageComponent implements OnInit {
+export class TreatedProjectComponent implements OnInit {
   projects;
 
-  constructor(
-    public router: Router, public filter: FilterService,
-    private projectService: ProjectService) {
+  constructor(public filter: FilterService,
+              private projectService: ProjectService) {
+
     this.projects = [];
 
     this.filter.query.subscribe(query => {
@@ -27,5 +26,4 @@ export class DispatchedPageComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

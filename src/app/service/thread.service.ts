@@ -5,16 +5,18 @@ import {NotificationService} from './notification.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {UserService} from './user.service';
 import {EnvService} from "./env.service";
+import {XhrService} from "./xhr.service";
 
 @Injectable()
 export class ThreadService {
   url: string;
-  user
+  user;
 
-  project_threads = new BehaviorSubject([])
+  project_threads = new BehaviorSubject([]);
 
 
   constructor(private http: Http,
+              private xhr:XhrService,
               private userService: UserService,
               private notification: NotificationService) {
     this
@@ -30,7 +32,7 @@ export class ThreadService {
 
 
   getProjectThreads(id) {
-    console.log('getting the project threads')
+    console.log('getting the project threads');
 
 
     this.http.get(this.url + '/' + id)
@@ -41,7 +43,7 @@ export class ThreadService {
         return c - d;
       });
 
-      console.log('got the project threads')
+      console.log('got the project threads');
 
 
       if(this.project_threads.getValue() == project_threads){
@@ -51,39 +53,23 @@ export class ThreadService {
     })
   }
 
-  dispatch(thread) {
-    console.log(this.user)
+  dispatch(thread,next) {
 
-    return new Promise((resolve, reject) => {
-
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
-
-      formData.append('receivers', thread.receivers)
-      formData.append('sender_entity_id', this.user.entity.id)
-      formData.append('project_id', thread.project.id)
-      formData.append('user_id', this.user.id)
-      formData.append('content', thread.content)
-      formData.append('direction', 1)
+      const formData: any = new FormData();
+      formData.append('receivers', thread.receivers);
+      formData.append('sender_entity_id', this.user.entity_id);
+      formData.append('project_id', thread.project.id);
+      formData.append('user_id', this.user.id);
+      formData.append('content', thread.content);
+      formData.append('direction', 1);
 
       for (let i = 0; i < thread.files.length; i++) {
         formData.append('files', thread.files[i], thread.files[i].name)
       }
 
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      }
-
-      xhr.open('POST', this.url, true);
-      xhr.send(formData)
-      this.notification.threadDispatched()
-    });
+      this.xhr.promise(this.url,formData,()=>{
+        next()
+      })
   }
 
 
