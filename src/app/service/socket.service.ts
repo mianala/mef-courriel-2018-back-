@@ -34,18 +34,24 @@ export class SocketService {
         socket.on('new project', (content) => {
 
 
-          console.log('Socket new project');
           console.log(this.entity);
+          console.log('Socket new project');
           console.log(content);
+          if(!this.entity){
+            return
+          }
           const participants = content.participants
           if (participants.includes(this.entity.toString())) {
             this.projectService.getProjects()
           }
         });
 
-        socket.on('project treated', (content) => {
           console.log(this.entity);
+        socket.on('project treated', (content) => {
           console.log(content);
+          if(!this.entity){
+            return
+          }
           const participants = content.participants
           if (participants.includes(this.entity)) {
             this.projectService.getProjects()
@@ -55,9 +61,12 @@ export class SocketService {
         });
 
         socket.on('reply', (content) => {
-          console.log('Socket reply sent');
           console.log(this.entity);
+          console.log('Socket reply sent');
           console.log(content);
+          if(!this.entity){
+            return
+          }
           const participants = content.participants
 
           if (participants[0] == this.entity.toString()) {
@@ -67,9 +76,12 @@ export class SocketService {
           }
         });
 
-        socket.on('flow treated', (content) => {
           console.log(this.entity);
+        socket.on('flow treated', (content) => {
           console.log(content);
+          if(!this.entity){
+            return
+          }
 
           const participants = content.participants
           console.log('Socket flow treated');
@@ -81,9 +93,12 @@ export class SocketService {
         });
 
         socket.on('project treated', (content) => {
-          console.log('Socket project treated');
           console.log(this.entity);
+          console.log('Socket project treated');
           console.log(content);
+          if(!this.entity){
+            return
+          }
           const participants = content.participants
           if (participants.includes(this.entity)) {
             this.projectService.getProjects()
@@ -93,9 +108,12 @@ export class SocketService {
         });
 
         socket.on('dispatch', (content) => {
-          console.log('Socket dispatch heard');
           console.log(this.entity);
+          console.log('Socket dispatch heard');
           console.log(content);
+          if(!this.entity){
+            return
+          }
           const participants = content.participants
 
           if (participants[0] == this.entity.toString()) {
@@ -107,9 +125,12 @@ export class SocketService {
           }
         });
         socket.on('project composed', (content) => {
-          console.log('Socket project composed');
           console.log(this.entity);
+          console.log('Socket project composed');
           console.log(content);
+          if(!this.entity){
+            return
+          }
           const participants = content.participants
 
           if (participants[0] == this.entity.toString()) {
