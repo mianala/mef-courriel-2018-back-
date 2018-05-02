@@ -8,7 +8,8 @@
       <mat-chip-list>
         <mat-chip [color]="'primary'">{{letter_types[project.letter]}}</mat-chip>
         <mat-chip [color]="'accent'">{{in_types[project.type]}}</mat-chip>
-      </mat-chip-list></div>
+      </mat-chip-list>
+    </div>
   </div>
 
   <div class="description">
@@ -25,11 +26,15 @@
     <div>{{project.sender}}</div>
   </div>
 
-  <div class="description">
-    <h4 *ngIf="!composed()" class="label">
+  <div *ngIf="!composed()"  class="description">
+    <h4 class="label">
       Date du courrier
     </h4>
-    <h4 *ngIf="composed()" class="label">
+    <div>{{project.date|date}}</div>
+  </div>
+
+  <div *ngIf="composed()" class="description">
+    <h4 class="label">
       Date
     </h4>
     <div>{{project.date | date:'medium'}}</div>
