@@ -24,10 +24,11 @@ export class UserService {
     if (localStorage.getItem('user')) {
       this.user.next(JSON.parse(localStorage.getItem('user')))
     } else {
-      this.connect(()=>{
+      this.connect(() => {
         console.log('connected from local')
       })
     }
+
 
 
     this.user.subscribe(user => {
@@ -40,7 +41,7 @@ export class UserService {
   }
 
 
-  login(id: string, password: string,next) {
+  login(id: string, password: string, next) {
     this.http
       .post(
         this.url + '/user',
@@ -67,6 +68,8 @@ export class UserService {
       .subscribe(user => {
         next();
         this.user.next(user)
+        this.redirectIfConnected()
+
       })
   }
 
@@ -85,6 +88,9 @@ export class UserService {
     this.user.subscribe(user => {
       if (user['id']) {
         this.route.navigateByUrl('/courriels')
+      } else {
+        this.route.navigateByUrl('/public')
+
       }
     })
   }
