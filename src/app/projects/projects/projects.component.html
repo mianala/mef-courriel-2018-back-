@@ -5,7 +5,7 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         <div class="sender">{{project.sender}}</div>
-        <div class="n">- {{project.n_arrive}}</div>
+        <div class="n">{{project.n_arrive}}</div>
 
       </mat-panel-title>
       <mat-panel-description [innerHtml]="project.content| slice:0:150">
@@ -21,8 +21,9 @@
     <mat-action-row>
       <button mat-button color="primary"  *ngIf="viewable(project)" (click)="setProject(project.id)" routerLink="/courriels/courriel">Voir</button>
 
-      <button *ngIf="treatable(project)" (click)="treat(project)" mat-button="" color="primary">
-        <mat-icon class="mat-18">check</mat-icon>
+      <button *ngIf="treatable(project) " [disabled]="treating==project.id" (click)="treat(project)" mat-button="" color="primary">
+        <mat-icon *ngIf="treating!=project.id" class="mat-18">check</mat-icon>
+        <loading-button *ngIf="treating == project.id"></loading-button>
         Traité/Vu
       </button>
 
@@ -30,8 +31,8 @@
         <mat-icon class="mat-18">arrow_upward</mat-icon>
         Soumetre
       </button>
-      <button mat-button color="primary" (click)="dispatch(project.id)">
-        <mat-icon class="mat-18">call_split</mat-icon>
+      <button  mat-button color="primary" (click)="dispatch(project.id)">
+        <mat-icon  class="mat-18">call_split</mat-icon>
         Dispatch</button>
     </mat-action-row>
   </mat-expansion-panel>

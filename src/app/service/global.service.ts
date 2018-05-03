@@ -80,6 +80,16 @@ export class GlobalService {
     return text ? String(text).replace(/<[^>]+>/gm, '') : '';
   }
 
+  static toggleInArray(array, value) {
+    const index = array.indexOf(value);
+
+    if (index === -1) {
+      array.push(value);
+    } else {
+      array.splice(index, 1);
+    }
+  }
+
 
   addZero(i) {
     if (i < 10) {

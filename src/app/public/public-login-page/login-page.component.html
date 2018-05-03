@@ -20,6 +20,9 @@
   </form>
   <div fxLayout="row" class="action-buttons">
     <button routerLink="/public" mat-button>ANNULER</button>
-    <button (click)="submit()" mat-button>CONNEXION</button>
+    <button [disabled]="loading" (click)="submit()" mat-button>
+      <mat-icon *ngIf="!loading" class="mat-18">log_in</mat-icon>
+      <loading-button *ngIf="loading"></loading-button>
+      CONNEXION</button>
   </div>
 </div>

@@ -11,10 +11,11 @@ import {fadeInAnimation} from '../../animation/fadeIn'
 })
 export class LoginPageComponent implements OnInit {
   user: any
+  loading:boolean
 
   constructor(private userService: UserService) {
     this.user = {}
-
+    this.loading = false
   }
 
   ngOnInit() {
@@ -22,8 +23,11 @@ export class LoginPageComponent implements OnInit {
   }
 
   submit() {
-    this.userService.redirectIfConnected()
-    this.userService.login(this.user.id, this.user.password)
+    this.loading = true
+    this.userService.login(this.user.id, this.user.password, () => {
+        this.loading = false
+      }
+    )
   }
 
 }

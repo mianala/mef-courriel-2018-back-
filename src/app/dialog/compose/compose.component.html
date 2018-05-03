@@ -16,24 +16,23 @@
   <h4>Note / Observations</h4>
   <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="composition.content"></div>
 
-
+  <h4 *ngIf="!forSubmit()">Destinataires</h4>
   <mat-radio-group onchange="updateDirection()" [(ngModel)]="composition.direction">
     <mat-radio-button *ngIf="canSubmit()" value="1">Envoyer a {{canSubmit()}}</mat-radio-button>
     <mat-radio-button *ngIf="canShare()" value="2">Horizontale</mat-radio-button>
     <mat-radio-button value="3">Dispatch</mat-radio-button>
   </mat-radio-group>
-  <h4 *ngIf="!forSubmit()">Destinataires</h4>
   <!--entities-->
 
   <div *ngIf="forDispatch()" class="entities">
-    <mat-checkbox *ngFor="let entity of downEntities" (click)="checkEntity(entity.id)">
+    <mat-checkbox *ngFor="let entity of downEntities" (change)="checkEntity(entity.id)">
       <strong>{{entity.label}}</strong>
       -
       {{entity.title | slice:0:35}}...
     </mat-checkbox>
   </div>
   <div *ngIf="forShare()" class="entities">
-    <mat-checkbox *ngFor="let entity of relativeEntities" (click)="checkEntity(entity.id)">
+    <mat-checkbox *ngFor="let entity of relativeEntities" (change)="checkEntity(entity.id)">
       <strong>{{entity.label}}</strong> -
       {{entity.title | slice:0:35}}...
     </mat-checkbox>
@@ -46,12 +45,14 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button *ngIf="!forSubmit()" (click)="submit()" mat-button>
-    <mat-icon class="mat-18">call_split</mat-icon>
+  <button *ngIf="!forSubmit()" [disabled]="loading" (click)="submit()" mat-button>
+    <mat-icon *ngIf="!loading" class="mat-18">call_split</mat-icon>
+    <loading-button *ngIf="loading"></loading-button>
     Dispatcher
   </button>
-  <button *ngIf="forSubmit()" (click)="submit()" mat-button>
-    <mat-icon class="mat-18">send</mat-icon>
+  <button *ngIf="forSubmit()" [disabled]="loading" (click)="submit()" mat-button>
+    <mat-icon *ngIf="!loading" class="mat-18">send</mat-icon>
+    <loading-button *ngIf="loading"></loading-button>
     Envoyer
   </button>
 </mat-dialog-actions>

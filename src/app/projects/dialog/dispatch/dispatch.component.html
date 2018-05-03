@@ -6,13 +6,13 @@
 
 
   <div class="entities">
-    <mat-checkbox *ngFor="let entity of entities" (click)="checkEntity(entity.id)">{{entity.title}}</mat-checkbox>
+    <mat-checkbox *ngFor="let entity of entities" (change)="checkEntity(entity.id)">{{entity.title}}</mat-checkbox>
   </div>
 
 
   <h4>Observations:</h4>
   <div class="observations">
-    <mat-checkbox *ngFor="let observation of observations" (click)="toggleObservation(observation)" >{{observation}}</mat-checkbox>
+    <mat-checkbox *ngFor="let observation of observations" (change)="toggleObservation(observation)" >{{observation}}</mat-checkbox>
   </div>
   <h5>Autres observations</h5>
   <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="thread.content"></div>

@@ -154,11 +154,12 @@ export class ProjectService {
   }
 
 
-  treat(project) {
+  treat(project,next) {
     const id = project.id
     const entity_id = this.user.entity_id
     this.http.post(this.url + '/treat', {id: id, entity_id: entity_id}, this.options)
       .subscribe(result => {
+        next()
         console.log(result)
       })
   }

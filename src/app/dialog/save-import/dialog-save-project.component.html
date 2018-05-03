@@ -113,5 +113,7 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button mat-dialog-close="" disabled="false" (click)="submit()" mat-button>ENREGISTRER</button>
+  <button [disabled]="loading"  mat-dialog-close="" disabled="false" (click)="submit()" mat-button>
+    <loading-button *ngIf="loading"></loading-button>
+    ENREGISTRER</button>
 </mat-dialog-actions>

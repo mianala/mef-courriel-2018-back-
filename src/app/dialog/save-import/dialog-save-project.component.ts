@@ -14,17 +14,18 @@ import {GlobalService} from "../../service/global.service";
   styleUrls: ['./dialog-save-project.component.scss']
 })
 export class DialogSaveProjectComponent implements OnInit {
-  project: any
-  exported: any
-  imported: any
-  be: any
-  files: any
-  options: any
-  user: any
-  shipped_flows
-  letter_types
-  in_types
-  form_max_date: Date
+  project: any;
+  exported: any;
+  imported: any;
+  loading=false;
+  be: any;
+  files: any;
+  options: any;
+  user: any;
+  shipped_flows;
+  letter_types;
+  in_types;
+  form_max_date: Date;
 
   constructor(private froalaService: FroalaService,
               private dialogRef: MatDialogRef<DialogSaveProjectComponent>,
@@ -35,13 +36,13 @@ export class DialogSaveProjectComponent implements OnInit {
     this.imported = {
       ref: '',
       numero: '',
-    }
+    };
 
-    this.letter_types = GlobalService.letter_types
-    this.in_types = GlobalService.in_types
+    this.letter_types = GlobalService.letter_types;
+    this.in_types = GlobalService.in_types;
 
 
-    this.form_max_date = new Date()
+    this.form_max_date = new Date();
 
     this.project = {
       n_arrive: '',
@@ -53,15 +54,15 @@ export class DialogSaveProjectComponent implements OnInit {
       content: '',
       date: new Date(),
       received_date: new Date(),
-    }
+    };
 
-    this.shipped_flows = []
+    this.shipped_flows = [];
 
     this.flowService.shipped_flows.subscribe(flows => {
       this.shipped_flows = flows
-    })
+    });
 
-    this.files = []
+    this.files = [];
     this.user = this.userService.user.getValue();
     this.options = froalaService.getOptions()
   }
@@ -104,17 +105,20 @@ export class DialogSaveProjectComponent implements OnInit {
 
   submit() {
 
+    this.loading = true
+
     if (this.valid()) {
-      this.project.user = this.user
-      this.project.entity_id = this.user.entity_id
-      this.project.files = this.files
+      this.project.user = this.user;
+      this.project.entity_id = this.user.entity_id;
+      this.project.files = this.files;
 
       //change to loading button
       this.projectService.save(this.project, () => {
-        this.notification.projectSaved()
+        this.notification.projectSaved();
         this.dialogRef.close()
       })
     } else {
+      this.loading = false
       this.notification.formError()
     }
   }

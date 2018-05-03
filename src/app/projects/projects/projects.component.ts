@@ -14,6 +14,7 @@ import {FilterService} from "../../service/filter.service";
 })
 export class ProjectsComponent implements OnInit {
   @Input() projects;
+  treating
 
   constructor(public router: Router,
               public entityService: EntityService,
@@ -53,7 +54,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   treat(project) {
-    this.projectService.treat(project)
+    this.treating = project.id
+    this.projectService.treat(project,()=>{
+      this.treating = 0
+    })
   }
 
   dispatch(id) {

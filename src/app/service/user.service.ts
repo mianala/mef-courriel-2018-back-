@@ -9,10 +9,10 @@ import {EnvService} from "./env.service";
 
 @Injectable()
 export class UserService {
-  url: string
+  url: string;
   options = new RequestOptions({withCredentials: true});
-  user = new BehaviorSubject({})
-  connected = new BehaviorSubject(false)
+  user = new BehaviorSubject({});
+  connected = new BehaviorSubject(false);
 
   constructor(private http: Http,
               private route: Router,
@@ -24,7 +24,9 @@ export class UserService {
     if (localStorage.getItem('user')) {
       this.user.next(JSON.parse(localStorage.getItem('user')))
     } else {
-      this.connect()
+      this.connect(()=>{
+        console.log('connected from local')
+      })
     }
 
 
@@ -38,7 +40,7 @@ export class UserService {
   }
 
 
-  login(id: string, password: string) {
+  login(id: string, password: string,next) {
     this.http
       .post(
         this.url + '/user',
@@ -51,17 +53,19 @@ export class UserService {
         if (user.error) {
           this.notification.print(user.error)
         }
-        this.connect()
+
+        this.connect(next)
 
       })
   }
 
-  connect() {
+  connect(next) {
 
     // de redirect to login
     this.http.post(this.url + '/user', {type: 'user'}, this.options)
       .map(res => res.json())
       .subscribe(user => {
+        next();
         this.user.next(user)
       })
   }
@@ -88,8 +92,8 @@ export class UserService {
 
   saveUser(user ?: any) {
 
-    this.route.navigateByUrl('/public/connexion')
-    this.notification.userSaved()
+    this.route.navigateByUrl('/public/connexion');
+    this.notification.userSaved();
     this.post(user).then((result) => {
       console.log(result)
 
@@ -101,17 +105,17 @@ export class UserService {
 
   post(user: any) {
     return new Promise((resolve, reject) => {
-      const formData: any = new FormData()
-      const xhr = new XMLHttpRequest()
-      formData.append('entityId', user.entity.id)
-      formData.append('im', user.im)
-      formData.append('username', user.username)
-      formData.append('functionId', user.functionId)
-      formData.append('name', user.name)
-      formData.append('fullname', user.fullname)
-      formData.append('title', user.functionTitle)
-      formData.append('email', user.email)
-      formData.append('password', user.password)
+      const formData: any = new FormData();
+      const xhr = new XMLHttpRequest();
+      formData.append('entityId', user.entity.id);
+      formData.append('im', user.im);
+      formData.append('username', user.username);
+      formData.append('functionId', user.functionId);
+      formData.append('name', user.name);
+      formData.append('fullname', user.fullname);
+      formData.append('title', user.functionTitle);
+      formData.append('email', user.email);
+      formData.append('password', user.password);
       if (user.avatar) {
         formData.append('avatar', user.avatar, user.avatar.name)
       }
@@ -125,7 +129,7 @@ export class UserService {
             reject(xhr.response);
           }
         }
-      }
+      };
 
       xhr.open('POST', this.url, true);
       xhr.send(formData)
@@ -149,12 +153,12 @@ export class UserService {
   }
 
   logout() {
-    console.log('logging out')
-    localStorage.clear()
+    console.log('logging out');
+    localStorage.clear();
     this.http.post(this.url + '/user', {type: 'logout'}, this.options)
       .map(res => res.json()).subscribe(data => {
-      this.user.next({})
-      this.notification.loggedOut()
+      this.user.next({});
+      this.notification.loggedOut();
       this.route.navigateByUrl('/public')
     });
   }

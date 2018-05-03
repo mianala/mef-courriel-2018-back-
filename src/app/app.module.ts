@@ -102,6 +102,7 @@ import { TreatedComponent } from './page/treated/treated.component';
 import { TreatedProjectComponent } from './page/treated-project/treated-project.component';
 import {ComposeComponent} from "./dialog/compose/compose.component";
 import { AllProjectsComponent } from './page/all-projects/all-projects.component';
+import { LoadingButtonComponent } from './util/loading-button/loading-button.component';
 
 @NgModule({
   declarations: [
@@ -176,6 +177,7 @@ import { AllProjectsComponent } from './page/all-projects/all-projects.component
     TreatedComponent,
     TreatedProjectComponent,
     AllProjectsComponent,
+    LoadingButtonComponent,
   ],
   imports: [
     BrowserModule,

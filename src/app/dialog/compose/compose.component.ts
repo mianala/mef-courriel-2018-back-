@@ -16,6 +16,7 @@ import {NotificationService} from "../../service/notification.service";
 })
 export class ComposeComponent implements OnInit {
   composition: any;
+  loading = false;
 
   options: any;
   user: any;
@@ -24,8 +25,9 @@ export class ComposeComponent implements OnInit {
   relativeEntities;
   downEntities;
 
-  observations;
+  observations = GlobalService.observations;
   checkedObservations;
+
 
   constructor(public flowService: FlowService,
               public entityService: EntityService,
@@ -34,7 +36,7 @@ export class ComposeComponent implements OnInit {
               private notification: NotificationService,
               public userService: UserService,
               private dialogRef: MatDialogRef<DispatchComponent>) {
-    this.observations = GlobalService.observations;
+    this.checkedObservations = [];
     this.composition = {
       title: '',
       n_arrive: this.entityService.entity.getValue()['numero'],
@@ -58,10 +60,6 @@ export class ComposeComponent implements OnInit {
     console.log(this.composition.receivers)
   }
 
-  toggleObservation(observation) {
-    ComposeComponent.toggleInArray(this.checkedObservations, observation);
-    console.log(this.checkedObservations)
-  }
 
   forSubmit() {
     return this.composition.direction == 1
@@ -95,10 +93,10 @@ export class ComposeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.userService.user.getValue()
+    this.user = this.userService.user.getValue();
 
-    this.relativeEntities = this.entityService.relativeEntities.getValue()
-    this.downEntities = this.entityService.downEntities.getValue()
+    this.relativeEntities = this.entityService.relativeEntities.getValue();
+    this.downEntities = this.entityService.downEntities.getValue();
     this.upEntity = this.entityService.upEntity.getValue()
   }
 
@@ -116,21 +114,35 @@ export class ComposeComponent implements OnInit {
 
   submit() {
 
+    this.loading = true
+
+    let obs = '';
+
+    for (let o of this.checkedObservations) {
+      obs += ' - ' + o + '<br>'
+    }
+
     if (this.forSubmit()) {
       this.composition.receivers.push(this.upEntity.id)
     }
 
     if (!this.validTitle()) {
-      this.notification.formError()
+      this.notification.formError();
+      this.loading = false
       return
     }
     if (!this.validReceiver()) {
-      this.notification.invalidReceiver()
+      this.notification.invalidReceiver();
+      this.loading = false
       return
     }
 
+
+    // update button to loading button
+    this.composition.content = obs.concat(this.composition.content);
+
     this.projectService.compose(this.composition, () => {
-      this.notification.sent()
+      this.notification.sent();
       this.dialogRef.close()
     })
   }

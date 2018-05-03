@@ -46,14 +46,13 @@ export class DispatchComponent implements OnInit {
   ngOnInit() {
   }
 
-
   checkEntity(id) {
-    this.toggleInArray(this.thread.receivers, id);
+    GlobalService.toggleInArray(this.thread.receivers, id);
     console.log(this.thread.receivers)
   }
 
   toggleObservation(observation) {
-    this.toggleInArray(this.thread.checkedObservations, observation)
+    GlobalService.toggleInArray(this.thread.checkedObservations, observation)
   }
 
 
@@ -103,16 +102,6 @@ export class DispatchComponent implements OnInit {
   }
 
 
-  // util
-  toggleInArray(array, value) {
-    const index = array.indexOf(value);
-
-    if (index === -1) {
-      array.push(value);
-    } else {
-      array.splice(index, 1);
-    }
-  }
 
 }
 

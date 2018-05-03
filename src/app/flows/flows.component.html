@@ -19,7 +19,7 @@
 
     <mat-action-row>
 
-      <button *ngIf="viewable(flow)"  color="primary" (click)="view(flow.project_id)" mat-button>
+      <button *ngIf="viewable(flow)" color="primary" (click)="view(flow.project_id)" mat-button>
         <mat-icon class="mat-18">folder_open</mat-icon>
         Voir projet
       </button>
@@ -28,8 +28,8 @@
         <mat-icon class="mat-18">file_upload</mat-icon>
         Exporter
       </button>
-      <button *ngIf="answerable(flow)" mat-button color="primary" (click)="answer(flow.id, flow.sender_entity_id)"><i
-        class="material-icons">reply</i>
+      <button *ngIf="answerable(flow)" mat-button color="primary" (click)="answer(flow.id, flow.sender_entity_id)">
+        <mat-icon>reply</mat-icon>
         Répondre
       </button>
       <button mat-button color="primary" *ngIf="entityService.downEntities.getValue().length > 0"

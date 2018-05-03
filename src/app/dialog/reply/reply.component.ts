@@ -14,9 +14,10 @@ import {NotificationService} from "../../service/notification.service";
   styleUrls: ['./reply.component.scss']
 })
 export class ReplyComponent implements OnInit {
-  answer
-  options
-  entity
+  answer;
+  options;
+  entity;
+  loading = false;
 
   constructor(private froalaService: FroalaService,
               private entityService: EntityService,
@@ -30,13 +31,13 @@ export class ReplyComponent implements OnInit {
       entity_id: '0',
       files: [],
       content: ''
-    }
+    };
 
-    this.entity = this.entityService.entity.getValue()
+    this.entity = this.entityService.entity.getValue();
     this.flowService.answerData.subscribe(answerData => {
-      this.answer.flow_id = answerData['flow_id']
+      this.answer.flow_id = answerData['flow_id'];
       this.answer.entity_id = answerData['entity_id']
-    })
+    });
 
     this.options = froalaService.getOptions()
   }
@@ -55,15 +56,18 @@ export class ReplyComponent implements OnInit {
 
   submit() {
 
+    this.loading = true;
+
     if (!this.valid()) {
-      this.notification.invalidObservation()
+      this.notification.invalidObservation();
+      this.loading = false;
       return
     }
 
 
     //update button into loading button
     this.flowService.answerFlow(this.answer, () => {
-      this.notification.answered()
+      this.notification.answered();
       this.dialogRef.close()
     })
   }
