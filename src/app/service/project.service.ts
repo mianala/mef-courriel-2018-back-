@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Http, RequestOptions} from '@angular/http';
-import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {UserService} from './user.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {ThreadService} from "./thread.service";
-import {FlowService} from "./flow.service";
-import {EnvService} from "./env.service";
-import {XhrService} from "./xhr.service";
-import {FilterService} from "./filter.service";
+import {EnvService} from './env.service';
+import {XhrService} from './xhr.service';
+import {FilterService} from './filter.service';
 
 
 @Injectable()
@@ -17,6 +14,7 @@ export class ProjectService {
   url: string;
   dispatched_projects = new BehaviorSubject([]);
   treated_projects = new BehaviorSubject([]);
+  shipped_projects = new BehaviorSubject([]);
   projects = new BehaviorSubject([]);
   all_projects = new BehaviorSubject([]);
   project = new BehaviorSubject({
@@ -27,15 +25,11 @@ export class ProjectService {
 
   constructor(private global: GlobalService,
               private userService: UserService,
-              private threadService: ThreadService,
               private xhr: XhrService,
-              private flowService: FlowService,
-              private http: Http,
-              private notification: NotificationService) {
+              private http: Http) {
     this.url = EnvService.ip() + '/api/projects';
     this.user = this.userService.user.getValue();
     console.log('initializing projects');
-
 
     this.user = this.userService.user.subscribe(user => {
       if (user['id']) {
@@ -46,44 +40,63 @@ export class ProjectService {
     });
 
     this.all_projects.subscribe(projects => {
-      this.getSavedProjects(projects)
-      this.getTreatedProjects(projects)
+      this.getSavedProjects(projects);
+      this.getTreatedProjects(projects);
+      this.getShippedProjects(projects);
       this.getDispatchedProjects(projects)
-    })
+    });
 
     if (localStorage.getItem('project')) {
       const project = JSON.parse(localStorage.getItem('project'));
       this.project.next(project);
-      this.flowService.getProjectFlows(project.id)
     }
+
+    this.project.subscribe(project => {
+      localStorage.setItem('project', JSON.stringify(project))
+    })
+
+
   }
 
-  getSavedProjects(projects){
+  getSavedProjects(projects) {
 
-    let ps = FilterService.savedProjects(projects)
+    const ps = FilterService.savedProjects(projects);
 
     if (this.projects.getValue() == ps) {
       return false
     }
     this.projects.next(ps)
   }
-  getDispatchedProjects(projects){
 
-    let ps = FilterService.dispatchedProjects(projects)
+  getDispatchedProjects(projects) {
 
-    if (this.projects.getValue() == ps) {
+    const ps = FilterService.dispatchedProjects(projects);
+
+    if (this.dispatched_projects.getValue() == ps) {
       return false
     }
     this.dispatched_projects.next(ps)
   }
-  getTreatedProjects(projects){
 
-    let ps = FilterService.treatedProjects(projects)
+  getTreatedProjects(projects) {
+
+    const ps = FilterService.treatedProjects(projects);
 
     if (this.treated_projects.getValue() == ps) {
       return false
     }
     this.treated_projects.next(ps)
+  }
+
+
+  getShippedProjects(projects) {
+
+    const ps = FilterService.shippedProjects(projects);
+
+    if (this.treated_projects.getValue() == ps) {
+      return false
+    }
+    this.shipped_projects.next(ps)
   }
 
 
@@ -101,6 +114,8 @@ export class ProjectService {
       if (this.projects.getValue() == projects) {
         return
       }
+
+      this.shipped_projects.next(projects)
       this.all_projects.next(projects)
     })
   }
@@ -116,16 +131,15 @@ export class ProjectService {
     }
   }
 
-  setProject(id: number) {
-    this.threadService.getProjectThreads(id);
-    this.flowService.getProjectFlows(id);
-    console.log('setting project ' + id);
+  setProject(project) {
+    this.project.next(project)
+  }
+
+  setProjectFromId(id) {
     this.http.get(this.url + '/' + id)
       .map(res => res.json()).subscribe(project => {
-      this.project.next(project);
-      localStorage.setItem('project', JSON.stringify(project))
+      this.project.next(project)
     })
-
   }
 
   save(project: any, next) {
@@ -154,17 +168,17 @@ export class ProjectService {
   }
 
 
-  treat(project,next) {
-    const id = project.id
-    const entity_id = this.user.entity_id
+  treat(project, next) {
+    const id = project.id;
+    const entity_id = this.user.entity_id;
     this.http.post(this.url + '/treat', {id: id, entity_id: entity_id}, this.options)
       .subscribe(result => {
-        next()
+        next();
         console.log(result)
       })
   }
 
-  compose(composition,next) {
+  compose(composition, next) {
     console.log(composition);
 
     const formData: any = new FormData();
@@ -173,14 +187,13 @@ export class ProjectService {
     formData.append('content', composition.content);
     formData.append('title', composition.title);
     formData.append('receivers', composition.receivers);
-    formData.append('direction', composition.direction);
     formData.append('user_id', this.user.id);
 
     for (let i = 0; i < composition.files.length; i++) {
       formData.append('files', composition.files[i], composition.files[i].name)
     }
 
-    this.xhr.promise(this.url+'/compose', formData, () => {
+    this.xhr.promise(this.url + '/compose', formData, () => {
         next()
       }
     )

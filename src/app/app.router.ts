@@ -16,7 +16,7 @@ import {EntityPageComponent} from "./entities/entity-page/entity-page.component"
 import {UpdateComponent} from "./user/update/update.component";
 import {TemplatePageComponent} from "./page/template-page/template-page.component";
 import {ProfilComponent} from "./user/profil/profil.component";
-import {BeComponent} from "./print/be/be.component";
+import {BeComponent} from "./form/be/be.component";
 import {ShippedPageComponent} from "./page/shipped-page/shipped-page.component";
 import {ReturnedPageComponent} from "./page/returned-page/returned-page.component";
 import {SavedComponent} from "./page/saved/saved.component";

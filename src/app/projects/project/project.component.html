@@ -2,9 +2,9 @@
 
   <div *ngIf="!composed()" class="description">
     <h4 class="label">
-      N° Arrivé {{entityService.entity.getValue()['label']}}
+      PROJET
     </h4>
-    <div><h4>{{project.n_arrive_dg}}</h4>
+    <div><h4>{{project.entity_label + '-' + project.n}}</h4>
       <mat-chip-list>
         <mat-chip [color]="'primary'">{{letter_types[project.letter]}}</mat-chip>
         <mat-chip [color]="'accent'">{{in_types[project.type]}}</mat-chip>

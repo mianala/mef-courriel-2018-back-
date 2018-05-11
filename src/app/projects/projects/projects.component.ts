@@ -6,6 +6,7 @@ import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
 import {Router} from "@angular/router";
 import {GlobalService} from "../../service/global.service";
 import {FilterService} from "../../service/filter.service";
+import {ExportComponent} from "../../dialog/export/export.component";
 
 @Component({
   selector: 'projects',
@@ -31,8 +32,8 @@ export class ProjectsComponent implements OnInit {
     return GlobalService.sameDay(new Date(project.date), new Date())
   }
 
-  setProject(id) {
-    this.projectService.setProject(id);
+  setProject(project) {
+    this.projectService.setProject(project);
     this.router.navigateByUrl('/courriels/courriel')
   }
 
@@ -60,8 +61,21 @@ export class ProjectsComponent implements OnInit {
     })
   }
 
-  dispatch(id) {
-    this.projectService.setProject(id);
+  shippable(flow) {
+
+    // return false
+    return true
+    // return flow.direction == 2;
+
+  }
+
+  ship(project) {
+    this.projectService.setProject(project);
+    this.dialog.open(ExportComponent);
+  }
+
+  dispatch(project) {
+    this.projectService.project.next(project);
     this.dialog.open(DispatchComponent);
   }
 }

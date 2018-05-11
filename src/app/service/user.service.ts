@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {GlobalService} from './global.service';
 import {NotificationService} from './notification.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {EnvService} from "./env.service";
+import {EnvService} from './env.service';
 
 @Injectable()
 export class UserService {
@@ -22,14 +22,24 @@ export class UserService {
 
 
     if (localStorage.getItem('user')) {
+      console.log('getting user from local storage')
       this.user.next(JSON.parse(localStorage.getItem('user')))
     } else {
-      this.connect(() => {
-        console.log('connected from local')
-      })
+      console.log('connecting to get user')
+
+      // de redirect to login
+      this.http.post(this.url + '/user', {type: 'user'}, this.options)
+        .map(res => res.json())
+        .subscribe(user => {
+
+          if (!user['id']) {
+            this.route.navigateByUrl('/public')
+            return
+          }
+
+          this.user.next(user)
+        })
     }
-
-
 
     this.user.subscribe(user => {
       if (user['id']) {
@@ -51,28 +61,18 @@ export class UserService {
         }, this.options)
       .map(res => res.json())
       .subscribe(user => {
+        next()
+
         if (user.error) {
           this.notification.print(user.error)
+          return
         }
 
-        this.connect(next)
 
-      })
-  }
-
-  connect(next) {
-
-    // de redirect to login
-    this.http.post(this.url + '/user', {type: 'user'}, this.options)
-      .map(res => res.json())
-      .subscribe(user => {
-        next();
         this.user.next(user)
-        this.redirectIfConnected()
 
       })
   }
-
 
   updateLogin(credentials) {
 
@@ -83,18 +83,6 @@ export class UserService {
         this.user.next(user)
       })
   }
-
-  redirectIfConnected() {
-    this.user.subscribe(user => {
-      if (user['id']) {
-        this.route.navigateByUrl('/courriels')
-      } else {
-        this.route.navigateByUrl('/public')
-
-      }
-    })
-  }
-
 
   saveUser(user ?: any) {
 

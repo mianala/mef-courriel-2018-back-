@@ -4,58 +4,28 @@
 <mat-dialog-content class="">
 
   <!--depart auto-->
-  <mat-form-field class="">
-    <input type="text" disabled required [(ngModel)]="previousFlow.numero" name="depart" matInput
-           placeholder="N° du courrier">
+
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="flow.sender_entity_id" name="type">
+      <mat-option *ngFor="let entity of project.entities" [value]="entity.id">{{entity.label}}</mat-option>
+    </mat-select>
   </mat-form-field>
+
   <mat-form-field class="">
     <input [(ngModel)]="flow.receiver" required name="receiver" matInput placeholder="Destinaire">
   </mat-form-field>
 
   <!-- observation of the content -->
   <mat-form-field class="">
-    <textarea matInput [(ngModel)]="be.observation" placeholder="Objet"></textarea>
+    <textarea matInput [(ngModel)]="flow.conten" placeholder="Objet"></textarea>
   </mat-form-field>
   <mat-radio-group [(ngModel)]="flow.ship_for">
-    <mat-radio-button value="1">BE</mat-radio-button>
-    <mat-radio-button value="2">Avis</mat-radio-button>
-    <mat-radio-button value="3">Signature</mat-radio-button>
+    <mat-radio-button *ngFor="let type of ship_types; let i = index" [value]="i">{{type}}</mat-radio-button>
   </mat-radio-group>
-  <div style="margin-top: 1em;" *ngIf="isBe()">
-    <mat-form-field class="">
-      <input matInput [(ngModel)]="be.sender" placeholder="Expéditeur">
-    </mat-form-field>
 
-    <mat-form-field class="">
-      <input [(ngModel)]="be.receiver_label" required name="receiver_label" matInput placeholder="Label destinaire">
-    </mat-form-field>
 
-    <div *ngIf="be.attached_files.length" class="designation-row" fxLayout="row" class="content">
-      <div fxFlex="70">DESIGNATION</div>
-      <div fxFlex="20">NOMBRE</div>
-      <mat-icon fxFlex="10"></mat-icon>
-    </div>
-
-    <div fxLayout="row" class="designation-row" *ngFor="let d of be.attached_files">
-      <div fxFlex="70">{{d.title}}</div>
-      <div fxFlex="20">{{d.count}}</div>
-      <button mat-icon-button=""  fxFlex="10" (click)="removeAttach(d)" color="warn">
-        <mat-icon>remove_circle_outline</mat-icon>
-      </button>
-    </div>
-
-    <div fxLayout="row" class="content">
-      <mat-form-field fxFlex="70" class="">
-        <input matInput [(ngModel)]="title" placeholder="Designation">
-      </mat-form-field>
-      <mat-form-field fxFlex="20" class="">
-        <input matInput [(ngModel)]="count" placeholder="Nombre">
-      </mat-form-field>
-      <button mat-icon-button="" fxFlex="10" (click)="addAttach()" color="primary">
-        <mat-icon>add_circle_outline</mat-icon>
-      </button>
-    </div>
-  </div>
+  <!--be form-->
 
 
   <app-files [files]="flow.files"></app-files>
@@ -63,6 +33,10 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button  *ngIf="isBe()" matDialogClose="" (click)="preview()" mat-button>Preview</button>
-  <button matDialogClose="" (click)="submit()" mat-button>Exporter</button>
+
+  <button [disabled]="loading" matDialogClose="" (click)="submit()" mat-button>
+    <loading-button *ngIf="loading"></loading-button>
+    <mat-icon *ngIf="!loading">file_upload</mat-icon>
+    Exporter
+  </button>
 </mat-dialog-actions>

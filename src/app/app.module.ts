@@ -87,7 +87,7 @@ import { DecommissionComponent } from './dialog/decommission/decommission.compon
 import { ShareComponent } from './dialog/share/share.component';
 import { UpdateComponent } from './user/update/update.component';
 import { SendComponent } from './dialog/send/send.component';
-import { BeComponent } from './print/be/be.component';
+import { BeComponent } from './form/be/be.component';
 import { ProfilComponent } from './user/profil/profil.component';
 import { SearchComponent } from './filter/search/search.component';
 import { DirectionComponent } from './filter/direction/direction.component';

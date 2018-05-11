@@ -1,50 +1,39 @@
 <mat-accordion>
-  <!--todo: I should user class here to classify the in out and up and down-->
   <mat-expansion-panel *ngFor="let flow of flows" hideToggle="visibility">
     <mat-expansion-panel-header>
       <mat-panel-title class="entity-label">
-        <!--<div class="n" *ngIf="flow.direction != 4"> {{flow.numero}}</div>-->
-        <div class="n" *ngIf="sent(flow)">à {{flow.entity_label}}</div>
-        <div class="n" *ngIf="received(flow)">{{flow.sender_entity_label}}</div>
-        <div class="n" *ngIf="exported(flow)">{{flow.destination}}</div>
+        <div class="n">{{title_label(flow)}}</div>
       </mat-panel-title>
       <mat-panel-description class="flow-content">
-        <div [innerHtml]="flow.content"></div>
+        <div innerHtml="{{flow.content | slice:0:50}}"></div>
       </mat-panel-description>
       <div class="flow-date" *ngIf="!sameDay(flow)">{{flow.date|date}}</div>
       <div class="flow-date" *ngIf="sameDay(flow)">{{flow.date|date:'shortTime'}}</div>
     </mat-expansion-panel-header>
     <flow [flow]="flow"></flow>
-
-
     <mat-action-row>
-
-      <button *ngIf="viewable(flow)" color="primary" (click)="view(flow.project_id)" mat-button>
+      <button *ngIf="viewable(flow)" color="primary" (click)="view(flow)" mat-button>
         <mat-icon class="mat-18">folder_open</mat-icon>
         Voir projet
       </button>
-
-      <button *ngIf="shippable(flow)" mat-button color="primary" (click)="ship(flow.id)">
-        <mat-icon class="mat-18">file_upload</mat-icon>
-        Exporter
-      </button>
-      <button *ngIf="answerable(flow)" mat-button color="primary" (click)="answer(flow.id, flow.sender_entity_id)">
+      <button *ngIf="answerable(flow)" mat-button color="primary" (click)="answer(flow)">
         <mat-icon>reply</mat-icon>
         Répondre
       </button>
-      <button mat-button color="primary" *ngIf="entityService.downEntities.getValue().length > 0"
-              (click)="dispatch(flow.project_id)"><i class="material-icons">call_split</i> Dispatcher
+      <button mat-button color="primary" *ngIf="dispatchable(flow)"
+              (click)="dispatch(flow)">
+        <i class="material-icons">call_split</i> Dispatcher
       </button>
       <mat-menu #appMenu="matMenu">
-        <button *ngIf="decommissionable(flow)" (click)="decommission(flow.id)" mat-menu-item>
+        <button *ngIf="decommissionable(flow)" (click)="decommission(flow)" mat-menu-item>
           <mat-icon class="mat-18">call_missed_outgoing</mat-icon>
           Déclasser
         </button>
-        <button *ngIf="submitable(flow)" (click)="submit(flow.id)" mat-menu-item>
+        <button *ngIf="submitable(flow)" (click)="submit(flow)" mat-menu-item>
           <mat-icon class="mat-18">arrow_upward</mat-icon>
           Soumetre
         </button>
-        <button *ngIf="shareable(flow)" (click)="share(flow.id)" mat-menu-item>
+        <button *ngIf="shareable(flow)" (click)="share(flow)" mat-menu-item>
           <mat-icon class="mat-18">share</mat-icon>
           Partager
         </button>

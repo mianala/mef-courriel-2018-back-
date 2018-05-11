@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {fadeInAnimation} from '../../animation/fadeIn'
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -10,24 +11,42 @@ import {fadeInAnimation} from '../../animation/fadeIn'
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-  user: any
-  loading:boolean
+  user: any;
+  loading: boolean;
 
-  constructor(private userService: UserService) {
-    this.user = {}
+  constructor(private route: Router,
+              private userService: UserService) {
+    this.user = {
+      id:'',
+      password:'',
+    };
     this.loading = false
+
+
+    this.userService.user.subscribe(user => {
+      if (user['id']) {
+        this.route.navigateByUrl('/courriels')
+      }
+    })
+  }
+
+  valid(){
+    return this.user.id.length && this.user.password.length
   }
 
   ngOnInit() {
-    this.userService.redirectIfConnected()
   }
 
   submit() {
-    this.loading = true
+    this.loading = true;
+
+
     this.userService.login(this.user.id, this.user.password, () => {
         this.loading = false
       }
     )
+
+
   }
 
 }

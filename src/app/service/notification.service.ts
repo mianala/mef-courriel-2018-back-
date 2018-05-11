@@ -62,12 +62,20 @@ export class NotificationService {
   }
 
   flowReceived() {
-    const message = 'Boite, mis a jour';
+    const message = 'Vous avez recu un courriel';
     this.openSnack(message);
   }
 
   flowTreated() {
     const message = 'Courriel traité';
+    this.openSnack(message);
+  }
+  flowExported() {
+    const message = 'Courriel exporté';
+    this.openSnack(message);
+  }
+  flowImported() {
+    const message = 'Courriel importé';
     this.openSnack(message);
   }
 

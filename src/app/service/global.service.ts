@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
+import {EnvService} from './env.service';
 
 @Injectable()
 export class GlobalService {
-
-  constructor() {
-  }
 
   //if need to add add at the bottom of the list please
   static observations = [
@@ -32,7 +30,7 @@ export class GlobalService {
     'PROJET A REDIGER',
     'COMME CONVENU',
     'NOTER ET RETOURNER',
-    'SUITE A VOTRE DEMANDE']
+    'SUITE A VOTRE DEMANDE'];
 
   static letter_types = [
     'Lettre',
@@ -43,22 +41,35 @@ export class GlobalService {
     'Arrêté',
     'Decret',
     'Magazine',
-    'Mensuel',
-  ]
+    'Mensuel'
+  ];
 
 
   static in_types = [
     'Originale',
     'Copie',
-    'Enveloppe']
+    'Enveloppe'];
 
+  static ship_types = [
+    'Pour signature',
+    'Pour avis',
+    // 'BE'
+  ];
 
-  toOracleDate(in_date) {
-    let date = new Date(in_date)
-    return `${date.getFullYear()}/${this.addZero(date.getMonth() + 1)}/${this.addZero(date.getDate())}`
-  }
+  static return_types = [
+    'Signé',
+    'Avis favorable',
+    'Autre'
+  ];
+
 
   static sortById(b, a) {
+    const c = a['id'];
+    const d = b['id'];
+    return c - d;
+  }
+
+  static sortByEntity(b, a) {
     const c = a['id'];
     const d = b['id'];
     return c - d;
@@ -70,15 +81,34 @@ export class GlobalService {
     return c - d;
   }
 
+  static updateArray(newArray, actualArray) {
+    // if same return
+    
+    // if don't contain the id push
+    actualArray.forEach(item => {
+      if (newArray.indexOf(item) == -1) {
+        actualArray.splice(actualArray.indexOf(item),1);
+      }
+    })
+    // if don't contain the id push
+    newArray.forEach(item => {
+      if (actualArray.indexOf(item) == -1) {
+        actualArray.push(item)
+      }
+    })
+
+    // sort both
+    // if don't match perfectly then update those who
+
+    return actualArray;
+  }
+
   static sameDay(d1, d2) {
     return d1.getFullYear() == d2.getFullYear() &&
       d1.getMonth() == d2.getMonth() &&
       d1.getDate() == d2.getDate();
   }
 
-  static htmlToPlaintext(text) {
-    return text ? String(text).replace(/<[^>]+>/gm, '') : '';
-  }
 
   static toggleInArray(array, value) {
     const index = array.indexOf(value);
@@ -90,12 +120,41 @@ export class GlobalService {
     }
   }
 
+  static openBe() {
+
+    const be = {
+      numero: 'Numero',
+      header: 'MINISTERE <br> DES FINANCES ET DU BUDGET <br>     -------------   <br>     SECRET ARIAT GENERAL <br>     ------------- <br>     DIRECTION GENERALE DU BUDGET<br>     ------------- <br> Direction des Secteurs Productif et Infrastructure<br>     ------------- <br>Service Productif ',
+      receiver: 'receiver_label',
+      sender: 'sender',
+      observation: 'observation',
+      date: 'some formated date',
+      ds: 'lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum',
+      cs: '1, 2, 5, 3, 5'
+    };
+
+    const be_string = JSON.stringify(be);
+
+    const win = window.open(EnvService.ip() + '/app/be?q=' + be_string, 'BE', 'status=0,title=0,height=800,width=1000,scrollbars=1');
+    win.focus();
+    win.print();
+
+  }
+
+
+  toOracleDate(in_date) {
+    const date = new Date(in_date);
+    return `${date.getFullYear()}/${this.addZero(date.getMonth() + 1)}/${this.addZero(date.getDate())}`
+  }
 
   addZero(i) {
     if (i < 10) {
       i = '0' + i
     }
     return i
+  }
+
+  constructor() {
   }
 
 }

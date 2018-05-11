@@ -10,15 +10,13 @@ import {GlobalService} from "../../service/global.service";
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
-  @Input() project
-  in_types
-  letter_types
+  @Input() project;
+  in_types;
+  letter_types;
 
   constructor(public dialog: MatDialog, public entityService: EntityService) {
-    this.letter_types = GlobalService.letter_types
+    this.letter_types = GlobalService.letter_types;
     this.in_types = GlobalService.in_types
-    console.log(this.project)
-
   }
 
   ngOnInit() {

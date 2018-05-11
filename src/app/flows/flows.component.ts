@@ -1,17 +1,17 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlowService} from "../service/flow.service";
-import {EntityService} from "../service/entity.service";
-import {DispatchComponent} from "../projects/dialog/dispatch/dispatch.component";
-import {MatDialog} from "@angular/material";
-import {ProjectService} from "../service/project.service";
-import {ReplyComponent} from "../dialog/reply/reply.component";
-import {ExportComponent} from "../dialog/export/export.component";
-import {ShareComponent} from "../dialog/share/share.component";
-import {DecommissionComponent} from "../dialog/decommission/decommission.component";
-import {Router} from "@angular/router";
-import {UserService} from "../service/user.service";
-import {GlobalService} from "../service/global.service";
-import {FilterService} from "../service/filter.service";
+import {FlowService} from '../service/flow.service';
+import {EntityService} from '../service/entity.service';
+import {DispatchComponent} from '../projects/dialog/dispatch/dispatch.component';
+import {MatDialog} from '@angular/material';
+import {ProjectService} from '../service/project.service';
+import {ReplyComponent} from '../dialog/reply/reply.component';
+import {ExportComponent} from '../dialog/export/export.component';
+import {ShareComponent} from '../dialog/share/share.component';
+import {DecommissionComponent} from '../dialog/decommission/decommission.component';
+import {Router} from '@angular/router';
+import {UserService} from '../service/user.service';
+import {GlobalService} from '../service/global.service';
+import {FilterService} from '../service/filter.service';
 
 @Component({
   selector: 'flows',
@@ -22,6 +22,7 @@ export class FlowsComponent implements OnInit {
   @Input() flows;
   @Input() visibility: boolean;
   user;
+  relatives = [];
 
   constructor(public router: Router,
               public flowService: FlowService,
@@ -34,16 +35,41 @@ export class FlowsComponent implements OnInit {
     this.userService.user.subscribe(user => {
       this.user = user
     });
+
+    this.entityService.relativeEntities.subscribe(entities => {
+      this.relatives = entities
+    })
   }
 
   ngOnInit() {
 
   }
 
+  title_label(flow) {
+    if (FilterService.isShipped(flow)) {
+      return 'au ' + flow.destination
+    } else if (FilterService.isImported(flow)) {
+      return flow.destination
+    } else if (FilterService.isSent(flow,this.user)) {
+      return 'à ' + flow.entity_label
+    } else{
+      return flow.sender_entity_label
+    }
+  }
+
   decommissionable(flow) {
     return false
     // return flow.direction == 1;
+  }
 
+  designateur(flow) {
+    if (FilterService.isSent(flow, this.user)) {
+      return ''
+    }
+  }
+
+  dispatchable(flow) {
+    return this.entityService.downEntities.getValue().length > 0
   }
 
   sameDay(flow) {
@@ -51,15 +77,7 @@ export class FlowsComponent implements OnInit {
   }
 
   shareable(flow) {
-    return false
-    // return true
-  }
-
-  shippable(flow) {
-
-    return false
-    // return flow.direction == 2;
-
+    return this.relatives.length && flow.sender_entity.length < this.user.entity
   }
 
   viewable(flow) {
@@ -67,7 +85,7 @@ export class FlowsComponent implements OnInit {
   }
 
   answerable(flow) {
-    return flow.sender_entity_id != this.user.entity_id;
+    return FilterService.within(flow)
 
   }
 
@@ -79,64 +97,51 @@ export class FlowsComponent implements OnInit {
     this.flowService.treat(flow.id)
   }
 
-  sent(flow) {
-    return flow.sender_entity_id == this.user.entity_id
-  }
-
   received(flow) {
-    return flow.sender_entity_id != this.user.entity_id
-  }
-
-  exported(flow) {
-    return flow.destination > 0
+    return flow.sender_entity_id != this.user.entity_id && FilterService.within(flow)
   }
 
   /*
-  untreat(flow) {
-    this.flowService.untreat(flow.id)
-  }*/
+   untreat(flow) {
+   this.flowService.untreat(flow.id)
+   }*/
 
 
   submitable(id) {
-
     return false
   }
 
-  view(id) {
-    this.projectService.setProject(id);
+  view(flow) {
+    this.projectService.setProjectFromId(flow.project_id);
     this.router.navigateByUrl('/courriels/courriel')
   }
 
-  ship(id) {
-    this.flowService.setFlow(id);
-    this.dialog.open(ExportComponent);
-  }
-
-  share(id) {
-    this.flowService.setFlow(id);
+  share(flow) {
+    this.flowService.setFlow(flow.id);
     this.dialog.open(ShareComponent);
   }
 
-  decommission(id) {
-    this.flowService.setFlow(id);
+  decommission(flow) {
+    this.flowService.setFlow(flow.id);
     this.dialog.open(DecommissionComponent);
   }
 
-  submit(id) {
-    this.flowService.setFlow(id)
+  submit(flow) {
+    this.flowService.setFlow(flow.id)
   }
 
-  answer(id, entity_id) {
+  answer(flow) {
     this.flowService.answerData.next({
-      flow_id: id,
-      entity_id: entity_id
+      flow_id: flow.id,
+      entity_id: flow.sender_entity_id
     });
 
     this.dialog.open(ReplyComponent);
   }
 
-  dispatch(id) {
-    this.projectService.setProject(id);
+  dispatch(flow) {
+    console.log(flow)
+    this.projectService.setProjectFromId(flow.project_id);
     this.dialog.open(DispatchComponent);
   }
 }

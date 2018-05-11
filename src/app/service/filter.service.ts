@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class FilterService {
@@ -7,12 +7,9 @@ export class FilterService {
   query = new BehaviorSubject('');
   direction = new BehaviorSubject(0);
 
-  constructor() {
-  }
-
   static filterProject(projects, query) {
 
-    let filtered = projects.filter(project => {
+    const filtered = projects.filter(project => {
       let result = false;
       if (project.sender != null) {
         result = result || project.sender.toLowerCase().includes(query.toLowerCase())
@@ -40,7 +37,7 @@ export class FilterService {
 
   static filterFlow(flows, query) {
 
-    let filtered = flows.filter(flow => {
+    const filtered = flows.filter(flow => {
       let result = false;
       if (flow.sender_entity_label != null) {
         result = result || flow.sender_entity_label.toLowerCase().includes(query.toLowerCase())
@@ -54,6 +51,9 @@ export class FilterService {
       if (flow.numero != null) {
         result = result || flow.numero.toLowerCase().includes(query.toLowerCase())
       }
+      if (flow.destination != null) {
+        result = result || flow.destination.toLowerCase().includes(query.toLowerCase())
+      }
       return result
     });
 
@@ -61,25 +61,70 @@ export class FilterService {
   }
 
   static savedProjects(projects) {
-
     return projects.filter(project => {
       return project.dispatched != 1 && project.status_id != 1
     })
-
   }
 
   static dispatchedProjects(projects) {
-
     return projects.filter(project => {
       return project.dispatched == 1 && project.status_id != 1
     })
-
   }
 
   static treatedProjects(projects) {
-
     return projects.filter(project => {
       return project.status_id == 1
+    })
+  }
+
+  static shippedProjects(projects) {
+    return projects.filter(project => {
+      return project.status_id == 3
+    })
+  }
+
+  static treatedFlow(flows) {
+    return flows.filter(flow => {
+      return flow.status_id == 1 && flow.direction == 1
+    })
+  }
+
+  static shippedFlow(flows) {
+    return flows.filter(flow => {
+      return FilterService.isShipped(flow)
+    })
+  }
+
+  static isShipped(flow){
+    return flow.direction == 3
+  }
+  static isSent(flow,user){
+    return flow.sender_entity_id == user.entity_id && flow.direction == 1
+  }
+  static isImported(flow){
+    return flow.direction == 4
+  }
+  static within(flow){
+    return flow.direction == 1
+  }
+
+  static sentFlow(flows, user) {
+    return flows.filter(flow => {
+      return this.isSent(flow,user)
+    })
+  }
+
+  static importedFlow(flows) {
+    return flows.filter(flow => {
+      return this.isImported(flow)
+    })
+  }
+
+  static inbox(flows, user) {
+
+    return flows.filter(flow => {
+      return flow.entity_id == user.entity_id && flow.status_id != 1 && flow.direction == 1
     })
 
   }

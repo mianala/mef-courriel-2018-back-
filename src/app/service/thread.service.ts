@@ -16,14 +16,14 @@ export class ThreadService {
 
 
   constructor(private http: Http,
-              private xhr:XhrService,
+              private xhr: XhrService,
               private userService: UserService,
               private notification: NotificationService) {
     this
       .url = EnvService.ip() + '/api/threads';
 
 
-    this.user = this.userService.user.subscribe(user => {
+    this.userService.user.subscribe(user => {
       if (user['id']) {
         this.user = user
       }
@@ -46,30 +46,33 @@ export class ThreadService {
       console.log('got the project threads');
 
 
-      if(this.project_threads.getValue() == project_threads){
+      if (this.project_threads.getValue() == project_threads) {
         return false
       }
       this.project_threads.next(project_threads)
     })
   }
 
-  dispatch(thread,next) {
-
+  dispatch(thread, next) {
+    if (this.user['id']) {
       const formData: any = new FormData();
       formData.append('receivers', thread.receivers);
       formData.append('sender_entity_id', this.user.entity_id);
       formData.append('project_id', thread.project.id);
       formData.append('user_id', this.user.id);
       formData.append('content', thread.content);
-      formData.append('direction', 1);
 
       for (let i = 0; i < thread.files.length; i++) {
         formData.append('files', thread.files[i], thread.files[i].name)
       }
 
-      this.xhr.promise(this.url,formData,()=>{
+      this.xhr.promise(this.url, formData, () => {
         next()
       })
+    }else{
+      console.log('cannot get user')
+      console.log(this.user)
+    }
   }
 
 

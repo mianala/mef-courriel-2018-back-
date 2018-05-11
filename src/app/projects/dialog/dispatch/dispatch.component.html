@@ -22,5 +22,9 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button matDialogClose="" (click)="submit()" mat-button>DISPATCH</button>
+  <button  [disabled]="loading || !validReceiver()"  matDialogClose="" (click)="submit()" mat-button>
+    <mat-icon *ngIf="!loading">call_split</mat-icon>
+
+    <loading-button *ngIf="loading"></loading-button>
+    DISPATCH</button>
 </mat-dialog-actions>

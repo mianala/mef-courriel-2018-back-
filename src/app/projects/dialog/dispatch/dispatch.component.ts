@@ -3,9 +3,9 @@ import {MatDialogRef} from '@angular/material';
 import {FroalaService} from '../../../service/froala.service';
 import {ProjectService} from '../../../service/project.service';
 import {EntityService} from '../../../service/entity.service';
-import {ThreadService} from "../../../service/thread.service";
-import {GlobalService} from "../../../service/global.service";
-import {NotificationService} from "../../../service/notification.service";
+import {ThreadService} from '../../../service/thread.service';
+import {GlobalService} from '../../../service/global.service';
+import {NotificationService} from '../../../service/notification.service';
 
 @Component({
   selector: 'app-dispatch',
@@ -17,6 +17,7 @@ export class DispatchComponent implements OnInit {
   thread: any;
   observations = GlobalService.observations;
   entities;
+  loading = false
 
   constructor(private froalaService: FroalaService,
               private entityService: EntityService,
@@ -28,7 +29,6 @@ export class DispatchComponent implements OnInit {
     this.options = froalaService.getOptions();
     this.thread = {
       content: '',
-      direction: 1,
       files: [],
       checkedObservations: [],
       receivers: []
@@ -61,6 +61,8 @@ export class DispatchComponent implements OnInit {
   }
 
   submit() {
+
+    this.loading = true
     let obs = '';
 
     for (let o of this.thread.checkedObservations) {
@@ -68,10 +70,8 @@ export class DispatchComponent implements OnInit {
     }
 
 
-    if (!this.validReceiver()) {
-      return false
-    }
     if (!this.validObservation(obs.concat(this.thread.content))) {
+      this.loading = false
       return false
     }
 
@@ -85,12 +85,7 @@ export class DispatchComponent implements OnInit {
   }
 
   validReceiver() {
-    if (this.thread.receivers.length == 0) {
-      this.notification.invalidReceiver();
-      return false
-    }
-    return true
-
+    return this.thread.receivers.length
   }
 
   validObservation(content) {
@@ -100,7 +95,6 @@ export class DispatchComponent implements OnInit {
     }
     return true
   }
-
 
 
 }

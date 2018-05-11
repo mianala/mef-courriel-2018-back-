@@ -11,9 +11,9 @@ import {FilterService} from "../../service/filter.service";
   styleUrls: ['./project-page.component.scss']
 })
 export class ProjectPageComponent implements OnInit {
-  project
-  flows
-  user
+  project;
+  flows;
+  user;
 
   constructor(private projectService: ProjectService,
               private flowService: FlowService,
@@ -21,18 +21,13 @@ export class ProjectPageComponent implements OnInit {
               private userService: UserService) {
     this.projectService.project.subscribe(project => {
       this.project = project
-    })
+    });
 
-    this.flowService.project_flows.subscribe(unfiltered_flows => {
-
-      this.filter.query.subscribe(query => {
-
-        let flows = unfiltered_flows.filter(flow => {
-          return flow.sender_entity_label.toLowerCase().includes(query.toLowerCase()) || flow.sender_title.toLowerCase().includes(query.toLowerCase())
-        })
-        this.flows = flows
+    this.filter.query.subscribe(query => {
+      this.flowService.project_flows.subscribe(uflows => {
+        this.flows = FilterService.filterFlow(uflows, query)
       })
-    })
+    });
 
     this.userService.user.subscribe(user => {
       this.user = user

@@ -5,10 +5,11 @@ import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Flow} from '../../models/Flow';
-import {Router} from "@angular/router";
-import {ProjectService} from "./project.service";
-import {EnvService} from "./env.service";
-import {XhrService} from "./xhr.service";
+import {Router} from '@angular/router';
+import {ProjectService} from './project.service';
+import {EnvService} from './env.service';
+import {XhrService} from './xhr.service';
+import {FilterService} from './filter.service';
 
 @Injectable()
 export class FlowService {
@@ -16,6 +17,7 @@ export class FlowService {
   options = new RequestOptions({withCredentials: true});
 
   //in boite
+  all_flows = new BehaviorSubject([]);
   flows = new BehaviorSubject([]);
   sent_flows = new BehaviorSubject([]);
   // in traité
@@ -35,23 +37,33 @@ export class FlowService {
 
   constructor(private http: Http,
               private notification: NotificationService,
+              private projectService: ProjectService,
               private userService: UserService,
               private xhr: XhrService) {
     this
       .url = EnvService.ip() + '/api/flows';
     this
       .user = this.userService.user.getValue();
-    this
-      .user = this.userService.user.subscribe(user => {
+
+    this.userService.user.subscribe(user => {
+
       if (user['id']) {
         this.user = user;
-        this.getFlows();
-        this.getTreatedFlows();
-        this.getSentFlows();
-        this.getShippedFlows();
-        this.getReturnedFlows()
+        this.getAllFlows()
+        this.projectService.project.subscribe(project => {
+          this.getProjectFlows(project.id)
+        })
+
+        this.all_flows.subscribe(flows => {
+          this.getFlows(flows);
+          this.getTreatedFlows(flows);
+          this.getSentFlows(flows);
+          this.getShippedFlows(flows);
+          this.getReturnedFlows(flows)
+        })
+
       }
-    })
+    });
 
   }
 
@@ -61,142 +73,87 @@ export class FlowService {
     this.http.get(this.url + '/user/' + this.user['id'])
       .map(res => res.json()).subscribe(flows => {
       {
-        flows.sort(function (b, a) {
-          const c = new Date(a.date_created);
-          const d = new Date(b.date_created);
-          return c > d;
-        });
+        flows.sort(GlobalService.sortByDate);
         this.flows.next(flows)
       }
     })
   }
 
-  reload() {
-    console.log('reloading flow');
-    const flow = localStorage.getItem('flow');
-    if (flow) {
-      this.flow.next(JSON.parse(flow))
-    }
-  }
-
-  setFlow(id: number) {
-    console.log('setting flow ' + id);
-    this.http.get(this.url + '/' + this.userService.user.getValue()['entity_id'] + '/' + id)
-      .map(res => res.json()).subscribe(
-      flow => {
-        this.flow.next(flow);
-        console.log('flow set');
-        console.log(flow);
-        localStorage.setItem('flow', JSON.stringify(flow))
-      })
-  }
-
-  untreat(id: number) {
-    console.log('treating flow ' + id);
-    this.http.post(this.url + '/treat', {id: id}, this.options)
-      .map(res => res.json())
-      .subscribe(user => {
-        this.user.next(user)
-      })
+  setFlow(flow) {
+    this.flow.next(flow)
   }
 
 
   treat(id: number) {
     console.log('treating flow ' + id);
-    this.http.post(this.url + '/treat', {id: id,entity_id:this.user.entity_id}, this.options)
+    this.http.post(this.url + '/treat', {id: id, entity_id: this.user.entity_id}, this.options)
       .subscribe(result => {
         console.log(result)
       })
   }
 
-  getFlows() {
+  getFlows(flows) {
 
-    console.log('loading flows');
+    let ps = FilterService.inbox(flows, this.user)
+
+    if (this.flows.getValue() == ps) {
+      return false
+    }
+
+    console.log(ps)
+    this.flows.next(ps)
+  }
+
+  getAllFlows() {
+    console.log('loading all flows');
 
     if (this.user.entity_id == undefined) {
       return false
     }
 
-    this.http.get(this.url + '/entity/' + this.user.entity_id)
+    this.http.get(this.url + '/all/' + this.user.entity_id)
       .map(res => res.json()).subscribe(flows => {
 
-      flows.sort(GlobalService.sortByDate);
+      flows.sort(GlobalService.sortByDate)
 
-      if (this.flows.getValue() == flows) {
-        return false
-      }
-
-      this.flows.next(flows)
+      this.all_flows.next(flows)
     })
   }
 
-  getSentFlows() {
+  getSentFlows(flows) {
+    let ps = FilterService.sentFlow(flows, this.user)
 
-    console.log('loading flows');
-
-    this.http.get(this.url + '/entity/sent/' + this.user.entity_id)
-      .map(res => res.json()).subscribe(flows => {
-
-      flows.sort(GlobalService.sortByDate);
-
-
-      if (this.sent_flows.getValue() == flows) {
-        return false
-      }
-
-      this.sent_flows.next(flows)
-    })
+    if (this.sent_flows.getValue() == ps) {
+      return false
+    }
+    this.sent_flows.next(ps)
   }
 
-  getTreatedFlows() {
+  getTreatedFlows(flows) {
+    let ps = FilterService.treatedFlow(flows)
 
-    console.log('loading treated flows');
-
-    this.http.get(this.url + '/entity/treated/' + this.user.entity_id)
-      .map(res => res.json()).subscribe(flows => {
-
-      flows.sort(GlobalService.sortByDate);
-
-
-      if (this.treated_flows.getValue() == flows) {
-        return false
-      }
-
-      this.treated_flows.next(flows)
-    })
+    if (this.treated_flows.getValue() == ps) {
+      return false
+    }
+    this.treated_flows.next(ps)
   }
 
-  getShippedFlows() {
+  getShippedFlows(flows) {
+    let ps = FilterService.shippedFlow(flows)
 
-    console.log('loading shipped flows');
-
-    this.http.get(this.url + '/shipped/' + this.user.entity_id)
-      .map(res => res.json()).subscribe(flows => {
-
-      flows.sort(GlobalService.sortByDate);
-
-
-      if (this.shipped_flows.getValue() == flows) {
-        return false
-      }
-
-      this.shipped_flows.next(flows)
-    })
+    if (this.shipped_flows.getValue() == ps) {
+      return false
+    }
+    this.shipped_flows.next(ps)
   }
 
-  getReturnedFlows() {
+  getReturnedFlows(flows) {
+    let ps = FilterService.importedFlow(flows)
 
-    console.log('loading shipped flows');
-
-    this.http.get(this.url + '/returned/' + this.user.entity_id)
-      .map(res => res.json()).subscribe(flows => {
-
-      flows.sort(GlobalService.sortByDate);
-      if (this.returned_flows.getValue() == flows) {
-        return false
-      }
-      this.returned_flows.next(flows)
-    })
+    if (this.returned_flows.getValue() == ps) {
+      return false
+    }
+    this.returned_flows.next(ps)
   }
 
   getProjectFlows(id) {
@@ -211,7 +168,7 @@ export class FlowService {
     })
   }
 
-  answerFlow(answer,next) {
+  answerFlow(answer, next) {
     const formData: any = new FormData();
 
     formData.append('flow_id', this.answerData.getValue()['flow_id']);
@@ -230,16 +187,16 @@ export class FlowService {
   }
 
 
-  ship(flow) {
-    console.log(this.user);
+  ship(flow, next) {
+    if (this.user['id']) {
 
-    return new Promise((resolve, reject) => {
+
       const formData: any = new FormData();
-      const xhr = new XMLHttpRequest();
 
-      formData.append('flow_id', flow.flow_id);
+      formData.append('project_id', flow.project_id);
       formData.append('sender_entity_id', this.user.entity.id);
       formData.append('destination', flow.receiver);
+      formData.append('content', flow.content);
       formData.append('ship_for', flow.ship_for);
       formData.append('user_id', this.user.id);
 
@@ -247,23 +204,38 @@ export class FlowService {
         formData.append('files', flow.files[i], flow.files[i].name)
       }
 
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            console.log('we got a response');
-            console.log(xhr.response);
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
 
-      xhr.open('POST', this.url + '/ship', true);
-      xhr.send(formData)
+      this.xhr.promise(this.url + '/ship', formData, () => {
+        next()
+      })
+    } else {
+      console.log('user not connected')
+    }
 
-      //  ship notification
-    });
+  }
+
+  _import(flow, next) {
+    if (this.user['id']) {
+      const formData: any = new FormData();
+
+      formData.append('numero', flow.numero);
+      formData.append('project_id', flow.project_id);
+      formData.append('entity_id', this.user.entity.id);
+      formData.append('sender', flow.sender);
+      formData.append('content', flow.content);
+      formData.append('status_id', flow.status_id);
+      formData.append('user_id', this.user.id);
+
+      for (let i = 0; i < flow.files.length; i++) {
+        formData.append('files', flow.files[i], flow.files[i].name)
+      }
+      this.xhr.promise(this.url + '/import', formData, () => {
+        next()
+      })
+    } else {
+      console.log('user not connected')
+    }
+
   }
 
   shipWithBe(flow, be) {
@@ -372,35 +344,4 @@ export class FlowService {
     });
   }
 
-  importFlow(imported) {
-    console.log(this.user);
-
-    return new Promise((resolve, reject) => {
-      const formData: any = new FormData();
-      const xhr = new XMLHttpRequest();
-
-      formData.append('flow_id', this.shipped_flow.getValue()['id']);
-      formData.append('content', imported.content);
-      formData.append('status_id', imported.status);
-      formData.append('user_id', this.user.id);
-
-      for (let i = 0; i < imported.files.length; i++) {
-        formData.append('files', imported.files[i], imported.files[i].name)
-      }
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      xhr.open('POST', this.url + '/ship', true);
-      xhr.send(formData)
-      //  import notification
-    });
-  }
 }

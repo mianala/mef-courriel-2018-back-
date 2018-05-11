@@ -1,8 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FlowService} from "../../service/flow.service";
-import {Router} from "@angular/router";
-import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
-import {MatDialogRef} from "@angular/material";
+import {FlowService} from '../../service/flow.service';
+import {Router} from '@angular/router';
+import {DispatchComponent} from '../../projects/dialog/dispatch/dispatch.component';
+import {MatDialogRef} from '@angular/material';
+import {ProjectService} from '../../service/project.service';
+import {EnvService} from '../../service/env.service';
+import {NotificationService} from '../../service/notification.service';
+import {GlobalService} from '../../service/global.service';
 
 @Component({
   selector: 'app-export',
@@ -10,82 +14,65 @@ import {MatDialogRef} from "@angular/material";
   styleUrls: ['./export.component.scss']
 })
 export class ExportComponent implements OnInit {
-  be;
-  title;
-  count;
+  project;
   flow;
-  previousFlow;
+  loading = false;
+  ship_types = GlobalService.ship_types;
 
   constructor(private flowService: FlowService,
+              private projectService: ProjectService,
               private router: Router,
-              private dialogRef: MatDialogRef<DispatchComponent>
-  ) {
-    this.be = {
-      sender: 'LE DIRECTEUR DE LA SYNTHESE BUDGETAIRE',
-      receiver_label: 'Monsieur LE DIRECTEUR GENERAL DU BUDGET',
-      observation: 'En ayant l\'honneur de vous transmettre a titre de compte rendu',
-      attached_files: [
-        {title: 'Compte rendu', count: '01'},
-      ]
-    };
+              private notification: NotificationService,
+              private dialogRef: MatDialogRef<DispatchComponent>) {
 
     this.flow = {
-      ship_for: 3,
+      ship_for: 0,
       receiver: '',
+      content: 'Compte rendu',
+      sender_entity_id: 21,
       files: [],
     };
 
-    flowService.flow.subscribe(flow => {
-      this.previousFlow = flow;
-      this.flow.flow_id = flow['id']
-      this.be.author = this.previousFlow.sender_entity_label
+    projectService.project.subscribe(project => {
+      this.project = project;
+      this.flow.project_id = project['id']
+      this.flow.sender_entity_id = project['entity_id']
     })
-  }
 
-  addAttach() {
-    this.be.attached_files.push({
-      title: this.title,
-      count: this.count
-    })
-  }
 
-  removeAttach(d) {
-    const index = this.be.attached_files.indexOf(d);
-    this.be.attached_files.splice(index, 1)
   }
 
   ngOnInit() {
   }
 
-  preview() {
-    this.be.numero = this.previousFlow.numero;
-    this.be.sender_header = this.previousFlow.sender_be_header;
-    this.flowService.be.next(this.be);
-    // window.open('http://localhost:4200/BE')
-    this.router.navigateByUrl('/BE')
-  }
-
   getFiles(files) {
     this.flow.files = this.flow.files.concat(files);
-    this.flowService.ship(this.flow)
   }
 
   isBe() {
-    if (this.flow.ship_for == 1) {
-      return true
-    }
+    return this.flow.ship_for == 1;
+  }
 
-    return false
+  valid() {
+    return this.flow.receiver.length > 3 && this.flow.content.length > 3
   }
 
   submit() {
-    if (this.isBe()) {
 
-      this.flowService.shipWithBe(this.flow, this.be)
-    } else {
-      this.flowService.ship(this.flow)
+    this.loading = true
+
+    if (!this.valid()) {
+      this.loading = false
+
+      this.notification.formError()
+      return
     }
 
-    this.dialogRef.close()
+
+    this.flowService.ship(this.flow, () => {
+      this.notification.flowExported();
+      this.dialogRef.close()
+    })
+
   }
 }

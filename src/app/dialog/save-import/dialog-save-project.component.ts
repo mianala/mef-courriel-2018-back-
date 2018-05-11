@@ -4,8 +4,8 @@ import {NotificationService} from '../../service/notification.service';
 import {FroalaService} from '../../service/froala.service';
 import {MatDialogRef} from '@angular/material';
 import {ProjectService} from '../../service/project.service';
-import {FlowService} from "../../service/flow.service";
-import {GlobalService} from "../../service/global.service";
+import {FlowService} from '../../service/flow.service';
+import {GlobalService} from '../../service/global.service';
 
 
 @Component({
@@ -16,16 +16,18 @@ import {GlobalService} from "../../service/global.service";
 export class DialogSaveProjectComponent implements OnInit {
   project: any;
   exported: any;
-  imported: any;
-  loading=false;
+  flow: any;
+  loading = false;
   be: any;
   files: any;
   options: any;
   user: any;
-  shipped_flows;
+  shipped_projects;
   letter_types;
   in_types;
+  return_types = GlobalService.return_types;
   form_max_date: Date;
+  active_index = 0;
 
   constructor(private froalaService: FroalaService,
               private dialogRef: MatDialogRef<DialogSaveProjectComponent>,
@@ -33,9 +35,12 @@ export class DialogSaveProjectComponent implements OnInit {
               private flowService: FlowService,
               private notification: NotificationService,
               private projectService: ProjectService) {
-    this.imported = {
-      ref: '',
+    this.flow = {
       numero: '',
+      project_id: 0,
+      status_id: 0,
+      sender: '', // autocomplete this
+      content: '',
     };
 
     this.letter_types = GlobalService.letter_types;
@@ -56,10 +61,14 @@ export class DialogSaveProjectComponent implements OnInit {
       received_date: new Date(),
     };
 
-    this.shipped_flows = [];
+    this.shipped_projects = [];
 
-    this.flowService.shipped_flows.subscribe(flows => {
-      this.shipped_flows = flows
+    this.projectService.shipped_projects.subscribe(projects => {
+      this.shipped_projects = projects
+    });
+
+    this.projectService.project.subscribe((project) => {
+        this.flow.project_id = project.id
     });
 
     this.files = [];
@@ -71,56 +80,50 @@ export class DialogSaveProjectComponent implements OnInit {
 
   }
 
-  isProject() {
-    if (!this.project.n_arrive) {
-      return false
-    }
-
-    return true
-  }
-
-  submit_project() {
-
-  }
-
-  valid() {
+  validProject() {
     return !(this.project.n_arrive.length < 3 || this.project.sender.length < 3 || this.project.content.length < 3);
   }
 
-  import_flow() {
-    this.flowService.importFlow(this.project)
+  validFlow() {
+    return !(this.flow.sender.length < 3 || this.flow.numero.length < 3 || this.flow.content.length < 3);
   }
 
-  isImported() {
-    if (!this.project.status_id) {
-      return false
-    }
-
-    return true
+  saving() {
+    return !this.active_index
   }
 
   getFiles(files) {
     this.files = this.files.concat(files)
   }
 
+  indexChanged(event) {
+    this.active_index = event.index
+  }
+
   submit() {
 
-    this.loading = true
+    this.loading = true;
 
-    if (this.valid()) {
-      this.project.user = this.user;
-      this.project.entity_id = this.user.entity_id;
-      this.project.files = this.files;
 
-      //change to loading button
-      this.projectService.save(this.project, () => {
-        this.notification.projectSaved();
-        this.dialogRef.close()
-      })
-    } else {
-      this.loading = false
-      this.notification.formError()
-    }
+    this.project.user = this.user;
+    this.project.entity_id = this.user.entity_id;
+    this.project.files = this.files;
+
+    // change to loading button
+    this.projectService.save(this.project, () => {
+      this.notification.projectSaved();
+      this.dialogRef.close()
+    })
+  }
+
+  _import() {
+    this.loading = true;
+    this.flow.files = this.files;
+    this.flowService._import(this.flow,() => {
+      this.notification.flowImported()
+      this.dialogRef.close()
+    })
+
   }
 
 }

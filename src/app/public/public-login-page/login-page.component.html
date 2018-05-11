@@ -19,9 +19,9 @@
     </mat-form-field>
   </form>
   <div fxLayout="row" class="action-buttons">
-    <button routerLink="/public" mat-button>ANNULER</button>
-    <button [disabled]="loading" (click)="submit()" mat-button>
-      <mat-icon *ngIf="!loading" class="mat-18">log_in</mat-icon>
+    <button disabled routerLink="/public" mat-button>ANNULER</button>
+    <button [disabled]="loading || !valid()" (click)="submit()" mat-button>
+      <mat-icon *ngIf="!loading" class="mat-18">input</mat-icon>
       <loading-button *ngIf="loading"></loading-button>
       CONNEXION</button>
   </div>

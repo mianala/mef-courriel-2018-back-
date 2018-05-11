@@ -19,7 +19,7 @@
     <project [project]="project"></project>
 
     <mat-action-row>
-      <button mat-button color="primary"  *ngIf="viewable(project)" (click)="setProject(project.id)" routerLink="/courriels/courriel">Voir</button>
+      <button mat-button color="primary"  *ngIf="viewable(project)" (click)="setProject(project)" routerLink="/courriels/courriel">Voir</button>
 
       <button *ngIf="treatable(project) " [disabled]="treating==project.id" (click)="treat(project)" mat-button="" color="primary">
         <mat-icon *ngIf="treating!=project.id" class="mat-18">check</mat-icon>
@@ -27,11 +27,15 @@
         Traité/Vu
       </button>
 
+      <button *ngIf="shippable(project)" mat-button color="primary" (click)="ship(project)">
+        <mat-icon class="mat-18">file_upload</mat-icon>
+        Exporter
+      </button>
       <button mat-button color="primary" *ngIf="submitable()" (click)="submit()">
         <mat-icon class="mat-18">arrow_upward</mat-icon>
         Soumetre
       </button>
-      <button  mat-button color="primary" (click)="dispatch(project.id)">
+      <button  mat-button color="primary" (click)="dispatch(project)">
         <mat-icon  class="mat-18">call_split</mat-icon>
         Dispatch</button>
     </mat-action-row>

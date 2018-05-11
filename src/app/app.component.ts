@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from './service/user.service';
 import {Router} from '@angular/router';
-import {SocketService} from "./service/socket.service";
-import {ProjectService} from "./service/project.service";
-import {FlowService} from "./service/flow.service";
-import {DialogSaveProjectComponent} from "./dialog/save-import/dialog-save-project.component";
-import {ReportComponent} from "./dialog/report/report.component";
-import {MatDialog} from "@angular/material";
-import {MediaChange, ObservableMedia} from "@angular/flex-layout";
-import {ComposeComponent} from "./dialog/compose/compose.component";
+import {SocketService} from './service/socket.service';
+import {ProjectService} from './service/project.service';
+import {FlowService} from './service/flow.service';
+import {DialogSaveProjectComponent} from './dialog/save-import/dialog-save-project.component';
+import {ReportComponent} from './dialog/report/report.component';
+import {MatDialog} from '@angular/material';
+import {MediaChange, ObservableMedia} from '@angular/flex-layout';
+import {ComposeComponent} from './dialog/compose/compose.component';
 
 @Component({
   selector: 'app-root',
@@ -16,26 +16,26 @@ import {ComposeComponent} from "./dialog/compose/compose.component";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'app'
-  connected: boolean
-  sidenav_status
-  sidenav_mode
+  title = 'app';
+  connected: boolean;
+  sidenav_status;
+  sidenav_mode;
 
   constructor(public userService: UserService,
+              private socketService: SocketService,
               public router: Router,
               public projectService: ProjectService,
               public flowService: FlowService,
               private media: ObservableMedia,
-              public dialog: MatDialog,
-              public socketService: SocketService) {
+              public dialog: MatDialog) {
 
 
     this.media.subscribe((media: MediaChange) => {
         this.sidenav_status = !(media.mqAlias == 'sm' || media.mqAlias == 'xs')
       }
-    )
+    );
 
-    this.sidenav_status = true
+    this.sidenav_status = true;
     this.sidenav_mode = 'side'
   }
 

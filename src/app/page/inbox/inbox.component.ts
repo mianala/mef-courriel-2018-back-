@@ -18,6 +18,7 @@ export class ProjectListComponent implements OnInit {
               public dialog: MatDialog) {
   }
 
+
   ngOnInit() {
     this.filter.query.subscribe(query => {
       this.flowService.flows.subscribe(uflows => {
