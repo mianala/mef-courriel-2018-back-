@@ -62,25 +62,27 @@ export class NotificationService {
   }
 
   flowReceived() {
-    const message = 'Vous avez recu un courriel';
+    const message = 'Vous avez reçu un courriel';
     this.openSnack(message);
   }
 
   flowTreated() {
-    const message = 'Courriel traité';
+    const message = 'Un courriel a été traité';
     this.openSnack(message);
   }
+
   flowExported() {
-    const message = 'Courriel exporté';
+    const message = 'Un courriel a été exporté';
     this.openSnack(message);
   }
+
   flowImported() {
     const message = 'Courriel importé';
     this.openSnack(message);
   }
 
   projectTreated() {
-    const message = 'Projet traité';
+    const message = 'Un projet a été traité';
     this.openSnack(message);
   }
 
@@ -88,18 +90,12 @@ export class NotificationService {
     const message = 'Veillez bien verifier les destinataires';
     this.openSnack(message);
   }
+
   invalidObservation() {
     const message = 'Veillez bien verifier les observations';
     this.openSnack(message);
   }
-  invalidTitle() {
-    const message = 'Veillez bien verifier les observations';
-    this.openSnack(message);
-  }
-  flowRemoved() {
-    const message = 'Courriel supprimé';
-    this.openSnack(message);
-  }
+
 
   emailRemoved() {
     const message = 'Message supprimé';

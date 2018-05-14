@@ -1,16 +1,22 @@
 <div class="content">
 
-  <div *ngIf="!composed()" class="description">
+  <div class="description">
     <h4 class="label">
       PROJET
     </h4>
-    <div><h4>{{project.entity_label + '-' + project.n}}</h4>
-      <mat-chip-list>
+    <div>
+      <h4>{{project.entity_label + '-' + project.n}}
+        <mat-chip-list *ngIf="project.status_id == 1">
+          <mat-chip  >Traité</mat-chip>
+        </mat-chip-list>
+      </h4>
+      <mat-chip-list *ngIf="!composed()">
         <mat-chip [color]="'primary'">{{letter_types[project.letter]}}</mat-chip>
         <mat-chip [color]="'accent'">{{in_types[project.type]}}</mat-chip>
       </mat-chip-list>
     </div>
   </div>
+
 
   <div class="description">
     <h4 class="label">
@@ -21,12 +27,12 @@
 
   <div class="description">
     <h4 class="label">
-      Expéditeur
+      {{sender}}
     </h4>
     <div>{{project.sender}}</div>
   </div>
 
-  <div *ngIf="!composed()"  class="description">
+  <div *ngIf="!composed()" class="description">
     <h4 class="label">
       Date du courrier
     </h4>

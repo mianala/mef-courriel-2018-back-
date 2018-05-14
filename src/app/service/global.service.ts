@@ -83,19 +83,23 @@ export class GlobalService {
 
   static updateArray(newArray, actualArray) {
     // if same return
-    
+    if(newArray == actualArray){
+      return newArray
+    }
+
     // if don't contain the id push
     actualArray.forEach(item => {
       if (newArray.indexOf(item) == -1) {
         actualArray.splice(actualArray.indexOf(item),1);
       }
-    })
+    });
+
     // if don't contain the id push
     newArray.forEach(item => {
       if (actualArray.indexOf(item) == -1) {
         actualArray.push(item)
       }
-    })
+    });
 
     // sort both
     // if don't match perfectly then update those who

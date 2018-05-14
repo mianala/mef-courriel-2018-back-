@@ -15,7 +15,6 @@ import {GlobalService} from '../../service/global.service';
 })
 export class DialogSaveProjectComponent implements OnInit {
   project: any;
-  exported: any;
   flow: any;
   loading = false;
   be: any;
@@ -64,6 +63,7 @@ export class DialogSaveProjectComponent implements OnInit {
     this.shipped_projects = [];
 
     this.projectService.shipped_projects.subscribe(projects => {
+      console.log(projects)
       this.shipped_projects = projects
     });
 
@@ -81,7 +81,7 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   validProject() {
-    return !(this.project.n_arrive.length < 3 || this.project.sender.length < 3 || this.project.content.length < 3);
+    return !(this.project.n_arrive.length < 3 || this.project.sender.length < 3 || this.project.observations.length < 3);
   }
 
   validFlow() {
@@ -120,7 +120,7 @@ export class DialogSaveProjectComponent implements OnInit {
     this.loading = true;
     this.flow.files = this.files;
     this.flowService._import(this.flow,() => {
-      this.notification.flowImported()
+      this.notification.flowImported();
       this.dialogRef.close()
     })
 

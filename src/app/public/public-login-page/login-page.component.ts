@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
   user: any;
-  loading: boolean;
+  loading = false;
 
   constructor(private route: Router,
               private userService: UserService) {
@@ -20,8 +20,6 @@ export class LoginPageComponent implements OnInit {
       id:'',
       password:'',
     };
-    this.loading = false
-
 
     this.userService.user.subscribe(user => {
       if (user['id']) {

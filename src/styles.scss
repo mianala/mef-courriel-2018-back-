@@ -89,3 +89,47 @@ mat-nav-list {
   margin: 0 !important;
   padding: 0 !important;
 }
+
+
+mat-accordion {
+  //max-width: 800px;
+
+  mat-expansion-panel {
+    overflow: hidden;
+
+    mat-expansion-panel-header {
+      //border-left: 5px solid #00EAFF ;
+
+      .mat-content{
+        display: grid !important;
+        grid-template-columns: 1fr 5fr 1fr;
+      }
+
+      overflow: hidden;
+
+      mat-panel-description {
+        overflow: hidden;
+        max-height: 50px;
+        flex-grow:8;
+
+        p {
+          margin: 10px !important;
+        }
+      }
+
+      mat-panel-title {
+        flex-grow:2;
+        align-items: center;
+      }
+
+      .date {
+        flex-grow:.5;
+        display: flex;
+        justify-content: flex-end;
+        align-self: center;
+      }
+    }
+  }
+}
+
+

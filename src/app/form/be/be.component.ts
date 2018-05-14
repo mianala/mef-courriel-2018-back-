@@ -1,45 +1,61 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {EnvService} from '../../service/env.service';
 
 @Component({
-  selector: 'app-be',
+  selector: 'be',
   templateUrl: './be.component.html',
   styleUrls: ['./be.component.scss']
 })
 export class BeComponent implements OnInit {
-  count;
+  count = '';
   be;
-  title;
+  title = '';
+  @Output() onUpdate = new EventEmitter();
 
   constructor() {
 
     this.be = {
       sender: 'LE DIRECTEUR DE LA SYNTHESE BUDGETAIRE',
-      receiver_label: 'Monsieur LE DIRECTEUR GENERAL DU BUDGET',
-      attached_files: [
-        {title: 'Compte rendu', count: '01'},
-      ]
+      receiver: 'Monsieur LE DIRECTEUR GENERAL DU BUDGET',
+      counts: ['01'],
+      titles: ['Compte rendu'],
     };
   }
 
   ngOnInit() {
+    this.update()
   }
 
-  preview() {
-    window.open(EnvService.ip() + '/app/be')
+
+  validAttach() {
+    return this.count.length && this.title.length
   }
 
+
+  update() {
+    this.onUpdate.emit(this.be)
+  }
 
   addAttach() {
-    this.be.attached_files.push({
-      title: this.title,
-      count: this.count
-    })
+
+    if (!this.validAttach()) {
+      return
+    }
+
+    this.be.titles.push(this.title)
+    this.be.counts.push(this.count)
+
+    this.title = ''
+    this.count = ''
+
+    this.update()
   }
 
   removeAttach(d) {
     const index = this.be.attached_files.indexOf(d);
     this.be.attached_files.splice(index, 1)
+
+    this.update()
   }
 
 }

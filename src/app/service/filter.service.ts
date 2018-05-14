@@ -78,16 +78,24 @@ export class FilterService {
     })
   }
 
+  static treatedProject(project) {
+    return project.status_id == 1
+  }
+
   static shippedProjects(projects) {
     return projects.filter(project => {
       return project.status_id == 3
     })
   }
 
-  static treatedFlow(flows) {
+  static treatedFlows(flows) {
     return flows.filter(flow => {
       return flow.status_id == 1 && flow.direction == 1
     })
+  }
+
+  static treatedFlow(flow) {
+      return flow.status_id == 1 && flow.direction == 1
   }
 
   static shippedFlow(flows) {
@@ -96,22 +104,25 @@ export class FilterService {
     })
   }
 
-  static isShipped(flow){
+  static isShipped(flow) {
     return flow.direction == 3
   }
-  static isSent(flow,user){
+
+  static isSent(flow, user) {
     return flow.sender_entity_id == user.entity_id && flow.direction == 1
   }
-  static isImported(flow){
+
+  static isImported(flow) {
     return flow.direction == 4
   }
-  static within(flow){
+
+  static within(flow) {
     return flow.direction == 1
   }
 
   static sentFlow(flows, user) {
     return flows.filter(flow => {
-      return this.isSent(flow,user)
+      return this.isSent(flow, user)
     })
   }
 
@@ -123,10 +134,13 @@ export class FilterService {
 
   static inbox(flows, user) {
 
-    return flows.filter(flow => {
-      return flow.entity_id == user.entity_id && flow.status_id != 1 && flow.direction == 1
+    return flows.filter((flow) => {
+      return FilterService.received(flow,user)
     })
+  }
 
+  static received(flow, user){
+    return flow.entity_id == user.entity_id && flow.status_id != 1 && flow.direction == 1
   }
 
 }

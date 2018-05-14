@@ -1,20 +1,21 @@
+<h4>BORDEREAU D'ENVOI</h4>
 <mat-form-field class="">
-  <input matInput [(ngModel)]="be.sender" placeholder="Expéditeur">
+  <input (change)="update()" matInput [(ngModel)]="be.sender" placeholder="Expéditeur">
 </mat-form-field>
 
 <mat-form-field class="">
-  <input [(ngModel)]="be.receiver_label" required name="receiver_label" matInput placeholder="Label destinaire">
+  <input (change)="update()" [(ngModel)]="be.receiver" required name="receiver_label" matInput placeholder="Label destinaire">
 </mat-form-field>
 
-<div *ngIf="be.attached_files.length" class="designation-row" fxLayout="row" class="content">
+<div *ngIf="be.titles.length" class="designation-row" fxLayout="row" class="content">
   <div fxFlex="70">DESIGNATION</div>
   <div fxFlex="20">NOMBRE</div>
   <mat-icon fxFlex="10"></mat-icon>
 </div>
 
-<div fxLayout="row" class="designation-row" *ngFor="let d of be.attached_files">
-  <div fxFlex="70">{{d.title}}</div>
-  <div fxFlex="20">{{d.count}}</div>
+<div fxLayout="row" class="designation-row" *ngFor="let d of be.titles;let i = index">
+  <div class="be_label" fxFlex="70">{{be.titles[i]}}</div>
+  <div class="be_label" fxFlex="20">{{be.counts[i]}}</div>
   <button mat-icon-button="" fxFlex="10" (click)="removeAttach(d)" color="warn">
     <mat-icon>remove_circle_outline</mat-icon>
   </button>
@@ -25,9 +26,9 @@
     <input matInput [(ngModel)]="title" placeholder="Designation">
   </mat-form-field>
   <mat-form-field fxFlex="20" class="">
-    <input matInput [(ngModel)]="count" placeholder="Nombre">
+    <input matInput (keyup.enter)="addAttach()" keyu [(ngModel)]="count" placeholder="Nombre">
   </mat-form-field>
-  <button mat-icon-button="" fxFlex="10" (click)="addAttach()" color="primary">
+  <button [disabled]="!validAttach()" mat-icon-button="" fxFlex="10" (click)="addAttach()" color="primary">
     <mat-icon>add_circle_outline</mat-icon>
   </button>
 </div>

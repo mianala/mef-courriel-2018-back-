@@ -50,8 +50,11 @@ export class FlowService {
       if (user['id']) {
         this.user = user;
         this.getAllFlows()
+
         this.projectService.project.subscribe(project => {
-          this.getProjectFlows(project.id)
+          if (project['id']) {
+            this.getProjectFlows(project.id)
+          }
         })
 
         this.all_flows.subscribe(flows => {
@@ -107,9 +110,6 @@ export class FlowService {
   getAllFlows() {
     console.log('loading all flows');
 
-    if (this.user.entity_id == undefined) {
-      return false
-    }
 
     this.http.get(this.url + '/all/' + this.user.entity_id)
       .map(res => res.json()).subscribe(flows => {
@@ -130,7 +130,7 @@ export class FlowService {
   }
 
   getTreatedFlows(flows) {
-    let ps = FilterService.treatedFlow(flows)
+    let ps = FilterService.treatedFlows(flows)
 
     if (this.treated_flows.getValue() == ps) {
       return false
@@ -157,15 +157,15 @@ export class FlowService {
   }
 
   getProjectFlows(id) {
-    console.log('loading project flows  ' + id);
     this.http.get(this.url + '/project/' + id)
-      .map(res => res.json()).subscribe(flows => {
-      flows.sort(GlobalService.sortByDate);
-      if (this.project_flows.getValue() == flows) {
-        return false
-      }
-      this.project_flows.next(flows)
-    })
+      .map(res => res.json())
+      .subscribe(flows => {
+        flows.sort(GlobalService.sortByDate);
+        if (this.project_flows.getValue() == flows) {
+          return false
+        }
+        this.project_flows.next(flows)
+      })
   }
 
   answerFlow(answer, next) {

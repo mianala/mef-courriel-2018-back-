@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from "../../service/project.service";
 import {FilterService} from "../../service/filter.service";
+import {fadeInAnimation} from '../../animation/fadeIn'
 
 @Component({
   selector: 'app-treated-project',
+  animations: [fadeInAnimation],
+  host: {'[@fadeInAnimation]': ''},
   templateUrl: './treated-project.component.html',
   styleUrls: ['./treated-project.component.scss']
 })

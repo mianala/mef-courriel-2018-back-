@@ -86,7 +86,6 @@ import { ExportComponent } from './dialog/export/export.component';
 import { DecommissionComponent } from './dialog/decommission/decommission.component';
 import { ShareComponent } from './dialog/share/share.component';
 import { UpdateComponent } from './user/update/update.component';
-import { SendComponent } from './dialog/send/send.component';
 import { BeComponent } from './form/be/be.component';
 import { ProfilComponent } from './user/profil/profil.component';
 import { SearchComponent } from './filter/search/search.component';
@@ -166,7 +165,6 @@ import { LoadingButtonComponent } from './util/loading-button/loading-button.com
     DecommissionComponent,
     ShareComponent,
     UpdateComponent,
-    SendComponent,
     BeComponent,
     ProfilComponent,
     SearchComponent,
@@ -198,7 +196,6 @@ import { LoadingButtonComponent } from './util/loading-button/loading-button.com
     DialogSaveProjectComponent,
     ComposeComponent,
     ReportComponent,
-    SendComponent,
     DecommissionComponent,
     ExportComponent,
     ShareComponent

@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let flow of flows" hideToggle="visibility">
+  <mat-expansion-panel class="flow-" *ngFor="let flow of flows" hideToggle="visibility">
     <mat-expansion-panel-header>
       <mat-panel-title class="entity-label">
         <div class="n">{{title_label(flow)}}</div>
@@ -7,16 +7,19 @@
       <mat-panel-description class="flow-content">
         <div innerHtml="{{flow.content | slice:0:50}}"></div>
       </mat-panel-description>
-      <div class="flow-date" *ngIf="!sameDay(flow)">{{flow.date|date}}</div>
-      <div class="flow-date" *ngIf="sameDay(flow)">{{flow.date|date:'shortTime'}}</div>
-    </mat-expansion-panel-header>
+      <div class="date">
+        <!--<mat-icon class="mat-18" *ngIf="treated(flow)">checked</mat-icon>-->
+
+        <span *ngIf="!sameDay(flow)">{{flow.date|date}}</span>
+        <span *ngIf="sameDay(flow)">{{flow.date|date:'shortTime'}}</span>
+      </div></mat-expansion-panel-header>
     <flow [flow]="flow"></flow>
     <mat-action-row>
       <button *ngIf="viewable(flow)" color="primary" (click)="view(flow)" mat-button>
         <mat-icon class="mat-18">folder_open</mat-icon>
         Voir projet
       </button>
-      <button *ngIf="answerable(flow)" mat-button color="primary" (click)="answer(flow)">
+      <button *ngIf="received(flow)" mat-button color="primary" (click)="answer(flow)">
         <mat-icon>reply</mat-icon>
         Répondre
       </button>

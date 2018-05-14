@@ -13,6 +13,7 @@ export class ProjectComponent implements OnInit {
   @Input() project;
   in_types;
   letter_types;
+  sender = '';
 
   constructor(public dialog: MatDialog, public entityService: EntityService) {
     this.letter_types = GlobalService.letter_types;
@@ -21,6 +22,11 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit() {
 
+    if(this.composed()){
+      this.sender =  'Rédigé par'
+    }else{
+      this.sender =  'Expéditeur'
+    }
   }
 
   composed(){

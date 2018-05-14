@@ -45,14 +45,18 @@ export class FlowsComponent implements OnInit {
 
   }
 
+  treated(flow) {
+    return FilterService.treatedFlow(flow)
+  }
+
   title_label(flow) {
     if (FilterService.isShipped(flow)) {
       return 'au ' + flow.destination
     } else if (FilterService.isImported(flow)) {
       return flow.destination
-    } else if (FilterService.isSent(flow,this.user)) {
+    } else if (FilterService.isSent(flow, this.user)) {
       return 'à ' + flow.entity_label
-    } else{
+    } else {
       return flow.sender_entity_label
     }
   }
@@ -84,11 +88,6 @@ export class FlowsComponent implements OnInit {
     return true
   }
 
-  answerable(flow) {
-    return FilterService.within(flow)
-
-  }
-
   treatable(flow) {
     return flow.sender_entity_id != this.user.entity_id && flow.status_id != 1;
   }
@@ -98,14 +97,8 @@ export class FlowsComponent implements OnInit {
   }
 
   received(flow) {
-    return flow.sender_entity_id != this.user.entity_id && FilterService.within(flow)
+    return FilterService.received(flow, this.user)
   }
-
-  /*
-   untreat(flow) {
-   this.flowService.untreat(flow.id)
-   }*/
-
 
   submitable(id) {
     return false

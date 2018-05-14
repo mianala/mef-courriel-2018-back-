@@ -4,30 +4,31 @@
   <mat-expansion-panel *ngFor="let project of projects" hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div class="sender">{{project.sender}}</div>
-        <div class="n">{{project.n_arrive}}</div>
+        <strong>{{project.sender}}</strong>
+        <!--<div class="n">{{project.n_arrive}}</div>-->
 
       </mat-panel-title>
       <mat-panel-description [innerHtml]="project.content| slice:0:150">
 
         <!--<mat-icon>class</mat-icon>-->
       </mat-panel-description>
-      <div class="project-date" *ngIf="!sameday(project)">{{project.date|date}}</div>
-      <div class="project-date" *ngIf="sameday(project)" >{{project.date|date:'shortTime'}}</div>
+      <div class="date">
+        <!--<mat-icon class="mat-18" *ngIf="treated(project)">checked</mat-icon>-->
+
+        <span *ngIf="!sameday(project)">{{project.date|date}}</span>
+        <span *ngIf="sameday(project)">{{project.date|date:'shortTime'}}</span>
+      </div>
     </mat-expansion-panel-header>
 
     <project [project]="project"></project>
 
     <mat-action-row>
-      <button mat-button color="primary"  *ngIf="viewable(project)" (click)="setProject(project)" routerLink="/courriels/courriel">Voir</button>
-
-      <button *ngIf="treatable(project) " [disabled]="treating==project.id" (click)="treat(project)" mat-button="" color="primary">
-        <mat-icon *ngIf="treating!=project.id" class="mat-18">check</mat-icon>
-        <loading-button *ngIf="treating == project.id"></loading-button>
-        Traité/Vu
+      <button mat-button color="primary" *ngIf="viewable(project)" (click)="setProject(project)"
+              routerLink="/courriels/courriel">Voir
       </button>
 
-      <button *ngIf="shippable(project)" mat-button color="primary" (click)="ship(project)">
+
+      <button *ngIf="!treated(project)" mat-button color="primary" (click)="ship(project)">
         <mat-icon class="mat-18">file_upload</mat-icon>
         Exporter
       </button>
@@ -35,9 +36,23 @@
         <mat-icon class="mat-18">arrow_upward</mat-icon>
         Soumetre
       </button>
-      <button  mat-button color="primary" (click)="dispatch(project)">
-        <mat-icon  class="mat-18">call_split</mat-icon>
-        Dispatch</button>
+      <button *ngIf="!treated(project)" mat-button color="primary" (click)="dispatch(project)">
+        <mat-icon class="mat-18">call_split</mat-icon>
+        Dispatch
+      </button>
+      <mat-menu #appMenu="matMenu">
+
+        <button *ngIf="treatable(project) " [disabled]="treating==project.id" (click)="treat(project)" mat-menu-item=""
+                color="primary">
+          <mat-icon *ngIf="treating!=project.id" class="mat-18">check</mat-icon>
+          <loading-button *ngIf="treating == project.id"></loading-button>
+          Traité/Vu
+        </button>
+      </mat-menu>
+
+      <button *ngIf="treatable(project)" mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

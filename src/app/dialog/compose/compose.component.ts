@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, EventEmitter, OnInit, Output} from '@angular/core'
 import {UserService} from '../../service/user.service'
 import {FlowService} from '../../service/flow.service'
 import {FroalaService} from '../../service/froala.service'
@@ -19,6 +19,7 @@ export class ComposeComponent implements OnInit {
   loading = false;
 
   options: any;
+
   user: any;
 
   upEntity;
@@ -27,6 +28,7 @@ export class ComposeComponent implements OnInit {
 
   observations = GlobalService.observations;
   checkedObservations;
+
 
 
   constructor(public flowService: FlowService,
@@ -43,21 +45,24 @@ export class ComposeComponent implements OnInit {
       lettre: 1,
       content: '',
       files: [],
+      be : {},
+      hasBe : 0,
       receivers: []
     };
-
     this.composition.files = [];
     this.options = this.froala.getOptions();
-
   }
 
-  updateDirection() {
-    this.composition.receivers = []
+  updateDirection(p) {
+    this.composition.receivers = [];
+
+    if (p.value == 1) {
+      this.composition.receivers.push(this.upEntity.id)
+    }
   }
 
   checkEntity(id) {
-    ComposeComponent.toggleInArray(this.composition.receivers, id);
-    console.log(this.composition.receivers)
+    GlobalService.toggleInArray(this.composition.receivers, id);
   }
 
 
@@ -81,17 +86,6 @@ export class ComposeComponent implements OnInit {
     return this.composition.direction == 3
   }
 
-  // util
-  static toggleInArray(array, value) {
-    const index = array.indexOf(value);
-
-    if (index === -1) {
-      array.push(value);
-    } else {
-      array.splice(index, 1);
-    }
-  }
-
   ngOnInit() {
     this.user = this.userService.user.getValue();
 
@@ -104,8 +98,8 @@ export class ComposeComponent implements OnInit {
     return this.composition.title.length > 3
   }
 
-  validContent() {
-    return this.composition.content.length > 3
+  updateBe(be){
+    this.composition.be = be
   }
 
   validReceiver() {
@@ -114,7 +108,7 @@ export class ComposeComponent implements OnInit {
 
   submit() {
 
-    this.loading = true
+    this.loading = true;
 
     let obs = '';
 
@@ -122,21 +116,18 @@ export class ComposeComponent implements OnInit {
       obs += ' - ' + o + '<br>'
     }
 
-    if (this.forSubmit()) {
-      this.composition.receivers.push(this.upEntity.id)
-    }
-
     if (!this.validTitle()) {
       this.notification.formError();
-      this.loading = false
+      this.loading = false;
       return
     }
     if (!this.validReceiver()) {
       this.notification.invalidReceiver();
-      this.loading = false
+      this.loading = false;
       return
     }
 
+    console.log(this.composition)
 
     // update button to loading button
     this.composition.content = obs.concat(this.composition.content);

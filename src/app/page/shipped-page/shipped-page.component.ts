@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FlowService} from "../../service/flow.service";
+import {fadeInAnimation} from '../../animation/fadeIn'
 
 @Component({
   selector: 'app-shipped-page',
+  animations: [fadeInAnimation],
+  host: {'[@fadeInAnimation]': ''},
   templateUrl: './shipped-page.component.html',
   styleUrls: ['./shipped-page.component.scss']
 })

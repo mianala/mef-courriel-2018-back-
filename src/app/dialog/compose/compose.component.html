@@ -17,7 +17,7 @@
   <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="composition.content"></div>
 
   <h4 *ngIf="!forSubmit()">Destinataires</h4>
-  <mat-radio-group onchange="updateDirection()" [(ngModel)]="composition.direction">
+  <mat-radio-group (change)="updateDirection($event)" [(ngModel)]="composition.direction">
     <mat-radio-button *ngIf="canSubmit()" value="1">Envoyer a {{canSubmit()}}</mat-radio-button>
     <mat-radio-button *ngIf="canShare()" value="2">Horizontale</mat-radio-button>
     <mat-radio-button value="3">Dispatch</mat-radio-button>
@@ -38,6 +38,8 @@
     </mat-checkbox>
   </div>
 
+  <!--<mat-checkbox *ngIf="composition.receivers.length == 1" [(ngModel)]="composition.hasBe">BORDEREAU D'ENVOI</mat-checkbox>-->
+  <be *ngIf="composition.hasBe" (onUpdate)="updateBe($event)"></be>
 
   <!--date de depart auto-->
   <app-files [files]="composition.files"></app-files>

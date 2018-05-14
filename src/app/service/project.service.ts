@@ -93,7 +93,7 @@ export class ProjectService {
 
     const ps = FilterService.shippedProjects(projects);
 
-    if (this.treated_projects.getValue() == ps) {
+    if (this.shipped_projects.getValue() == ps) {
       return false
     }
     this.shipped_projects.next(ps)
@@ -115,21 +115,11 @@ export class ProjectService {
         return
       }
 
-      this.shipped_projects.next(projects)
+      this.shipped_projects.next(projects);
       this.all_projects.next(projects)
     })
   }
 
-
-  reload() {
-    // todo if nothing in the actual project
-
-    console.log('reloading project');
-    const project = localStorage.getItem('project');
-    if (project) {
-      this.project.next(JSON.parse(project))
-    }
-  }
 
   setProject(project) {
     this.project.next(project)
@@ -144,7 +134,13 @@ export class ProjectService {
 
   save(project: any, next) {
 
-    const formData: any = new FormData();
+    let formData: any = new FormData();
+
+    if (project.be) {
+      formData.append('be', JSON.stringify(project.be));
+
+    }
+
     formData.append('arrive', project.n_arrive);
     formData.append('user_id', this.user.id); // user_id
     formData.append('sender', project.sender);
@@ -181,13 +177,20 @@ export class ProjectService {
   compose(composition, next) {
     console.log(composition);
 
-    const formData: any = new FormData();
+    let formData: any = new FormData();
+    const project = {
+      sender_entity_id: this.user.entity.id,
+      content: composition.content,
+      title: composition.title,
+      receivers: composition.receivers.join(','),
+      user_id: this.user.id,
+    };
 
-    formData.append('sender_entity_id', this.user.entity.id);
-    formData.append('content', composition.content);
-    formData.append('title', composition.title);
-    formData.append('receivers', composition.receivers);
-    formData.append('user_id', this.user.id);
+
+    formData.append('project', JSON.stringify(project));
+    if (composition.hasBe) {
+      formData.append('be', JSON.stringify(composition.be));
+    }
 
     for (let i = 0; i < composition.files.length; i++) {
       formData.append('files', composition.files[i], composition.files[i].name)
