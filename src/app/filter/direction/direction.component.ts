@@ -12,6 +12,10 @@ export class DirectionComponent implements OnInit {
   constructor(public filterService: FilterService) {
   }
 
+  updateDirection(){
+
+  }
+
   ngOnInit() {
     this.filterService.direction.next(this.direction)
   }

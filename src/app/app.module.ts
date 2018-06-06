@@ -10,7 +10,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoginPageComponent} from './public/public-login-page/login-page.component';
 import {routes} from './app.router';
 import {UserSidenavComponent} from './user/user-sidenav/user-sidenav.component';
-import {UserToolbarComponent} from './app-user/user-toolbar/user-toolbar.component';
 import {UserSidenavProfilComponent} from './user/user-sidenav-profil/user-sidenav-profil.component';
 import {UserSidenavTimeComponent} from './user/user-sidenav-time/user-sidenav-time.component';
 import {UserHomeDashboardComponent} from './user/user-home-dashboard/user-home-dashboard.component';
@@ -25,22 +24,13 @@ import {SessionMessageComponent} from './session-directory/session-message/sessi
 import {SessionFileComponent} from './session-directory/session-file/session-file.component';
 import {AvatarComponent} from './app-user/avatar/avatar.component';
 import {UserBoxComponent} from './app-user/user-box/user-box.component';
-import {UserAutocompleteComponent} from './app-user/user-autocomplete/user-autocomplete.component';
 import {SessionRouterComponent} from './session-directory/session-router/session-router.component';
-import {UsersPageComponent} from './app-user/users-page/users-page.component';
-import {UserPageComponent} from './app-user/user-page/user-page.component';
-import {UserComponent} from './app-user/user/user.component';
 import {UserAvatarComponent} from './app-user/user-avatar/user-avatar.component';
-import {
-  UsersEntitiesLeadDepartementsComponent
-} from './app-user/users-entities-lead-departements/users-entities-lead-departements.component';
-import {UsersEntitiesDepartementsComponent} from './app-user/users-entities-departements/users-entities-departements.component';
 import {UserService} from './service/user.service';
 import {User} from '../models/User';
 import {FlowService} from './service/flow.service';
 import {SocketService} from './service/socket.service';
 import {Flow} from '../models/Flow';
-import {EmailService} from './service/email.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {NotificationService} from './service/notification.service';
 import {DialogFileComponent} from './dialog/dialog-file/dialog-file.component';
@@ -50,7 +40,6 @@ import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {FroalaService} from './service/froala.service';
 import {SafehtmlPipe} from './safehtml.pipe';
 import {EntityService} from './service/entity.service';
-import {EntityFilterComponent} from './entities/entity-filter/entity-filter.component';
 import {AvatarUploadComponent} from './avatar-upload/avatar-upload.component';
 import {GlobalService} from './service/global.service';
 import {TestService} from './service/test.service';
@@ -59,7 +48,6 @@ import {ReportComponent} from './dialog/report/report.component';
 import {NoMailComponent} from './util/no-mail/no-mail.component';
 import {FlowComponent} from './menu/flow/flow.component';
 import {SavedComponent} from './page/saved/saved.component';
-import {ArchiveComponent} from './menu/archive/archive.component';
 import {XhrService} from './service/xhr.service';
 import {ReportService} from './service/report.service';
 import {MaterialModule} from '../module/material';
@@ -108,7 +96,6 @@ import {LoadingButtonComponent} from './util/loading-button/loading-button.compo
     PublicHomeComponent,
     LoginPageComponent,
     UserSidenavComponent,
-    UserToolbarComponent,
     UserSidenavProfilComponent,
     UserSidenavTimeComponent,
     UserHomeDashboardComponent,
@@ -125,25 +112,17 @@ import {LoadingButtonComponent} from './util/loading-button/loading-button.compo
     AvatarComponent,
     ComposeComponent,
     UserBoxComponent,
-    UserAutocompleteComponent,
     SessionRouterComponent,
-    UsersPageComponent,
-    UserPageComponent,
-    UserComponent,
     UserAvatarComponent,
-    UsersEntitiesLeadDepartementsComponent,
-    UsersEntitiesDepartementsComponent,
     DialogFileComponent,
     FilesComponent,
     UploadButtonComponent,
     SafehtmlPipe,
-    EntityFilterComponent,
     AvatarUploadComponent,
     ReportComponent,
     NoMailComponent,
     FlowComponent,
     SavedComponent,
-    ArchiveComponent,
     ObservationsComponent,
     EntitiesComponent,
     ProjectNavComponent,

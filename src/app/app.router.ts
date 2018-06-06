@@ -6,8 +6,6 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {LoginPageComponent} from './public/public-login-page/login-page.component';
 import {UserHomeDashboardComponent} from './user/user-home-dashboard/user-home-dashboard.component';
-import {UsersPageComponent} from './app-user/users-page/users-page.component';
-import {UserPageComponent} from './app-user/user-page/user-page.component';
 import {ProjectListComponent} from './page/inbox/inbox.component';
 import {ProjectPageComponent} from './projects/project-page/project-page.component';
 import {SentComponent} from "./page/sent/sent.component";
@@ -137,20 +135,6 @@ export const router: Routes = [
         {
           path: '',
           component: ReportsComponent,
-        }
-      ]
-    },
-    {
-      path: 'utilisateurs',
-      // component: SessionRouterComponent,
-      children: [
-        {
-          path: '',
-          component: UsersPageComponent,
-        },
-        {
-          path: ':id',
-          component: UserPageComponent,
         }
       ]
     },

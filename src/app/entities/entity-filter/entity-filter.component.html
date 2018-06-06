@@ -1,8 +1,0 @@
-<div class="directions">
-  <app-users-entities-lead-departements  (click)="selectDirection(direction)" *ngFor="let direction of directions"
-                                        [entity]="direction"></app-users-entities-lead-departements>
-</div>
-<div class="services" masonry>
-  <app-users-entities-departements masonry-brick="" (click)="selectService(service)" *ngFor="let service of filteredServices"
-                                   [entity]="service"></app-users-entities-departements>
-</div>
