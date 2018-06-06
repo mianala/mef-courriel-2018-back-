@@ -1,12 +1,22 @@
 export class User {
-  name: string
-  fullname: string
-  photo: string
-  username: string
-  function_title: string
-  im: number
-  id: number
-  entity: string
-  email: string
-  status: string
+  im:number;
+  entity:string;
+  entity_id:number;
+  name:string;
+  username:string;
+  fullname:string;
+  title:string;
+  email:string;
+  avatar:string;
+  id:number;
+
+  save(){}
+  get(){}
+  getUsers(){}
+  getEntityUsers(){}
+  login(){}
+  logout(){}
+  update(){}
+  getUserByLabel(){}
+
 }

@@ -39,7 +39,6 @@ import {UserService} from './service/user.service';
 import {User} from '../models/User';
 import {FlowService} from './service/flow.service';
 import {SocketService} from './service/socket.service';
-import {Email} from '../models/Email';
 import {Flow} from '../models/Flow';
 import {EmailService} from './service/email.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -72,36 +71,36 @@ import {ProjectComponent} from './projects/project/project.component';
 import {ProjectPageComponent} from './projects/project-page/project-page.component';
 import {DispatchComponent} from './projects/dialog/dispatch/dispatch.component';
 import {ProjectService} from './service/project.service';
-import {ThreadService} from "./service/thread.service";
-import { FileComponent } from './files/file/file.component';
+import {ThreadService} from './service/thread.service';
+import {FileComponent} from './files/file/file.component';
 import {ReplyComponent} from './dialog/reply/reply.component';
-import { ProjectsComponent } from './projects/projects/projects.component';
-import { SentComponent } from './page/sent/sent.component';
-import { ReportItemComponent } from './reports/report-item/report-item.component';
-import { ReportsComponent } from './reports/reports/reports.component';
-import { EntityPageComponent } from './entities/entity-page/entity-page.component';
-import { FlowsComponent } from './flows/flows.component';
-import { TemplatePageComponent } from './page/template-page/template-page.component';
-import { ExportComponent } from './dialog/export/export.component';
-import { DecommissionComponent } from './dialog/decommission/decommission.component';
-import { ShareComponent } from './dialog/share/share.component';
-import { UpdateComponent } from './user/update/update.component';
-import { BeComponent } from './form/be/be.component';
-import { ProfilComponent } from './user/profil/profil.component';
-import { SearchComponent } from './filter/search/search.component';
-import { DirectionComponent } from './filter/direction/direction.component';
-import {FilterService} from "./service/filter.service";
-import { ShippedPageComponent } from './page/shipped-page/shipped-page.component';
-import { ReturnedPageComponent } from './page/returned-page/returned-page.component';
-import {TemplateService} from "./service/template.service";
-import { DispatchedPageComponent } from './page/dispatched-page/dispatched-page.component';
-import {DialogSaveProjectComponent} from "./dialog/save-import/dialog-save-project.component";
-import {EnvService} from "./service/env.service";
-import { TreatedComponent } from './page/treated/treated.component';
-import { TreatedProjectComponent } from './page/treated-project/treated-project.component';
-import {ComposeComponent} from "./dialog/compose/compose.component";
-import { AllProjectsComponent } from './page/all-projects/all-projects.component';
-import { LoadingButtonComponent } from './util/loading-button/loading-button.component';
+import {ProjectsComponent} from './projects/projects/projects.component';
+import {SentComponent} from './page/sent/sent.component';
+import {ReportItemComponent} from './reports/report-item/report-item.component';
+import {ReportsComponent} from './reports/reports/reports.component';
+import {EntityPageComponent} from './entities/entity-page/entity-page.component';
+import {FlowsComponent} from './flows/flows.component';
+import {TemplatePageComponent} from './page/template-page/template-page.component';
+import {ExportComponent} from './dialog/export/export.component';
+import {DecommissionComponent} from './dialog/decommission/decommission.component';
+import {ShareComponent} from './dialog/share/share.component';
+import {UpdateComponent} from './user/update/update.component';
+import {BeComponent} from './form/be/be.component';
+import {ProfilComponent} from './user/profil/profil.component';
+import {SearchComponent} from './filter/search/search.component';
+import {DirectionComponent} from './filter/direction/direction.component';
+import {FilterService} from './service/filter.service';
+import {ShippedPageComponent} from './page/shipped-page/shipped-page.component';
+import {ReturnedPageComponent} from './page/returned-page/returned-page.component';
+import {TemplateService} from './service/template.service';
+import {DispatchedPageComponent} from './page/dispatched-page/dispatched-page.component';
+import {DialogSaveProjectComponent} from './dialog/save-import/dialog-save-project.component';
+import {EnvService} from './service/env.service';
+import {TreatedComponent} from './page/treated/treated.component';
+import {TreatedProjectComponent} from './page/treated-project/treated-project.component';
+import {ComposeComponent} from './dialog/compose/compose.component';
+import {AllProjectsComponent} from './page/all-projects/all-projects.component';
+import {LoadingButtonComponent} from './util/loading-button/loading-button.component';
 
 @NgModule({
   declarations: [
@@ -209,11 +208,11 @@ import { LoadingButtonComponent } from './util/loading-button/loading-button.com
     TemplateService,
     XhrService,
     FilterService,
-    {provide:LOCALE_ID, useValue:'fr-FR'},
+    {provide: LOCALE_ID, useValue: 'fr-FR'},
     GlobalService,
     TransferService,
     EntityService, FroalaService, ProjectService,
-    NotificationService, User, Flow, EmailService, FlowService, Email],
+    NotificationService, User, Flow, FlowService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
