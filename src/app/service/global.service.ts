@@ -53,7 +53,7 @@ export class GlobalService {
   static ship_types = [
     'Pour signature',
     'Pour avis',
-    // 'BE'
+    'BE'
   ];
 
   static return_types = [

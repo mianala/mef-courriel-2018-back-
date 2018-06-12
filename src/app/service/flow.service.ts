@@ -49,13 +49,13 @@ export class FlowService {
 
       if (user['id']) {
         this.user = user;
-        this.getAllFlows()
+        this.getAllFlows();
 
         this.projectService.project.subscribe(project => {
           if (project['id']) {
             this.getProjectFlows(project.id)
           }
-        })
+        });
 
         this.all_flows.subscribe(flows => {
           this.getFlows(flows);
@@ -97,13 +97,13 @@ export class FlowService {
 
   getFlows(flows) {
 
-    let ps = FilterService.inbox(flows, this.user)
+    let ps = FilterService.inbox(flows, this.user);
 
     if (this.flows.getValue() == ps) {
       return false
     }
 
-    console.log(ps)
+    console.log(ps);
     this.flows.next(ps)
   }
 
@@ -114,14 +114,14 @@ export class FlowService {
     this.http.get(this.url + '/all/' + this.user.entity_id)
       .map(res => res.json()).subscribe(flows => {
 
-      flows.sort(GlobalService.sortByDate)
+      flows.sort(GlobalService.sortByDate);
 
       this.all_flows.next(flows)
     })
   }
 
   getSentFlows(flows) {
-    let ps = FilterService.sentFlow(flows, this.user)
+    let ps = FilterService.sentFlow(flows, this.user);
 
     if (this.sent_flows.getValue() == ps) {
       return false
@@ -130,7 +130,7 @@ export class FlowService {
   }
 
   getTreatedFlows(flows) {
-    let ps = FilterService.treatedFlows(flows)
+    let ps = FilterService.treatedFlows(flows);
 
     if (this.treated_flows.getValue() == ps) {
       return false
@@ -139,7 +139,7 @@ export class FlowService {
   }
 
   getShippedFlows(flows) {
-    let ps = FilterService.shippedFlow(flows)
+    let ps = FilterService.shippedFlow(flows);
 
     if (this.shipped_flows.getValue() == ps) {
       return false
@@ -148,7 +148,7 @@ export class FlowService {
   }
 
   getReturnedFlows(flows) {
-    let ps = FilterService.importedFlow(flows)
+    let ps = FilterService.importedFlow(flows);
 
     if (this.returned_flows.getValue() == ps) {
       return false
@@ -190,28 +190,32 @@ export class FlowService {
   ship(flow, next) {
     if (this.user['id']) {
 
-
       const formData: any = new FormData();
+      const ship = {
+        project_id: flow.project_id,
+        sender_entity_id: this.user.entity.id,
+        destination: flow.receiver,
+        content: flow.content,
+        ship_for: flow.ship_for,
+        user_id: this.user.id,
+      };
 
-      formData.append('project_id', flow.project_id);
-      formData.append('sender_entity_id', this.user.entity.id);
-      formData.append('destination', flow.receiver);
-      formData.append('content', flow.content);
-      formData.append('ship_for', flow.ship_for);
-      formData.append('user_id', this.user.id);
-
+      formData.append('flow', JSON.stringify(ship));
       for (let i = 0; i < flow.files.length; i++) {
         formData.append('files', flow.files[i], flow.files[i].name)
       }
 
+      delete flow.be.valid
 
+      if(flow.hasBe){
+        formData.append('be',JSON.stringify(flow.be))
+      }
       this.xhr.promise(this.url + '/ship', formData, () => {
         next()
       })
     } else {
       console.log('user not connected')
     }
-
   }
 
   _import(flow, next) {
@@ -238,53 +242,6 @@ export class FlowService {
 
   }
 
-  shipWithBe(flow, be) {
-    console.log(this.user);
-
-    return new Promise((resolve, reject) => {
-      const formData: any = new FormData();
-      const xhr = new XMLHttpRequest();
-
-      formData.append('flow_id', this.flow.getValue()['flow_id']);
-      formData.append('sender_entity_id', this.user.entity.id);
-      formData.append('destination', flow.receiver);
-      formData.append('ship_for', flow.ship_for);
-      formData.append('user_id', this.user.id);
-      formData.append('be_entity', be.entity);
-      formData.append('be_author', be.author);
-      formData.append('be_receiver', be.receiver);
-      formData.append('be_numero', be.numero);
-      formData.append('be_observation', be.observation);
-      formData.append('be_content', be.content);
-
-      for (let i = 0; i < flow.files.length; i++) {
-        formData.append('files', flow.files[i], flow.files[i].name)
-      }
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-            // we got the be from the server we can print it
-            console.log(xhr.response);
-            be.next(xhr.response);
-
-            // now we open the page of be
-            // router.navigateByUrl('/impression-BE')
-
-            console.log(xhr.response)
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      xhr.open('POST', this.url + '/ship/be', true);
-      xhr.send(formData)
-
-      //  shipwithbe notification
-    });
-  }
 
   decommission(flow) {
     console.log('decommissioning');

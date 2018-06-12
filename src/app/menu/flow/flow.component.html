@@ -25,6 +25,9 @@
 </div>
 
 <div class="attachments">
+  <button  *ngIf="flow.be" (click)="openBe()" mat-button>
+    <mat-icon class="mat-18">print</mat-icon>
+    BE</button>
   <!--<h4 *ngIf="flow.decommissioned" class="tag tag-decommissioned">Declasse</h4>-->
   <!--<h4 *ngIf="flow.shipped" class="tag tag-decommissioned">Exporte</h4>-->
   <!--<h4 *ngIf="flow.shared" class="tag tag-decommissioned">Partage</h4>-->

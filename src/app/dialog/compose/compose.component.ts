@@ -40,10 +40,10 @@ export class ComposeComponent implements OnInit {
               private dialogRef: MatDialogRef<DispatchComponent>) {
     this.checkedObservations = [];
     this.composition = {
-      title: '',
+      title: 'some title',
       n_arrive: this.entityService.entity.getValue()['numero'],
       lettre: 1,
-      content: '',
+      content: 'some content',
       files: [],
       be : {},
       hasBe : 0,
@@ -136,6 +136,15 @@ export class ComposeComponent implements OnInit {
       this.notification.sent();
       this.dialogRef.close()
     })
+  }
+
+  valid(){
+    const v: boolean = this.validReceiver() && this.validTitle()
+    if (this.composition.hasBe) {
+      return v && this.composition.be.valid
+    }else{
+      return v
+    }
   }
 
   getFiles(files) {

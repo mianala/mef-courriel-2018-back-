@@ -18,14 +18,15 @@
 
   <!-- observation of the content -->
   <mat-form-field class="">
-    <textarea matInput [(ngModel)]="flow.conten" placeholder="Objet"></textarea>
+    <textarea matInput [(ngModel)]="flow.content" placeholder="Objet"></textarea>
   </mat-form-field>
-  <mat-radio-group [(ngModel)]="flow.ship_for">
+  <mat-radio-group (change)="update($event)" [(ngModel)]="flow.ship_for">
     <mat-radio-button *ngFor="let type of ship_types; let i = index" [value]="i">{{type}}</mat-radio-button>
   </mat-radio-group>
 
 
   <!--be form-->
+  <be *ngIf="flow.hasBe" (onUpdate)="updateBe($event)"></be>
 
 
   <app-files [files]="flow.files"></app-files>
@@ -34,7 +35,7 @@
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
 
-  <button [disabled]="loading" matDialogClose="" (click)="submit()" mat-button>
+  <button [disabled]="loading || !valid()" matDialogClose="" (click)="submit()" mat-button>
     <loading-button *ngIf="loading"></loading-button>
     <mat-icon *ngIf="!loading">file_upload</mat-icon>
     Exporter

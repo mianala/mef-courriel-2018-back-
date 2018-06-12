@@ -1,6 +1,6 @@
 <h4>BORDEREAU D'ENVOI</h4>
 <mat-form-field class="">
-  <input (change)="update()" matInput [(ngModel)]="be.sender" placeholder="Expéditeur">
+  <input (change)="update()" matInput [(ngModel)]="be.sender" required placeholder="Expéditeur">
 </mat-form-field>
 
 <mat-form-field class="">
@@ -23,12 +23,12 @@
 
 <div fxLayout="row" class="content">
   <mat-form-field fxFlex="70" class="">
-    <input matInput [(ngModel)]="title" placeholder="Designation">
+    <input #title_input matInput [(ngModel)]="title" placeholder="Designation">
   </mat-form-field>
   <mat-form-field fxFlex="20" class="">
-    <input matInput (keyup.enter)="addAttach()" keyu [(ngModel)]="count" placeholder="Nombre">
+    <input matInput (keyup.enter)="addAttach(); title_input.focus()" [(ngModel)]="count" placeholder="Nombre">
   </mat-form-field>
-  <button [disabled]="!validAttach()" mat-icon-button="" fxFlex="10" (click)="addAttach()" color="primary">
+  <button [disabled]="!validAttach()" mat-icon-button="" fxFlex="10" (click)="addAttach(); title_input.focus()" color="primary">
     <mat-icon>add_circle_outline</mat-icon>
   </button>
 </div>

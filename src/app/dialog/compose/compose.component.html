@@ -38,7 +38,7 @@
     </mat-checkbox>
   </div>
 
-  <!--<mat-checkbox *ngIf="composition.receivers.length == 1" [(ngModel)]="composition.hasBe">BORDEREAU D'ENVOI</mat-checkbox>-->
+  <mat-checkbox *ngIf="composition.receivers.length == 1" [(ngModel)]="composition.hasBe">BORDEREAU D'ENVOI</mat-checkbox>
   <be *ngIf="composition.hasBe" (onUpdate)="updateBe($event)"></be>
 
   <!--date de depart auto-->
@@ -47,12 +47,12 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button *ngIf="!forSubmit()" [disabled]="loading" (click)="submit()" mat-button>
+  <button *ngIf="!forSubmit()" [disabled]="loading || !valid()" (click)="submit()" mat-button>
     <mat-icon *ngIf="!loading" class="mat-18">call_split</mat-icon>
     <loading-button *ngIf="loading"></loading-button>
     Dispatcher
   </button>
-  <button *ngIf="forSubmit()" [disabled]="loading" (click)="submit()" mat-button>
+  <button *ngIf="forSubmit()" [disabled]="loading || !valid()" (click)="submit()" mat-button>
     <mat-icon *ngIf="!loading" class="mat-18">send</mat-icon>
     <loading-button *ngIf="loading"></loading-button>
     Envoyer

@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {DispatchComponent} from '../../projects/dialog/dispatch/dispatch.component';
 import {MatDialogRef} from '@angular/material';
 import {ProjectService} from '../../service/project.service';
-import {EnvService} from '../../service/env.service';
 import {NotificationService} from '../../service/notification.service';
 import {GlobalService} from '../../service/global.service';
 
@@ -31,11 +30,13 @@ export class ExportComponent implements OnInit {
       content: 'Compte rendu',
       sender_entity_id: 21,
       files: [],
+      be: {},
+      hasBe: 0,
     };
 
     projectService.project.subscribe(project => {
       this.project = project;
-      this.flow.project_id = project['id']
+      this.flow.project_id = project['id'];
       this.flow.sender_entity_id = project['entity_id']
     })
 
@@ -45,26 +46,53 @@ export class ExportComponent implements OnInit {
   ngOnInit() {
   }
 
+  update(event) {
+    const id = event.value
+
+    switch (id) {
+      case 0 : {
+        this.flow.hasBe = 0;
+        break;
+      }
+      case 1 : {
+        this.flow.hasBe = 0;
+        break;
+      }
+      case 2 : {
+        this.flow.hasBe = 1;
+        break;
+      }
+
+    }
+  }
+
   getFiles(files) {
     this.flow.files = this.flow.files.concat(files);
   }
 
-  isBe() {
-    return this.flow.ship_for == 1;
+  valid() {
+    const v : boolean = this.flow.receiver.length > 3 && this.flow.content.length > 3
+
+    if (this.flow.hasBe) {
+      return v && this.flow.be.valid
+    }else{
+      return v
+    }
   }
 
-  valid() {
-    return this.flow.receiver.length > 3 && this.flow.content.length > 3
+  updateBe(be) {
+    this.flow.be = be
+    console.log(be)
   }
 
   submit() {
 
-    this.loading = true
+    this.loading = true;
 
     if (!this.valid()) {
-      this.loading = false
+      this.loading = false;
 
-      this.notification.formError()
+      this.notification.formError();
       return
     }
 

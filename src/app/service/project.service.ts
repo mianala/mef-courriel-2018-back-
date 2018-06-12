@@ -186,6 +186,8 @@ export class ProjectService {
       user_id: this.user.id,
     };
 
+    delete composition.be.valid
+
 
     formData.append('project', JSON.stringify(project));
     if (composition.hasBe) {

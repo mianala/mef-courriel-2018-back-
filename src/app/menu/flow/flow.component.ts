@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FilterService} from '../../service/filter.service';
+import {EnvService} from '../../service/env.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'flow',
@@ -32,6 +34,10 @@ export class FlowComponent implements OnInit {
       return 'arrow_upward'
     }
 
+  }
+
+  openBe() {
+    window.open(EnvService.ip() + '/app/be/' + CryptoJS.SHA1(this.flow.id.toString()))
   }
 
   up_label() {

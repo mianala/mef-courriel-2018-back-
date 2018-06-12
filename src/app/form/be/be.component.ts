@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {EnvService} from '../../service/env.service';
+
 
 @Component({
   selector: 'be',
@@ -10,15 +10,20 @@ export class BeComponent implements OnInit {
   count = '';
   be;
   title = '';
+
   @Output() onUpdate = new EventEmitter();
 
   constructor() {
 
     this.be = {
-      sender: 'LE DIRECTEUR DE LA SYNTHESE BUDGETAIRE',
-      receiver: 'Monsieur LE DIRECTEUR GENERAL DU BUDGET',
-      counts: ['01'],
-      titles: ['Compte rendu'],
+      // sender: 'LE DIRECTEUR DE LA SYNTHESE BUDGETAIRE',
+      sender: '',
+      // receiver: 'Monsieur LE DIRECTEUR GENERAL DU BUDGET',
+      receiver: '',
+      counts: [],
+      // counts: ['01'],
+      titles: [],
+      // titles: ['Compte rendu'],
     };
   }
 
@@ -33,7 +38,12 @@ export class BeComponent implements OnInit {
 
 
   update() {
+    this.be.valid = this.valid()
     this.onUpdate.emit(this.be)
+  }
+
+  valid(){
+    return this.be.sender.length > 2 && this.be.titles.length > 0 && this.be.receiver.length > 2
   }
 
   addAttach() {
@@ -49,11 +59,13 @@ export class BeComponent implements OnInit {
     this.count = ''
 
     this.update()
+
   }
 
-  removeAttach(d) {
-    const index = this.be.attached_files.indexOf(d);
-    this.be.attached_files.splice(index, 1)
+  removeAttach(id) {
+    const index = this.be.titles.indexOf(id);
+    this.be.titles.splice(index, 1)
+    this.be.counts.splice(index, 1)
 
     this.update()
   }
