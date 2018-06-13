@@ -81,7 +81,8 @@ export class FlowsComponent implements OnInit {
   }
 
   shareable(flow) {
-    return this.relatives.length && flow.sender_entity.length < this.user.entity
+    return false
+    // return this.relatives.length && flow.sender_entity.length < this.user.entity
   }
 
   viewable(flow) {
