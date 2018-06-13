@@ -40,10 +40,10 @@ export class ComposeComponent implements OnInit {
               private dialogRef: MatDialogRef<DispatchComponent>) {
     this.checkedObservations = [];
     this.composition = {
-      title: 'some title',
+      title: '',
       n_arrive: this.entityService.entity.getValue()['numero'],
       lettre: 1,
-      content: 'some content',
+      content: '',
       files: [],
       be : {},
       hasBe : 0,
