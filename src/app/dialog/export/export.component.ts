@@ -27,8 +27,8 @@ export class ExportComponent implements OnInit {
     this.flow = {
       ship_for: 0,
       receiver: '',
-      content: 'Compte rendu',
-      sender_entity_id: 21,
+      content: '',
+      sender_entity_id: 0,
       files: [],
       be: {},
       hasBe: 0,
@@ -39,8 +39,6 @@ export class ExportComponent implements OnInit {
       this.flow.project_id = project['id'];
       this.flow.sender_entity_id = project['entity_id']
     })
-
-
   }
 
   ngOnInit() {

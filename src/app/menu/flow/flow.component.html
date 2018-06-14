@@ -7,7 +7,7 @@
   <div class="arrow">
     <mat-icon>{{arrow()}}</mat-icon>
   </div>
-  <div class="bottom" > {{down_label()}}</div>
+  <div class="bottom"> {{down_label()}}</div>
   <div class="bottom-id">{{down_n()}}</div>
 </div>
 
@@ -19,15 +19,19 @@
   -->
 
   <h5><u>N </u><b>{{flow.numero}}</b></h5>
-  <h4 *ngIf="!flow.answer">Observation</h4>
-  <h4 *ngIf="flow.answer">Note</h4>
-  <div [innerHtml]="flow.content"></div>
+  <div class="" *ngIf="flow.content">
+    <h4 *ngIf="!flow.answer">Observation</h4>
+    <h4 *ngIf="flow.answer">Note</h4>
+    <div [innerHtml]="flow.content"></div>
+  </div>
+
 </div>
 
 <div class="attachments">
-  <button  *ngIf="flow.be" (click)="openBe()" mat-button>
+  <button *ngIf="flow.be" (click)="openBe()" mat-button>
     <mat-icon class="mat-18">print</mat-icon>
-    BE</button>
+    BE
+  </button>
   <!--<h4 *ngIf="flow.decommissioned" class="tag tag-decommissioned">Declasse</h4>-->
   <!--<h4 *ngIf="flow.shipped" class="tag tag-decommissioned">Exporte</h4>-->
   <!--<h4 *ngIf="flow.shared" class="tag tag-decommissioned">Partage</h4>-->

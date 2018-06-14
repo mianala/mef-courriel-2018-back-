@@ -69,12 +69,6 @@ export class DispatchComponent implements OnInit {
       obs += ' - ' + o + '<br>'
     }
 
-
-    if (!this.validObservation(obs.concat(this.thread.content))) {
-      this.loading = false
-      return false
-    }
-
     this.thread.content = obs.concat(this.thread.content);
 
     //updating button into loading button
