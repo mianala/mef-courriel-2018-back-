@@ -4,11 +4,11 @@
   <mat-expansion-panel *ngFor="let project of projects" hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <strong>{{project.sender | slice:0:25}}</strong>
+        <strong>{{(project.sender | slice:0:25) + (project.sender.length > 25 ? '...':'')}}</strong>
         <!--<div class="n">{{project.n_arrive}}</div>-->
 
       </mat-panel-title>
-      <mat-panel-description [innerHtml]="project.title| slice:0:150">
+      <mat-panel-description [innerHtml]="(project.title| slice:0:150) + (project.title.length > 150? '...':'') ">
 
         <!--<mat-icon>class</mat-icon>-->
       </mat-panel-description>
