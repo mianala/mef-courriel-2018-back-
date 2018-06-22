@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FroalaService} from '../../service/froala.service';
 import {NotificationService} from '../../service/notification.service';
 import {UserService} from '../../service/user.service';
-import {ReportService} from '../../service/report.service';
 import {MatDialogRef} from '@angular/material';
 
 @Component({
@@ -32,7 +31,6 @@ export class ReportComponent implements OnInit {
   constructor(private froalaService: FroalaService,
               private userService: UserService,
               private dialogRef: MatDialogRef<ReportComponent>,
-              private reportService: ReportService,
               private notification: NotificationService) {
     this.options = froalaService.getOptions()
     this.user = userService.user.getValue()
@@ -71,7 +69,6 @@ export class ReportComponent implements OnInit {
     if (!this.valid()) {
       this.notification.formError()
     } else {
-      this.reportService.save(this.report)
       this.dialogRef.close()
     }
   }

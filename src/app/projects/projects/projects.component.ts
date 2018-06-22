@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {EntityService} from '../../service/entity.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, PageEvent} from '@angular/material';
 import {ProjectService} from '../../service/project.service';
 import {DispatchComponent} from '../dialog/dispatch/dispatch.component';
 import {Router} from '@angular/router';
@@ -15,6 +15,7 @@ import {ExportComponent} from '../../dialog/export/export.component';
 })
 export class ProjectsComponent implements OnInit {
   @Input() projects;
+  shownProjects;
   treating
 
   constructor(public router: Router,
@@ -22,6 +23,7 @@ export class ProjectsComponent implements OnInit {
               public filter: FilterService,
               public dialog: MatDialog,
               private projectService: ProjectService) {
+    this.shownProjects = [];
 
   }
 

@@ -31,7 +31,6 @@ export const router: Routes = [
     },
     {
       path: 'courriels',
-      // component: EmailRouterComponent,
       children: [
         {
           path: '',
@@ -45,7 +44,6 @@ export const router: Routes = [
     },
     {
       path: 'exportes',
-      // component: SessionRouterComponent,
       children: [
         {
           path: '',
@@ -55,7 +53,6 @@ export const router: Routes = [
     },
     {
       path: 'traites',
-      // component: SessionRouterComponent,
       children: [
         {
           path: '',
@@ -65,7 +62,6 @@ export const router: Routes = [
     },
     {
       path: 'envoyes',
-      // component: SessionRouterComponent,
       children: [
         {
           path: '',
@@ -75,7 +71,6 @@ export const router: Routes = [
     },
     {
       path: 'importes',
-      // component: SessionRouterComponent,
       children: [
         {
           path: '',
@@ -120,7 +115,6 @@ export const router: Routes = [
     },
     {
       path: 'entite',
-      // component: SessionRouterComponent,
       children: [
         {
           path: '',
@@ -130,7 +124,6 @@ export const router: Routes = [
     },
     {
       path: 'rapports',
-      // component: SessionRouterComponent,
       children: [
         {
           path: '',

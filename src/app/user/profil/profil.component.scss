@@ -1,0 +1,28 @@
+:host {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  + div {
+    display: flex;
+    padding: 2em;
+    flex-direction: column;
+    text-align: center;
+    * {
+      margin: .5em;
+    }
+    .username {
+      font-weight: bold;
+    }
+    .function {
+      font-weight: 300;
+    }
+  }
+}
+
+app-user-avatar {
+  width: 250px;
+  display: block;
+  height: 250px;
+  margin: auto;
+}

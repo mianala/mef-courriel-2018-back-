@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {LOCALE_ID, NgModule} from '@angular/core';
-import {MasonryModule} from 'angular2-masonry';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -49,7 +48,6 @@ import {NoMailComponent} from './util/no-mail/no-mail.component';
 import {FlowComponent} from './menu/flow/flow.component';
 import {SavedComponent} from './page/saved/saved.component';
 import {XhrService} from './service/xhr.service';
-import {ReportService} from './service/report.service';
 import {MaterialModule} from '../module/material';
 import {ObservationsComponent} from './form/observations/observations.component';
 import {EntitiesComponent} from './form/entities/entities.component';
@@ -89,6 +87,13 @@ import {TreatedProjectComponent} from './page/treated-project/treated-project.co
 import {ComposeComponent} from './dialog/compose/compose.component';
 import {AllProjectsComponent} from './page/all-projects/all-projects.component';
 import {LoadingButtonComponent} from './util/loading-button/loading-button.component';
+import {SocketIoModule} from 'ngx-socket-io';
+import {registerLocaleData} from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
+
+const socket_config = {url: EnvService.ip(), options: {}};
 
 @NgModule({
   declarations: [
@@ -161,10 +166,10 @@ import {LoadingButtonComponent} from './util/loading-button/loading-button.compo
     FlexLayoutModule,
     HttpModule,
     FormsModule,
+    SocketIoModule.forRoot(socket_config),
     MaterialModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
-    MasonryModule,
     ReactiveFormsModule,
     routes
   ],
@@ -181,7 +186,6 @@ import {LoadingButtonComponent} from './util/loading-button/loading-button.compo
   providers: [UserService,
     TestService,
     SocketService,
-    ReportService,
     ThreadService,
     EnvService,
     TemplateService,

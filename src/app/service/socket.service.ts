@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as io from 'socket.io-client';
 import {EnvService} from './env.service';
-import {EntityService} from './entity.service';
 import {FlowService} from './flow.service';
 import {ProjectService} from './project.service';
 import {NotificationService} from './notification.service';
@@ -16,7 +15,6 @@ export class SocketService {
               private flowService: FlowService,
               private notification: NotificationService,
               private projectService: ProjectService) {
-
 
     this.userService.user.subscribe(user => {
 

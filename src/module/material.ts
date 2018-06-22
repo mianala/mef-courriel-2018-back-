@@ -4,12 +4,13 @@ import {
   MatButtonModule,
   MatMenuModule,
   MatToolbarModule,
+  MatPaginatorModule,
   MatIconModule,
   MatCardModule,
   MatAutocompleteModule,
   MatDatepickerModule, MatSnackBarModule,
   MatNativeDateModule, MatInputModule, MatSidenavModule, MatListModule, MatTooltipModule, MatSelectModule,
-  MatChipsModule, MatExpansionModule, MatCheckboxModule, MatRadioModule, MatTabsModule
+  MatChipsModule, MatExpansionModule, MatCheckboxModule, MatRadioModule, MatTabsModule, MatDialogModule, MatButtonToggleModule
 } from '@angular/material';
 
 @NgModule({
@@ -23,11 +24,14 @@ import {
     MatSidenavModule,
     MatInputModule,
     MatSelectModule,
+    MatButtonToggleModule,
     MatSnackBarModule,
     MatAutocompleteModule,
+    MatDialogModule,
     MatIconModule,
     MatChipsModule,
     MatExpansionModule,
+    MatPaginatorModule,
     MatTooltipModule,
     MatListModule,
     MatRadioModule,
@@ -37,7 +41,10 @@ import {
   ],
   exports: [
     MatButtonModule,
+    MatDialogModule,
     MatTabsModule,
+    MatButtonToggleModule,
+    MatPaginatorModule,
     MatRadioModule,
     MatMenuModule,
     MatCheckboxModule,

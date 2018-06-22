@@ -8,12 +8,9 @@
 </div>
 
 <mat-menu #menu="matMenu">
-<!--  <button mat-menu-item routerLink="/profile">
-    <span>Profile </span>
+  <button mat-menu-item routerLink="/profile">
+    <span><mat-icon>user</mat-icon>Profile </span>
   </button>
-  <button mat-menu-item  routerLink="/profile/mis-a-jour">
-    <span>Changer login</span>
-  </button>-->
   <button mat-menu-item (click)="logout()">
     <span><mat-icon>exit_to_app</mat-icon>
       Déconnexion</span>

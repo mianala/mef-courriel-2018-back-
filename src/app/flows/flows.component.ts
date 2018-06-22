@@ -5,7 +5,6 @@ import {DispatchComponent} from '../projects/dialog/dispatch/dispatch.component'
 import {MatDialog} from '@angular/material';
 import {ProjectService} from '../service/project.service';
 import {ReplyComponent} from '../dialog/reply/reply.component';
-import {ExportComponent} from '../dialog/export/export.component';
 import {ShareComponent} from '../dialog/share/share.component';
 import {DecommissionComponent} from '../dialog/decommission/decommission.component';
 import {Router} from '@angular/router';
