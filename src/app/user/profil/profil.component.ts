@@ -22,7 +22,12 @@ export class ProfilComponent implements OnInit {
 
   }
 
+  setAvatar(p){
+    console.log(p)
+  }
+
   ngOnInit() {
   }
+
 
 }
