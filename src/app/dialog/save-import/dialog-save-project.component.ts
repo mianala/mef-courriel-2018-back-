@@ -85,7 +85,7 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   validFlow() {
-    return !(this.flow.sender.length < 3 || this.flow.numero.length < 3 || this.flow.content.length < 3);
+    return !(this.flow.sender.length < 3 || this.flow.numero.length < 1 || this.flow.content.length < 3);
   }
 
   saving() {
@@ -103,7 +103,6 @@ export class DialogSaveProjectComponent implements OnInit {
   submit() {
 
     this.loading = true;
-
 
     this.project.user = this.user;
     this.project.entity_id = this.user.entity_id;

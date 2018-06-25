@@ -45,7 +45,7 @@ export class ExportComponent implements OnInit {
   }
 
   update(event) {
-    const id = event.value
+    const id = event.value;
 
     switch (id) {
       case 0 : {
@@ -69,7 +69,7 @@ export class ExportComponent implements OnInit {
   }
 
   valid() {
-    const v : boolean = this.flow.receiver.length > 3 && this.flow.content.length > 3
+    const v : boolean = this.flow.receiver.length > 2;
 
     if (this.flow.hasBe) {
       return v && this.flow.be.valid
@@ -79,7 +79,7 @@ export class ExportComponent implements OnInit {
   }
 
   updateBe(be) {
-    this.flow.be = be
+    this.flow.be = be;
     console.log(be)
   }
 
