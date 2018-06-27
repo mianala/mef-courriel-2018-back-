@@ -20,8 +20,7 @@
 
   <h5><u>N </u><b>{{flow.numero}}</b></h5>
   <div class="" *ngIf="flow.content">
-    <h4 *ngIf="!flow.answer">Observation</h4>
-    <h4 *ngIf="flow.answer">Note</h4>
+    <h4>{{content_label()}}</h4>
     <div [innerHtml]="flow.content"></div>
   </div>
 

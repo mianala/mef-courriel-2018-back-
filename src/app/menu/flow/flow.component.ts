@@ -36,6 +36,27 @@ export class FlowComponent implements OnInit {
 
   }
 
+  content_label() {
+
+    if (FilterService.isShipped(this.flow)) {
+      return 'Contenu'
+    }
+    if (FilterService.isImported(this.flow)) {
+      return 'Contenu'
+    }
+
+    if (this.flow.entity.length == this.flow.sender_entity.length) {
+      return 'Observation'
+    } else if (this.flow.entity.length > this.flow.sender_entity.length) {
+      // return 'arrow_downward'
+      return 'Observation'
+    } else if (this.flow.entity.length < this.flow.sender_entity.length) {
+      // return 'arrow_upward'
+      return 'Contenu'
+    }
+
+  }
+
   openBe() {
     window.open(EnvService.ip() + '/app/be/' + CryptoJS.SHA1(this.flow.id.toString()))
   }
