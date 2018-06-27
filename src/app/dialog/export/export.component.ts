@@ -69,7 +69,7 @@ export class ExportComponent implements OnInit {
   }
 
   valid() {
-    const v : boolean = this.flow.receiver.length > 2;
+    const v : boolean = this.flow.receiver.length > 1;
 
     if (this.flow.hasBe) {
       return v && this.flow.be.valid

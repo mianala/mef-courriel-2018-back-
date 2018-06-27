@@ -1,6 +1,6 @@
 <div>
-  <app-user-avatar [photo]="user.photo"></app-user-avatar>
-  <!--<app-avatar-upload (avatarSelected)="setAvatar($event)"></app-avatar-upload>-->
+  <!--<app-user-avatar [photo]="user.photo"></app-user-avatar>-->
+  <app-avatar-upload (avatarSelected)="setAvatar($event)"></app-avatar-upload>
   <h1 class="username">{{user.fullname}}</h1>
   <h4 class="function "><span class="">{{user.function_title}}</span> - {{entity.label}} </h4>
   <div class="email">{{user.email}}</div>

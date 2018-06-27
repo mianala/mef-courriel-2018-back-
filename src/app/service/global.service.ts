@@ -51,6 +51,7 @@ export class GlobalService {
     'Enveloppe'];
 
   static ship_types = [
+    'Autre',
     'Pour signature',
     'Pour avis',
     'BE'
