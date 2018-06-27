@@ -58,9 +58,9 @@ export class GlobalService {
   ];
 
   static return_types = [
+    'Autre',
     'Signé',
-    'Avis favorable',
-    'Autre'
+    'Avis favorable'
   ];
 
 
