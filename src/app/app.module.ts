@@ -87,7 +87,6 @@ import {TreatedProjectComponent} from './page/treated-project/treated-project.co
 import {ComposeComponent} from './dialog/compose/compose.component';
 import {AllProjectsComponent} from './page/all-projects/all-projects.component';
 import {LoadingButtonComponent} from './util/loading-button/loading-button.component';
-import {SocketIoModule} from 'ngx-socket-io';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 
@@ -166,7 +165,6 @@ const socket_config = {url: EnvService.ip(), options: {}};
     FlexLayoutModule,
     HttpModule,
     FormsModule,
-    SocketIoModule.forRoot(socket_config),
     MaterialModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
