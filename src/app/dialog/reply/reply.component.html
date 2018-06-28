@@ -8,8 +8,10 @@
            placeholder="N° ">
   </mat-form-field>
   <h5>Objet</h5>
-  <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="answer.content"></div>
-
+  <mat-form-field class="">
+          <textarea [(ngModel)]="answer.content" required name="content" matInput
+                    placeholder="Objet"></textarea>
+  </mat-form-field>
   <app-files [files]="answer.files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">

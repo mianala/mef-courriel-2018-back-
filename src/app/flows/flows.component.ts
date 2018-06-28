@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {GlobalService} from '../service/global.service';
 import {FilterService} from '../service/filter.service';
+import {PageEvent} from '@angular/material';
 
 @Component({
   selector: 'flows',
@@ -22,6 +23,17 @@ export class FlowsComponent implements OnInit {
   @Input() visibility: boolean;
   user;
   relatives = [];
+
+
+  // MatPaginator Inputs
+  length = 0;
+
+  paginator = GlobalService.paginator
+  paginate = GlobalService.paginate
+  // MatPaginator Output
+  pageEvent: PageEvent = new PageEvent();
+
+
 
   constructor(public router: Router,
               public flowService: FlowService,
@@ -38,6 +50,12 @@ export class FlowsComponent implements OnInit {
     this.entityService.relativeEntities.subscribe(entities => {
       this.relatives = entities
     })
+
+    this.pageEvent.pageIndex = 0
+    this.pageEvent.pageSize = this.paginator.pageSize
+
+
+
   }
 
   ngOnInit() {

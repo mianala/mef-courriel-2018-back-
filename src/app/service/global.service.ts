@@ -84,14 +84,14 @@ export class GlobalService {
 
   static updateArray(newArray, actualArray) {
     // if same return
-    if(newArray == actualArray){
+    if (newArray == actualArray) {
       return newArray
     }
 
     // if don't contain the id push
     actualArray.forEach(item => {
       if (newArray.indexOf(item) == -1) {
-        actualArray.splice(actualArray.indexOf(item),1);
+        actualArray.splice(actualArray.indexOf(item), 1);
       }
     });
 
@@ -162,8 +162,13 @@ export class GlobalService {
   constructor() {
   }
 
-  static paginate (array, page_size, page_number) {
-    --page_number; // because pages logically start with 1, but technically with 0
-    return array.slice(page_number * page_size, (page_number + 1) * page_size);
+  static paginator = {
+    pageSize: 15,
+    pageSizeOptions: [5, 15, 50]
+  }
+
+  static paginate(array, page_size, page_number) {
+    console.log(array.slice(page_number * page_size, (page_number) * page_size))
+    return array.slice(page_number * page_size, (page_number+1) * page_size);
   }
 }

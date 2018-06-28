@@ -43,7 +43,11 @@
 
         <!--objet-->
         <h4>Objet:</h4>
-        <div id="froala" class="froala" [froalaEditor]="options" [(froalaModel)]="project.content"></div>
+
+        <mat-form-field class="">
+          <textarea [(ngModel)]="project.content" required name="content" matInput
+                    placeholder="Objet"></textarea>
+        </mat-form-field>
 
         <mat-form-field>
           <mat-select [(ngModel)]="project.type" name="type" placeholder="Document">
@@ -64,12 +68,10 @@
         <!--observations-->
         <h4>Observations:</h4>
         <mat-form-field class="">
-          <textarea [(ngModel)]="project.observations" required name="content" matInput
+          <textarea [(ngModel)]="project.observations" name="content" matInput
                     placeholder="Observations"></textarea>
         </mat-form-field>
-
       </form>
-
     </mat-tab>
 
     <mat-tab [disabled]="!shipped_projects.length" label="Import">
@@ -93,7 +95,9 @@
       </mat-form-field>
       <!--Observation-->
       <h5>Objet - Observation</h5>
-      <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="flow.content"></div>
+      <mat-form-field class="">
+        <textarea [(ngModel)]="flow.content" required name="content" matInput placeholder="Objet"></textarea>
+      </mat-form-field>
 
       <mat-radio-group [(ngModel)]="flow.status_id">
         <mat-radio-button *ngFor="let type of return_types; let i = index" [value]="i">{{type}}</mat-radio-button>
@@ -112,7 +116,8 @@
     ENREGISTRER
   </button>
 
-  <button *ngIf="!saving()" [disabled]="loading || !validFlow()" mat-dialog-close="" disabled="false" (click)="_import()"
+  <button *ngIf="!saving()" [disabled]="loading || !validFlow()" mat-dialog-close="" disabled="false"
+          (click)="_import()"
           mat-button>
     <mat-icon *ngIf="!loading" class="mat-18">file_download</mat-icon>
     <loading-button *ngIf="loading"></loading-button>

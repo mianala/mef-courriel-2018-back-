@@ -1,7 +1,7 @@
 <mat-accordion>
 
   <!--projects -->
-  <mat-expansion-panel *ngFor="let project of projects" hideToggle="true">
+  <mat-expansion-panel *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1)" hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <strong>{{(project.sender | slice:0:25) + (project.sender.length > 25 ? '...':'')}}</strong>
@@ -56,3 +56,9 @@
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
+
+<mat-paginator *ngIf="projects.length" style="padding-right: 75px;" [length]="projects.length"
+               [pageSize]="paginator.pageSize"
+               [pageSizeOptions]="paginator.pageSizeOptions"
+               (page)="pageEvent = $event">
+</mat-paginator>

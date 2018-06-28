@@ -18,12 +18,23 @@ export class ProjectsComponent implements OnInit {
   shownProjects;
   treating
 
+  // MatPaginator Inputs
+  length = 0;
+
+  paginator = GlobalService.paginator
+  paginate = GlobalService.paginate
+  // MatPaginator Output
+  pageEvent: PageEvent = new PageEvent();
+
+
   constructor(public router: Router,
               public entityService: EntityService,
               public filter: FilterService,
               public dialog: MatDialog,
               private projectService: ProjectService) {
-    this.shownProjects = [];
+
+    this.pageEvent.pageIndex = 0
+    this.pageEvent.pageSize = this.paginator.pageSize
 
   }
 
