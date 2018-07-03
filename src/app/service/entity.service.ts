@@ -66,7 +66,7 @@ export class EntityService {
 
   getDownEntities() {
     console.log('getting down entities ' + this.user['entity'].entity);
-    this.http.get(this.url + '/down/' + this.user['entity'].entity + '-')
+    this.http.get(this.url + '/down/' + this.user['entity'].entity)
       .map(res => res.json()).subscribe(entities => {
 
 

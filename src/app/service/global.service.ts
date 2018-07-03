@@ -168,7 +168,6 @@ export class GlobalService {
   }
 
   static paginate(array, page_size, page_number) {
-    console.log(array.slice(page_number * page_size, (page_number) * page_size))
     return array.slice(page_number * page_size, (page_number+1) * page_size);
   }
 }
