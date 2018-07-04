@@ -15,8 +15,10 @@
     <mat-checkbox *ngFor="let observation of observations" (change)="toggleObservation(observation)" >{{observation}}</mat-checkbox>
   </div>
   <h5>Autres observations</h5>
-  <div id="objet" class="froala" [froalaEditor]="options" [(froalaModel)]="thread.content"></div>
-
+  <mat-form-field class="">
+          <textarea [(ngModel)]="thread.content" name="content" matInput
+                    placeholder="Observations"></textarea>
+  </mat-form-field>
   <app-files [files]="thread.files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
