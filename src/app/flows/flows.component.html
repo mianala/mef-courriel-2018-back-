@@ -7,7 +7,8 @@
         <div class="n">{{title_label(flow)}}</div>
       </mat-panel-title>
       <mat-panel-description class="flow-content">
-        <div innerHtml="{{flow.content||flow.project_title | slice:0:150}}"></div>
+        <div innerHtml="{{flow.project_title | slice:0:150}}"></div>
+        <!--<div innerHtml="{{flow.content||flow.project_title | slice:0:150}}"></div>-->
       </mat-panel-description>
       <div class="date">
         <!--<mat-icon class="mat-18" *ngIf="treated(flow)">checked</mat-icon>-->
