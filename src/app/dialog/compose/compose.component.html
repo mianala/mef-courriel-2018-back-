@@ -20,7 +20,7 @@
   </mat-form-field>
   <h4 *ngIf="!forSubmit()">Destinataires</h4>
   <mat-radio-group (change)="updateDirection($event)" [(ngModel)]="composition.direction">
-    <mat-radio-button *ngIf="canSubmit()" value="1">Envoyer a {{canSubmit()}}</mat-radio-button>
+    <mat-radio-button *ngIf="canSubmit()" value="1">Envoyer à {{canSubmit()}}</mat-radio-button>
     <mat-radio-button *ngIf="canShare()" value="2">Horizontale</mat-radio-button>
     <mat-radio-button value="3">Dispatch</mat-radio-button>
   </mat-radio-group>
