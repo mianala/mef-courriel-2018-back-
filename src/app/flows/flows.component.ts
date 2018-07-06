@@ -59,7 +59,7 @@ export class FlowsComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.filter.query.next('')
   }
 
   treated(flow) {

@@ -39,6 +39,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.filter.query.next('')
   }
 
   sameday(project) {

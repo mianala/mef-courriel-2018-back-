@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FilterService} from "../../service/filter.service";
+import {FilterService} from '../../service/filter.service';
 
 @Component({
   selector: 'search',
@@ -11,7 +11,9 @@ export class SearchComponent implements OnInit {
   query: string
 
   constructor(private filterService: FilterService) {
-
+    this.filterService.query.subscribe(q => {
+      this.query = q
+    })
   }
 
   ngOnInit() {
