@@ -46,6 +46,11 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+  projectEdited() {
+    const message = 'Projet modifié avec succès';
+    this.openSnack(message);
+  }
+
   threadDispatched() {
     const message = 'Le courriel a été dispatché';
     this.openSnack(message);

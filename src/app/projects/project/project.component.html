@@ -5,14 +5,14 @@
       PROJET
     </h4>
     <div>
-      <h4>{{project.entity_label + '-' + project.n}}
+      <h4>{{project.entity_label + '-' + project.n_project}}
         <mat-chip-list *ngIf="project.status_id == 1">
           <mat-chip  >Traité</mat-chip>
         </mat-chip-list>
       </h4>
       <mat-chip-list *ngIf="!composed()">
-        <mat-chip [color]="'primary'">{{letter_types[project.letter]}}</mat-chip>
-        <mat-chip [color]="'accent'">{{in_types[project.type]}}</mat-chip>
+        <mat-chip [color]="'primary'">{{letter_types[project.letter_id]}}</mat-chip>
+        <mat-chip [color]="'accent'">{{in_types[project.type_id]}}</mat-chip>
       </mat-chip-list>
     </div>
   </div>
@@ -50,7 +50,7 @@
     <h4 class="label">
       Date de réception
     </h4>
-    <div>{{project.received_at | date}}</div>
+    <div>{{project.received_date | date}}</div>
   </div>
 
   <div class="description">
@@ -60,7 +60,7 @@
     <div [innerHtml]="project.title"></div>
   </div>
 
-  <div *ngIf="project.content" class="description">
+  <div *ngIf="project.content && project.content != 'null'" class="description">
     <h4 class="label">
       Observation
     </h4>

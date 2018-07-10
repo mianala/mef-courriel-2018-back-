@@ -48,6 +48,11 @@
           <loading-button *ngIf="treating == project.id"></loading-button>
           Traité/Vu
         </button>
+        <button *ngIf="editable() "  (click)="edit(project)" mat-menu-item=""
+                color="primary">
+          <mat-icon class="mat-18">edit</mat-icon>
+          Modifier
+        </button>
       </mat-menu>
 
       <button *ngIf="treatable(project)" mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">

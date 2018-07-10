@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {GlobalService} from '../../service/global.service';
 import {FilterService} from '../../service/filter.service';
 import {ExportComponent} from '../../dialog/export/export.component';
+import {EditProjectComponent} from '../../dialog/edit-project/edit-project.component';
 
 @Component({
   selector: 'projects',
@@ -59,6 +60,10 @@ export class ProjectsComponent implements OnInit {
     return false
   }
 
+  editable() {
+    return true
+  }
+
   viewable(project) {
     return project.dispatched == 1
   }
@@ -77,6 +82,11 @@ export class ProjectsComponent implements OnInit {
     this.projectService.treat(project, () => {
       this.treating = 0
     })
+  }
+
+  edit(project) {
+    this.projectService.setProject(project);
+    this.dialog.open(EditProjectComponent)
   }
 
 

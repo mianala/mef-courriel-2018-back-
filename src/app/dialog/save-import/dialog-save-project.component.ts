@@ -68,7 +68,7 @@ export class DialogSaveProjectComponent implements OnInit {
     });
 
     this.projectService.project.subscribe((project) => {
-        this.flow.project_id = project.id
+      this.flow.project_id = project.id
     });
 
     this.files = [];
@@ -81,7 +81,7 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   validProject() {
-    return !(this.project.n_arrive.length < 3 || this.project.sender.length < 3 || this.project.content.length < 3);
+    return !(this.project.n_arrive.length > 0 || this.project.sender.length < 3 || this.project.content.length < 3);
   }
 
   validFlow() {
@@ -118,7 +118,7 @@ export class DialogSaveProjectComponent implements OnInit {
   _import() {
     this.loading = true;
     this.flow.files = this.files;
-    this.flowService._import(this.flow,() => {
+    this.flowService._import(this.flow, () => {
       this.notification.flowImported();
       this.dialogRef.close()
     })

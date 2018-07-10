@@ -19,7 +19,7 @@
           <textarea [(ngModel)]="thread.content" name="content" matInput
                     placeholder="Observations"></textarea>
   </mat-form-field>
-  <app-files [files]="thread.files"></app-files>
+<app-files [files]="thread.files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>

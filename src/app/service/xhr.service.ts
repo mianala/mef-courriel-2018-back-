@@ -18,7 +18,7 @@ export class XhrService {
 
   }
 
-  promise(url,formData, next) {
+  promise(url, formData, next) {
     new Promise((resolve, reject) => {
 
       const xhr = new XMLHttpRequest();
@@ -33,6 +33,30 @@ export class XhrService {
       }
 
       xhr.open('POST', url, true);
+      xhr.send(formData);
+
+    }).then((result) => {
+      next()
+    }, (error) => {
+      console.log(error)
+    })
+  }
+
+  put(url, formData, next) {
+    new Promise((resolve, reject) => {
+
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('PUT', url, true);
       xhr.send(formData);
 
     }).then((result) => {

@@ -95,6 +95,9 @@ registerLocaleData(localeFr);
 const socket_config = {url: EnvService.ip(), options: {}};
 
 import {MatPaginatorIntl} from '@angular/material';
+import { SaveFormComponent } from './form/save-form/save-form.component';
+import { UpdateProjectComponent } from './dialog/update-project/update-project.component';
+import { EditProjectComponent } from './dialog/edit-project/edit-project.component';
 
 export class MatPaginatorIntlCro extends MatPaginatorIntl {
   itemsPerPageLabel = 'articles par page';
@@ -181,6 +184,9 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     TreatedProjectComponent,
     AllProjectsComponent,
     LoadingButtonComponent,
+    SaveFormComponent,
+    UpdateProjectComponent,
+    EditProjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -201,6 +207,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     ComposeComponent,
     ReportComponent,
     DecommissionComponent,
+    EditProjectComponent,
     ExportComponent,
     ShareComponent
   ],

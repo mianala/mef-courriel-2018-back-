@@ -29,6 +29,9 @@ export class FilterService {
       if (project.title != null) {
         result = result || project.title.toLowerCase().includes(query.toLowerCase())
       }
+      if (project.project_id != null) {
+        result = result || project.project_id.toLowerCase().includes(query.toLowerCase())
+      }
       return result
     });
 
@@ -50,6 +53,15 @@ export class FilterService {
       }
       if (flow.numero != null) {
         result = result || flow.numero.toLowerCase().includes(query.toLowerCase())
+      }
+      if (flow.project_title != null) {
+        result = result || flow.project_title.toLowerCase().includes(query.toLowerCase())
+      }
+      if (flow.project_ref != null) {
+        result = result || flow.project_ref.toLowerCase().includes(query.toLowerCase())
+      }
+      if (flow.project_id != null) {
+        result = result || flow.project_id.toLowerCase().includes(query.toLowerCase())
       }
       if (flow.destination != null) {
         result = result || flow.destination.toLowerCase().includes(query.toLowerCase())

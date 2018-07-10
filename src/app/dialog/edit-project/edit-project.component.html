@@ -1,0 +1,18 @@
+<div mat-dialog-title>
+  <h2>Modifier </h2>
+</div>
+<mat-dialog-content class="content">
+  <app-save-form [project]="project" (onUpdate)="updateProject($event)"></app-save-form>
+
+  <app-files [files]="project.files"></app-files>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
+  <button mat-button disabled> AJOUTER FICHIERS(S) </button>
+  <!--<app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>-->
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button [disabled]="!validProject()" matDialogClose="" (click)="submit()" mat-button>
+    <mat-icon *ngIf="!loading">edit</mat-icon>
+    <loading-button *ngIf="loading"></loading-button>
+    MODIFIER
+  </button>
+</mat-dialog-actions>

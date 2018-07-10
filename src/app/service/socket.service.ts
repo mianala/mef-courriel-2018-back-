@@ -27,7 +27,16 @@ export class SocketService {
           this.entity_id = user['entity_id'].toString()
           socket.on('connect', () => {
             console.log('Socket connected');
+
             socket.on('new project', (content) => {
+              console.log('Socket new project');
+              console.log(content);
+              const participants = content.participants;
+              if (participants.includes(this.entity_id)) {
+                this.projectService.getAllProjects()
+              }
+            });
+            socket.on('project edited', (content) => {
               console.log('Socket new project');
               console.log(content);
               const participants = content.participants;
