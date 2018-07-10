@@ -81,7 +81,7 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   validProject() {
-    return !(this.project.n_arrive.length > 0 || this.project.sender.length < 3 || this.project.content.length < 3);
+    return !(this.project.n_arrive.length < 1 || this.project.sender.length < 2 || this.project.content.length < 3);
   }
 
   validFlow() {
