@@ -7,8 +7,7 @@
   <app-files [files]="project.files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
-  <button mat-button disabled> AJOUTER FICHIERS(S) </button>
-  <!--<app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>-->
+  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
   <button [disabled]="!validProject()" matDialogClose="" (click)="submit()" mat-button>
     <mat-icon *ngIf="!loading">edit</mat-icon>

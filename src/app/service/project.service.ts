@@ -176,11 +176,9 @@ export class ProjectService {
 
     formData.append('project', JSON.stringify(project));
 
-/*
     for (let i = 0; i < project.files.length; i++) {
       formData.append('files', project.files[i], project.files[i].name)
     }
-*/
 
     this.xhr.put(this.url, formData, () => {
       next()

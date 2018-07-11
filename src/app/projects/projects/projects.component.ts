@@ -32,10 +32,8 @@ export class ProjectsComponent implements OnInit {
               public filter: FilterService,
               public dialog: MatDialog,
               private projectService: ProjectService) {
-
     this.pageEvent.pageIndex = 0
     this.pageEvent.pageSize = this.paginator.pageSize
-
   }
 
   ngOnInit() {
