@@ -27,7 +27,6 @@ export class ProjectsComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent = new PageEvent();
 
-
   constructor(public router: Router,
               public entityService: EntityService,
               public filter: FilterService,

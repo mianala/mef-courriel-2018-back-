@@ -29,8 +29,8 @@ export class FilterService {
       if (project.title != null) {
         result = result || project.title.toLowerCase().includes(query.toLowerCase())
       }
-      if (project.project_id != null) {
-        result = result || project.project_id.toLowerCase().includes(query.toLowerCase())
+      if (project.n_project != null) {
+        result = result || project.n_project.toString().includes(query.toLowerCase())
       }
       return result
     });
@@ -60,8 +60,11 @@ export class FilterService {
       if (flow.project_ref != null) {
         result = result || flow.project_ref.toLowerCase().includes(query.toLowerCase())
       }
-      if (flow.project_id != null) {
-        result = result || flow.project_id.toLowerCase().includes(query.toLowerCase())
+      if (flow.project_n != null) {
+        result = result || flow.project_n.toString().includes(query.toLowerCase())
+      }
+      if (flow.project_numero != null) {
+        result = result || flow.project_numero.toString().includes(query.toLowerCase())
       }
       if (flow.destination != null) {
         result = result || flow.destination.toLowerCase().includes(query.toLowerCase())
