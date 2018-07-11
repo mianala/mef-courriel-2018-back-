@@ -67,7 +67,7 @@ export class ReplyComponent implements OnInit {
 
     //update button into loading button
     this.flowService.answerFlow(this.answer, () => {
-      this.notification.answered();
+      this.notification.mailSent();
       this.dialogRef.close()
     })
   }

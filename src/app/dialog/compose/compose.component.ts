@@ -133,7 +133,7 @@ export class ComposeComponent implements OnInit {
     this.composition.content = obs.concat(this.composition.content);
 
     this.projectService.compose(this.composition, () => {
-      this.notification.sent();
+      this.notification.mailSent();
       this.dialogRef.close()
     })
   }

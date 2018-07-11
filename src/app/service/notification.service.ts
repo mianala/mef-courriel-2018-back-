@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 
+declare var Notification: any;
 
 @Injectable()
 export class NotificationService {
@@ -18,23 +19,21 @@ export class NotificationService {
         return;
       }
 
-      if (Notification.permission !== "granted")
+      if (Notification.permission !== 'granted')
         Notification.requestPermission();
     });
   }
 
-  notify(message){
-    let notification = new Notification('DGBCOURRIEL',{
-      icon:'../../assets/img/logo.png',
-      body:message
+  notify(message) {
+    let notification = new Notification('DGBCOURRIEL', {
+      icon: '../../assets/img/logo.png',
+      body: message
     })
   }
-
 
   connected() {
     const message = 'Vous ête connecté';
     this.openSnack(message);
-    this.notify(message)
   }
 
   print(p: string) {
@@ -76,16 +75,15 @@ export class NotificationService {
     this.openSnack(message);
   }
 
-/*  emailSaved() {
-    const message = 'Nouveau courriel enregistré';
-    this.openSnack(message);
-    this.notify(message)
-  }*/
+  /*  emailSaved() {
+      const message = 'Nouveau courriel enregistré';
+      this.openSnack(message);
+      this.notify(message)
+    }*/
 
   emailSent() {
     const message = 'Courriel envoyé avec succès';
     this.openSnack(message);
-    this.notify(message)
   }
 
   flowReceived() {
@@ -121,52 +119,40 @@ export class NotificationService {
   invalidReceiver() {
     const message = 'Veillez bien verifier les destinataires';
     this.openSnack(message);
-    this.notify(message)
   }
 
   invalidObservation() {
     const message = 'Veillez bien verifier les observations';
     this.openSnack(message);
-    this.notify(message)
   }
 
-
-  emailRemoved() {
-    const message = 'Message supprimé';
-    this.openSnack(message);
-    this.notify(message)
-  }
+  /*  emailRemoved() {
+      const message = 'Message supprimé';
+      this.openSnack(message);
+    }*/
 
   formError() {
     const message = 'Veuillez bien remplir le formulaire';
     this.openSnack(message);
-    this.notify(message)
   }
 
   fileTooHeavy() {
     const message = 'Fichier trop volumineux';
     this.openSnack(message);
-    this.notify(message)
   }
 
-  noFile() {
-    const message = 'Fichier';
+  mailSent() {
+    const message = 'Courriel envoyé';
     this.openSnack(message);
-    this.notify(message)
   }
+
+  /*  noFile() {
+      const message = 'Fichier';
+      this.openSnack(message);
+      this.notify(message)
+    }*/
 
   openSnack(message) {
     this.snackBar.open(message, '', this.getConfig());
   }
-
-  answered() {
-    const message = 'Courriel envoyé';
-    this.snackBar.open(message, '', this.getConfig());
-  }
-
-  sent() {
-    const message = 'Courriel envoyé';
-    this.snackBar.open(message, '', this.getConfig());
-  }
-
 }
