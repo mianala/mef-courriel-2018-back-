@@ -5,7 +5,7 @@
       PROJET
     </h4>
     <div>
-      <h4>{{project.entity_label}}-{{project.date | date:'yyyy'}}{{project.n_project}}
+      <h4>{{project.entity_label}}-{{project.date | date:'yyyy'}}/{{project.n_project}}
         <mat-chip-list *ngIf="project.status_id == 1">
           <mat-chip>Traité</mat-chip>
         </mat-chip-list>
@@ -16,8 +16,6 @@
       </mat-chip-list>
     </div>
   </div>
-
-
   <div class="description">
     <h4 class="label">
       N° du courrier
