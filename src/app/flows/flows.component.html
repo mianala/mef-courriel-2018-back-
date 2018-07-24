@@ -40,9 +40,9 @@
           <mat-icon class="mat-18">arrow_upward</mat-icon>
           Soumetre
         </button>
-        <button *ngIf="shareable(flow)" (click)="share(flow)" mat-menu-item>
-          <mat-icon class="mat-18">share</mat-icon>
-          Partager
+        <button *ngIf="forwardable(flow)" (click)="forward(flow)" mat-menu-item>
+          <mat-icon class="mat-18">forward</mat-icon>
+          Transférer
         </button>
         <button *ngIf="treatable(flow)" (click)="treat(flow)" mat-menu-item color="primary">
           <mat-icon class="mat-18">check</mat-icon>

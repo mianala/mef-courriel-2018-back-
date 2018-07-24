@@ -5,7 +5,7 @@ import {DispatchComponent} from '../projects/dialog/dispatch/dispatch.component'
 import {MatDialog} from '@angular/material';
 import {ProjectService} from '../service/project.service';
 import {ReplyComponent} from '../dialog/reply/reply.component';
-import {ShareComponent} from '../dialog/share/share.component';
+import {ForwardComponent} from '../dialog/forward/forward.component';
 import {DecommissionComponent} from '../dialog/decommission/decommission.component';
 import {Router} from '@angular/router';
 import {UserService} from '../service/user.service';
@@ -54,8 +54,6 @@ export class FlowsComponent implements OnInit {
     this.pageEvent.pageIndex = 0
     this.pageEvent.pageSize = this.paginator.pageSize
 
-
-
   }
 
   ngOnInit() {
@@ -97,9 +95,9 @@ export class FlowsComponent implements OnInit {
     return GlobalService.sameDay(new Date(flow.date), new Date())
   }
 
-  shareable(flow) {
-    return false
-    // return this.relatives.length && flow.sender_entity.length < this.user.entity
+  forwardable(flow) {
+    return this.entityService.relativeEntities.getValue().length
+     // && FilterService.received(flow,this.user) && flow.sender_entity.length > flow.entity.length
   }
 
   viewable(flow) {
@@ -127,9 +125,9 @@ export class FlowsComponent implements OnInit {
     this.router.navigateByUrl('/courriels/courriel')
   }
 
-  share(flow) {
-    this.flowService.setFlow(flow.id);
-    this.dialog.open(ShareComponent);
+  forward(flow) {
+    this.flowService.flow.next(flow);
+    this.dialog.open(ForwardComponent);
   }
 
   decommission(flow) {

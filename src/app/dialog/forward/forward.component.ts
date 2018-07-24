@@ -3,24 +3,31 @@ import {EntityService} from "../../service/entity.service";
 import {MatDialogRef} from "@angular/material";
 import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
 import {FlowService} from "../../service/flow.service";
+import {NotificationService} from '../../service/notification.service';
 
 @Component({
-  selector: 'app-share',
-  templateUrl: './share.component.html',
-  styleUrls: ['./share.component.scss']
+  selector: 'app-forward',
+  templateUrl: './forward.component.html',
+  styleUrls: ['./forward.component.scss']
 })
-export class ShareComponent implements OnInit {
+export class ForwardComponent implements OnInit {
   flow
   entities
 
   constructor(private entityService: EntityService,
+              private notificationService:NotificationService,
               private flowService: FlowService,
               public dialogRef: MatDialogRef<DispatchComponent>) {
 
 
     this.flow = {
+      id:0,
       receivers: []
     }
+
+    this.flowService.flow.subscribe(f => {
+      this.flow.id = f['id']
+    })
     this.entityService.relativeEntities.subscribe(entities => {
       this.entities = entities
 
@@ -57,7 +64,9 @@ export class ShareComponent implements OnInit {
       receivers += ' - ' + o + '<br>'
     }
 
-    this.flowService.share(this.flow)
+    this.flowService.forward(this.flow,()=>{
+      this.notificationService.flowForwarded()
+    })
     this.dialogRef.close()
   }
 

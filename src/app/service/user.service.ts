@@ -113,8 +113,6 @@ export class UserService {
       if (user.avatar) {
         formData.append('avatar', user.avatar, user.avatar.name)
       }
-
-
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
@@ -129,6 +127,10 @@ export class UserService {
       xhr.send(formData)
       // this.notification.user()
     });
+  }
+
+  updateAvatar(file){
+
   }
 
   getUsers() {

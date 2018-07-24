@@ -69,7 +69,7 @@ import {FlowsComponent} from './flows/flows.component';
 import {TemplatePageComponent} from './page/template-page/template-page.component';
 import {ExportComponent} from './dialog/export/export.component';
 import {DecommissionComponent} from './dialog/decommission/decommission.component';
-import {ShareComponent} from './dialog/share/share.component';
+import {ForwardComponent} from './dialog/forward/forward.component';
 import {UpdateComponent} from './user/update/update.component';
 import {BeComponent} from './form/be/be.component';
 import {ProfilComponent} from './user/profil/profil.component';
@@ -87,6 +87,10 @@ import {TreatedProjectComponent} from './page/treated-project/treated-project.co
 import {ComposeComponent} from './dialog/compose/compose.component';
 import {AllProjectsComponent} from './page/all-projects/all-projects.component';
 import {LoadingButtonComponent} from './util/loading-button/loading-button.component';
+import {MatPaginatorIntl} from '@angular/material';
+import { SaveFormComponent } from './form/save-form/save-form.component';
+import { UpdateProjectComponent } from './dialog/update-project/update-project.component';
+import { EditProjectComponent } from './dialog/edit-project/edit-project.component';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 
@@ -94,10 +98,6 @@ registerLocaleData(localeFr);
 
 const socket_config = {url: EnvService.ip(), options: {}};
 
-import {MatPaginatorIntl} from '@angular/material';
-import { SaveFormComponent } from './form/save-form/save-form.component';
-import { UpdateProjectComponent } from './dialog/update-project/update-project.component';
-import { EditProjectComponent } from './dialog/edit-project/edit-project.component';
 
 export class MatPaginatorIntlCro extends MatPaginatorIntl {
   itemsPerPageLabel = 'articles par page';
@@ -171,7 +171,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     TemplatePageComponent,
     ExportComponent,
     DecommissionComponent,
-    ShareComponent,
+    ForwardComponent,
     UpdateComponent,
     BeComponent,
     ProfilComponent,
@@ -209,7 +209,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     DecommissionComponent,
     EditProjectComponent,
     ExportComponent,
-    ShareComponent
+    ForwardComponent
   ],
   providers: [UserService,
     TestService,

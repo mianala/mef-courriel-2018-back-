@@ -103,7 +103,6 @@ export class FlowService {
       return false
     }
 
-    console.log(ps);
     this.flows.next(ps)
   }
 
@@ -207,8 +206,8 @@ export class FlowService {
 
       delete flow.be.valid
 
-      if(flow.hasBe){
-        formData.append('be',JSON.stringify(flow.be))
+      if (flow.hasBe) {
+        formData.append('be', JSON.stringify(flow.be))
       }
       this.xhr.promise(this.url + '/ship', formData, () => {
         next()
@@ -273,32 +272,19 @@ export class FlowService {
     });
   }
 
-  share(flow) {
-    console.log(this.user);
+  forward(flow, next) {
 
-    return new Promise((resolve, reject) => {
+    if (this.user['id']) {
       const formData: any = new FormData();
-      const xhr = new XMLHttpRequest();
-
-      formData.append('flow_id', this.flow.getValue()['id']);
+      formData.append('flow_id', flow.id);
       formData.append('receivers', flow.receivers);
       formData.append('user_id', this.user.id);
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      xhr.open('POST', this.url + '/share', true);
-      xhr.send(formData)
-
-      //  share notification
-    });
+      this.xhr.promise(this.url + '/forward', formData, () => {
+        next()
+      })
+    } else {
+      console.log('user not connected')
+    }
   }
 
 }

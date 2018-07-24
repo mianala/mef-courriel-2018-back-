@@ -98,6 +98,11 @@ export class NotificationService {
     this.notify(message)
   }
 
+  flowForwarded() {
+    const message = 'Un courriel a été transféré';
+    this.openSnack(message);
+  }
+
   flowExported() {
     const message = 'Un courriel a été exporté';
     this.openSnack(message);
