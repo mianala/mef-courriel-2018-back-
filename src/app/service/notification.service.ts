@@ -99,7 +99,7 @@ export class NotificationService {
   }
 
   flowForwarded() {
-    const message = 'Un courriel a été transféré';
+    const message = 'Courriel transféré';
     this.openSnack(message);
   }
 
@@ -148,6 +148,16 @@ export class NotificationService {
 
   mailSent() {
     const message = 'Courriel envoyé';
+    this.openSnack(message);
+  }
+
+  avatarUpdated() {
+    const message = 'Avatar mis à jour';
+    this.openSnack(message);
+  }
+
+  credentialsUpdated() {
+    const message = 'Identifiants mis à jour';
     this.openSnack(message);
   }
 

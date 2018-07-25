@@ -6,18 +6,21 @@
   </mat-form-field>
 
   <mat-form-field class="">
-    <input [(ngModel)]="project.sender" (change)="update()" required name="sender" matInput placeholder="Expediteur">
+    <input [disabled]="composed()" [(ngModel)]="project.sender" (change)="update()" required name="sender" matInput
+           [placeholder]="composed()?'Rédigé par':'Expediteur'">
   </mat-form-field>
   <!--date du courriel-->
   <mat-form-field>
-    <input [max]="form_max_date" [(ngModel)]="project.courriel_date" required name="date" matInput [matDatepicker]="picker"
+    <input disabled [max]="form_max_date" [(ngModel)]="project.courriel_date" required name="date" matInput
+           [matDatepicker]="picker"
            placeholder="Date du courrier">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-hint align="start">Veillez sélectionner la date à partir de l’Icon à droite</mat-hint>
   </mat-form-field>
-  <mat-datepicker #picker></mat-datepicker>
+  <mat-datepicker disabled="false" #picker></mat-datepicker>
   <mat-form-field>
-    <input (change)="update()" matInput [max]="form_max_date" [min]="project.courriel_date" [(ngModel)]="project.received_date"
+    <input disabled (change)="update()" matInput [max]="form_max_date" [min]="project.courriel_date"
+           [(ngModel)]="project.received_date"
            required
            name="received_date"
            [matDatepicker]="recieved_picker"
@@ -25,14 +28,14 @@
     <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
     <mat-hint align="start">Veillez sélectionner la date à partir de l’Icon à droite</mat-hint>
   </mat-form-field>
-  <mat-datepicker #recieved_picker></mat-datepicker>
+  <mat-datepicker disabled="false" #recieved_picker></mat-datepicker>
 
   <mat-form-field>
     <mat-select [(ngModel)]="project.letter_id" name="lettre" placeholder="Type">
       <mat-option *ngFor="let lettre of letter_types; let i = index" [value]="i">{{lettre}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field class="">
+  <mat-form-field *ngIf="!composed()">
     <input [(ngModel)]="project.ref" name="ref" matInput placeholder="Référence ">
   </mat-form-field>
 
@@ -45,17 +48,17 @@
           </textarea>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field *ngIf="!composed()">
     <mat-select [(ngModel)]="project.type_id" name="type" placeholder="Document">
       <mat-option *ngFor="let in_t of in_types; let i = index" [value]="i">{{in_t}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <!--observations-->
-<!--  <h4>Observations:</h4>
-  {{project.content}}
-  <mat-form-field class="">
-          <textarea [(ngModel)]="project.content" name="content" matInput
-                    placeholder="Observations"></textarea>
-  </mat-form-field>-->
+  <!--  <h4>Observations:</h4>
+    {{project.content}}
+    <mat-form-field class="">
+            <textarea [(ngModel)]="project.content" name="content" matInput
+                      placeholder="Observations"></textarea>
+    </mat-form-field>-->
 </form>

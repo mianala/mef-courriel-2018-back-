@@ -1,13 +1,24 @@
+<mat-dialog-content class="content">
+  <mat-form-field class="">
+    <input type="text" required [(ngModel)]="credentials.username" name="username" matInput
+           placeholder="Nom d'utilisateur" >
+    <mat-hint>> 3 caractères</mat-hint>
+    <mat-hint *ngIf="usernameUnavailable()"> - Identifiant Déjà pris, vous pouvez essayer un autre</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="">
+    <input type="password" required [(ngModel)]="credentials.password" name="password" matInput
+           placeholder="Mot de passe">
+    <mat-hint>> 3 caractères</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="">
+    <input type="password" required [(ngModel)]="confirm_password" name="confirm_password" matInput
+           placeholder="Confirmez votre mot de passe">
+    <mat-hint>> 3 caractères</mat-hint>
+  </mat-form-field>
 
-<mat-form-field class="">
-  <input type="text" required [(ngModel)]="credentials.username" name="username" matInput
-         placeholder="Nom d'utilisateur">
-</mat-form-field>
-<mat-form-field class="">
-  <input type="password" required [(ngModel)]="credentials.password" name="password" matInput
-         placeholder="Mot de passe">
-</mat-form-field>
-<mat-form-field class="">
-  <input type="password" required [(ngModel)]="credentials.confirm_password" name="confirm_password" matInput
-         placeholder="Confirmez votre mot de passe">
-</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
+  <button (click)="dialogRef.close()" mat-button>ANNULER</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button [disabled]="!valid()" (click)="submit()" mat-button>CHANGER IDENTIFIANTS</button>
+</mat-dialog-actions>

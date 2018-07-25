@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FlowService} from "../../service/flow.service";
-import {MatDialogRef} from "@angular/material";
+import {FlowService} from '../../service/flow.service';
+import {MatDialogRef} from '@angular/material';
 import {FormControl} from '@angular/forms';
-import {EntityService} from "../../service/entity.service";
-import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
-import {FroalaService} from "../../service/froala.service";
+import {EntityService} from '../../service/entity.service';
+import {DispatchComponent} from '../../projects/dialog/dispatch/dispatch.component';
+import {FroalaService} from '../../service/froala.service';
 
 @Component({
   selector: 'app-decommission',
@@ -48,7 +48,9 @@ export class DecommissionComponent implements OnInit {
   }
 
   submit() {
-    this.flowService.decommission(this.flow)
+    this.flowService.decommission(this.flow, () => {
+
+    })
     this.dialogRef.close()
   }
 }

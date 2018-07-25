@@ -6,7 +6,7 @@
 
 
   <div class="entities">
-    <mat-checkbox *ngFor="let entity of entities" (change)="checkEntity(entity.id)">{{entity.title}}</mat-checkbox>
+    <mat-checkbox *ngFor="let entity of entities" (change)="checkEntity(entity.id)"><strong>{{entity.label}}</strong> {{entity.title}}</mat-checkbox>
   </div>
 
 

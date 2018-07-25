@@ -65,7 +65,7 @@ export class EntityService {
   }
 
   getDownEntities() {
-    console.log('getting down entities ' + this.user['entity'].entity);
+    // console.log('getting down entities ' + this.user['entity'].entity);
     this.http.get(this.url + '/down/' + this.user['entity'].entity)
       .map(res => res.json()).subscribe(entities => {
 
@@ -81,7 +81,7 @@ export class EntityService {
   }
 
   getUpEntity() {
-    console.log('getting up entity ' + this.user['entity'].entity);
+    // console.log('getting up entity ' + this.user['entity'].entity);
     this.http.get(this.url + '/up/' + this.user['entity'].entity )
       .map(res => res.json()).subscribe(entity => {
       this.upEntity.next(entity[0])
@@ -89,7 +89,7 @@ export class EntityService {
   }
 
   getRelativeEntities() {
-    console.log('getting relative entities' + this.user['entity'].entity);
+    // console.log('getting relative entities' + this.user['entity'].entity);
 
     //sends 1-3-1 to the api
     this.http.get(this.url + '/relative/' + this.user['entity'].entity)

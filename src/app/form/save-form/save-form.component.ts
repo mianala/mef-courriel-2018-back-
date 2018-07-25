@@ -22,6 +22,10 @@ export class SaveFormComponent implements OnInit {
 
   }
 
+  composed(){
+    return this.project.composed == 1
+  }
+
   ngOnInit() {
     console.log(this.project)
   }

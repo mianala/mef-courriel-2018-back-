@@ -18,8 +18,6 @@ export class ForwardComponent implements OnInit {
               private notificationService:NotificationService,
               private flowService: FlowService,
               public dialogRef: MatDialogRef<DispatchComponent>) {
-
-
     this.flow = {
       id:0,
       receivers: []
@@ -65,6 +63,7 @@ export class ForwardComponent implements OnInit {
     }
 
     this.flowService.forward(this.flow,()=>{
+      this.flowService.getAllFlows()
       this.notificationService.flowForwarded()
     })
     this.dialogRef.close()

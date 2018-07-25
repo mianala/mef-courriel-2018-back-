@@ -29,7 +29,7 @@ export class ProjectService {
               private http: Http) {
     this.url = EnvService.ip() + '/api/projects';
     this.user = this.userService.user.getValue();
-    console.log('initializing projects');
+    // console.log('initializing projects');
 
     this.user = this.userService.user.subscribe(user => {
       if (user['id']) {
@@ -105,7 +105,7 @@ export class ProjectService {
       return false
     }
 
-    console.log('loading all projects ' + this.user.entity_id);
+    // console.log('loading all projects ' + this.user.entity_id);
 
     this.http.get(this.url + '/all/' + this.user.entity_id)
       .map(res => res.json()).subscribe(projects => {
@@ -193,12 +193,12 @@ export class ProjectService {
     this.http.post(this.url + '/treat', {id: id, entity_id: entity_id}, this.options)
       .subscribe(result => {
         next();
-        console.log(result)
+        // console.log(result)
       })
   }
 
   compose(composition, next) {
-    console.log(composition);
+    // console.log(composition);
 
     let formData: any = new FormData();
     const project = {

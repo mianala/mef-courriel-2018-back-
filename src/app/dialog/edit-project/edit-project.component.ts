@@ -36,6 +36,8 @@ export class EditProjectComponent implements OnInit {
     })
   }
 
+
+
   getFiles(files) {
     this.project.files = this.project.files.concat(files)
   }

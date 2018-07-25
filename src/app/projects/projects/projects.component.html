@@ -1,7 +1,9 @@
 <mat-accordion>
 
   <!--projects -->
-  <mat-expansion-panel *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1)" hideToggle="true">
+  <mat-expansion-panel
+    *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1)"
+    hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <strong>{{(project.sender | slice:0:25) + (project.sender.length > 25 ? '...':'')}}</strong>
@@ -42,16 +44,17 @@
       </button>
       <mat-menu #appMenu="matMenu">
 
+        <button *ngIf="editable() " (click)="edit(project)" mat-menu-item=""
+                color="primary">
+          <mat-icon class="mat-18">edit</mat-icon>
+          Modifier
+        </button>
+
         <button *ngIf="treatable(project) " [disabled]="treating==project.id" (click)="treat(project)" mat-menu-item=""
                 color="primary">
           <mat-icon *ngIf="treating!=project.id" class="mat-18">check</mat-icon>
           <loading-button *ngIf="treating == project.id"></loading-button>
           Traité/Vu
-        </button>
-        <button *ngIf="editable() "  (click)="edit(project)" mat-menu-item=""
-                color="primary">
-          <mat-icon class="mat-18">edit</mat-icon>
-          Modifier
         </button>
       </mat-menu>
 

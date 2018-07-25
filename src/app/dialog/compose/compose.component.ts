@@ -134,6 +134,7 @@ export class ComposeComponent implements OnInit {
 
     this.projectService.compose(this.composition, () => {
       this.notification.mailSent();
+      this.projectService.getAllProjects()
       this.dialogRef.close()
     })
   }

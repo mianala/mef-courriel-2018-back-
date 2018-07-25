@@ -23,7 +23,7 @@ export class SocketService {
         } else {
 
           const socket = io(EnvService.ip());
-          console.log('socket can connect')
+          // console.log('socket can connect')
           this.entity_id = user['entity_id'].toString()
           socket.on('connect', () => {
             console.log('Socket connected');

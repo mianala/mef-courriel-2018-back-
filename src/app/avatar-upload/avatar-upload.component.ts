@@ -1,5 +1,6 @@
-import {Component, EventEmitter,  OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {NotificationService} from '../service/notification.service';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-avatar-upload',
@@ -10,7 +11,10 @@ export class AvatarUploadComponent implements OnInit {
   @Output() avatarSelected = new EventEmitter()
   photo = 'assets/images/default_user.png'
 
-  constructor(private notification: NotificationService) {
+  constructor(private notification: NotificationService, private userService: UserService) {
+    this.userService.user.subscribe(user => {
+      this.photo = user['photo']
+    })
   }
 
   ngOnInit() {
@@ -21,6 +25,11 @@ export class AvatarUploadComponent implements OnInit {
       this.notification.notAnImage()
       return
     }
+    if (file.size > 3000000) {
+      this.notification.fileTooHeavy()
+      return
+    }
+
 
     const target = file.target || window.event.srcElement
     const files = target.files

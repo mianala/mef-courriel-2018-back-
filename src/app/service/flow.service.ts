@@ -242,38 +242,20 @@ export class FlowService {
   }
 
 
-  decommission(flow) {
-    console.log('decommissioning');
+  decommission(flow, next) {
+    const formData: any = new FormData();
+    formData.append('flow_id', this.flow.getValue()['id']);
+    formData.append('sender_entity_id', this.user.entity.id);
+    formData.append('entity_id', flow.entity.id);
+    formData.append('reason', flow.content);
+    formData.append('user_id', this.user.id);
 
-    return new Promise((resolve, reject) => {
-      const formData: any = new FormData();
-      const xhr = new XMLHttpRequest();
-
-      formData.append('flow_id', this.flow.getValue()['id']);
-      formData.append('sender_entity_id', this.user.entity.id);
-      formData.append('entity_id', flow.entity.id);
-      formData.append('reason', flow.content);
-      formData.append('user_id', this.user.id);
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      xhr.open('POST', this.url + '/decommission', true);
-      xhr.send(formData)
-
-      //  decommission notification
-    });
+    this.xhr.promise(this.url + '/decommission', formData, () => {
+      next()
+    })
   }
 
   forward(flow, next) {
-
     if (this.user['id']) {
       const formData: any = new FormData();
       formData.append('flow_id', flow.id);

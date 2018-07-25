@@ -26,12 +26,12 @@ export class FlowComponent implements OnInit {
       return 'arrow_forward'
     }
 
-    if (this.flow.entity.length == this.flow.sender_entity.length) {
-      return 'arrow_forward'
-    } else if (this.flow.entity.length > this.flow.sender_entity.length) {
+    if (FilterService.downFlow(this.flow)) {
       return 'arrow_downward'
-    } else if (this.flow.entity.length < this.flow.sender_entity.length) {
+    } else if (FilterService.upFlow(this.flow)) {
       return 'arrow_upward'
+    } else {
+      return 'arrow_forward'
     }
 
   }
@@ -45,14 +45,14 @@ export class FlowComponent implements OnInit {
       return 'Contenu'
     }
 
-    if (this.flow.entity.length == this.flow.sender_entity.length) {
-      return 'Observation'
-    } else if (this.flow.entity.length > this.flow.sender_entity.length) {
+    if (FilterService.downFlow(this.flow)) {
       // return 'arrow_downward'
       return 'Observation'
-    } else if (this.flow.entity.length < this.flow.sender_entity.length) {
+    } else if (FilterService.upFlow(this.flow)) {
       // return 'arrow_upward'
       return 'Contenu'
+    } else {
+      return ''
     }
 
   }

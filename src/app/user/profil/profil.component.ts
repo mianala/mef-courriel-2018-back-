@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {EntityService} from '../../service/entity.service';
+import {NotificationService} from '../../service/notification.service';
+import {MatDialog} from '@angular/material';
+import {UpdateComponent} from '../update/update.component';
 
 @Component({
   selector: 'app-profil',
@@ -11,7 +14,8 @@ export class ProfilComponent implements OnInit {
   user
   entity
 
-  constructor(private userService: UserService,private entityService: EntityService,) {
+  constructor(private userService: UserService, private entityService: EntityService, private notification: NotificationService,
+              public dialog: MatDialog) {
     userService.user.subscribe(user => {
       this.user = user
     })
@@ -22,8 +26,14 @@ export class ProfilComponent implements OnInit {
 
   }
 
-  setAvatar(p){
-    console.log(p)
+  openUpdateDialog(){
+    this.dialog.open(UpdateComponent)
+  }
+
+  setAvatar(file) {
+    this.userService.updateAvatar(file, () => {
+      this.notification.avatarUpdated()
+    })
   }
 
   ngOnInit() {

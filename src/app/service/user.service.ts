@@ -6,6 +6,7 @@ import {GlobalService} from './global.service';
 import {NotificationService} from './notification.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {EnvService} from './env.service';
+import {XhrService} from './xhr.service';
 
 @Injectable()
 export class UserService {
@@ -13,11 +14,13 @@ export class UserService {
   options = new RequestOptions({withCredentials: true});
   user = new BehaviorSubject({});
   connected = new BehaviorSubject(false);
+  usernames = new BehaviorSubject([]);
 
   constructor(private http: Http,
               private route: Router,
               private global: GlobalService,
-              private notification: NotificationService) {
+              private notification: NotificationService,
+              private xhr: XhrService) {
     this.url = EnvService.ip() + '/api/users';
 
 
@@ -74,68 +77,39 @@ export class UserService {
       })
   }
 
-  updateLogin(credentials) {
+  updateLogin(credentials, next) {
 
     // de redirect to login
-    this.http.post(this.url + '/user/update-login', credentials, this.options)
-      .map(res => res.json())
-      .subscribe(user => {
-        this.user.next(user)
+    this.http.post(this.url + '/update', credentials, this.options)
+      .subscribe(() => {
+        next()
       })
   }
 
-  saveUser(user ?: any) {
 
-    this.route.navigateByUrl('/public/connexion');
-    this.notification.userSaved();
-    this.post(user).then((result) => {
-      console.log(result)
-
-    }, (error) => {
-      console.log(error)
-    })
-
-  }
-
-  post(user: any) {
-    return new Promise((resolve, reject) => {
+  updateAvatar(file, next) {
+    if (this.user.getValue()['id']) {
       const formData: any = new FormData();
-      const xhr = new XMLHttpRequest();
-      formData.append('entityId', user.entity.id);
-      formData.append('im', user.im);
-      formData.append('username', user.username);
-      formData.append('functionId', user.functionId);
-      formData.append('name', user.name);
-      formData.append('fullname', user.fullname);
-      formData.append('title', user.functionTitle);
-      formData.append('email', user.email);
-      formData.append('password', user.password);
-      if (user.avatar) {
-        formData.append('avatar', user.avatar, user.avatar.name)
-      }
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(JSON.parse(xhr.response));
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      xhr.open('POST', this.url, true);
-      xhr.send(formData)
-      // this.notification.user()
-    });
-  }
-
-  updateAvatar(file){
-
+      formData.append('user_id', this.user.getValue()['id']);
+      formData.append('avatar', file, file.name)
+      this.xhr.promise(this.url + '/avatar', formData, () => {
+        next()
+      })
+    } else {
+      console.log('user not connected')
+    }
   }
 
   getUsers() {
     return this.http.get(this.url, this.options)
       .map(res => res.json())
+  }
+  getUsernames() {
+    this.http.get(this.url+'/usernames', this.options)
+      .map(res => res.json())
+      .subscribe(usernames => {
+        this.usernames.next(usernames)
+      })
   }
 
   getUsersByEntity(entity) {
