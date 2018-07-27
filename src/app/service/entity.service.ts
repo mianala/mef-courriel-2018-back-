@@ -31,7 +31,6 @@ export class EntityService {
         entity.numero = '## - 2018/'+ entity.header;
         this.entity.next(entity);
 
-
         this.getDownEntities();
         this.getUpEntity();
         this.getRelativeEntities()

@@ -71,7 +71,6 @@ export class UserService {
           return
         }
 
-
         this.user.next(user)
 
       })

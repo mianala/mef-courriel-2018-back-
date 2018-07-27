@@ -14,7 +14,9 @@ export class UserSidenavProfilComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.userService.user.getValue()
+    this.userService.user.subscribe(user=>{
+      this.user = user
+    })
   }
 
   logout() {

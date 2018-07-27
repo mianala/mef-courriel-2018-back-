@@ -40,7 +40,6 @@ export class UpdateComponent implements OnInit {
   }
 
   usernameUnavailable(){
-    console.log(this.usernames.includes(this.credentials.username) && this.credentials.username != this.userService.user.getValue()['username'])
     return this.usernames.includes(this.credentials.username) && this.credentials.username != this.userService.user.getValue()['username']
   }
 

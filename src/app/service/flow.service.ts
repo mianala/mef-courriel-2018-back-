@@ -10,6 +10,7 @@ import {ProjectService} from './project.service';
 import {EnvService} from './env.service';
 import {XhrService} from './xhr.service';
 import {FilterService} from './filter.service';
+import {EntityService} from './entity.service';
 
 @Injectable()
 export class FlowService {
@@ -34,21 +35,21 @@ export class FlowService {
   shipped_flow = new BehaviorSubject({});
   answerData = new BehaviorSubject({});
   user;
+  entity;
 
   constructor(private http: Http,
               private notification: NotificationService,
               private projectService: ProjectService,
-              private userService: UserService,
+              private userService: UserService, private entityService: EntityService,
               private xhr: XhrService) {
     this
       .url = EnvService.ip() + '/api/flows';
     this
       .user = this.userService.user.getValue();
 
-    this.userService.user.subscribe(user => {
-
-      if (user['id']) {
-        this.user = user;
+    this.entityService.entity.subscribe(entity => {
+      if (entity['id']) {
+        this.entity = entity
         this.getAllFlows();
 
         this.projectService.project.subscribe(project => {
@@ -64,7 +65,13 @@ export class FlowService {
           this.getShippedFlows(flows);
           this.getReturnedFlows(flows)
         })
+      }
+    })
 
+    this.userService.user.subscribe(user => {
+
+      if (user['id']) {
+        this.user = user;
       }
     });
 
@@ -97,7 +104,7 @@ export class FlowService {
 
   getFlows(flows) {
 
-    let ps = FilterService.inbox(flows, this.user);
+    let ps = FilterService.inbox(flows, this.entity);
 
     if (this.flows.getValue() == ps) {
       return false
@@ -107,20 +114,17 @@ export class FlowService {
   }
 
   getAllFlows() {
-    console.log('loading all flows');
-
-
-    this.http.get(this.url + '/all/' + this.user.entity_id)
+    // console.log('loading all flows');
+    this.http.get(this.url + '/all/' + this.entity.id)
       .map(res => res.json()).subscribe(flows => {
-
       flows.sort(GlobalService.sortByDate);
-
       this.all_flows.next(flows)
     })
   }
 
   getSentFlows(flows) {
-    let ps = FilterService.sentFlow(flows, this.user);
+    // console.log(flows)
+    let ps = FilterService.sentFlow(flows, this.entity);
 
     if (this.sent_flows.getValue() == ps) {
       return false
@@ -129,7 +133,7 @@ export class FlowService {
   }
 
   getTreatedFlows(flows) {
-    let ps = FilterService.treatedFlows(flows);
+    let ps = FilterService.treatedFlows(flows, this.entity);
 
     if (this.treated_flows.getValue() == ps) {
       return false
@@ -256,17 +260,28 @@ export class FlowService {
   }
 
   forward(flow, next) {
+    console.log('forwarding')
+
     if (this.user['id']) {
-      const formData: any = new FormData();
-      formData.append('flow_id', flow.id);
-      formData.append('receivers', flow.receivers);
-      formData.append('user_id', this.user.id);
-      this.xhr.promise(this.url + '/forward', formData, () => {
-        next()
-      })
+      let f = {
+
+        flow_id: flow.id,
+        receivers: flow.receivers.join(','),
+        user_id: this.user.id,
+      }
+
+      console.log('posting')
+
+      this.http.post(this.url + '/forward', f, this.options)
+        .subscribe(result => {
+          console.log(result)
+          next()
+        })
+
     } else {
       console.log('user not connected')
     }
+
   }
 
 }

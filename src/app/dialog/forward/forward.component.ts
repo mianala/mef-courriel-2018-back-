@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {EntityService} from "../../service/entity.service";
-import {MatDialogRef} from "@angular/material";
-import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
-import {FlowService} from "../../service/flow.service";
+import {EntityService} from '../../service/entity.service';
+import {MatDialogRef} from '@angular/material';
+import {DispatchComponent} from '../../projects/dialog/dispatch/dispatch.component';
+import {FlowService} from '../../service/flow.service';
 import {NotificationService} from '../../service/notification.service';
 
 @Component({
@@ -15,11 +15,11 @@ export class ForwardComponent implements OnInit {
   entities
 
   constructor(private entityService: EntityService,
-              private notificationService:NotificationService,
+              private notificationService: NotificationService,
               private flowService: FlowService,
               public dialogRef: MatDialogRef<DispatchComponent>) {
     this.flow = {
-      id:0,
+      id: 0,
       receivers: []
     }
 
@@ -56,17 +56,11 @@ export class ForwardComponent implements OnInit {
   }
 
   submit() {
-    let receivers = ''
-
-    for (let o of this.flow.receivers) {
-      receivers += ' - ' + o + '<br>'
-    }
-
-    this.flowService.forward(this.flow,()=>{
+    console.log('submited')
+    this.flowService.forward(this.flow, () => {
       this.flowService.getAllFlows()
-      this.notificationService.flowForwarded()
+      this.dialogRef.close()
     })
-    this.dialogRef.close()
   }
 
 }

@@ -32,7 +32,9 @@ export class ProfilComponent implements OnInit {
 
   setAvatar(file) {
     this.userService.updateAvatar(file, () => {
-      this.notification.avatarUpdated()
+      // userService.login(this.user.username,this.user.username,()=>{
+      // })
+        this.notification.avatarUpdated()
     })
   }
 

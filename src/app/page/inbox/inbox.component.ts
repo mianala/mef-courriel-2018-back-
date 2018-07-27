@@ -22,6 +22,8 @@ export class ProjectListComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
     this.filter.query.subscribe(query => {
       this.flowService.flows.subscribe(uflows => {
         this.flows = FilterService.filterFlow(uflows,query)

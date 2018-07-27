@@ -103,14 +103,14 @@ export class FilterService {
     })
   }
 
-  static treatedFlows(flows) {
+  static treatedFlows(flows,entity) {
     return flows.filter(flow => {
-      return flow.status_id == 1 && flow.direction == 1
+      return FilterService.treatedFlow(flow,entity)
     })
   }
 
-  static treatedFlow(flow) {
-    return flow.status_id == 1 && flow.direction == 1
+  static treatedFlow(flow,entity) {
+    return flow.status_id == 1 && flow.entity_id == entity.id
   }
 
   static shippedFlow(flows) {
@@ -123,8 +123,8 @@ export class FilterService {
     return flow.direction == 3
   }
 
-  static isSent(flow, user) {
-    return flow.sender_entity_id == user.entity_id && flow.direction == 1
+  static isSent(flow, entity) {
+    return flow.sender_entity_id == entity.id && flow.direction == 1
   }
 
   static isImported(flow) {
@@ -135,9 +135,9 @@ export class FilterService {
     return flow.direction == 1
   }
 
-  static sentFlow(flows, user) {
+  static sentFlow(flows, entity) {
     return flows.filter(flow => {
-      return this.isSent(flow, user)
+      return this.isSent(flow, entity)
     })
   }
 
@@ -158,33 +158,19 @@ export class FilterService {
   }
 
   static relativeFlow(flow) {
-    // 1-2-2 -> 1-2-0-2 / 1-2-3
-
-  /*  let sender = flow.sender_entity.split('-')
-    sender.pop()
-    if (sender[sender.length - 1] == 0) {
-      sender.pop();
-    }
-    let receiver = flow.entity.split('-')
-    receiver.pop()
-    if (receiver[receiver.length - 1] == 0) {
-      receiver.pop();
-    }
-
-    return sender == receiver;*/
-
+    // 1-2-2 -> 1-2-0-2 / 1-2-3 not up not down
 
   }
 
-  static inbox(flows, user) {
+  static inbox(flows, entity) {
 
     return flows.filter((flow) => {
-      return FilterService.received(flow, user)
+      return FilterService.received(flow, entity)
     })
   }
 
-  static received(flow, user) {
-    return flow.entity_id == user.entity_id && flow.status_id != 1 && flow.direction == 1
+  static received(flow, entity) {
+    return flow.entity_id == entity.id && flow.status_id != 1 && flow.direction == 1
   }
 
 }

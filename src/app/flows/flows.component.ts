@@ -22,6 +22,7 @@ export class FlowsComponent implements OnInit {
   @Input() flows;
   @Input() visibility: boolean;
   user;
+  entity;
   relatives = [];
 
 
@@ -32,7 +33,6 @@ export class FlowsComponent implements OnInit {
   paginate = GlobalService.paginate
   // MatPaginator Output
   pageEvent: PageEvent = new PageEvent();
-
 
 
   constructor(public router: Router,
@@ -46,6 +46,10 @@ export class FlowsComponent implements OnInit {
     this.userService.user.subscribe(user => {
       this.user = user
     });
+
+    this.entityService.entity.subscribe(entity => {
+      this.entity = entity
+    })
 
     this.entityService.relativeEntities.subscribe(entities => {
       this.relatives = entities
@@ -61,7 +65,7 @@ export class FlowsComponent implements OnInit {
   }
 
   treated(flow) {
-    return FilterService.treatedFlow(flow)
+    return FilterService.treatedFlow(flow, this.entity)
   }
 
   title_label(flow) {
@@ -69,7 +73,7 @@ export class FlowsComponent implements OnInit {
       return 'au ' + flow.destination
     } else if (FilterService.isImported(flow)) {
       return flow.destination
-    } else if (FilterService.isSent(flow, this.user)) {
+    } else if (FilterService.isSent(flow, this.entity)) {
       return 'à ' + flow.entity_label
     } else {
       return flow.sender_entity_label
@@ -82,7 +86,7 @@ export class FlowsComponent implements OnInit {
   }
 
   designateur(flow) {
-    if (FilterService.isSent(flow, this.user)) {
+    if (FilterService.isSent(flow, this.entity)) {
       return ''
     }
   }
@@ -97,7 +101,7 @@ export class FlowsComponent implements OnInit {
 
   forwardable(flow) {
     return this.entityService.relativeEntities.getValue().length
-     // && FilterService.received(flow,this.user) && flow.sender_entity.length > flow.entity.length
+    // && FilterService.received(flow,this.user) && flow.sender_entity.length > flow.entity.length
   }
 
   viewable(flow) {
@@ -113,7 +117,7 @@ export class FlowsComponent implements OnInit {
   }
 
   received(flow) {
-    return FilterService.received(flow, this.user)
+    return FilterService.received(flow, this.entity)
   }
 
   submitable(id) {

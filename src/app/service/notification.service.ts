@@ -15,7 +15,7 @@ export class NotificationService {
   constructor(public snackBar: MatSnackBar) {
     document.addEventListener('DOMContentLoaded', function () {
       if (!Notification) {
-        alert('Desktop notifications not available in your browser. Try Chromium.');
+        // alert('Desktop notifications not available in your browser. Try Chromium.');
         return;
       }
 
@@ -32,14 +32,13 @@ export class NotificationService {
   }
 
   connected() {
-    const message = 'Vous ête connecté';
+    const message = 'Vous êtes connecté';
     this.openSnack(message);
   }
 
   print(p: string) {
     const message = p;
     this.openSnack(message);
-    this.notify(message)
   }
 
   userSaved() {
@@ -49,7 +48,7 @@ export class NotificationService {
   }
 
   loggedOut() {
-    const message = 'Vous ête déconnecté';
+    const message = 'Vous êtes déconnecté';
     this.openSnack(message);
     this.notify(message)
   }

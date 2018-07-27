@@ -50,12 +50,12 @@
           Modifier
         </button>
 
-        <button *ngIf="treatable(project) " [disabled]="treating==project.id" (click)="treat(project)" mat-menu-item=""
-                color="primary">
-          <mat-icon *ngIf="treating!=project.id" class="mat-18">check</mat-icon>
-          <loading-button *ngIf="treating == project.id"></loading-button>
-          Traité/Vu
-        </button>
+        <!--<button *ngIf="treatable(project) " [disabled]="treating==project.id" (click)="treat(project)" mat-menu-item=""
+                        color="primary">
+                  <mat-icon *ngIf="treating!=project.id" class="mat-18">check</mat-icon>
+                  <loading-button *ngIf="treating == project.id"></loading-button>
+                  Traité/Vu
+                </button>-->
       </mat-menu>
 
       <button *ngIf="treatable(project)" mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">
