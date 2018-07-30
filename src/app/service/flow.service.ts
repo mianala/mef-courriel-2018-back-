@@ -4,8 +4,6 @@ import {UserService} from './user.service';
 import {NotificationService} from './notification.service';
 import {GlobalService} from './global.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Flow} from '../../models/Flow';
-import {Router} from '@angular/router';
 import {ProjectService} from './project.service';
 import {EnvService} from './env.service';
 import {XhrService} from './xhr.service';

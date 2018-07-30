@@ -164,26 +164,28 @@ export class ProjectService {
   }
 
   update(project: any, next) {
+    if (this.user['id']) {
 
-    let formData: any = new FormData();
+      let formData: any = new FormData();
 
-    if (project.be) {
-      formData.append('be', JSON.stringify(project.be));
+      if (project.be) {
+        formData.append('be', JSON.stringify(project.be));
+      }
+
+      project.courriel_date = this.global.toOracleDate(project.courriel_date)
+      project.received_date = this.global.toOracleDate(project.received_date)
+      project.user_id = this.user.id;
+
+      formData.append('project', JSON.stringify(project));
+
+      for (let i = 0; i < project.files.length; i++) {
+        formData.append('files', project.files[i], project.files[i].name)
+      }
+
+      this.xhr.put(this.url, formData, () => {
+        next()
+      })
     }
-
-    project.courriel_date = this.global.toOracleDate(project.courriel_date)
-    project.received_date = this.global.toOracleDate(project.received_date)
-
-    formData.append('project', JSON.stringify(project));
-
-    for (let i = 0; i < project.files.length; i++) {
-      formData.append('files', project.files[i], project.files[i].name)
-    }
-
-    this.xhr.put(this.url, formData, () => {
-      next()
-    })
-
   }
 
 

@@ -48,18 +48,12 @@ export class ExportComponent implements OnInit {
     const id = event.value;
 
     switch (id) {
-      case 0 : {
-        this.flow.hasBe = 0;
-        break;
-      }
-      case 1 : {
-        this.flow.hasBe = 0;
-        break;
-      }
-      case 2 : {
+      case 3 : {
         this.flow.hasBe = 1;
         break;
       }
+      default:
+        this.flow.hasBe = 0;
 
     }
   }
@@ -69,11 +63,11 @@ export class ExportComponent implements OnInit {
   }
 
   valid() {
-    const v : boolean = this.flow.receiver.length > 1;
+    const v: boolean = this.flow.receiver.length > 1;
 
     if (this.flow.hasBe) {
       return v && this.flow.be.valid
-    }else{
+    } else {
       return v
     }
   }
