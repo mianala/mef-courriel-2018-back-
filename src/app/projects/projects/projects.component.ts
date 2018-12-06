@@ -74,6 +74,11 @@ export class ProjectsComponent implements OnInit {
     return project.status_id != 1
   }
 
+  remove(project) {
+    this.projectService.removeProject(project.id, () => {
+    })
+  }
+
   treat(project) {
     this.treating = project.id
     this.projectService.treat(project, () => {

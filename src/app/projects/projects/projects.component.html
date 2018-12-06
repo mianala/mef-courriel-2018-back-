@@ -49,6 +49,11 @@
           <mat-icon class="mat-18">edit</mat-icon>
           Modifier
         </button>
+        <button (click)="remove(project)" mat-menu-item=""
+                color="primary">
+          <mat-icon class="mat-18">delete</mat-icon>
+          Suprimer
+        </button>
 
         <!--<button *ngIf="treatable(project) " [disabled]="treating==project.id" (click)="treat(project)" mat-menu-item=""
                         color="primary">

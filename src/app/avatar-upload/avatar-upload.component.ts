@@ -25,7 +25,7 @@ export class AvatarUploadComponent implements OnInit {
       this.notification.notAnImage()
       return
     }
-    if (file.size > 3000000) {
+    if (file.size > 2000000) {
       this.notification.fileTooHeavy()
       return
     }

@@ -132,6 +132,17 @@ export class ProjectService {
     })
   }
 
+  removeProject(id, next) {
+    this.http.delete(this.url + '/' + id).subscribe(()=>{
+      next()
+    })
+  }
+  removeProjectFile(id, next) {
+    this.http.delete(EnvService.ip() + '/api/files/' + id).subscribe(()=>{
+      next()
+    })
+  }
+
   save(project: any, next) {
 
     let formData: any = new FormData();
@@ -178,8 +189,8 @@ export class ProjectService {
 
       formData.append('project', JSON.stringify(project));
 
-      for (let i = 0; i < project.files.length; i++) {
-        formData.append('files', project.files[i], project.files[i].name)
+      for (let i = 0; i < project.newFiles.length; i++) {
+        formData.append('files', project.newFiles[i], project.newFiles[i].name)
       }
 
       this.xhr.put(this.url, formData, () => {

@@ -11,10 +11,11 @@ export class EditProjectComponent implements OnInit {
   project
   loading = false
 
-  constructor(private projectService: ProjectService, private notification:NotificationService) {
+  constructor(private projectService: ProjectService, private notification: NotificationService) {
 
     this.project = this.projectService.project.getValue()
-    this.project.files = []
+    this.project.newFiles = []
+    this.project.updatedFiles = this.project.files
 
   }
 
@@ -36,9 +37,14 @@ export class EditProjectComponent implements OnInit {
     })
   }
 
+  removeProjectFile(id) {
+    this.projectService.removeProjectFile(id, () => {
+      console.log('project file removed')
+    })
+  }
 
 
   getFiles(files) {
-    this.project.files = this.project.files.concat(files)
+    this.project.newFiles = this.project.newFiles.concat(files)
   }
 }

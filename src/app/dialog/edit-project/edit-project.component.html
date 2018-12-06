@@ -4,7 +4,8 @@
 <mat-dialog-content class="content">
   <app-save-form [project]="project" (onUpdate)="updateProject($event)"></app-save-form>
 
-  <app-files [files]="project.files"></app-files>
+  <app-files [files]="project.updatedFiles"></app-files>
+  <app-files [files]="project.newFiles"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
