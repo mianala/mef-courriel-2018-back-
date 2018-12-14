@@ -6,6 +6,7 @@ import {MatDialogRef} from '@angular/material';
 import {ProjectService} from '../../service/project.service';
 import {FlowService} from '../../service/flow.service';
 import {GlobalService} from '../../service/global.service';
+import {EntityService} from '../../service/entity.service';
 
 
 @Component({
@@ -27,13 +28,14 @@ export class DialogSaveProjectComponent implements OnInit {
   return_types = GlobalService.return_types;
   form_max_date: Date;
   active_index = 0;
+  last_narrive;
 
   constructor(private froalaService: FroalaService,
               private dialogRef: MatDialogRef<DialogSaveProjectComponent>,
               private userService: UserService,
               private flowService: FlowService,
               private notification: NotificationService,
-              private projectService: ProjectService) {
+              private projectService: ProjectService, private entityService: EntityService) {
     this.flow = {
       numero: '',
       project_id: 0,
@@ -42,6 +44,7 @@ export class DialogSaveProjectComponent implements OnInit {
       content: '',
     };
 
+    this.last_narrive = entityService.entity.getValue()['n_arrive'];
     this.letter_types = GlobalService.letter_types;
     this.in_types = GlobalService.in_types;
 
@@ -50,12 +53,13 @@ export class DialogSaveProjectComponent implements OnInit {
 
     this.project = {
       n_arrive: '',
-      sender: '',
-      ref: '',
+      sender: 'MINISTRE',
+      ref: 'MIN',
       type: 0,
       lettre: 0,
-      observations: '',
+      observations: 'OBSERVATIONS',
       content: '',
+      project_id: 3,
       date: new Date(),
       received_date: new Date(),
     };
@@ -81,7 +85,7 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   validProject() {
-    return !(this.project.n_arrive.length < 1 || this.project.sender.length < 2 || this.project.content.length < 3);
+    return !(this.project.sender.length < 2 || this.project.content.length < 3);
   }
 
   validFlow() {

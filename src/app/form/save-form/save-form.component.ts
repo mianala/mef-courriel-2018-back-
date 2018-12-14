@@ -11,7 +11,7 @@ export class SaveFormComponent implements OnInit {
   @Output() onUpdate = new EventEmitter()
   letter_types;
   in_types;
-  form_max_date
+  form_max_date;
 
   loading = false;
 
@@ -19,7 +19,6 @@ export class SaveFormComponent implements OnInit {
     this.letter_types = GlobalService.letter_types;
     this.in_types = GlobalService.in_types;
     this.form_max_date = new Date();
-
   }
 
   composed(){
