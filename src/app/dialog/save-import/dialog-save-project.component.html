@@ -7,11 +7,16 @@
     <mat-tab label="Enregistrement">
       <form (ngSubmit)="submit()" class="form" fxLayout="column">
         <!--arrive mfb-->
-        <mat-form-field class="">
-          <input type="text" required [(ngModel)]="project.n_arrive" name="n_arrive" matInput
-                 placeholder="N° du courrier">
-        </mat-form-field>
-
+        <div fxLayout="row">
+          <mat-form-field class="">
+            <input type="text" disabled required [(ngModel)]="last_n_project" name="n_project" matInput
+                   placeholder="N° du project">
+          </mat-form-field>
+          <mat-form-field class="">
+            <input type="text" required [(ngModel)]="project.n_arrive" name="n_arrive" matInput
+                   placeholder="N° du courrier">
+          </mat-form-field>
+        </div>
         <mat-form-field class="">
           <input [(ngModel)]="project.sender" required name="sender" matInput placeholder="Expediteur">
         </mat-form-field>

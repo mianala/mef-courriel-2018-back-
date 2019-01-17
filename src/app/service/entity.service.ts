@@ -16,6 +16,7 @@ export class EntityService {
   entity = new BehaviorSubject({});
   dgbEntities = new BehaviorSubject([]);
   user;
+  last_n_project = new BehaviorSubject(0)
 
   constructor(private http: Http,
               private userService: UserService) {
@@ -28,6 +29,9 @@ export class EntityService {
         this.user = user;
 
         const entity = user['entity'];
+
+        //get the entity here
+
         entity.numero = '## - 2018/'+ entity.header;
         this.entity.next(entity);
 

@@ -20,6 +20,7 @@ export class ProjectService {
   project = new BehaviorSubject({
     id: 0,
   });
+  last_n_project = new BehaviorSubject(0)
   user;
   options = new RequestOptions({withCredentials: true});
 
@@ -44,6 +45,7 @@ export class ProjectService {
       this.getTreatedProjects(projects);
       this.getShippedProjects(projects);
       this.getDispatchedProjects(projects)
+      this.getLastNProject(projects)
     });
 
     if (localStorage.getItem('project')) {
@@ -56,6 +58,12 @@ export class ProjectService {
     })
 
 
+  }
+
+  getLastNProject(projects) {
+    if (projects[0]) {
+      this.last_n_project.next(projects[0]['n_project'])
+    }
   }
 
   getSavedProjects(projects) {
@@ -133,12 +141,13 @@ export class ProjectService {
   }
 
   removeProject(id, next) {
-    this.http.delete(this.url + '/' + id).subscribe(()=>{
+    this.http.delete(this.url + '/' + id).subscribe(() => {
       next()
     })
   }
+
   removeProjectFile(id, next) {
-    this.http.delete(EnvService.ip() + '/api/files/' + id).subscribe(()=>{
+    this.http.delete(EnvService.ip() + '/api/files/' + id).subscribe(() => {
       next()
     })
   }

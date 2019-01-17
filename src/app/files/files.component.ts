@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-files',
@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class FilesComponent implements OnInit {
   @Input() files;
-
+  @Output() fileRemoved = new EventEmitter;
   constructor() {
   }
 
@@ -15,6 +15,11 @@ export class FilesComponent implements OnInit {
   }
 
   remove(file) {
+    if (file.id) {
+      console.log(file)
+      this.fileRemoved.emit(file.id)
+    }
+
     this.files.splice(this.files.indexOf(file), 1)
   }
 

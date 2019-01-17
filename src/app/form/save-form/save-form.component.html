@@ -1,12 +1,9 @@
 <form class="form" fxLayout="column">
   <!--arrive mfb-->
-  <mat-form-field class="">
-    <input type="text" required [(ngModel)]="project.project_id" name="n_project" matInput
-           placeholder="N° du courrier">
-  </mat-form-field>
+
   <mat-form-field class="">
     <input type="text" required (change)="update()" [(ngModel)]="project.n_arrive" name="n_arrive" matInput
-           placeholder="N° du projet">
+           placeholder="N° du courrier">
   </mat-form-field>
 
   <mat-form-field class="">

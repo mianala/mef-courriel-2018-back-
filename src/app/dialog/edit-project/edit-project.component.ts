@@ -28,7 +28,7 @@ export class EditProjectComponent implements OnInit {
   }
 
   validProject() {
-    return !(this.project.n_arrive.length < 1 || this.project.sender.length < 2 || this.project.title.length < 3);
+    return !(this.project.sender.length < 2 || this.project.title.length < 3);
   }
 
   submit() {

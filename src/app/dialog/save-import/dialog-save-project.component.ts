@@ -28,7 +28,7 @@ export class DialogSaveProjectComponent implements OnInit {
   return_types = GlobalService.return_types;
   form_max_date: Date;
   active_index = 0;
-  last_narrive;
+  last_n_project
 
   constructor(private froalaService: FroalaService,
               private dialogRef: MatDialogRef<DialogSaveProjectComponent>,
@@ -44,7 +44,6 @@ export class DialogSaveProjectComponent implements OnInit {
       content: '',
     };
 
-    this.last_narrive = entityService.entity.getValue()['n_arrive'];
     this.letter_types = GlobalService.letter_types;
     this.in_types = GlobalService.in_types;
 
@@ -59,10 +58,16 @@ export class DialogSaveProjectComponent implements OnInit {
       lettre: 0,
       observations: 'OBSERVATIONS',
       content: '',
-      project_id: 3,
       date: new Date(),
       received_date: new Date(),
     };
+
+    let entity = this.entityService.entity.getValue()
+
+    this.entityService.last_n_project.subscribe(id => {
+      this.last_n_project = entity['label'] + '-' + new Date().getFullYear() + '/' + (id + 1)
+    })
+
 
     this.shipped_projects = [];
 
