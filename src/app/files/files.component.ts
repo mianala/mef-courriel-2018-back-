@@ -17,7 +17,7 @@ export class FilesComponent implements OnInit {
   remove(file) {
     if (file.id) {
       console.log(file)
-      this.fileRemoved.emit(file.id)
+      this.fileRemoved.emit(file)
     }
 
     this.files.splice(this.files.indexOf(file), 1)

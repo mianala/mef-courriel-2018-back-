@@ -8,6 +8,7 @@ import {GlobalService} from '../../service/global.service';
 import {FilterService} from '../../service/filter.service';
 import {ExportComponent} from '../../dialog/export/export.component';
 import {EditProjectComponent} from '../../dialog/edit-project/edit-project.component';
+import {NotificationService} from '../../service/notification.service';
 
 @Component({
   selector: 'projects',
@@ -17,22 +18,22 @@ import {EditProjectComponent} from '../../dialog/edit-project/edit-project.compo
 export class ProjectsComponent implements OnInit {
   @Input() projects;
   shownProjects;
-  treating
+  treating;
 
   // MatPaginator Inputs
   length = 0;
 
-  paginator = GlobalService.paginator
-  paginate = GlobalService.paginate
+  paginator = GlobalService.paginator;
+  paginate = GlobalService.paginate;
   // MatPaginator Output
   pageEvent: PageEvent = new PageEvent();
 
-  constructor(public router: Router,
+  constructor(private notification: NotificationService, public router: Router,
               public entityService: EntityService,
               public filter: FilterService,
               public dialog: MatDialog,
               private projectService: ProjectService) {
-    this.pageEvent.pageIndex = 0
+    this.pageEvent.pageIndex = 0;
     this.pageEvent.pageSize = this.paginator.pageSize
   }
 
@@ -74,13 +75,16 @@ export class ProjectsComponent implements OnInit {
     return project.status_id != 1
   }
 
-  remove(project) {
-    this.projectService.removeProject(project.id, () => {
-    })
+  delete(project) {
+    if (confirm('Suprimer le projet '+ project.entity_label + '/' +project.n_project + ' ?')) {
+      this.projectService.deleteProject(project, () => {
+      });
+      this.notification.projectDeleted();
+    }
   }
 
   treat(project) {
-    this.treating = project.id
+    this.treating = project.id;
     this.projectService.treat(project, () => {
       this.treating = 0
     })

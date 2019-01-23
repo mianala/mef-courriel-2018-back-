@@ -37,10 +37,13 @@ export class EditProjectComponent implements OnInit {
     })
   }
 
-  removeProjectFile(id) {
-    this.projectService.removeProjectFile(id, () => {
-      console.log('project file removed')
-    })
+  removeProjectFile(file) {
+    if (confirm('Suprimer le fichier '+ file.originalname+' ?')) {
+
+      this.projectService.removeProjectFile(file.id, () => {
+        this.notification.fileRemoved()
+      })
+    }
   }
 
 

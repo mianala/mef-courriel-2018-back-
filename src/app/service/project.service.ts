@@ -20,7 +20,7 @@ export class ProjectService {
   project = new BehaviorSubject({
     id: 0,
   });
-  last_n_project = new BehaviorSubject(0)
+  last_n_project = new BehaviorSubject(0);
   user;
   options = new RequestOptions({withCredentials: true});
 
@@ -44,7 +44,7 @@ export class ProjectService {
       this.getSavedProjects(projects);
       this.getTreatedProjects(projects);
       this.getShippedProjects(projects);
-      this.getDispatchedProjects(projects)
+      this.getDispatchedProjects(projects);
       this.getLastNProject(projects)
     });
 
@@ -140,10 +140,15 @@ export class ProjectService {
     })
   }
 
-  removeProject(id, next) {
-    this.http.delete(this.url + '/' + id).subscribe(() => {
+  deleteProject(project, next) {
+
+    this.http.delete(this.url + '/' + project.id).subscribe(() => {
       next()
-    })
+    });
+    let p = this.all_projects.getValue();
+    p.splice(this.all_projects.getValue().indexOf(project), 1);
+    this.all_projects.next(p)
+
   }
 
   removeProjectFile(id, next) {
@@ -192,8 +197,8 @@ export class ProjectService {
         formData.append('be', JSON.stringify(project.be));
       }
 
-      project.courriel_date = this.global.toOracleDate(project.courriel_date)
-      project.received_date = this.global.toOracleDate(project.received_date)
+      project.courriel_date = this.global.toOracleDate(project.courriel_date);
+      project.received_date = this.global.toOracleDate(project.received_date);
       project.user_id = this.user.id;
 
       formData.append('project', JSON.stringify(project));
@@ -231,7 +236,7 @@ export class ProjectService {
       user_id: this.user.id,
     };
 
-    delete composition.be.valid
+    delete composition.be.valid;
 
 
     formData.append('project', JSON.stringify(project));

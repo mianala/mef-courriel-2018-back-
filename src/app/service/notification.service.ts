@@ -160,6 +160,16 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+  fileRemoved() {
+    const message = 'Fichier supprimé';
+    this.openSnack(message);
+  }
+
+  projectDeleted() {
+    const message = 'Projet supprimé';
+    this.openSnack(message);
+  }
+
   /*  noFile() {
       const message = 'Fichier';
       this.openSnack(message);

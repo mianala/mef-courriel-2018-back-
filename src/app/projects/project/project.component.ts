@@ -3,6 +3,8 @@ import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
 import {MatDialog} from "@angular/material";
 import {EntityService} from "../../service/entity.service";
 import {GlobalService} from "../../service/global.service";
+import {ProjectService} from '../../service/project.service';
+import {NotificationService} from '../../service/notification.service';
 
 @Component({
   selector: 'project',
@@ -15,7 +17,7 @@ export class ProjectComponent implements OnInit {
   letter_types;
   sender = '';
 
-  constructor(public dialog: MatDialog, public entityService: EntityService) {
+  constructor(public dialog: MatDialog, public entityService: EntityService, private projectService:ProjectService) {
     this.letter_types = GlobalService.letter_types;
     this.in_types = GlobalService.in_types
   }
