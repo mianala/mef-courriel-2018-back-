@@ -41,6 +41,7 @@ export class GlobalService {
     'Arrêté',
     'Decret',
     'Magazine',
+    'Note de service',
     'Mensuel'
   ];
 
