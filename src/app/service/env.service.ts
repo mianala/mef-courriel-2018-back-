@@ -9,6 +9,8 @@ export class EnvService {
     // return 'http://192.2.27.69:3000'
   }
 
-  constructor() { }
+  constructor() {
+    
+   }
 
 }

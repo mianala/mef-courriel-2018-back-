@@ -22,6 +22,7 @@ export class EntityService {
               private userService: UserService) {
     this.url = EnvService.ip() + '/api/entities';
 
+    
     this.getEntities();
     this.user = this.userService.user.subscribe(user => {
       if (user['id']) {
