@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {MatSnackBar} from '@angular/material';
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 declare var Notification: any;
 
@@ -19,8 +19,9 @@ export class NotificationService {
         return;
       }
 
-      if (Notification.permission !== 'granted')
+      if (Notification.permission !== 'granted') {
         Notification.requestPermission();
+      }
     });
   }
 
@@ -43,6 +44,12 @@ export class NotificationService {
 
   userSaved() {
     const message = 'Vous avez été enregistré avec succès';
+    this.openSnack(message);
+    this.notify(message)
+  }
+
+  requestError() {
+    const message = 'Probleme de connexion, veuillez réessayer';
     this.openSnack(message);
     this.notify(message)
   }
@@ -106,6 +113,14 @@ export class NotificationService {
     const message = 'Un courriel a été exporté';
     this.openSnack(message);
     this.notify(message)
+  }
+
+  checkId(id,next) {
+    if (id) {
+      return next()
+    } else {
+      this.requestError()
+    }
   }
 
   flowImported() {

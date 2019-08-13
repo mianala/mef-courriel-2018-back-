@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class FilterService {
@@ -75,6 +75,64 @@ export class FilterService {
     return filtered
   }
 
+  static fitlerRelativeEntities(entities, activeEntity) {
+
+    let array = activeEntity['entity'].split('-');
+    const level = array.length;
+    const attached = array[level - 2] == '0';
+
+    if (attached) {
+      // array.splice(-1, 2) not working?
+      array.pop()
+      array.pop()
+    } else {
+      array.splice(-1, 1)
+    }
+    let query = array.join('-')
+    let relative = RegExp('^' + query + '(-0)?-\\d+$')
+
+    const filtered = entities.filter(entity => {
+      return relative.test(entity.entity) && entity.entity != activeEntity['entity']
+      // regex
+    })
+    console.log(filtered);
+    return filtered
+  }
+
+  static fitlerUpEntities(entities, activeEntity) {
+    let array = activeEntity['entity'].split('-');
+    const level = array.length;
+    const attached = array[level - 2] == '0';
+
+    if (attached) {
+      array.pop()
+      array.pop()
+    } else {
+      array.splice(-1, 1)
+    }
+
+    let label = array.join('-')
+
+    const filtered = entities.filter(entity => {
+      return entity.entity == label
+    })
+
+    console.log(filtered);
+    return filtered
+  }
+
+  static fitlerDownEntities(entities, activeEntity) {
+    let down = RegExp('^' + activeEntity.entity + '-(0-)?\\d+$')
+    const filtered = entities.filter(entity => {
+      return down.test(entity.entity)
+      // regex
+    })
+
+    console.log(filtered)
+    return filtered
+  }
+
+
   static savedProjects(projects) {
     return projects.filter(project => {
       return project.dispatched != 1 && project.status_id != 1
@@ -103,13 +161,13 @@ export class FilterService {
     })
   }
 
-  static treatedFlows(flows,entity) {
+  static treatedFlows(flows, entity) {
     return flows.filter(flow => {
-      return FilterService.treatedFlow(flow,entity)
+      return FilterService.treatedFlow(flow, entity)
     })
   }
 
-  static treatedFlow(flow,entity) {
+  static treatedFlow(flow, entity) {
     return flow.status_id == 1 && flow.entity_id == entity.id
   }
 

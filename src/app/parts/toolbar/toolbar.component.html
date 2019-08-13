@@ -1,0 +1,16 @@
+<div class="container mat-elevation-z2" fxLayout="row">
+  <mat-form-field >
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput type="text" placeholder="Rechercher" [(ngModel)]="value">
+    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <!-- <mat-form-field>
+    <mat-select placeholder="Trier par">
+      <mat-option selected value="1">Numero</mat-option>
+      <mat-option value="2">Date Courriel</mat-option>
+      <mat-option value="2">Date de Reception</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+</div>

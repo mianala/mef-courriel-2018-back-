@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {EntityService} from "../../service/entity.service";
-import {FlowService} from "../../service/flow.service";
-import {ProjectService} from "../../service/project.service";
+import { Component, OnInit } from '@angular/core';
+import { EntityService } from "../../service/entity.service";
+import { FlowService } from "../../service/flow.service";
+import { ProjectService } from "../../service/project.service";
 
 @Component({
   selector: 'app-project-nav',
@@ -24,7 +24,10 @@ export class ProjectNavComponent implements OnInit {
 
   constructor(private entityService: EntityService, public flowService: FlowService, public projectService: ProjectService) {
     this.entityService.entity.subscribe(entity => {
-      this.label = entity['label']
+      if (!entity) { return }
+      if (entity['label']) {
+        this.label = entity['label']
+      }
     })
   }
 

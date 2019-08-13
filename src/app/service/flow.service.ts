@@ -46,6 +46,7 @@ export class FlowService {
       .user = this.userService.user.getValue();
 
     this.entityService.entity.subscribe(entity => {
+      if(!entity){return}
       if (entity['id']) {
         this.entity = entity
         this.getAllFlows();

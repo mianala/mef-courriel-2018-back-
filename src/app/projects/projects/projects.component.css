@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  padding: 1em;
+}
+
+:host mat-paginator {
+  margin-top: 2em;
+}
+/*# sourceMappingURL=projects.component.css.map */

@@ -1,0 +1,11 @@
+:host project {
+  display: block;
+  padding: 2em;
+  background-color: #fff;
+}
+
+:host .flow-container {
+  display: block;
+  padding: 1em;
+}
+/*# sourceMappingURL=project-page.component.css.map */

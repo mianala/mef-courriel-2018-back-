@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AAAA,GAAG,CAAA;EACD,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;CACb;;AAED,AAAA,KAAK,CAAA;EAEH,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,MAAM,EAAE,GAAG;EACX,OAAO,EAAC,YAAY;CACrB",
+    "sources": [
+        "loading-button.component.scss"
+    ],
+    "names": [],
+    "file": "loading-button.component.css"
+}

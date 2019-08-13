@@ -1,11 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Http, RequestOptions} from '@angular/http';
-import {GlobalService} from './global.service';
-import {UserService} from './user.service';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {EnvService} from './env.service';
-import {XhrService} from './xhr.service';
-import {FilterService} from './filter.service';
+import { Injectable } from '@angular/core';
+import { Http, RequestOptions } from '@angular/http';
+import { GlobalService } from './global.service';
+import { UserService } from './user.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { EnvService } from './env.service';
+import { XhrService } from './xhr.service';
+import { FilterService } from './filter.service';
+import { project } from 'models/Project';
 
 
 @Injectable()
@@ -22,12 +23,12 @@ export class ProjectService {
   });
   last_n_project = new BehaviorSubject(0);
   user;
-  options = new RequestOptions({withCredentials: true});
+  options = new RequestOptions({ withCredentials: true });
 
   constructor(private global: GlobalService,
-              private userService: UserService,
-              private xhr: XhrService,
-              private http: Http) {
+    private userService: UserService,
+    private xhr: XhrService,
+    private http: Http) {
     this.url = EnvService.ip() + '/api/projects';
     this.user = this.userService.user.getValue();
     // console.log('initializing projects');
@@ -117,15 +118,15 @@ export class ProjectService {
 
     this.http.get(this.url + '/all/' + this.user.entity_id)
       .map(res => res.json()).subscribe(projects => {
-      projects.sort(GlobalService.sortByDate);
+        projects.sort(GlobalService.sortByDate);
 
-      if (this.projects.getValue() == projects) {
-        return
-      }
+        if (this.projects.getValue() == projects) {
+          return
+        }
 
-      this.shipped_projects.next(projects);
-      this.all_projects.next(projects)
-    })
+        this.shipped_projects.next(projects);
+        this.all_projects.next(projects)
+      })
   }
 
 
@@ -136,8 +137,8 @@ export class ProjectService {
   setProjectFromId(id) {
     this.http.get(this.url + '/' + id)
       .map(res => res.json()).subscribe(project => {
-      this.project.next(project)
-    })
+        this.project.next(project)
+      })
   }
 
   deleteProject(project, next) {
@@ -145,21 +146,22 @@ export class ProjectService {
     this.http.delete(this.url + '/' + project.id).subscribe(() => {
       next()
     });
-    let p = this.all_projects.getValue();
+    const p = this.all_projects.getValue();
     p.splice(this.all_projects.getValue().indexOf(project), 1);
     this.all_projects.next(p)
 
   }
 
   removeProjectFile(id, next) {
-    this.http.delete(EnvService.ip() + '/api/files/' + id).subscribe(() => {
-      next()
+    this.http.delete(EnvService.ip() + '/api/files/' + id).subscribe((result) => {
+      console.log(result)
+      next(result.status)
     })
   }
 
   save(project: any, next) {
 
-    let formData: any = new FormData();
+    const formData: any = new FormData();
 
     if (project.be) {
       formData.append('be', JSON.stringify(project.be));
@@ -182,16 +184,49 @@ export class ProjectService {
       formData.append('files', project.files[i], project.files[i].name)
     }
 
-    this.xhr.promise(this.url, formData, () => {
-      next()
-    })
+    this.xhr.promise(this.url, formData, (result) => {
+      // if OK THIS IS REALLY REALLY IMPORTANT BECAUSE IF NOT OK, HAVE TO DO SOMETHING
+      // , add projetct to projects
+      result = JSON.parse(result)
+      const id = result.id
+      var p = {
+        id: result.id,
+        ref: project.ref,
+        n_arrive: project.n_arrive,
+        n_arrive_dg: project.n_arrive,
+        numero: 123,
+        date: project.date,
+        courriel_date: project.date,
+        received_date: project.received_date,
+        content: project.observations,
+        entity_id: project.entity_id,
+        user_id: this.user.id,
+        type_id: project.type,
+        letter_id: 0,
+        status_id: 0,
+        dispatched: 0,
+        composed: 0,
+        n_project: 0,
+        entity_label: this.user.entity_label,
+        sender: project.sender,
+        title: project.content,
+        files: project.files,
 
+        departure_date: new Date(),
+        status_date: new Date(),
+      }
+      const ps: any[] = this.all_projects.getValue()
+      this.all_projects.next([p, ...ps])
+      
+      console.log(result)
+      next(id)
+    })
   }
 
   update(project: any, next) {
     if (this.user['id']) {
 
-      let formData: any = new FormData();
+      const formData: any = new FormData();
 
       if (project.be) {
         formData.append('be', JSON.stringify(project.be));
@@ -207,8 +242,9 @@ export class ProjectService {
         formData.append('files', project.newFiles[i], project.newFiles[i].name)
       }
 
-      this.xhr.put(this.url, formData, () => {
-        next()
+      this.xhr.put(this.url, formData, (result) => {
+        result = JSON.parse(result)
+        next(result.id)
       })
     }
   }
@@ -217,7 +253,7 @@ export class ProjectService {
   treat(project, next) {
     const id = project.id;
     const entity_id = this.user.entity_id;
-    this.http.post(this.url + '/treat', {id: id, entity_id: entity_id}, this.options)
+    this.http.post(this.url + '/treat', { id: id, entity_id: entity_id }, this.options)
       .subscribe(result => {
         next();
         // console.log(result)
@@ -227,7 +263,7 @@ export class ProjectService {
   compose(composition, next) {
     // console.log(composition);
 
-    let formData: any = new FormData();
+    const formData: any = new FormData();
     const project = {
       sender_entity_id: this.user.entity.id,
       content: composition.content,
@@ -249,8 +285,8 @@ export class ProjectService {
     }
 
     this.xhr.promise(this.url + '/compose', formData, () => {
-        next()
-      }
+      next()
+    }
     )
   }
 

@@ -1,53 +1,57 @@
 <mat-nav-list>
+  
+
+  <mat-list-item routerLink="/projets/tous">
+    <mat-icon class="mat-18">folder</mat-icon>
+    <span>Courriers </span>
+  </mat-list-item>
+
+  <mat-list-item routerLink="/projets/enregistres">
+    <mat-icon class="mat-18">book</mat-icon>
+    <span>Projets ({{saved_count}})</span>
+  </mat-list-item>
+
+  <!-- dispatche and traite are the same so I will leave and remove dispatch -->
+  <!-- <mat-list-item routerLink="/projets/dispatches">
+    <mat-icon class="mat-18">call_split</mat-icon>
+    <span>Dispatchés ({{dispatched_count}})</span>
+  </mat-list-item> -->
+  
+  <mat-list-item routerLink="/projets/traites">
+    <mat-icon class="mat-18">done_all</mat-icon>
+    <span>Traités</span>
+  </mat-list-item>
+
+  <!-- <h4 class="nav-header">
+    _____
+  </h4>
+  <mat-list-item routerLink="/templates">
+    <mat-icon class="mat-18">library_books</mat-icon>
+    <span>Templates</span>
+  </mat-list-item> -->
+  
+  <h4 class="nav-header">
+    _____
+  </h4>
   <mat-list-item routerLink="/courriels">
     <mat-icon class="mat-18">markunread_mailbox</mat-icon>
     <span>Boite ({{flow_count}})</span>
   </mat-list-item>
   <mat-list-item routerLink="/envoyes">
     <mat-icon class="mat-18">send</mat-icon>
-    <span>Envoyés ({{sent_count}})</span>
+    <span>Envoyés </span>
   </mat-list-item>
-
   <mat-list-item routerLink="/traites">
     <mat-icon class="mat-18">checked</mat-icon>
-    <span>Traités ({{treated_count}})</span>
+    <span>Traités </span>
   </mat-list-item>
 
-  <mat-list-item routerLink="/exportes">
+  <!-- <mat-list-item routerLink="/exportes">
     <mat-icon class="mat-18">file_upload</mat-icon>
     <span>Exportés ({{shipped_count}})</span>
-  </mat-list-item>
-  <mat-list-item routerLink="/importes">
+  </mat-list-item> -->
+  <!-- <mat-list-item routerLink="/importes">
     <mat-icon class="mat-18">file_download</mat-icon>
     <span>Importés ({{returned_count}})</span>
-  </mat-list-item>
-  <h4 class="nav-header">
-    _____
-  </h4>
-  <mat-list-item routerLink="/projets/tous">
-    <mat-icon class="mat-18">folder</mat-icon>
-    <span>Projets ({{project_count}})</span>
-  </mat-list-item>
-
-  <mat-list-item routerLink="/projets/enregistres">
-    <mat-icon class="mat-18">new_releases</mat-icon>
-    <span>Nouveaux ({{saved_count}})</span>
-  </mat-list-item>
-
-  <mat-list-item routerLink="/projets/dispatches">
-    <mat-icon class="mat-18">call_split</mat-icon>
-    <span>Dispatchés ({{dispatched_count}})</span>
-  </mat-list-item>
-  <mat-list-item routerLink="/projets/traites">
-    <mat-icon class="mat-18">checked</mat-icon>
-    <span>Projets traités ({{treated_project_count}})</span>
-  </mat-list-item>
-
-  <h4 class="nav-header">
-    _____
-  </h4>
-  <mat-list-item routerLink="/templates">
-    <mat-icon class="mat-18">library_books</mat-icon>
-    <span>Templates</span>
-  </mat-list-item>
+  </mat-list-item> -->
 </mat-nav-list>

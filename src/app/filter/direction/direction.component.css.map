@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "direction.component.scss"
+    ],
+    "names": [],
+    "file": "direction.component.css"
+}

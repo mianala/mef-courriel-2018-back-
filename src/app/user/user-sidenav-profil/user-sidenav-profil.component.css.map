@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAA;EACH,OAAO,EAAE,IAAI;EAEX,eAAe,EAAE,aAAa;EAC9B,aAAa,EAAC,MAAM;CAKvB;;AATD,AAME,KANG,CAMH,SAAS,CAAA;EACP,UAAU,EAAE,MAAM;CACnB",
+    "sources": [
+        "user-sidenav-profil.component.scss"
+    ],
+    "names": [],
+    "file": "user-sidenav-profil.component.css"
+}

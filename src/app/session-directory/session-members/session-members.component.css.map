@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,OAAO,EAAE,KAAK;EACd,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,KAAK;CAMd;;AATD,AAIE,KAJG,CAIH,QAAQ,CAAC;EACP,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;EACf,KAAK,EAAE,IAAI;CACZ",
+    "sources": [
+        "session-members.component.scss"
+    ],
+    "names": [],
+    "file": "session-members.component.css"
+}

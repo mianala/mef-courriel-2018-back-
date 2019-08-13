@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,UAAU,EAAC,KAAK;CAejB;;AAlBD,AAIE,KAJG,CAIH,QAAQ,CAAC;EACP,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;CACvB;;AAPH,AASE,KATG,CASH,eAAe,CAAC;EACd,OAAO,EAAE,WAAW;EACpB,cAAc,EAAE,MAAM;CACvB;;AAZH,AAcE,KAdG,CAcH,gBAAgB,CAAC;EACf,MAAM,EAAE,GAAG;CACZ",
+    "sources": [
+        "dialog-save-project.component.scss"
+    ],
+    "names": [],
+    "file": "dialog-save-project.component.css"
+}

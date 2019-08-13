@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,mBAAmB,CAAA;EACjB,gBAAgB,EAAE,IAAI;CACvB;;AACD,AAAA,YAAY,CAAA;EACV,OAAO,EAAE,IAAI;EACb,qBAAqB,EAAE,OAAQ;CAEhC;;AAED,AAAA,OAAO,CAAA;EACL,UAAU,EAAE,KAAK;EACjB,WAAW,EAAE,IAAI;EACjB,eAAe,EAAE,SAAS;EAC1B,OAAO,EAAE,IAAI;CACd",
+    "sources": [
+        "observations.component.scss"
+    ],
+    "names": [],
+    "file": "observations.component.css"
+}

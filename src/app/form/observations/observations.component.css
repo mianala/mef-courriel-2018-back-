@@ -1,0 +1,19 @@
+mat-expansion-panel {
+  background-color: #eee;
+}
+
+.observation {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 6fr;
+      grid-template-columns: 1fr 6fr;
+}
+
+.author {
+  text-align: right;
+  font-weight: bold;
+  text-decoration: underline;
+  display: -ms-grid;
+  display: grid;
+}
+/*# sourceMappingURL=observations.component.css.map */

@@ -1,8 +1,8 @@
 <div mat-dialog-title>
-  <h2>Modifier </h2>
+  <p style="text-decoration:underline;">Dispatcher </p>
 </div>
 <mat-dialog-content class="content">
-  <app-save-form [project]="project" (onUpdate)="updateProject($event)"></app-save-form>
+  <app-save-form [(project)]="project"></app-save-form>
 
   <app-files [files]="project.updatedFiles" (fileRemoved)="removeProjectFile($event)"></app-files>
   <app-files [files]="project.newFiles"></app-files>
@@ -10,7 +10,7 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button [disabled]="!validProject()" matDialogClose="" (click)="submit()" mat-button>
+  <button [disabled]="loading || !validProject()" (click)="submit()" mat-button>
     <mat-icon *ngIf="!loading">edit</mat-icon>
     <loading-button *ngIf="loading"></loading-button>
     MODIFIER

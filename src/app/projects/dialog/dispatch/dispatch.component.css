@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+:host .observations {
+  padding: 1em;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-auto-flow: row;
+  border: 1px solid black;
+}
+
+:host .entities {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-auto-flow: row;
+  padding: 1em;
+}
+
+:host .receiver {
+  padding: 1em;
+}
+
+:host mat-tab-group {
+  border: 1px solid black;
+}
+/*# sourceMappingURL=dispatch.component.css.map */

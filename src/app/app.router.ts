@@ -27,7 +27,7 @@ export const router: Routes = [
 
     {
       path: '',
-      component: UserHomeDashboardComponent,
+      component: AllProjectsComponent,
     },
     {
       path: 'courriels',

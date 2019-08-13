@@ -1,0 +1,61 @@
+:host {
+  padding-left: 1em;
+  background-color: #E8E8E8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 3px;
+  margin-bottom: 1em;
+  color: #555;
+  text-decoration: none;
+  line-height: 40px;
+}
+
+:host .sender {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+:host .sender, :host .content {
+  color: #555;
+  text-decoration: none;
+}
+
+:host .attachment-icon {
+  -webkit-box-flex: .2;
+      -ms-flex-positive: .2;
+          flex-grow: .2;
+}
+
+:host .content {
+  -webkit-box-flex: 6;
+      -ms-flex-positive: 6;
+          flex-grow: 6;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+:host .sender, :host .star, :host .date, :host .attachment-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+:host:hover {
+  background-color: #d6d6d6;
+}
+
+:host[unseen] .sender, :host[unseen] .title {
+  font-weight: bold;
+}
+/*# sourceMappingURL=session.component.css.map */

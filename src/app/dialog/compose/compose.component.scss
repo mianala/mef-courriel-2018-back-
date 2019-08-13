@@ -10,12 +10,20 @@
     padding:0 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    border: 1px solid black;
     grid-auto-flow: row;
+  }
+  .receiver{
+    padding: 1em;
   }
   .entities{
     //padding:0 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding: 1em;
     grid-auto-flow: row;
+  }
+  mat-tab-group{
+    border: 1px solid black;
   }
 }

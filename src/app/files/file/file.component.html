@@ -4,6 +4,6 @@
   <img *ngIf="img()" src="{{file.src}}" alt="">
 </a>
 <div class="file-info">
-  <a target="_blank" [href]="file.src" class="title">{{file.originalname}}</a>
+  <a target="_blank" [href]="file.src" class="title">{{file.originalname?file.originalname:file.name}}</a>
   <div class="filesize">{{file.ko}}</div>
 </div>

@@ -1,0 +1,30 @@
+:host {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  float: left;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+}
+
+:host .userinfo {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  padding-left: 1em;
+  line-height: 16px;
+}
+
+:host .userinfo .username {
+  color: #7A7A7A;
+  font-size: 16px;
+}
+
+:host .userinfo .function-title {
+  font-size: 12px;
+  position: relative;
+  bottom: 0;
+  color: #8e8e8e;
+}
+/*# sourceMappingURL=user-box.component.css.map */

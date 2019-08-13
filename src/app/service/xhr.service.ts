@@ -1,9 +1,12 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class XhrService {
 
-  constructor() {
+  constructor(
+    private notification: NotificationService,
+  ) {
   }
 
 
@@ -36,9 +39,10 @@ export class XhrService {
       xhr.send(formData);
 
     }).then((result) => {
-      next()
+      next(result)
     }, (error) => {
       console.log(error)
+      this.notification.requestError()
     })
   }
 
@@ -60,9 +64,10 @@ export class XhrService {
       xhr.send(formData);
 
     }).then((result) => {
-      next()
+      next(result)
     }, (error) => {
       console.log(error)
+      this.notification.requestError()
     })
   }
 

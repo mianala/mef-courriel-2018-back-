@@ -6,9 +6,9 @@
            placeholder="N° du courrier">
   </mat-form-field>
 
-  <mat-form-field class="">
-    <input [disabled]="composed()" [(ngModel)]="project.sender" (change)="update()" required name="sender" matInput
-           [placeholder]="composed()?'Rédigé par':'Expediteur'">
+  <mat-form-field>
+    <input [(ngModel)]="project.sender" (change)="update()" required name="sender" matInput
+           [placeholder]='Expediteur'>
   </mat-form-field>
   <!--date du courriel-->
   <mat-form-field>
@@ -36,12 +36,11 @@
       <mat-option *ngFor="let lettre of letter_types; let i = index" [value]="i">{{lettre}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field *ngIf="!composed()">
+  <mat-form-field>
     <input [(ngModel)]="project.ref" name="ref" matInput placeholder="Référence ">
   </mat-form-field>
 
   <!--objet-->
-  <h4>Objet:</h4>
   <mat-form-field class="">
           <textarea (change)="update()" [(ngModel)]="project.title" name="content" matInput
                     placeholder="Objet">
@@ -49,17 +48,15 @@
           </textarea>
   </mat-form-field>
 
-  <mat-form-field *ngIf="!composed()">
+  <mat-form-field >
     <mat-select [(ngModel)]="project.type_id" name="type" placeholder="Document">
       <mat-option *ngFor="let in_t of in_types; let i = index" [value]="i">{{in_t}}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <!--observations-->
-  <!--  <h4>Observations:</h4>
-    {{project.content}}
+
     <mat-form-field class="">
             <textarea [(ngModel)]="project.content" name="content" matInput
                       placeholder="Observations"></textarea>
-    </mat-form-field>-->
+    </mat-form-field>
 </form>

@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../service/user.service';
-import {NotificationService} from '../../service/notification.service';
-import {FroalaService} from '../../service/froala.service';
-import {MatDialogRef} from '@angular/material';
-import {ProjectService} from '../../service/project.service';
-import {FlowService} from '../../service/flow.service';
-import {GlobalService} from '../../service/global.service';
-import {EntityService} from '../../service/entity.service';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../service/user.service';
+import { NotificationService } from '../../service/notification.service';
+import { FroalaService } from '../../service/froala.service';
+import { MatDialogRef } from '@angular/material';
+import { ProjectService } from '../../service/project.service';
+import { FlowService } from '../../service/flow.service';
+import { GlobalService } from '../../service/global.service';
+import { EntityService } from '../../service/entity.service';
 
 
 @Component({
@@ -31,11 +31,11 @@ export class DialogSaveProjectComponent implements OnInit {
   last_n_project
 
   constructor(private froalaService: FroalaService,
-              private dialogRef: MatDialogRef<DialogSaveProjectComponent>,
-              private userService: UserService,
-              private flowService: FlowService,
-              private notification: NotificationService,
-              private projectService: ProjectService, private entityService: EntityService) {
+    private dialogRef: MatDialogRef<DialogSaveProjectComponent>,
+    private userService: UserService,
+    private flowService: FlowService,
+    private notification: NotificationService,
+    private projectService: ProjectService, private entityService: EntityService) {
     this.flow = {
       numero: '',
       project_id: 0,
@@ -110,18 +110,27 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   submit() {
-
+    const reload = this.reload
     this.loading = true;
 
     this.project.user = this.user;
     this.project.entity_id = this.user.entity_id;
     this.project.files = this.files;
 
-    // change to loading button
-    this.projectService.save(this.project, () => {
-      this.notification.projectSaved();
-      this.dialogRef.close()
+    this.projectService.save(this.project, (id) => {
+      if (id > 0) {
+        this.notification.projectSaved()
+        this.dialogRef.close()
+      } else {
+        this.notification.requestError()
+        reload()
+        // change to loading to false
+      }
     })
+  }
+
+  reload() {
+    this.loading = false
   }
 
   _import() {

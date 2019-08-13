@@ -16,8 +16,12 @@ export class DispatchComponent implements OnInit {
   options: any;
   thread: any;
   observations = GlobalService.observations;
-  entities;
+  downEntities;
+  upEntities;
+  relativeEntities;
+  active_index = 0;
   loading = false
+  receiver = ''
 
   constructor(private froalaService: FroalaService,
               private entityService: EntityService,
@@ -34,11 +38,20 @@ export class DispatchComponent implements OnInit {
       receivers: []
     };
 
-    this.entityService.downEntities.subscribe(entities => {
-      this.entities = entities
-    });
     this.projectService.project.subscribe(project => {
       this.thread.project = project
+    })
+
+    this.entityService.downEntities.subscribe(s => {
+      this.downEntities = s
+    })
+
+    this.entityService.relativeEntities.subscribe(s => {
+      this.relativeEntities = s
+    })
+
+    this.entityService.upEntities.subscribe(s => {
+      this.upEntities = s
     })
 
   }
@@ -91,5 +104,8 @@ export class DispatchComponent implements OnInit {
   }
 
 
+  indexChanged(event) {
+    this.active_index = event.index
+  }
 }
 

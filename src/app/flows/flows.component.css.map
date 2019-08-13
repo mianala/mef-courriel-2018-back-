@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,OAAO,EAAE,KAAK;EACd,OAAO,EAAE,GAAG;CACb;;AAED,AAAA,aAAa,CAAA;EACX,UAAU,EAAE,GAAG;CAChB",
+    "sources": [
+        "flows.component.scss"
+    ],
+    "names": [],
+    "file": "flows.component.css"
+}

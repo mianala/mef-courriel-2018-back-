@@ -1,0 +1,56 @@
+:host {
+  color: #4A4A4A;
+  display: block;
+  padding-bottom: 1em;
+}
+
+:host .headers, :host .message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+:host .headers {
+  font-size: 70%;
+  color: #5d5d5d;
+}
+
+:host .headers .username {
+  padding: .6em;
+}
+
+:host .headers .date {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: center;
+}
+
+:host .message app-avatar {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin: .6em;
+}
+
+:host .message .content {
+  background-color: #EFEFEF;
+  padding: .4em;
+  border-radius: 4px;
+}
+
+:host[right] {
+  padding-left: 20%;
+}
+
+:host[right] .message, :host[right] .headers {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+:host[left] {
+  padding-right: 20%;
+}
+/*# sourceMappingURL=session-message.component.css.map */

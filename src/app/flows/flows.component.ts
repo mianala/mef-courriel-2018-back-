@@ -91,9 +91,6 @@ export class FlowsComponent implements OnInit {
     }
   }
 
-  dispatchable(flow) {
-    return this.entityService.downEntities.getValue().length > 0
-  }
 
   sameDay(flow) {
     return GlobalService.sameDay(new Date(flow.date), new Date())

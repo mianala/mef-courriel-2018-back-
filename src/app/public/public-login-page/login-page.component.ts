@@ -23,7 +23,7 @@ export class LoginPageComponent implements OnInit {
 
     this.userService.user.subscribe(user => {
       if (user['id']) {
-        this.route.navigateByUrl('/courriels')
+        this.route.navigateByUrl('/projets/tous')
       }
     })
   }

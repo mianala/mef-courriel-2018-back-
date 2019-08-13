@@ -1,0 +1,37 @@
+:host {
+  margin: 1em;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+:host .file-icon img {
+  width: 50px;
+  height: auto;
+}
+
+:host .file-info {
+  padding-left: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  color: #77839F;
+}
+
+:host .file-info .title {
+  color: #77839F;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+:host .file-info .filesize {
+  font-weight: normal;
+}
+/*# sourceMappingURL=file.component.css.map */

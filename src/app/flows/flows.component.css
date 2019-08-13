@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  padding: 1em;
+}
+
+mat-paginator {
+  margin-top: 2em;
+}
+/*# sourceMappingURL=flows.component.css.map */

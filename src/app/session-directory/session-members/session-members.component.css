@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  width: 100%;
+  margin: 2em 0;
+}
+
+:host .members {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+}
+/*# sourceMappingURL=session-members.component.css.map */

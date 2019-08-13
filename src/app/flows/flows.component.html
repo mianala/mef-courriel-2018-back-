@@ -19,39 +19,21 @@
     </mat-expansion-panel-header>
     <flow [flow]="flow"></flow>
     <mat-action-row>
+
+
       <button *ngIf="viewable(flow)" color="primary" (click)="view(flow)" mat-button>
         <mat-icon class="mat-18">folder_open</mat-icon>
         Voir projet
       </button>
-      <button *ngIf="received(flow)" mat-button color="primary" (click)="answer(flow)">
-        <mat-icon>reply</mat-icon>
-        Répondre
-      </button>
-      <button mat-button color="primary" *ngIf="dispatchable(flow)"
+      <button mat-button color="primary" 
               (click)="dispatch(flow)">
         <i class="material-icons">call_split</i> Dispatcher
       </button>
-      <mat-menu #appMenu="matMenu">
-        <button *ngIf="decommissionable(flow)" (click)="decommission(flow)" mat-menu-item>
-          <mat-icon class="mat-18">call_missed_outgoing</mat-icon>
-          Déclasser
-        </button>
-        <button *ngIf="submitable(flow)" (click)="submit(flow)" mat-menu-item>
-          <mat-icon class="mat-18">arrow_upward</mat-icon>
-          Soumetre
-        </button>
-        <button *ngIf="forwardable(flow)" (click)="forward(flow)" mat-menu-item>
-          <mat-icon class="mat-18">forward</mat-icon>
-          Transférer
-        </button>
-        <button *ngIf="treatable(flow)" (click)="treat(flow)" mat-menu-item color="primary">
-          <mat-icon class="mat-18">check</mat-icon>
-          Traité/Vu
-        </button>
+      <button mat-button [matMenuTriggerFor]="menu">Status</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>En cour</button>
+        <button mat-menu-item>Traité</button>
       </mat-menu>
-      <button *ngIf="treatable(flow)" mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

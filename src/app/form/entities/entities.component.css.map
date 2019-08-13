@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "entities.component.scss"
+    ],
+    "names": [],
+    "file": "entities.component.css"
+}

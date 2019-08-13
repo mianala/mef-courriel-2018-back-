@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,cAAc,CAAC;EACb,OAAO,EAAE,KAAK;CACf;;AAED,AAAA,OAAO,CAAC;EACN,OAAO,EAAE,kBAAkB;CAC5B;;AAGD,AAAA,KAAK,CAAC;EACJ,UAAU,EAAE,OAAO;EAAG,+BAA+B;EACvD,UAAU,EAAE,2DAAgE;EAAE,sEAAsE;EAMlJ,UAAU,EAAE,IAAI;EAChB,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,KAAK;EACZ,KAAK,EAAE,IAAI;CACZ",
+    "sources": [
+        "user-sidenav.component.scss"
+    ],
+    "names": [],
+    "file": "user-sidenav.component.css"
+}

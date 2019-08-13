@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  width: 200px;
+  height: 200px;
+}
+
+:host app-user-avatar {
+  cursor: pointer;
+}
+/*# sourceMappingURL=avatar-upload.component.css.map */

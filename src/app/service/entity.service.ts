@@ -1,56 +1,60 @@
-import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {UserService} from "./user.service";
-import {EnvService} from "./env.service";
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { UserService } from './user.service';
+import { EnvService } from './env.service';
+import { FilterService } from './filter.service';
 
 @Injectable()
 export class EntityService {
   url: string;
 
-  upEntity = new BehaviorSubject({});
-  downEntities = new BehaviorSubject([]);
   relativeEntities = new BehaviorSubject([]);
 
   entities = new BehaviorSubject([]);
+  upEntities = new BehaviorSubject({});
+  downEntities = new BehaviorSubject([]);
+
   entity = new BehaviorSubject({});
-  dgbEntities = new BehaviorSubject([]);
   user;
   last_n_project = new BehaviorSubject(0)
 
   constructor(private http: Http,
-              private userService: UserService) {
+    private userService: UserService) {
     this.url = EnvService.ip() + '/api/entities';
 
-    
+
+
     this.getEntities();
+
     this.user = this.userService.user.subscribe(user => {
       if (user['id']) {
-
         this.user = user;
-
-        const entity = user['entity'];
-
-        //get the entity here
-
-        entity.numero = '## - 2018/'+ entity.header;
-        this.entity.next(entity);
-
-        this.getDownEntities();
-        this.getUpEntity();
-        this.getRelativeEntities()
+        this.getUserEntity(user['entity_id']);
       }
     });
 
-    this.http.get(this.url + '/dgb')
-      .map(res => res.json()).subscribe(data => {
-      this.dgbEntities.next(data)
+    this.entity.subscribe(entity => {
+      if (!entity) { return }
+      if (entity['entity']) {
+        this.filterEntities(this.entities.getValue(), entity)
+      }
     })
   }
 
-  getDirections() {
-    return this.http.get(this.url + '/directions')
-      .map(res => res.json())
+  getUserEntity(entity_id) {
+    const entity = this.entities.getValue().filter(e => {
+      return e.id == entity_id
+    })
+    entity['numero'] = '## - 2019/' + entity['header'];
+    this.entity.next(entity[0]);
+    // get relative entities
+  }
+
+  filterEntities(entities, entity) {
+    this.downEntities.next(FilterService.fitlerDownEntities(entities, entity))
+    this.upEntities.next(FilterService.fitlerUpEntities(entities, entity))
+    this.relativeEntities.next(FilterService.fitlerRelativeEntities(entities, entity))
   }
 
   getEntities() {
@@ -58,60 +62,14 @@ export class EntityService {
       .map(res => res.json()).subscribe(entities => {
 
 
-      entities.sort(function (b, a) {
-        const c = a.entity;
-        const d = b.entity;
-        return c - d;
-      });
+        entities.sort(function (b, a) {
+          const c = a.entity;
+          const d = b.entity;
+          return c - d;
+        });
 
         this.entities.next(entities)
       })
-  }
-
-  getDownEntities() {
-    // console.log('getting down entities ' + this.user['entity'].entity);
-    this.http.get(this.url + '/down/' + this.user['entity'].entity)
-      .map(res => res.json()).subscribe(entities => {
-
-
-      entities.sort(function (b, a) {
-        const c = a.entity;
-        const d = b.entity;
-        return c - d;
-      });
-
-      this.downEntities.next(entities)
-    })
-  }
-
-  getUpEntity() {
-    // console.log('getting up entity ' + this.user['entity'].entity);
-    this.http.get(this.url + '/up/' + this.user['entity'].entity )
-      .map(res => res.json()).subscribe(entity => {
-      this.upEntity.next(entity[0])
-    })
-  }
-
-  getRelativeEntities() {
-    // console.log('getting relative entities' + this.user['entity'].entity);
-
-    //sends 1-3-1 to the api
-    this.http.get(this.url + '/relative/' + this.user['entity'].entity)
-      .map(res => res.json()).subscribe(entities => {
-
-      entities.sort(function (b, a) {
-        const c = a.entity;
-        const d = b.entity;
-        return c - d;
-      });
-
-      this.relativeEntities.next(entities)
-    })
-  }
-
-  getServices() {
-    return this.http.get(this.url + '/services')
-      .map(res => res.json())
   }
 
 }

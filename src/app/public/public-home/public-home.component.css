@@ -1,0 +1,48 @@
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+.header .connexion {
+  background-color: #3949AB;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 2em;
+}
+
+.header .connexion a {
+  color: #fff;
+  font-weight: 400;
+  font-size: 20px;
+  padding: 1em;
+  margin: .5em;
+  text-decoration: none;
+  width: 250px;
+  font-stretch: 1;
+  text-align: center;
+  border: 2px solid #FFF;
+}
+
+.header .description {
+  background-color: #efefef;
+  padding: 7%;
+}
+
+.header .description img {
+  width: 70%;
+  text-align: center;
+}
+/*# sourceMappingURL=public-home.component.css.map */

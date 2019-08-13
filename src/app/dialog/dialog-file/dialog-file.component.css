@@ -1,0 +1,46 @@
+:host {
+  margin: .5em;
+  padding: .5em;
+  min-height: 45px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+:host .file-icon img {
+  width: 50px;
+  height: 50px;
+}
+
+:host .file-info {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding-left: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  color: #77839F;
+}
+
+:host .file-info .title {
+  color: #77839F;
+  font-weight: bold;
+}
+
+:host .file-info .filesize {
+  font-weight: normal;
+}
+
+:host button {
+  margin-left: .6em;
+}
+/*# sourceMappingURL=dialog-file.component.css.map */

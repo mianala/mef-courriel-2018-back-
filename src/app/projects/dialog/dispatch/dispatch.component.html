@@ -1,32 +1,72 @@
 <div mat-dialog-title>
-  <h1>Dispatcher </h1>
+  <p style="text-decoration:underline;">Dispatcher </p>
 </div>
 <mat-dialog-content class="content">
-  <h4>Destinataires</h4>
-
-
-  <div class="entities">
-    <mat-checkbox *ngFor="let entity of entities" (change)="checkEntity(entity.id)"><strong>{{entity.label}}</strong> {{entity.title}}</mat-checkbox>
-  </div>
 
 
   <h4>Observations:</h4>
   <div class="observations">
-    <mat-checkbox *ngFor="let observation of observations" (change)="toggleObservation(observation)" >{{observation}}</mat-checkbox>
+    <mat-checkbox *ngFor="let observation of observations" (change)="toggleObservation(observation)">{{observation}}
+    </mat-checkbox>
   </div>
-  <h5>Autres observations</h5>
   <mat-form-field class="">
-          <textarea [(ngModel)]="thread.content" name="content" matInput
-                    placeholder="Observations"></textarea>
+    <textarea [(ngModel)]="thread.content" name="content" matInput placeholder="Autres observations"></textarea>
   </mat-form-field>
-<app-files [files]="thread.files"></app-files>
+
+  <h4>Destinataires</h4>
+
+  <mat-tab-group (selectedTabChange)="indexChanged($event)" backgroundColor='accent'>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>arrow_downward</mat-icon>
+      </ng-template>
+      <div class="entities">
+        <mat-checkbox *ngFor="let entity of downEntities" (change)="checkEntity(entity['id'])">
+          <strong>{{entity.label}}</strong>
+          {{entity.title}}</mat-checkbox>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>arrow_upward</mat-icon>
+      </ng-template>
+
+      <div class="entities">
+        <mat-checkbox *ngFor="let entity of upEntities" (change)="checkEntity(entity['id'])">
+          <strong>{{entity.label}}</strong>
+          {{entity.title}}</mat-checkbox>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>arrow_forward</mat-icon>
+      </ng-template>
+
+      <div class="entities">
+        <mat-checkbox *ngFor="let entity of relativeEntities" (change)="checkEntity(entity['id'])">
+          <strong>{{entity.label}}</strong>
+          {{entity.title}}</mat-checkbox>
+      </div>
+    </mat-tab>
+    <mat-tab label="Autre">
+
+      <mat-form-field class="receiver">
+        <textarea [(ngModel)]="thread.receiver" name="content" matInput placeholder="Destinataire"></textarea>
+      </mat-form-field>
+    </mat-tab>
+  </mat-tab-group>
+
+
+  <app-files [files]="thread.files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button  [disabled]="loading || !validReceiver()"  matDialogClose="" (click)="submit()" mat-button>
+  <button [disabled]="loading || !validReceiver()" matDialogClose="" (click)="submit()" mat-button>
     <mat-icon *ngIf="!loading">call_split</mat-icon>
 
     <loading-button *ngIf="loading"></loading-button>
-    DISPATCH</button>
+    DISPATCH
+  </button>
 </mat-dialog-actions>

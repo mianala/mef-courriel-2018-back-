@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,OAAO,EAAE,KAAK;EACd,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;CAWb;;AAdD,AAIE,KAJG,CAIH,OAAO,CAAC;EACN,UAAU,EAAE,qBAAqB;EACjC,eAAe,EAAE,KAAK;EACtB,OAAO,EAAE,KAAK;EACd,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,aAAa,EAAE,IAAI;EAEnB,UAAU,EAAE,mBAAmB;CAChC",
+    "sources": [
+        "user-avatar.component.scss"
+    ],
+    "names": [],
+    "file": "user-avatar.component.css"
+}

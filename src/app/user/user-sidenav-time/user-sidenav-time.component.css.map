@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAA;EACH,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,GAAG;EAChB,OAAO,EAAC,IAAI;EACZ,OAAO,EAAE,KAAK;EACd,KAAK,EAAE,IAAI;EACX,UAAU,EAAE,MAAM;CACnB",
+    "sources": [
+        "user-sidenav-time.component.scss"
+    ],
+    "names": [],
+    "file": "user-sidenav-time.component.css"
+}

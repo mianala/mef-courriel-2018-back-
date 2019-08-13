@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAA;EACH,OAAO,EAAE,IAAI;EACb,KAAK,EAAE,IAAI;EACX,QAAQ,EAAE,QAAQ;EAClB,WAAW,EAAE,IAAI;EACjB,MAAM,EAAE,CAAC;EACT,gBAAgB,EAAE,OAAO;CAS1B;;AAfD,AAQE,KARG,CAQH,MAAM,CAAA;EACJ,SAAS,EAAC,CAAC;CACZ;;AAVH,AAYE,KAZG,GAYD,GAAG,CAAC;EACJ,UAAU,EAAE,MAAM;CACnB",
+    "sources": [
+        "session-messagebox.component.scss"
+    ],
+    "names": [],
+    "file": "session-messagebox.component.css"
+}

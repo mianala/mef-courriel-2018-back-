@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAA;EACH,OAAO,EAAE,KAAK;EACd,KAAK,EAAE,IAAI;EACX,MAAM,EAAC,IAAI;CAOZ;;AAVD,AAIE,KAJG,CAIH,GAAG,CAAA;EACD,QAAQ,EAAE,QAAQ;EAClB,KAAK,EAAE,GAAG;EACV,KAAK,EAAE,GAAG;EACV,GAAG,EAAE,GAAG;CACT",
+    "sources": [
+        "no-mail.component.scss"
+    ],
+    "names": [],
+    "file": "no-mail.component.css"
+}

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EAEL,OAAO,EAAC,KAAK;EAEZ,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;CAKd;;AAVD,AAMI,KANC,CAMD,eAAe,CAAC;EAChB,MAAM,EAAE,OAAO;CAChB",
+    "sources": [
+        "avatar-upload.component.scss"
+    ],
+    "names": [],
+    "file": "avatar-upload.component.css"
+}

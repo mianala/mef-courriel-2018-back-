@@ -93,6 +93,8 @@ import { UpdateProjectComponent } from './dialog/update-project/update-project.c
 import { EditProjectComponent } from './dialog/edit-project/edit-project.component';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { SearchPageComponent } from './page/search-page/search-page.component';
+import { ToolbarComponent } from './parts/toolbar/toolbar.component';
 
 registerLocaleData(localeFr);
 
@@ -187,6 +189,8 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     SaveFormComponent,
     UpdateProjectComponent,
     EditProjectComponent,
+    SearchPageComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,

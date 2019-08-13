@@ -1,0 +1,23 @@
+:host {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  position: absolute;
+  padding-top: .6em;
+  bottom: 0;
+  background-color: #E8E8E8;
+}
+
+:host .input {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+:host > div {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+/*# sourceMappingURL=session-messagebox.component.css.map */

@@ -1,0 +1,37 @@
+:host {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: #fffbd5;
+  /* fallback for old browsers */
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff585d), to(rgba(255, 88, 93, 0.5)));
+  background: linear-gradient(to bottom, #ff585d, rgba(255, 88, 93, 0.5));
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100%;
+}
+
+:host .header {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+:host .container {
+  background-color: #fff;
+  max-width: 500px !important;
+  padding: 2em;
+}
+
+:host .container .form {
+  margin-top: 2em;
+}
+/*# sourceMappingURL=login-page.component.css.map */

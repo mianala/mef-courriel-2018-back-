@@ -1,13 +1,13 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core'
-import {UserService} from '../../service/user.service'
-import {FlowService} from '../../service/flow.service'
-import {FroalaService} from '../../service/froala.service'
-import {EntityService} from "../../service/entity.service";
-import {ProjectService} from "../../service/project.service";
-import {MatDialogRef} from "@angular/material";
-import {DispatchComponent} from "../../projects/dialog/dispatch/dispatch.component";
-import {GlobalService} from "../../service/global.service";
-import {NotificationService} from "../../service/notification.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core'
+import { UserService } from '../../service/user.service'
+import { FlowService } from '../../service/flow.service'
+import { FroalaService } from '../../service/froala.service'
+import { EntityService } from "../../service/entity.service";
+import { ProjectService } from "../../service/project.service";
+import { MatDialogRef } from "@angular/material";
+import { DispatchComponent } from "../../projects/dialog/dispatch/dispatch.component";
+import { GlobalService } from "../../service/global.service";
+import { NotificationService } from "../../service/notification.service";
 
 @Component({
   selector: 'compose',
@@ -22,83 +22,74 @@ export class ComposeComponent implements OnInit {
 
   user: any;
 
-  upEntity;
+  upEntities;
   relativeEntities;
   downEntities;
 
   observations = GlobalService.observations;
   checkedObservations;
+  active_index = 0;
 
 
 
   constructor(public flowService: FlowService,
-              public entityService: EntityService,
-              public projectService: ProjectService,
-              public froala: FroalaService,
-              private notification: NotificationService,
-              public userService: UserService,
-              private dialogRef: MatDialogRef<DispatchComponent>) {
+    public entityService: EntityService,
+    public projectService: ProjectService,
+    public froala: FroalaService,
+    private notification: NotificationService,
+    public userService: UserService,
+    private dialogRef: MatDialogRef<DispatchComponent>) {
     this.checkedObservations = [];
     this.composition = {
       title: '',
       n_arrive: this.entityService.entity.getValue()['numero'],
       lettre: 1,
       content: '',
+      receiver: '',
       files: [],
-      be : {},
-      hasBe : 0,
+      be: {},
+      hasBe: 0,
       receivers: []
     };
     this.composition.files = [];
     this.options = this.froala.getOptions();
-  }
 
-  updateDirection(p) {
-    this.composition.receivers = [];
 
-    if (p.value == 1) {
-      this.composition.receivers.push(this.upEntity.id)
-    }
+    this.projectService.project.subscribe(project => {
+      this.composition.project = project
+    })
+
+    this.entityService.downEntities.subscribe(s => {
+      this.downEntities = s
+    })
+
+    this.entityService.relativeEntities.subscribe(s => {
+      this.relativeEntities = s
+    })
+
+    this.entityService.upEntities.subscribe(s => {
+      this.upEntities = s
+    })
+
   }
 
   checkEntity(id) {
     GlobalService.toggleInArray(this.composition.receivers, id);
   }
 
-
-  forSubmit() {
-    return this.composition.direction == 1
-  }
-
-  canSubmit() {
-    return this.upEntity ? this.upEntity.label : false
-  }
-
-  canShare() {
-    return this.relativeEntities.length
-  }
-
-  forShare() {
-    return this.composition.direction == 2
-  }
-
-  forDispatch() {
-    return this.composition.direction == 3
-  }
+  // how about direction? there will be no direction animore in the database we have to calculate it in the front end, this is much better
 
   ngOnInit() {
     this.user = this.userService.user.getValue();
 
     this.relativeEntities = this.entityService.relativeEntities.getValue();
-    this.downEntities = this.entityService.downEntities.getValue();
-    this.upEntity = this.entityService.upEntity.getValue()
   }
 
   validTitle() {
     return this.composition.title.length > 3
   }
 
-  updateBe(be){
+  updateBe(be) {
     this.composition.be = be
   }
 
@@ -127,23 +118,20 @@ export class ComposeComponent implements OnInit {
       return
     }
 
-    console.log(this.composition)
-
     // update button to loading button
     this.composition.content = obs.concat(this.composition.content);
 
     this.projectService.compose(this.composition, () => {
-      this.notification.mailSent();
-      this.projectService.getAllProjects()
+      // notification
       this.dialogRef.close()
     })
   }
 
-  valid(){
+  valid() {
     const v: boolean = this.validReceiver() && this.validTitle()
     if (this.composition.hasBe) {
       return v && this.composition.be.valid
-    }else{
+    } else {
       return v
     }
   }
@@ -152,4 +140,7 @@ export class ComposeComponent implements OnInit {
     this.composition.files = this.composition.files.concat(files)
   }
 
+  indexChanged(event) {
+    this.active_index = event.index
+  }
 }

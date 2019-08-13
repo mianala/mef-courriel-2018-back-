@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAA;EACH,OAAO,EAAC,GAAG;EACX,OAAO,EAAE,KAAK;CACf",
+    "sources": [
+        "sessions-page.component.scss"
+    ],
+    "names": [],
+    "file": "sessions-page.component.css"
+}

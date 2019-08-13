@@ -50,8 +50,6 @@
         </mat-form-field>
 
         <!--objet-->
-        <h4>Objet:</h4>
-
         <mat-form-field class="">
           <textarea [(ngModel)]="project.content" required name="content" matInput
                     placeholder="Objet"></textarea>
@@ -74,7 +72,6 @@
         <!--destinataires-->
 
         <!--observations-->
-        <h4>Observations:</h4>
         <mat-form-field class="">
           <textarea [(ngModel)]="project.observations" name="content" matInput
                     placeholder="Observations"></textarea>
@@ -117,7 +114,7 @@
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
 
-  <button *ngIf="saving()" [disabled]="loading || !validProject()" mat-dialog-close="" disabled="false"
+<button *ngIf="saving()" [disabled]="loading || !validProject()" 
           (click)="submit()" mat-button>
     <mat-icon *ngIf="!loading" class="mat-18">save</mat-icon>
     <loading-button *ngIf="loading"></loading-button>

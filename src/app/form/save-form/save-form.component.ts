@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {GlobalService} from '../../service/global.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GlobalService } from '../../service/global.service';
 
 @Component({
   selector: 'app-save-form',
@@ -8,7 +8,6 @@ import {GlobalService} from '../../service/global.service';
 })
 export class SaveFormComponent implements OnInit {
   @Input() project: any;
-  @Output() onUpdate = new EventEmitter()
   letter_types;
   in_types;
   form_max_date;
@@ -21,16 +20,8 @@ export class SaveFormComponent implements OnInit {
     this.form_max_date = new Date();
   }
 
-  composed(){
-    return this.project.composed == 1
-  }
-
   ngOnInit() {
-    console.log(this.project)
-  }
-
-  update() {
-    this.onUpdate.emit(this.project)
+    console.log(this.project);
   }
 
 }
