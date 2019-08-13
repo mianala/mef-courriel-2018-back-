@@ -17,7 +17,8 @@ export class ProjectService {
   treated_projects = new BehaviorSubject([]);
   shipped_projects = new BehaviorSubject([]);
   projects = new BehaviorSubject([]);
-  all_projects = new BehaviorSubject([]);
+  latestProjects = new BehaviorSubject([]);
+  allProjects = new BehaviorSubject([]);
   project = new BehaviorSubject({
     id: 0,
   });
@@ -37,15 +38,13 @@ export class ProjectService {
       if (user['id']) {
 
         this.user = user;
-        this.getAllProjects();
+        this.getLatestProjects();
       }
     });
 
-    this.all_projects.subscribe(projects => {
+    this.latestProjects.subscribe(projects => {
       this.getSavedProjects(projects);
       this.getTreatedProjects(projects);
-      this.getShippedProjects(projects);
-      this.getDispatchedProjects(projects);
       this.getLastNProject(projects)
     });
 
@@ -109,23 +108,35 @@ export class ProjectService {
   }
 
 
+  getLatestProjects() {
+    if (this.user.entity_id == undefined) {
+      return false
+    }
+
+    this.http.get(this.url + '/latest/' + this.user.entity_id)
+      .map(res => res.json()).subscribe(projects => {
+        projects.sort(GlobalService.sortByDate);
+        if (this.projects.getValue() == projects) {
+          return
+        }
+        this.latestProjects.next(projects)
+      })
+  }
+
+
+
   getAllProjects() {
     if (this.user.entity_id == undefined) {
       return false
     }
 
-    // console.log('loading all projects ' + this.user.entity_id);
-
     this.http.get(this.url + '/all/' + this.user.entity_id)
       .map(res => res.json()).subscribe(projects => {
         projects.sort(GlobalService.sortByDate);
-
         if (this.projects.getValue() == projects) {
           return
         }
-
-        this.shipped_projects.next(projects);
-        this.all_projects.next(projects)
+        this.allProjects.next(projects)
       })
   }
 
@@ -146,9 +157,9 @@ export class ProjectService {
     this.http.delete(this.url + '/' + project.id).subscribe(() => {
       next()
     });
-    const p = this.all_projects.getValue();
-    p.splice(this.all_projects.getValue().indexOf(project), 1);
-    this.all_projects.next(p)
+    const p = this.latestProjects.getValue();
+    p.splice(this.latestProjects.getValue().indexOf(project), 1);
+    this.latestProjects.next(p)
 
   }
 
@@ -215,8 +226,8 @@ export class ProjectService {
         departure_date: new Date(),
         status_date: new Date(),
       }
-      const ps: any[] = this.all_projects.getValue()
-      this.all_projects.next([p, ...ps])
+      const ps: any[] = this.latestProjects.getValue()
+      this.latestProjects.next([p, ...ps])
       
       console.log(result)
       next(id)

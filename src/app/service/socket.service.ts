@@ -33,7 +33,7 @@ export class SocketService {
           //   console.log(content);
           //   const participants = content.participants;
           //   if (participants.includes(this.entity_id)) {
-          //     this.projectService.getAllProjects()
+          //     this.projectService.getLatestProjects()
           //     this.notification.projectSaved();
           //   }
           // });
@@ -43,7 +43,7 @@ export class SocketService {
           //   console.log(content);
           //   const participants = content.participants;
           //   if (participants.includes(this.entity_id)) {
-          //     this.projectService.getAllProjects()
+          //     this.projectService.getLatestProjects()
           //   }
           // });
 
@@ -52,7 +52,7 @@ export class SocketService {
             console.log(content);
             const participants = content.participants;
             if (participants.includes(this.entity_id)) {
-              this.projectService.getAllProjects()
+              this.projectService.getLatestProjects()
             }
           });
 
@@ -98,7 +98,7 @@ export class SocketService {
             const participants = content.participants;
             if (participants.includes(this.entity_id)) {
               this.flowService.getAllFlows();
-              this.projectService.getAllProjects()
+              this.projectService.getLatestProjects()
               this.notification.flowExported()
             }
           });
@@ -119,7 +119,7 @@ export class SocketService {
             console.log(content);
             const participants = content.participants;
             if (participants.includes(this.entity_id)) {
-              this.projectService.getAllProjects();
+              this.projectService.getLatestProjects();
               this.notification.projectTreated()
             }
           });

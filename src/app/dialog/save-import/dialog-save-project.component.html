@@ -2,130 +2,17 @@
   <app-user-box [user]="user"></app-user-box>
 </div>
 <mat-dialog-content class="content">
-  <mat-tab-group (selectedTabChange)="indexChanged($event)">
 
-    <mat-tab label="Enregistrement">
-      <form (ngSubmit)="submit()" class="form" fxLayout="column">
-        <!--arrive mfb-->
-        <div fxLayout="row">
-          <mat-form-field class="">
-            <input type="text" disabled required [(ngModel)]="last_n_project" name="n_project" matInput
-                   placeholder="N° du project">
-          </mat-form-field>
-          <mat-form-field class="">
-            <input type="text" required [(ngModel)]="project.n_arrive" name="n_arrive" matInput
-                   placeholder="N° du courrier">
-          </mat-form-field>
-        </div>
-        <mat-form-field class="">
-          <input [(ngModel)]="project.sender" required name="sender" matInput placeholder="Expediteur">
-        </mat-form-field>
-        <!--date du courriel-->
-        <mat-form-field>
-          <input disabled [max]="form_max_date" [(ngModel)]="project.date" required name="date" matInput
-                 [matDatepicker]="picker"
-                 placeholder="Date du courrier">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-hint align="start">Veillez sélectionner la date à partir de l’Icon à droite</mat-hint>
-        </mat-form-field>
-        <mat-datepicker disabled="false" #picker></mat-datepicker>
-        <mat-form-field>
-          <input disabled matInput [max]="form_max_date" [min]="project.date" [(ngModel)]="project.received_date"
-                 required
-                 name="received_date"
-                 [matDatepicker]="recieved_picker"
-                 placeholder="Reçu le">
-          <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
-          <!--<mat-hint align="start">Veillez sélectionner la date à partir de l’Icon à droite</mat-hint>-->
-        </mat-form-field>
-        <mat-datepicker disabled="false" #recieved_picker></mat-datepicker>
+  <app-save-form [(project)]="project"></app-save-form>
 
-        <mat-form-field>
-          <mat-select [(ngModel)]="project.lettre" name="lettre" placeholder="Type">
-            <mat-option *ngFor="let lettre of letter_types; let i = index" [value]="i">{{lettre}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="">
-          <input [(ngModel)]="project.ref" name="ref" matInput placeholder="Référence ">
-        </mat-form-field>
-
-        <!--objet-->
-        <mat-form-field class="">
-          <textarea [(ngModel)]="project.content" required name="content" matInput
-                    placeholder="Objet"></textarea>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-select [(ngModel)]="project.type" name="type" placeholder="Document">
-            <mat-option *ngFor="let in_t of in_types; let i = index" [value]="i">{{in_t}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-
-        <!--switch if need to redirect-->
-
-        <!--redirected to-->
-        <mat-form-field class="" *ngIf="">
-          <input [(ngModel)]="project.redirectedTo" required name="redirectedTo" matInput placeholder="Redirigé vers">
-        </mat-form-field>
-
-        <!--destinataires-->
-
-        <!--observations-->
-        <mat-form-field class="">
-          <textarea [(ngModel)]="project.observations" name="content" matInput
-                    placeholder="Observations"></textarea>
-        </mat-form-field>
-      </form>
-    </mat-tab>
-
-    <mat-tab [disabled]="!shipped_projects.length" label="Import">
-
-      <mat-form-field class="">
-        <mat-select [(ngModel)]="flow.project_id" placeholder="Projet">
-          <mat-option *ngFor="let project of shipped_projects" [value]="project.id">
-            {{project.entity_label}}-{{project.date | date:'yyyy'}}/{{project.n_project}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="">
-        <input type="text" required [(ngModel)]="flow.numero" name="Réference" matInput
-               placeholder="N° du courrier">
-      </mat-form-field>
-
-      <!--auto filled expediteur-->
-      <mat-form-field class="">
-        <input [(ngModel)]="flow.sender" required name="receiver" matInput placeholder="Expediteur">
-      </mat-form-field>
-      <!--Observation-->
-      <h5>Objet - Observation</h5>
-      <mat-form-field class="">
-        <textarea [(ngModel)]="flow.content" name="content" matInput placeholder="Objet"></textarea>
-      </mat-form-field>
-
-      <mat-radio-group [(ngModel)]="flow.status_id">
-        <mat-radio-button *ngFor="let type of return_types; let i = index" [value]="i">{{type}}</mat-radio-button>
-      </mat-radio-group>
-    </mat-tab>
-  </mat-tab-group>
   <app-files [files]="files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
 
-<button *ngIf="saving()" [disabled]="loading || !validProject()" 
-          (click)="submit()" mat-button>
+  <button [disabled]="loading || !validProject()" (click)="submit()" mat-button>
     <mat-icon *ngIf="!loading" class="mat-18">save</mat-icon>
     <loading-button *ngIf="loading"></loading-button>
     ENREGISTRER
-  </button>
-
-  <button *ngIf="!saving()" [disabled]="loading || !validFlow()" mat-dialog-close="" disabled="false"
-          (click)="_import()"
-          mat-button>
-    <mat-icon *ngIf="!loading" class="mat-18">file_download</mat-icon>
-    <loading-button *ngIf="loading"></loading-button>
-    IMPORTER
   </button>
 </mat-dialog-actions>

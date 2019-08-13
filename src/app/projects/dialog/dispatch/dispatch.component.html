@@ -27,7 +27,7 @@
           {{entity.title}}</mat-checkbox>
       </div>
     </mat-tab>
-    <mat-tab>
+    <mat-tab *ngIf="upEntities.length">
       <ng-template mat-tab-label>
         <mat-icon>arrow_upward</mat-icon>
       </ng-template>
@@ -38,7 +38,7 @@
           {{entity.title}}</mat-checkbox>
       </div>
     </mat-tab>
-    <mat-tab>
+    <mat-tab *ngIf="relativeEntities.length">
       <ng-template mat-tab-label>
         <mat-icon>arrow_forward</mat-icon>
       </ng-template>
