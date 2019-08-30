@@ -1,5 +1,4 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {FroalaService} from "../../service/froala.service";
 
 @Component({
   selector: 'app-observations',
@@ -14,8 +13,7 @@ export class ObservationsComponent implements OnInit {
   @Input() i
   options
 
-  constructor(private froalaService: FroalaService) {
-    this.options = froalaService.getOptions()
+  constructor() {
   }
 
   ngOnInit() {

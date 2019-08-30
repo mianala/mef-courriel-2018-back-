@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {GlobalService} from './global.service';
-import {Http} from '@angular/http';
 import {NotificationService} from './notification.service';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {BehaviorSubject} from 'rxjs';
 import {UserService} from './user.service';
 import {EnvService} from "./env.service";
 import {XhrService} from "./xhr.service";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ThreadService {
@@ -15,7 +15,7 @@ export class ThreadService {
   project_threads = new BehaviorSubject([]);
 
 
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
               private xhr: XhrService,
               private userService: UserService,
               private notification: NotificationService) {
@@ -33,10 +33,8 @@ export class ThreadService {
 
   getProjectThreads(id) {
     console.log('getting the project threads');
-
-
-    this.http.get(this.url + '/' + id)
-      .map(res => res.json()).subscribe(project_threads => {
+    this.http.get<any>(this.url + '/' + id)
+      .subscribe(project_threads => {
       project_threads.sort(function (b, a) {
         const c = a.id;
         const d = b.id;

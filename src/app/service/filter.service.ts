@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class FilterService {
@@ -11,25 +11,25 @@ export class FilterService {
 
     const filtered = projects.filter(project => {
       let result = false;
-      if (project.sender != null) {
+      if (project.sender ) {
         result = result || project.sender.toLowerCase().includes(query.toLowerCase())
       }
-      if (project.content != null) {
+      if (project.content ) {
         result = result || project.content.toLowerCase().includes(query.toLowerCase())
       }
-      if (project.ref != null) {
+      if (project.ref ) {
         result = result || project.ref.toLowerCase().includes(query.toLowerCase())
       }
-      if (project.n_arrive != null) {
+      if (project.n_arrive ) {
         result = result || project.n_arrive.toLowerCase().includes(query.toLowerCase())
       }
-      if (project.n_arrive_dgb != null) {
+      if (project.n_arrive_dgb ) {
         result = result || project.n_arrive_dgb.toLowerCase().includes(query.toLowerCase())
       }
-      if (project.title != null) {
+      if (project.title ) {
         result = result || project.title.toLowerCase().includes(query.toLowerCase())
       }
-      if (project.n_project != null) {
+      if (project.n_project ) {
         result = result || project.n_project.toString().includes(query.toLowerCase())
       }
       return result
@@ -42,31 +42,31 @@ export class FilterService {
 
     const filtered = flows.filter(flow => {
       let result = false;
-      if (flow.sender_entity_label != null) {
+      if (flow.sender_entity_label ) {
         result = result || flow.sender_entity_label.toLowerCase().includes(query.toLowerCase())
       }
-      if (flow.content != null) {
+      if (flow.content ) {
         result = result || flow.content.toLowerCase().includes(query.toLowerCase())
       }
-      if (flow.entity_label != null) {
+      if (flow.entity_label ) {
         result = result || flow.entity_label.toLowerCase().includes(query.toLowerCase())
       }
-      if (flow.numero != null) {
+      if (flow.numero ) {
         result = result || flow.numero.toLowerCase().includes(query.toLowerCase())
       }
-      if (flow.project_title != null) {
+      if (flow.project_title ) {
         result = result || flow.project_title.toLowerCase().includes(query.toLowerCase())
       }
-      if (flow.project_ref != null) {
+      if (flow.project_ref ) {
         result = result || flow.project_ref.toLowerCase().includes(query.toLowerCase())
       }
-      if (flow.project_n != null) {
+      if (flow.project_n ) {
         result = result || flow.project_n.toString().includes(query.toLowerCase())
       }
-      if (flow.project_numero != null) {
+      if (flow.project_numero ) {
         result = result || flow.project_numero.toString().includes(query.toLowerCase())
       }
-      if (flow.destination != null) {
+      if (flow.destination ) {
         result = result || flow.destination.toLowerCase().includes(query.toLowerCase())
       }
       return result

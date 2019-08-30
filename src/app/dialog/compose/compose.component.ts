@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { UserService } from '../../service/user.service'
 import { FlowService } from '../../service/flow.service'
-import { FroalaService } from '../../service/froala.service'
 import { EntityService } from "../../service/entity.service";
 import { ProjectService } from "../../service/project.service";
 import { MatDialogRef } from "@angular/material";
@@ -30,21 +29,17 @@ export class ComposeComponent implements OnInit {
   checkedObservations;
   active_index = 0;
 
-
-
   constructor(public flowService: FlowService,
     public entityService: EntityService,
     public projectService: ProjectService,
-    public froala: FroalaService,
     private notification: NotificationService,
     public userService: UserService,
     private dialogRef: MatDialogRef<DispatchComponent>) {
     this.checkedObservations = [];
     this.composition = {
-      title: '',
-      n_arrive: this.entityService.entity.getValue()['numero'],
-      lettre: 1,
-      content: '',
+      ref: 'REF',
+      title: 'TITLE',
+      content: 'CONTENT',
       receiver: '',
       files: [],
       be: {},
@@ -52,8 +47,6 @@ export class ComposeComponent implements OnInit {
       receivers: []
     };
     this.composition.files = [];
-    this.options = this.froala.getOptions();
-
 
     this.projectService.project.subscribe(project => {
       this.composition.project = project

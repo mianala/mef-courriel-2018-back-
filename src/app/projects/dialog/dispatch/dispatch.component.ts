@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
-import {FroalaService} from '../../../service/froala.service';
 import {ProjectService} from '../../../service/project.service';
 import {EntityService} from '../../../service/entity.service';
 import {ThreadService} from '../../../service/thread.service';
@@ -23,14 +22,13 @@ export class DispatchComponent implements OnInit {
   loading = false
   receiver = ''
 
-  constructor(private froalaService: FroalaService,
+  constructor(
               private entityService: EntityService,
               public notification: NotificationService,
               private projectService: ProjectService,
               private threadService: ThreadService,
               private dialogRef: MatDialogRef<DispatchComponent>) {
 
-    this.options = froalaService.getOptions();
     this.thread = {
       content: '',
       files: [],

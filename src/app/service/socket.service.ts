@@ -80,40 +80,6 @@ export class SocketService {
             }
           });
 
-          socket.on('flow forwarded', (content) => {
-            console.log(content);
-
-            const participants = content.participants;
-            console.log('Socket flow forwarded');
-            if (participants.includes(this.entity_id)) {
-              this.flowService.getAllFlows();
-              this.notification.flowReceived()
-            }
-          });
-
-          socket.on('flow shipped', (content) => {
-            console.log('Socket flow shipped');
-            console.log(content);
-
-            const participants = content.participants;
-            if (participants.includes(this.entity_id)) {
-              this.flowService.getAllFlows();
-              this.projectService.getLatestProjects()
-              this.notification.flowExported()
-            }
-          });
-
-          socket.on('flow imported', (content) => {
-            console.log('Socket flow imported');
-            console.log(content);
-
-            const participants = content.participants;
-            if (participants.includes(this.entity_id)) {
-              this.flowService.getAllFlows();
-              this.notification.flowImported()
-            }
-          });
-
           socket.on('project treated', (content) => {
             console.log(this.entity_id);
             console.log(content);

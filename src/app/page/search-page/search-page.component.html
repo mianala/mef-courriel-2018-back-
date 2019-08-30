@@ -1,3 +1,8 @@
-<projects [projects]='projects'></projects>
-<div class="divider"></div>
-<flows [flows]='flows'></flows>
+<mat-tab-group>
+  <mat-tab label="Reçu | Envoyé">
+    <flows [flows]='filteredFlows'></flows>
+  </mat-tab>
+  <mat-tab label="Projets">
+    <projects [projects]='filteredProjects'></projects>
+  </mat-tab>
+</mat-tab-group>

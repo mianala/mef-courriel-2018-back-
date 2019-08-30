@@ -4,9 +4,6 @@ import {EntityService} from '../service/entity.service';
 import {DispatchComponent} from '../projects/dialog/dispatch/dispatch.component';
 import {MatDialog} from '@angular/material';
 import {ProjectService} from '../service/project.service';
-import {ReplyComponent} from '../dialog/reply/reply.component';
-import {ForwardComponent} from '../dialog/forward/forward.component';
-import {DecommissionComponent} from '../dialog/decommission/decommission.component';
 import {Router} from '@angular/router';
 import {UserService} from '../service/user.service';
 import {GlobalService} from '../service/global.service';
@@ -109,9 +106,6 @@ export class FlowsComponent implements OnInit {
     return flow.sender_entity_id != this.user.entity_id && flow.status_id != 1;
   }
 
-  treat(flow) {
-    this.flowService.treat(flow.id)
-  }
 
   received(flow) {
     return FilterService.received(flow, this.entity)
@@ -126,27 +120,8 @@ export class FlowsComponent implements OnInit {
     this.router.navigateByUrl('/courriels/courriel')
   }
 
-  forward(flow) {
-    this.flowService.flow.next(flow);
-    this.dialog.open(ForwardComponent);
-  }
-
-  decommission(flow) {
-    this.flowService.setFlow(flow.id);
-    this.dialog.open(DecommissionComponent);
-  }
-
   submit(flow) {
     this.flowService.setFlow(flow.id)
-  }
-
-  answer(flow) {
-    this.flowService.answerData.next({
-      flow_id: flow.id,
-      entity_id: flow.sender_entity_id
-    });
-
-    this.dialog.open(ReplyComponent);
   }
 
   dispatch(flow) {

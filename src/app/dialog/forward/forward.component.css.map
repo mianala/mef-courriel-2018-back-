@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,KAAK,CAAA;EACH,OAAO,EAAE,KAAK;CAOf;;AARD,AAEE,KAFG,CAEH,SAAS,CAAA;EAEP,OAAO,EAAE,IAAI;EACb,qBAAqB,EAAE,GAAG;EAC1B,cAAc,EAAE,GAAG;CACpB",
-    "sources": [
-        "forward.component.scss"
-    ],
-    "names": [],
-    "file": "forward.component.css"
-}

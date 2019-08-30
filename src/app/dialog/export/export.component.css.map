@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,eAAe,CAAC;EACd,OAAO,EAAE,WAAW;EACpB,cAAc,EAAE,MAAM;CACvB;;AAED,AAAA,gBAAgB,CAAC;EACf,MAAM,EAAE,GAAG;CACZ",
-    "sources": [
-        "export.component.scss"
-    ],
-    "names": [],
-    "file": "export.component.css"
-}

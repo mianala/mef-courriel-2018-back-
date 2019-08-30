@@ -1,7 +1,7 @@
 <mat-accordion>
   <mat-expansion-panel class="flow-"
-                       *ngFor="let flow of paginate(flows,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1)"
-                       hideToggle="visibility">
+    *ngFor="let flow of paginate(flows,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1)"
+    hideToggle="visibility">
     <mat-expansion-panel-header>
       <mat-panel-title class="entity-label">
         <div class="n">{{title_label(flow)}}</div>
@@ -25,8 +25,7 @@
         <mat-icon class="mat-18">folder_open</mat-icon>
         Voir projet
       </button>
-      <button mat-button color="primary" 
-              (click)="dispatch(flow)">
+      <button mat-button color="primary" (click)="dispatch(flow)">
         <i class="material-icons">call_split</i> Dispatcher
       </button>
       <button mat-button [matMenuTriggerFor]="menu">Status</button>
@@ -37,8 +36,6 @@
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
-<mat-paginator *ngIf="flows.length" style="padding-right: 75px;" [length]="flows.length"
-               [pageSize]="paginator.pageSize"
-               [pageSizeOptions]="paginator.pageSizeOptions"
-               (page)="pageEvent = $event">
+<mat-paginator *ngIf="flows.length" style="padding-right: 75px;" [length]="flows.length" [pageSize]="paginator.pageSize"
+  [pageSizeOptions]="paginator.pageSizeOptions" (page)="pageEvent = $event">
 </mat-paginator>

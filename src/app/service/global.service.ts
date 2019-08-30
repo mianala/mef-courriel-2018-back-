@@ -1,10 +1,12 @@
-import {Injectable} from '@angular/core';
-import {EnvService} from './env.service';
+import { Injectable } from '@angular/core';
+import { EnvService } from './env.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class GlobalService {
 
-  //if need to add add at the bottom of the list please
+  sidenav_status = new BehaviorSubject(true);
+  // if need to add add at the bottom of the list please
   static observations = [
     'POUR LECTURE TOURNANTE',
     'M\'EN FAIRE UNE NOTE',
@@ -49,21 +51,10 @@ export class GlobalService {
   static in_types = [
     'Originale',
     'Copie',
-    'Enveloppe'];
-
-  static ship_types = [
-    'Autre',
-    'Pour signature',
-    'Pour avis',
-    'BE'
+    'Enveloppe'
   ];
 
-  static return_types = [
-    'Autre',
-    'Signé',
-    'Avis favorable'
-  ];
-
+  static API_KEY = 'melody_key'
 
   static sortById(b, a) {
     const c = a['id'];
@@ -126,6 +117,7 @@ export class GlobalService {
     }
   }
 
+
   static openBe() {
 
     const be = {
@@ -169,6 +161,8 @@ export class GlobalService {
   }
 
   static paginate(array, page_size, page_number) {
-    return array.slice(page_number * page_size, (page_number+1) * page_size);
+    if (array) {
+      return array.slice(page_number * page_size, (page_number + 1) * page_size);
+    }
   }
 }

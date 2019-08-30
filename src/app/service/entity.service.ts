@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
 import { EnvService } from './env.service';
 import { FilterService } from './filter.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class EntityService {
@@ -19,7 +20,7 @@ export class EntityService {
   user;
   last_n_project = new BehaviorSubject(0)
 
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
     private userService: UserService) {
     this.url = EnvService.ip() + '/api/entities';
 
@@ -58,8 +59,8 @@ export class EntityService {
   }
 
   getEntities() {
-    this.http.get(this.url)
-      .map(res => res.json()).subscribe(entities => {
+    this.http.get<any>(this.url)
+      .subscribe(entities => {
 
 
         entities.sort(function (b, a) {

@@ -35,7 +35,7 @@ export class AvatarUploadComponent implements OnInit {
     const files = target.files
     const fr = new FileReader();
     fr.onload = () => {
-      this.photo = fr.result
+      this.photo = fr.result as string
     }
 
     fr.readAsDataURL(files[0])

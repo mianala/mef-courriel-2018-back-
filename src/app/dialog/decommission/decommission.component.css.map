@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,eAAe,CAAC;EACd,OAAO,EAAE,WAAW;EACpB,cAAc,EAAE,MAAM;CACvB;;AAED,AAAA,gBAAgB,CAAC;EACf,MAAM,EAAE,GAAG;CACZ",
-    "sources": [
-        "decommission.component.scss"
-    ],
-    "names": [],
-    "file": "decommission.component.css"
-}

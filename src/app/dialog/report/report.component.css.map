@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,UAAU,EAAC,KAAK;EAChB,KAAK,EAAE,KAAK;CAKb;;AATD,AAKE,KALG,CAKH,QAAQ,CAAC;EACP,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;CACvB",
-    "sources": [
-        "report.component.scss"
-    ],
-    "names": [],
-    "file": "report.component.css"
-}

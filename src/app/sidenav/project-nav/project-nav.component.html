@@ -1,27 +1,33 @@
 <mat-nav-list>
-  
+  <div class="button">
 
-  <mat-list-item routerLink="/projets/tous">
-    <mat-icon class="mat-18">folder</mat-icon>
-    <span>Courriers </span>
-  </mat-list-item>
+    <button (click)="saveEmail()" appearance="legacy" mat-raised-button>
+      <mat-icon>save</mat-icon> Enregistrer
+    </button>
+  </div>
 
-  <mat-list-item routerLink="/projets/enregistres">
+  <mat-list-item routerLink="/projets/">
     <mat-icon class="mat-18">book</mat-icon>
-    <span>Projets ({{saved_count}})</span>
+    <strong>Projets </strong>
   </mat-list-item>
+
+
 
   <!-- dispatche and traite are the same so I will leave and remove dispatch -->
   <!-- <mat-list-item routerLink="/projets/dispatches">
     <mat-icon class="mat-18">call_split</mat-icon>
-    <span>Dispatchés ({{dispatched_count}})</span>
+  <span>Dispatchés ({{dispatched_count}})</span>
   </mat-list-item> -->
-  
+
   <mat-list-item routerLink="/projets/traites">
     <mat-icon class="mat-18">done_all</mat-icon>
     <span>Traités</span>
   </mat-list-item>
 
+  <mat-list-item routerLink="/projets/tous">
+    <mat-icon class="mat-18">folder</mat-icon>
+    <span>Tous </span>
+  </mat-list-item>
   <!-- <h4 class="nav-header">
     _____
   </h4>
@@ -29,13 +35,20 @@
     <mat-icon class="mat-18">library_books</mat-icon>
     <span>Templates</span>
   </mat-list-item> -->
-  
+
   <h4 class="nav-header">
     _____
   </h4>
+
+  <div class="button">
+
+    <button  (click)="writeEmail()" mat-raised-button>
+      <mat-icon>edit</mat-icon> Ecrire
+    </button>
+  </div>
   <mat-list-item routerLink="/courriels">
     <mat-icon class="mat-18">markunread_mailbox</mat-icon>
-    <span>Boite ({{flow_count}})</span>
+    <strong>Boite</strong>
   </mat-list-item>
   <mat-list-item routerLink="/envoyes">
     <mat-icon class="mat-18">send</mat-icon>

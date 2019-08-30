@@ -3,13 +3,17 @@
 </div>
 <mat-dialog-content fxLayout="column" class="content">
   <!--arrive mfb auto-->
-  <mat-form-field class="">
+  <!-- <mat-form-field class="">
     <input type="text" disabled required [(ngModel)]="composition.n_arrive" name="n_arrive" matInput
       placeholder="N° du courrier">
+  </mat-form-field> -->
+
+  <mat-form-field class="">
+      <input [(ngModel)]="composition.ref" required name="ref" matInput placeholder='Reference'>
   </mat-form-field>
 
   <mat-form-field class="">
-    <textarea [(ngModel)]="composition.title" required name="content" matInput placeholder="Objet"></textarea>
+    <textarea [(ngModel)]="composition.title" required name="title" matInput placeholder="Objet"></textarea>
   </mat-form-field>
 
   <mat-form-field class="">

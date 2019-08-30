@@ -3,7 +3,6 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
 import { PublicHomeComponent } from './public/public-home/public-home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginPageComponent } from './public/public-login-page/login-page.component';
@@ -35,15 +34,11 @@ import { NotificationService } from './service/notification.service';
 import { DialogFileComponent } from './dialog/dialog-file/dialog-file.component';
 import { FilesComponent } from './files/files.component';
 import { UploadButtonComponent } from './upload-button/upload-button.component';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-import { FroalaService } from './service/froala.service';
 import { SafehtmlPipe } from './safehtml.pipe';
 import { EntityService } from './service/entity.service';
 import { AvatarUploadComponent } from './avatar-upload/avatar-upload.component';
 import { GlobalService } from './service/global.service';
 import { TestService } from './service/test.service';
-import { TransferService } from './service/transfer.service';
-import { ReportComponent } from './dialog/report/report.component';
 import { NoMailComponent } from './util/no-mail/no-mail.component';
 import { FlowComponent } from './menu/flow/flow.component';
 import { SavedComponent } from './page/saved/saved.component';
@@ -59,7 +54,6 @@ import { DispatchComponent } from './projects/dialog/dispatch/dispatch.component
 import { ProjectService } from './service/project.service';
 import { ThreadService } from './service/thread.service';
 import { FileComponent } from './files/file/file.component';
-import { ReplyComponent } from './dialog/reply/reply.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { SentComponent } from './page/sent/sent.component';
 import { ReportItemComponent } from './reports/report-item/report-item.component';
@@ -67,9 +61,6 @@ import { ReportsComponent } from './reports/reports/reports.component';
 import { EntityPageComponent } from './entities/entity-page/entity-page.component';
 import { FlowsComponent } from './flows/flows.component';
 import { TemplatePageComponent } from './page/template-page/template-page.component';
-import { ExportComponent } from './dialog/export/export.component';
-import { DecommissionComponent } from './dialog/decommission/decommission.component';
-import { ForwardComponent } from './dialog/forward/forward.component';
 import { UpdateComponent } from './user/update/update.component';
 import { BeComponent } from './form/be/be.component';
 import { ProfilComponent } from './user/profil/profil.component';
@@ -95,6 +86,7 @@ import localeFr from '@angular/common/locales/fr';
 import { SearchPageComponent } from './page/search-page/search-page.component';
 import { ToolbarComponent } from './parts/toolbar/toolbar.component';
 import { ProjectsPageComponent } from './page/projects-page/projects-page.component';
+import { HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localeFr);
 
@@ -151,7 +143,6 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     UploadButtonComponent,
     SafehtmlPipe,
     AvatarUploadComponent,
-    ReportComponent,
     NoMailComponent,
     FlowComponent,
     SavedComponent,
@@ -163,7 +154,6 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     ProjectPageComponent,
     DispatchComponent,
     FileComponent,
-    ReplyComponent,
     ProjectsComponent,
     SentComponent,
     ReportItemComponent,
@@ -171,9 +161,6 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     EntityPageComponent,
     FlowsComponent,
     TemplatePageComponent,
-    ExportComponent,
-    DecommissionComponent,
-    ForwardComponent,
     UpdateComponent,
     BeComponent,
     ProfilComponent,
@@ -196,24 +183,17 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     BrowserModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     MaterialModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
     ReactiveFormsModule,
     routes
   ],
   entryComponents: [
     DispatchComponent,
-    ReplyComponent,
     DialogSaveProjectComponent,
     ComposeComponent,
-    ReportComponent,
-    DecommissionComponent,
     EditProjectComponent,
-    ExportComponent,
-    ForwardComponent
   ],
   providers: [UserService,
     TestService,
@@ -228,8 +208,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
       provide: LOCALE_ID, useValue: 'fr-FR'
     },
     GlobalService,
-    TransferService,
-    EntityService, FroalaService, ProjectService,
+    EntityService, ProjectService,
     NotificationService, User, Flow, FlowService],
   bootstrap: [AppComponent]
 })

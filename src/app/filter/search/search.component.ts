@@ -19,8 +19,4 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateQuery(query) {
-    this.filterService.query.next(query)
-  }
-
 }

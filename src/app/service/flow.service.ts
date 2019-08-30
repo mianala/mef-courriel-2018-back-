@@ -1,22 +1,23 @@
-import {Injectable} from '@angular/core';
-import {Http, RequestOptions} from '@angular/http';
-import {UserService} from './user.service';
-import {NotificationService} from './notification.service';
-import {GlobalService} from './global.service';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {ProjectService} from './project.service';
-import {EnvService} from './env.service';
-import {XhrService} from './xhr.service';
-import {FilterService} from './filter.service';
-import {EntityService} from './entity.service';
+import { Injectable } from '@angular/core';
+import { UserService } from './user.service';
+import { NotificationService } from './notification.service';
+import { GlobalService } from './global.service';
+import { BehaviorSubject } from 'rxjs';
+import { ProjectService } from './project.service';
+import { EnvService } from './env.service';
+import { XhrService } from './xhr.service';
+import { FilterService } from './filter.service';
+import { EntityService } from './entity.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class FlowService {
   url: string;
-  options = new RequestOptions({withCredentials: true});
 
   //in boite
+  latest_flows = new BehaviorSubject([]);
   all_flows = new BehaviorSubject([]);
+  new_flows = new BehaviorSubject([]);
   flows = new BehaviorSubject([]);
   sent_flows = new BehaviorSubject([]);
   // in traité
@@ -35,18 +36,18 @@ export class FlowService {
   user;
   entity;
 
-  constructor(private http: Http,
-              private notification: NotificationService,
-              private projectService: ProjectService,
-              private userService: UserService, private entityService: EntityService,
-              private xhr: XhrService) {
+  constructor(private http: HttpClient,
+    private notification: NotificationService,
+    private projectService: ProjectService,
+    private userService: UserService, private entityService: EntityService,
+    private xhr: XhrService) {
     this
       .url = EnvService.ip() + '/api/flows';
     this
       .user = this.userService.user.getValue();
 
     this.entityService.entity.subscribe(entity => {
-      if(!entity){return}
+      if (!entity) { return }
       if (entity['id']) {
         this.entity = entity
         this.getAllFlows();
@@ -56,14 +57,6 @@ export class FlowService {
             this.getProjectFlows(project.id)
           }
         });
-
-        this.all_flows.subscribe(flows => {
-          this.getFlows(flows);
-          this.getTreatedFlows(flows);
-          this.getSentFlows(flows);
-          this.getShippedFlows(flows);
-          this.getReturnedFlows(flows)
-        })
       }
     })
 
@@ -73,52 +66,48 @@ export class FlowService {
         this.user = user;
       }
     });
-
   }
 
 
   update() {
-
-    this.http.get(this.url + '/user/' + this.user['id'])
-      .map(res => res.json()).subscribe(flows => {
-      {
-        flows.sort(GlobalService.sortByDate);
-        this.flows.next(flows)
-      }
-    })
+    this.http.get<any>(this.url + '/user/' + this.user['id'])
+      .subscribe(flows => {
+        {
+          flows.sort(GlobalService.sortByDate);
+          this.flows.next(flows)
+        }
+      })
   }
 
   setFlow(flow) {
     this.flow.next(flow)
   }
 
-
-  treat(id: number) {
-    console.log('treating flow ' + id);
-    this.http.post(this.url + '/treat', {id: id, entity_id: this.user.entity_id}, this.options)
-      .subscribe(result => {
-        console.log(result)
+  getAllFlows() {
+    // console.log('loading all flows');
+    this.http.get<any>(this.url + '/all/' + this.entity['id'])
+      .subscribe(flows => {
+        flows.sort(GlobalService.sortByDate);
+        this.all_flows.next(flows)
       })
   }
 
-  getFlows(flows) {
-
-    let ps = FilterService.inbox(flows, this.entity);
-
-    if (this.flows.getValue() == ps) {
-      return false
-    }
-
-    this.flows.next(ps)
+  getNewFlows() {
+    // console.log('loading all flows');
+    this.http.get<any>(this.url + '/new/' + this.entity['id'])
+      .subscribe(flows => {
+        flows.sort(GlobalService.sortByDate);
+        this.new_flows.next(flows)
+      })
   }
 
-  getAllFlows() {
+  getLatestFlows() {
     // console.log('loading all flows');
-    this.http.get(this.url + '/all/' + this.entity.id)
-      .map(res => res.json()).subscribe(flows => {
-      flows.sort(GlobalService.sortByDate);
-      this.all_flows.next(flows)
-    })
+    this.http.get<any>(this.url + '/latest/' + this.entity['id'])
+      .subscribe(flows => {
+        flows.sort(GlobalService.sortByDate);
+        this.latest_flows.next(flows)
+      })
   }
 
   getSentFlows(flows) {
@@ -140,27 +129,10 @@ export class FlowService {
     this.treated_flows.next(ps)
   }
 
-  getShippedFlows(flows) {
-    let ps = FilterService.shippedFlow(flows);
-
-    if (this.shipped_flows.getValue() == ps) {
-      return false
-    }
-    this.shipped_flows.next(ps)
-  }
-
-  getReturnedFlows(flows) {
-    let ps = FilterService.importedFlow(flows);
-
-    if (this.returned_flows.getValue() == ps) {
-      return false
-    }
-    this.returned_flows.next(ps)
-  }
 
   getProjectFlows(id) {
-    this.http.get(this.url + '/project/' + id)
-      .map(res => res.json())
+    this.http.get<any>(this.url + '/project/' + id)
+      
       .subscribe(flows => {
         flows.sort(GlobalService.sortByDate);
         if (this.project_flows.getValue() == flows) {
@@ -170,86 +142,11 @@ export class FlowService {
       })
   }
 
-  answerFlow(answer, next) {
-    const formData: any = new FormData();
-
-    formData.append('flow_id', this.answerData.getValue()['flow_id']);
-    formData.append('sender_entity_id', this.user.entity.id);
-    formData.append('entity_id', this.answerData.getValue()['entity_id']);
-    formData.append('user_id', this.user.id);
-    formData.append('content', answer.content);
-
-    for (let i = 0; i < answer.files.length; i++) {
-      formData.append('files', answer.files[i], answer.files[i].name)
-    }
-
-    this.xhr.promise(this.url + '/reply', formData, () => {
-      next()
-    })
-  }
-
-
-  ship(flow, next) {
-    if (this.user['id']) {
-
-      const formData: any = new FormData();
-      const ship = {
-        project_id: flow.project_id,
-        sender_entity_id: this.user.entity.id,
-        destination: flow.receiver,
-        content: flow.content,
-        ship_for: flow.ship_for,
-        user_id: this.user.id,
-      };
-
-      formData.append('flow', JSON.stringify(ship));
-      for (let i = 0; i < flow.files.length; i++) {
-        formData.append('files', flow.files[i], flow.files[i].name)
-      }
-
-      delete flow.be.valid
-
-      if (flow.hasBe) {
-        formData.append('be', JSON.stringify(flow.be))
-      }
-      this.xhr.promise(this.url + '/ship', formData, () => {
-        next()
-      })
-    } else {
-      console.log('user not connected')
-    }
-  }
-
-  _import(flow, next) {
-    if (this.user['id']) {
-      const formData: any = new FormData();
-
-      formData.append('numero', flow.numero);
-      formData.append('project_id', flow.project_id);
-      formData.append('entity_id', this.user.entity.id);
-      formData.append('sender', flow.sender);
-      formData.append('content', flow.content);
-      formData.append('status_id', flow.status_id);
-      formData.append('user_id', this.user.id);
-
-      for (let i = 0; i < flow.files.length; i++) {
-        formData.append('files', flow.files[i], flow.files[i].name)
-      }
-      this.xhr.promise(this.url + '/import', formData, () => {
-        next()
-      })
-    } else {
-      console.log('user not connected')
-    }
-
-  }
-
-
   decommission(flow, next) {
     const formData: any = new FormData();
     formData.append('flow_id', this.flow.getValue()['id']);
-    formData.append('sender_entity_id', this.user.entity.id);
-    formData.append('entity_id', flow.entity.id);
+    formData.append('sender_entity_id', this.user.entity['id']);
+    formData.append('entity_id', flow.entity['id']);
     formData.append('reason', flow.content);
     formData.append('user_id', this.user.id);
 
@@ -257,30 +154,4 @@ export class FlowService {
       next()
     })
   }
-
-  forward(flow, next) {
-    console.log('forwarding')
-
-    if (this.user['id']) {
-      let f = {
-
-        flow_id: flow.id,
-        receivers: flow.receivers.join(','),
-        user_id: this.user.id,
-      }
-
-      console.log('posting')
-
-      this.http.post(this.url + '/forward', f, this.options)
-        .subscribe(result => {
-          console.log(result)
-          next()
-        })
-
-    } else {
-      console.log('user not connected')
-    }
-
-  }
-
 }

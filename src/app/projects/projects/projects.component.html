@@ -1,11 +1,10 @@
-<mat-accordion>
+<mat-accordion *ngIf="projects">
   <!--projects -->
-  <mat-expansion-panel
-    *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1)"
-    hideToggle="true">
+  <mat-expansion-panel 
+    *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1)"    hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <strong>{{(project.sender | slice:0:25) + (project.sender.length > 25 ? '...':'')}}</strong>
+        <strong>{{senderLabel(project)}}</strong>
         <!--<div class="n">{{project.n_arrive}}</div>-->
 
       </mat-panel-title>
@@ -25,7 +24,7 @@
 
     <mat-action-row>
       <button mat-button color="primary" *ngIf="viewable(project)" (click)="setProject(project)"
-              routerLink="/courriels/courriel">Voir
+        routerLink="/courriels/courriel">Voir
       </button>
 
 
@@ -39,17 +38,15 @@
       </button>
       <button *ngIf="!treated(project)" mat-button color="primary" (click)="dispatch(project)">
         <mat-icon class="mat-18">call_split</mat-icon>
-        Dispatch
+        Envoyer
       </button>
       <mat-menu #appMenu="matMenu">
 
-        <button *ngIf="editable() " (click)="edit(project)" mat-menu-item=""
-                color="primary">
+        <button *ngIf="editable() " (click)="edit(project)" mat-menu-item="" color="primary">
           <mat-icon class="mat-18">edit</mat-icon>
           Modifier
         </button>
-        <button (click)="delete(project)" mat-menu-item=""
-                color="primary">
+        <button (click)="delete(project)" mat-menu-item="" color="primary">
           <mat-icon class="mat-18">delete</mat-icon>
           Suprimer
         </button>
@@ -69,8 +66,6 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<mat-paginator *ngIf="projects.length" style="padding-right: 75px;" [length]="projects.length"
-               [pageSize]="paginator.pageSize"
-               [pageSizeOptions]="paginator.pageSizeOptions"
-               (page)="pageEvent = $event">
+<mat-paginator *ngIf="projects" style="padding-right: 75px;" [length]="projects.length"
+  [pageSize]="paginator.pageSize" [pageSizeOptions]="paginator.pageSizeOptions" (page)="pageEvent = $event">
 </mat-paginator>

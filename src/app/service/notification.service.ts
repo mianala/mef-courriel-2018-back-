@@ -26,7 +26,7 @@ export class NotificationService {
   }
 
   notify(message) {
-    let notification = new Notification('DGBCOURRIEL', {
+    let notification = new Notification('COURRIEL', {
       icon: '../../assets/img/logo.png',
       body: message
     })

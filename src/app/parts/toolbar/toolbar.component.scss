@@ -2,5 +2,15 @@
 
 .container {
   padding: .5em 1em 0;
+  transition: all .5s ease-in;
   // background: linear-gradient(to right, $accent, rgba(255, 88, 93, .5));
+}
+.action_buttons{
+  transition: all .5s;
+  button{
+    margin: 0 .5em;
+  }
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1em 0 0 ;
 }
