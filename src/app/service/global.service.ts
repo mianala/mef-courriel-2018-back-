@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { EnvService } from './env.service';
 import { BehaviorSubject } from 'rxjs';
 
+var collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+
 @Injectable()
 export class GlobalService {
 
@@ -72,6 +74,23 @@ export class GlobalService {
     const c: any = new Date(a['date']);
     const d: any = new Date(b['date']);
     return c - d;
+  }
+
+  static sortByNumero(b, a) {
+    const c: any = a['numero'];
+    const d: any = b['numero'];
+
+    const x: number = new Date(a['date']).getFullYear();
+    const y: number = new Date(b['date']).getFullYear();
+
+    if (collator.compare(c, d) && (x > y)) {
+      return 1
+    } else if (collator.compare(c, d) && (x < y)) {
+      return -1
+    } else {
+      return 0
+    }
+
   }
 
   static updateArray(newArray, actualArray) {

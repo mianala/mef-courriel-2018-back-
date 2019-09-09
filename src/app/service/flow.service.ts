@@ -46,18 +46,16 @@ export class FlowService {
     this
       .user = this.userService.user.getValue();
 
-    this.entityService.entity.subscribe(entity => {
-      if (!entity) { return }
-      if (entity['id']) {
-        this.entity = entity
-        this.getAllFlows();
-
-        this.projectService.project.subscribe(project => {
-          if (project['id']) {
-            this.getProjectFlows(project.id)
-          }
-        });
-      }
+    this.latest_flows.subscribe(fs => {
+      this.new_flows.next(fs.filter(flow => {
+        return FilterService.newFlow(flow, this.entity)
+      }))
+      this.sent_flows.next(fs.filter(flow => {
+        return FilterService.sentFlow(flow, this.entity)
+      }))
+      this.treated_flows.next(fs.filter(flow => {
+        return FilterService.treatedFlow(flow, this.entity)
+      }))
     })
 
     this.userService.user.subscribe(user => {
@@ -66,6 +64,15 @@ export class FlowService {
         this.user = user;
       }
     });
+
+    this.entityService.entity.subscribe(e => {
+      console.log(e)
+      if (!e) { return }
+      if (e['id']) {
+        this.entity = e
+        this.getLatestFlows()
+      }
+    })
   }
 
 
@@ -85,6 +92,7 @@ export class FlowService {
 
   getAllFlows() {
     // console.log('loading all flows');
+    if (!this.entity) { return }
     this.http.get<any>(this.url + '/all/' + this.entity['id'])
       .subscribe(flows => {
         flows.sort(GlobalService.sortByDate);
@@ -110,29 +118,11 @@ export class FlowService {
       })
   }
 
-  getSentFlows(flows) {
-    // console.log(flows)
-    let ps = FilterService.sentFlow(flows, this.entity);
-
-    if (this.sent_flows.getValue() == ps) {
-      return false
-    }
-    this.sent_flows.next(ps)
-  }
-
-  getTreatedFlows(flows) {
-    let ps = FilterService.treatedFlows(flows, this.entity);
-
-    if (this.treated_flows.getValue() == ps) {
-      return false
-    }
-    this.treated_flows.next(ps)
-  }
 
 
   getProjectFlows(id) {
     this.http.get<any>(this.url + '/project/' + id)
-      
+
       .subscribe(flows => {
         flows.sort(GlobalService.sortByDate);
         if (this.project_flows.getValue() == flows) {

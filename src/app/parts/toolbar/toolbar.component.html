@@ -1,23 +1,43 @@
 <div class="container mat-elevation-z2" [style.background]="style().bg" [style.color]="style().color" fxLayout="row">
   <div class="action_buttons" *ngIf="showFab()" [style.width]="!status?'auto':'0px'" fxLayout="row">
-    <button matTooltipPosition="before"  (click)="toggleSidenav()" matTooltip="Menu" mat-icon-button class="write-email">
+    <button matTooltipPosition="before" (click)="toggleSidenav()" matTooltip="Menu" mat-icon-button class="write-email">
       <mat-icon>menu</mat-icon>
     </button>
-    <button matTooltipPosition="before" (click)="saveEmail()"   matTooltip="Enregistrer" class="save" mat-mini-fab>
+    <button matTooltipPosition="before" (click)="saveEmail()" matTooltip="Enregistrer" class="save" mat-mini-fab>
       <mat-icon>save</mat-icon>
     </button>
-    <button matTooltipPosition="before" (click)="writeEmail()" matTooltip="Ecrire" mat-mini-fab
-      class="write-email">
+    <button matTooltipPosition="before" (click)="writeEmail()" matTooltip="Ecrire" mat-mini-fab class="write-email">
       <mat-icon>edit</mat-icon>
     </button>
   </div>
+
+
+  <mat-menu #menu="matMenu">
+    <span style="padding: .8em; font-weight: bold">Trier par</span>
+    <button mat-menu-item (click)="sortDate()">
+      <mat-icon>calendar_today</mat-icon>
+      <span>Date</span>
+    </button>
+    <button mat-menu-item (click)="sortNumero()">
+      <mat-icon>format_list_numbered</mat-icon>
+      <span>Numero</span>
+    </button>
+    <button mat-menu-item (click)="sortNumero()">
+      <mat-icon>arrow_forward</mat-icon>
+      <span>Destinataire</span>
+    </button>
+  </mat-menu>
   <mat-form-field>
     <mat-icon matPrefix>search</mat-icon>
-    <input (focus)="searchFocus()" (keyup)="updateQuery()" matInput type="text" placeholder="Rechercher" [(ngModel)]="query">
+    <input (focus)="searchFocus()" (keyup)="updateQuery()" matInput type="text" placeholder="Rechercher"
+      [(ngModel)]="query">
     <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
+  <button mat-icon-button fxItemAlign="right" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>sort</mat-icon>
+  </button>
   <!-- <mat-form-field>
     <mat-select placeholder="Trier par">
       <mat-option selected value="1">Numero</mat-option>

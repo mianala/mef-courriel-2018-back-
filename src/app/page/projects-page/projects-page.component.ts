@@ -9,7 +9,8 @@ import { ProjectService } from 'app/service/project.service';
 export class ProjectsPageComponent implements OnInit {
   projects
   constructor(private projectServices: ProjectService) {
-    this.projectServices.latestProjects.subscribe(s => {
+    this.projectServices.getAllProjects()
+    this.projectServices.all_rojects.subscribe(s => {
       this.projects = s
     })
   }

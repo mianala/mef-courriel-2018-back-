@@ -17,7 +17,7 @@ import { FilterService } from 'app/service/filter.service';
 })
 
 export class ToolbarComponent implements OnInit {
-  query
+  query = '';
   connected: boolean;
   action_buttons;
   constructor(public userService: UserService,
@@ -37,6 +37,15 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
+
+  }
+
+
+  sortDate() {
+
+  }
+
+  sortNumero() {
 
   }
 
@@ -62,6 +71,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   style() {
+    // const colored = '"linear-gradient(to bottom, #03a9f4, rgba(255, 88, 93, 0.7))"'
     const colored = '#03a9f4'
     const uncolored = '#fafafa'
 

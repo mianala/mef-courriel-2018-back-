@@ -1,16 +1,9 @@
-<!--<mat-button-toggle-group>
-  <mat-button-toggle value="up">
-    <mat-icon>arrow_upward</mat-icon>
-  </mat-button-toggle>
-  <mat-button-toggle value="down">
-    <mat-icon>arrow_downward</mat-icon>
-  </mat-button-toggle>
-  <mat-button-toggle value="right">
-    <mat-icon>arrow_forward</mat-icon>
-  </mat-button-toggle>
-  <mat-button-toggle value="left" disabled>
-    <mat-icon>arrow_backward</mat-icon>
-  </mat-button-toggle>
-</mat-button-toggle-group>-->
+<mat-tab-group>
+  <mat-tab label="Enregistrés">
+    <projects [projects]='projects'></projects>
+  </mat-tab>
+  <mat-tab label="Reçus">
+    <flows [flows]='flows'></flows>
+  </mat-tab>
 
-<flows  [flows]="flows"></flows>
+</mat-tab-group>

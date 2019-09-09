@@ -13,11 +13,10 @@ import { HttpClient } from '@angular/common/http';
 export class ProjectService {
 
   url: string;
-  dispatched_projects = new BehaviorSubject([]);
   treated_projects = new BehaviorSubject([]);
-  shipped_projects = new BehaviorSubject([]);
   projects = new BehaviorSubject([]);
-  latestProjects = new BehaviorSubject([]);
+  latest_projects = new BehaviorSubject([]);
+  new_projects = new BehaviorSubject([]);
   all_rojects = new BehaviorSubject([]);
   project = new BehaviorSubject({
     id: 0,
@@ -41,19 +40,22 @@ export class ProjectService {
       }
     });
 
-    this.latestProjects.subscribe(projects => {
-      this.getSavedProjects(projects);
-      this.getTreatedProjects(projects);
-      this.getLastNProject(projects)
+    this.latest_projects.subscribe(projects => {
+      this.new_projects.next(projects.filter(p => {
+        return FilterService.newProject(p)
+      }))
+      this.treated_projects.next(projects.filter(p => {
+        return FilterService.treatedProject(p)
+      }))
     });
 
     if (localStorage.getItem('project')) {
-      const project = JSON.parse(localStorage.getItem('project'));
-      this.project.next(project);
+      const p = JSON.parse(localStorage.getItem('project'));
+      this.project.next(p);
     }
 
-    this.project.subscribe(project => {
-      localStorage.setItem('project', JSON.stringify(project))
+    this.project.subscribe(p => {
+      localStorage.setItem('project', JSON.stringify(p))
     })
 
 
@@ -65,29 +67,14 @@ export class ProjectService {
     }
   }
 
-  addProject() {
+  addProject(id) {
 
+    this.http.get<any>(this.url + '/project/' + id)
+      .subscribe(p => {
+        this.all_rojects.next([p, ...this.all_rojects.getValue()])
+      })
   }
 
-  getSavedProjects(projects) {
-
-    const ps = FilterService.savedProjects(projects);
-
-    if (this.projects.getValue() == ps) {
-      return false
-    }
-    this.projects.next(ps)
-  }
-
-  getTreatedProjects(projects) {
-
-    const ps = FilterService.treatedProjects(projects);
-
-    if (this.treated_projects.getValue() == ps) {
-      return false
-    }
-    this.treated_projects.next(ps)
-  }
 
   getLatestProjects() {
     if (this.user.entity_id == undefined) {
@@ -100,7 +87,7 @@ export class ProjectService {
         if (this.projects.getValue() == projects) {
           return
         }
-        this.latestProjects.next(projects)
+        this.latest_projects.next(projects)
       })
   }
 
@@ -111,7 +98,7 @@ export class ProjectService {
 
     this.http.get<any>(this.url + '/all/' + this.user.entity_id)
       .subscribe(projects => {
-        projects.sort(GlobalService.sortByDate);
+        projects.sort(GlobalService.sortByNumero);
         if (this.projects.getValue() == projects) {
           return
         }
@@ -136,9 +123,9 @@ export class ProjectService {
     this.http.delete(this.url + '/' + project.id).subscribe(() => {
       next()
     });
-    const p = this.latestProjects.getValue();
-    p.splice(this.latestProjects.getValue().indexOf(project), 1);
-    this.latestProjects.next(p)
+    const p = this.latest_projects.getValue();
+    p.splice(this.latest_projects.getValue().indexOf(project), 1);
+    this.latest_projects.next(p)
 
   }
 
@@ -180,10 +167,10 @@ export class ProjectService {
       result = JSON.parse(result)
       const id = result.id
       //  a function to get the saved project from the database
-      
-      const p = this.latestProjects.getValue();
-      const ps: any[] = this.latestProjects.getValue()
-      this.latestProjects.next([p, ...ps])
+
+      const p = this.latest_projects.getValue();
+      const ps: any[] = this.latest_projects.getValue()
+      this.latest_projects.next([p, ...ps])
 
       console.log(result)
       next(id)

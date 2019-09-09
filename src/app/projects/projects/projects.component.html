@@ -1,3 +1,4 @@
+
 <mat-accordion *ngIf="projects">
   <!--projects -->
   <mat-expansion-panel 
@@ -12,11 +13,12 @@
 
         <!--<mat-icon>class</mat-icon>-->
       </mat-panel-description>
-      <div class="date">
-        <!--<mat-icon class="mat-18" *ngIf="treated(project)">checked</mat-icon>-->
-
-        <span *ngIf="!sameday(project)">{{project.date|date}}</span>
-        <span *ngIf="sameday(project)">{{project.date|date:'shortTime'}}</span>
+      <!-- <div class="date">
+        <span *ngIf="!sameday(project)"> {{project.date|date}}</span>
+        <span *ngIf="sameday(project)"> {{project.date|date:'shortTime'}}</span>
+      </div> -->
+      <div class="numero">
+          <span>{{project.date|date:'yyyy'}}/{{project.numero}}</span><br>
       </div>
     </mat-expansion-panel-header>
 

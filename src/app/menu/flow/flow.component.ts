@@ -19,13 +19,6 @@ export class FlowComponent implements OnInit {
 
   arrow() {
 
-    if (FilterService.isShipped(this.flow)) {
-      return 'arrow_backward'
-    }
-    if (FilterService.isImported(this.flow)) {
-      return 'arrow_forward'
-    }
-
     if (FilterService.downFlow(this.flow)) {
       return 'arrow_downward'
     } else if (FilterService.upFlow(this.flow)) {
@@ -37,14 +30,6 @@ export class FlowComponent implements OnInit {
   }
 
   content_label() {
-
-    if (FilterService.isShipped(this.flow)) {
-      return 'Contenu'
-    }
-    if (FilterService.isImported(this.flow)) {
-      return 'Contenu'
-    }
-
     if (FilterService.downFlow(this.flow)) {
       // return 'arrow_downward'
       return 'Observation'
@@ -63,9 +48,8 @@ export class FlowComponent implements OnInit {
 
   up_label() {
 
-    if (FilterService.isShipped(this.flow) || FilterService.isImported(this.flow)) {
+    if (this.flow.destination) {
       return this.flow.destination
-
     }
 
     // if
@@ -83,7 +67,7 @@ export class FlowComponent implements OnInit {
   up_n() {
 
 
-    if (FilterService.isShipped(this.flow) || FilterService.isImported(this.flow)) {
+    if (this.flow.destination) {
       return ''
     }
 
@@ -99,11 +83,8 @@ export class FlowComponent implements OnInit {
 
   down_label() {
 
-    if (FilterService.isShipped(this.flow)) {
+    if (this.flow.destination) {
       return this.flow.sender_entity_label
-    }
-    if (FilterService.isImported(this.flow)) {
-      return this.flow.entity_label
     }
     // if
     if (this.flow.sender_entity.length > 0 && this.flow.entity.length > 0) {
@@ -119,11 +100,8 @@ export class FlowComponent implements OnInit {
 
   down_n() {
 
-    if (FilterService.isShipped(this.flow)) {
+    if (this.flow.destination) {
       return this.flow.n_depart
-    }
-    if (FilterService.isImported(this.flow)) {
-      return this.flow.n_arrive
     }
     // if
     if (this.flow.sender_entity.length > 0 && this.flow.entity.length > 0) {

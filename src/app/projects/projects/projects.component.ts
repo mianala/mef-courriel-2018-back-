@@ -18,7 +18,7 @@ export class ProjectsComponent implements OnInit {
   @Input() projects;
   shownProjects;
   treating;
-
+  sort = 'date'
   // MatPaginator Inputs
   length = 0;
 
@@ -32,7 +32,6 @@ export class ProjectsComponent implements OnInit {
     public filter: FilterService,
     public dialog: MatDialog,
     private projectService: ProjectService) {
-
     this.pageEvent.pageIndex = 0
     this.pageEvent.pageSize = this.paginator.pageSize
   }
@@ -40,7 +39,6 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
     this.filter.query.next('')
   }
-
   senderLabel(project) {
     if (!project) {
       return

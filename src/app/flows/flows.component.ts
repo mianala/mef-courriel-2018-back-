@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlowService} from '../service/flow.service';
-import {EntityService} from '../service/entity.service';
-import {DispatchComponent} from '../projects/dialog/dispatch/dispatch.component';
-import {MatDialog} from '@angular/material';
-import {ProjectService} from '../service/project.service';
-import {Router} from '@angular/router';
-import {UserService} from '../service/user.service';
-import {GlobalService} from '../service/global.service';
-import {FilterService} from '../service/filter.service';
-import {PageEvent} from '@angular/material';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlowService } from '../service/flow.service';
+import { EntityService } from '../service/entity.service';
+import { DispatchComponent } from '../projects/dialog/dispatch/dispatch.component';
+import { MatDialog } from '@angular/material';
+import { ProjectService } from '../service/project.service';
+import { Router } from '@angular/router';
+import { UserService } from '../service/user.service';
+import { GlobalService } from '../service/global.service';
+import { FilterService } from '../service/filter.service';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'flows',
@@ -33,12 +33,12 @@ export class FlowsComponent implements OnInit {
 
 
   constructor(public router: Router,
-              public flowService: FlowService,
-              public userService: UserService,
-              public entityService: EntityService,
-              public filter: FilterService,
-              public dialog: MatDialog,
-              public projectService: ProjectService) {
+    public flowService: FlowService,
+    public userService: UserService,
+    public entityService: EntityService,
+    public filter: FilterService,
+    public dialog: MatDialog,
+    public projectService: ProjectService) {
     this.visibility = true;
     this.userService.user.subscribe(user => {
       this.user = user
@@ -66,13 +66,11 @@ export class FlowsComponent implements OnInit {
   }
 
   title_label(flow) {
-    if (FilterService.isShipped(flow)) {
-      return 'au ' + flow.destination
-    } else if (FilterService.isImported(flow)) {
+    if (flow.destination) {
       return flow.destination
-    } else if (FilterService.isSent(flow, this.entity)) {
+    } else if (FilterService.sentFlow(flow, this.entity)) {
       return 'à ' + flow.entity_label
-    } else {
+    } else if (FilterService.receivedFlow(flow, this.entity)) {
       return flow.sender_entity_label
     }
   }
@@ -80,12 +78,6 @@ export class FlowsComponent implements OnInit {
   decommissionable(flow) {
     return false
     // return flow.direction == 1;
-  }
-
-  designateur(flow) {
-    if (FilterService.isSent(flow, this.entity)) {
-      return ''
-    }
   }
 
 
@@ -108,7 +100,7 @@ export class FlowsComponent implements OnInit {
 
 
   received(flow) {
-    return FilterService.received(flow, this.entity)
+    return FilterService.receivedFlow(flow, this.entity)
   }
 
   submitable(id) {
@@ -117,7 +109,7 @@ export class FlowsComponent implements OnInit {
 
   view(flow) {
     this.projectService.setProjectFromId(flow.project_id);
-    this.router.navigateByUrl('/courriels/courriel')
+    this.router.navigateByUrl('/courriel')
   }
 
   submit(flow) {

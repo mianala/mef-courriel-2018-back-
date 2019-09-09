@@ -47,7 +47,7 @@ import { MaterialModule } from '../module/material';
 import { ObservationsComponent } from './form/observations/observations.component';
 import { EntitiesComponent } from './form/entities/entities.component';
 import { ProjectNavComponent } from './sidenav/project-nav/project-nav.component';
-import { ProjectListComponent } from './page/inbox/inbox.component';
+import { InboxComponent } from './page/inbox/inbox.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { ProjectPageComponent } from './projects/project-page/project-page.component';
 import { DispatchComponent } from './projects/dialog/dispatch/dispatch.component';
@@ -149,7 +149,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     ObservationsComponent,
     EntitiesComponent,
     ProjectNavComponent,
-    ProjectListComponent,
+    InboxComponent,
     ProjectComponent,
     ProjectPageComponent,
     DispatchComponent,
