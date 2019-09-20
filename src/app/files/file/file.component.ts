@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { GlobalService } from 'app/service/global.service';
 
 @Component({
   selector: 'file',
@@ -11,7 +12,7 @@ export class FileComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.file.ko = Math.round(this.file.size / 1000) + ' Ko'
+    this.file.ko = GlobalService.formatBytes(this.file.size)
   }
 
   pdf() {

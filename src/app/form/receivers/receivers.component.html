@@ -1,0 +1,43 @@
+<h4>Destinataires</h4>
+
+<mat-tab-group (selectedTabChange)="indexChanged($event)" backgroundColor='accent'>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>arrow_downward</mat-icon>
+    </ng-template>
+    <div class="entities">
+      <mat-checkbox *ngFor="let entity of downEntities" (change)="checkEntity(entity['id'])">
+        <strong>{{entity.label}}</strong>
+        {{entity.title}}</mat-checkbox>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="upEntities.length">
+    <ng-template mat-tab-label>
+      <mat-icon>arrow_upward</mat-icon>
+    </ng-template>
+
+    <div class="entities">
+      <mat-checkbox *ngFor="let entity of upEntities" (change)="checkEntity(entity['id'])">
+        <strong>{{entity.label}}</strong>
+        {{entity.title}}</mat-checkbox>
+    </div>
+  </mat-tab>
+  <mat-tab *ngIf="relativeEntities.length">
+    <ng-template mat-tab-label>
+      <mat-icon>arrow_forward</mat-icon>
+    </ng-template>
+
+    <div class="entities">
+      <mat-checkbox *ngFor="let entity of relativeEntities" (change)="checkEntity(entity['id'])">
+        <strong>{{entity.label}}</strong>
+        {{entity.title}}</mat-checkbox>
+    </div>
+  </mat-tab>
+  <mat-tab label="Autre">
+    <mat-form-field class="receiver">
+      <input [(ngModel)]="receiver" name="content" matInput placeholder="Destinataire"/>
+      <mat-hint>Plus > deux (2) caractères</mat-hint>
+    </mat-form-field>
+  </mat-tab>
+</mat-tab-group>

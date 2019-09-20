@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GlobalService } from 'app/service/global.service';
 
 @Component({
   selector: 'app-dialog-file',
@@ -10,10 +11,10 @@ export class DialogFileComponent implements OnInit {
   @Output() removeFile = new EventEmitter();
 
   constructor() {
-
   }
 
   ngOnInit() {
+    this.file.ko = GlobalService.formatBytes(this.file.size)
   }
 
   remove() {

@@ -55,6 +55,7 @@ export class ThreadService {
     if (this.user['id']) {
       const formData: any = new FormData();
       formData.append('receivers', thread.receivers);
+      formData.append('receiver', thread.receiver);
       formData.append('sender_entity_id', this.user.entity_id);
       formData.append('project_id', thread.project.id);
       formData.append('user_id', this.user.id);

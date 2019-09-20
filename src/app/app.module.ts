@@ -87,6 +87,7 @@ import { SearchPageComponent } from './page/search-page/search-page.component';
 import { ToolbarComponent } from './parts/toolbar/toolbar.component';
 import { ProjectsPageComponent } from './page/projects-page/projects-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReceiversComponent } from './form/receivers/receivers.component';
 
 registerLocaleData(localeFr);
 
@@ -178,6 +179,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     SearchPageComponent,
     ToolbarComponent,
     ProjectsPageComponent,
+    ReceiversComponent,
   ],
   imports: [
     BrowserModule,

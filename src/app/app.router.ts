@@ -15,6 +15,7 @@ import { TreatedComponent } from "./page/treated/treated.component";
 import { ProjectsPageComponent } from './page/projects-page/projects-page.component';
 import { SearchPageComponent } from './page/search-page/search-page.component';
 import { InboxComponent } from './page/inbox/inbox.component'
+import { EntitiesComponent } from './form/entities/entities.component';
 export const router: Routes = [
 
   {
@@ -41,6 +42,10 @@ export const router: Routes = [
   {
     path: 'envoyes',
     component: SentComponent
+  },
+  {
+    path: 'departements',
+    component: EntitiesComponent
   },
   {
     path: 'profile',

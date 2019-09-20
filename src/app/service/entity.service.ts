@@ -27,13 +27,7 @@ export class EntityService {
 
 
     this.getEntities();
-
-    this.user = this.userService.user.subscribe(user => {
-      if (user['id']) {
-        this.user = user;
-        this.getUserEntity(user['entity_id']);
-      }
-    });
+    // filtering entitites
 
     this.entity.subscribe(entity => {
       if (!entity) { return }
@@ -41,36 +35,58 @@ export class EntityService {
         this.filterEntities(this.entities.getValue(), entity)
       }
     })
+
+    this.entities.subscribe(entities => {
+      if (entities.length > 0) {
+        this.userService.user.subscribe(user => {
+          if (user['id']) {
+            this.user = user;
+            this.getUserEntity(user['entity_id']);
+          }
+        });
+      }
+    })
   }
+
+
+
 
   getUserEntity(entity_id) {
     const entity = this.entities.getValue().filter(e => {
       return e.id == entity_id
     })
     entity['numero'] = '## - 2019/' + entity['header'];
+    console.log('setting entity');
     this.entity.next(entity[0]);
     // get relative entities
   }
 
   filterEntities(entities, entity) {
+    console.log('filtering entities');
+
     this.downEntities.next(FilterService.fitlerDownEntities(entities, entity))
     this.upEntities.next(FilterService.fitlerUpEntities(entities, entity))
     this.relativeEntities.next(FilterService.fitlerRelativeEntities(entities, entity))
   }
 
   getEntities() {
-    this.http.get<any>(this.url)
-      .subscribe(entities => {
+    if (localStorage.getItem('entities')) {
+      this.entities.next(JSON.parse(localStorage.getItem('entities')))
+    } else {
+      this.http.get<any>(this.url)
+        .subscribe(entities => {
 
 
-        entities.sort(function (b, a) {
-          const c = a.entity;
-          const d = b.entity;
-          return c - d;
-        });
+          entities.sort(function (b, a) {
+            const c = a.entity;
+            const d = b.entity;
+            return c - d;
+          });
 
-        this.entities.next(entities)
-      })
+          this.entities.next(entities)
+          localStorage.setItem('entities', JSON.stringify(entities))
+        })
+    }
   }
 
 }

@@ -20,57 +20,13 @@
     <textarea [(ngModel)]="composition.content" required name="content" matInput placeholder="Note / Observation"></textarea>
   </mat-form-field>
 
-
-  <h4>Destinataires</h4>
-
-
-  <mat-tab-group (selectedTabChange)="indexChanged($event)" backgroundColor='accent'>
-
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon>arrow_downward</mat-icon>
-      </ng-template>
-      <div class="entities">
-        <mat-checkbox *ngFor="let entity of downEntities" (change)="checkEntity(entity['id'])">
-          <strong>{{entity.label}}</strong>
-          {{entity.title}}</mat-checkbox>
-      </div>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon>arrow_upward</mat-icon>
-      </ng-template>
-
-      <div class="entities">
-        <mat-checkbox *ngFor="let entity of upEntities" (change)="checkEntity(entity['id'])">
-          <strong>{{entity.label}}</strong>
-          {{entity.title}}</mat-checkbox>
-      </div>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon>arrow_forward</mat-icon>
-      </ng-template>
-
-      <div class="entities">
-        <mat-checkbox *ngFor="let entity of relativeEntities" (change)="checkEntity(entity['id'])">
-          <strong>{{entity.label}}</strong>
-          {{entity.title}}</mat-checkbox>
-      </div>
-    </mat-tab>
-    <mat-tab label="Autre">
-
-      <mat-form-field class="receiver">
-        <textarea [(ngModel)]="composition.receiver" name="content" matInput placeholder="Destinataire"></textarea>
-      </mat-form-field>
-    </mat-tab>
-  </mat-tab-group>
+  <receivers [(receiver)]="composition.receiver"  [(receivers)]="composition.receivers"></receivers>
 
 
   <!-- 
   <mat-checkbox *ngIf="composition.receivers.length == 1" [(ngModel)]="composition.hasBe">BORDEREAU D'ENVOI
   </mat-checkbox> -->
-  <be *ngIf="composition.hasBe" (onUpdate)="updateBe($event)"></be>
+  <!-- <be *ngIf="composition.hasBe" (onUpdate)="updateBe($event)"></be> -->
 
   <!--date de depart auto-->
   <app-files [files]="composition.files"></app-files>

@@ -55,7 +55,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   treated(project) {
-    return FilterService.treatedProject(project)
+    return project.status_id != 1
   }
 
   setProject(project) {
@@ -63,32 +63,19 @@ export class ProjectsComponent implements OnInit {
     this.router.navigateByUrl('/courriels/courriel')
   }
 
-  submitable() {
-    return false
-  }
-
   editable() {
     return true
   }
 
   viewable(project) {
-    return project.dispatched == 1
-  }
-
-  submit() {
-
-  }
-
-  treatable(project) {
-
-    return project.status_id != 1
+    return project.status_id != 0
   }
 
   delete(project) {
     if (confirm('Suprimer le projet ' + project.entity_label + '/' + project.n_project + ' ?')) {
       this.projectService.deleteProject(project, () => {
+        this.notification.projectDeleted();
       });
-      this.notification.projectDeleted();
     }
   }
 

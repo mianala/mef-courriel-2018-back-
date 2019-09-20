@@ -26,13 +26,9 @@ export class UserService {
     private xhr: XhrService) {
     this.url = EnvService.ip() + '/api/users';
 
-
     if (localStorage.getItem('user')) {
-      console.log('getting user from local storage')
       this.user.next(JSON.parse(localStorage.getItem('user')))
     } else {
-      console.log('connecting to get user')
-
       // de redirect to login
       this.http.post(this.url + '/user', { type: 'user' })
         .subscribe(user => {
@@ -55,7 +51,7 @@ export class UserService {
     })
   }
 
-
+// login process
   login(id: string, password: string, next) {
     this.http
       .post<any>(
@@ -72,6 +68,9 @@ export class UserService {
             this.notification.print(user.error)
             return
           }
+
+          // storing the user
+          localStorage.setItem('user', JSON.stringify(user))
           this.user.next(user)
 
         })

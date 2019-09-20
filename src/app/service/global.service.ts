@@ -83,13 +83,15 @@ export class GlobalService {
     const x: number = new Date(a['date']).getFullYear();
     const y: number = new Date(b['date']).getFullYear();
 
-    if (collator.compare(c, d) && (x > y)) {
-      return 1
-    } else if (collator.compare(c, d) && (x < y)) {
-      return -1
-    } else {
-      return 0
-    }
+    // if (collator.compare(c, d) && (x > y)) {
+    //   return 1
+    // } else if (collator.compare(c, d) && (x < y)) {
+    //   return -1
+    // } else {
+    //   return 0
+    // }
+
+    return collator.compare(c, d)
 
   }
 
@@ -136,12 +138,23 @@ export class GlobalService {
     }
   }
 
+  static formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
 
   static openBe() {
 
     const be = {
       numero: 'Numero',
-      header: 'MINISTERE <br> DES FINANCES ET DU BUDGET <br>     -------------   <br>     SECRET ARIAT GENERAL <br>     ------------- <br>     DIRECTION GENERALE DU BUDGET<br>     ------------- <br> Direction des Secteurs Productif et Infrastructure<br>     ------------- <br>Service Productif ',
+      header: 'MINISTERE <br> DES FINANCES ET DU BUDGET <br>   -------------   <br>     SECRETARIAT GENERAL <br>     ------------- <br>     DIRECTION GENERALE DU BUDGET<br>     ------------- <br> Direction des Secteurs Productif et Infrastructure<br>     ------------- <br>Service Productif ',
       receiver: 'receiver_label',
       sender: 'sender',
       observation: 'observation',

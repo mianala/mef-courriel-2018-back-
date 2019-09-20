@@ -26,18 +26,15 @@ export class SocketService {
         // console.log('socket can connect')
         this.entity_id = user['entity_id'].toString()
         socket.on('connect', () => {
-          console.log('Socket connected');
+          socket.on('new project', (content) => {
+            console.log(content);
+            const participants = content.participants;
+            if (participants.includes(this.entity_id)) {
+              this.projectService.addProject(content.project)
+              this.notification.projectSaved();
+            }
+          });
 
-          // socket.on('new project', (content) => {
-          //   console.log('Socket new project');
-          //   console.log(content);
-          //   const participants = content.participants;
-          //   if (participants.includes(this.entity_id)) {
-          //     this.projectService.getLatestProjects()
-          //     this.notification.projectSaved();
-          //   }
-          // });
-          
           // socket.on('project edited', (content) => {
           //   console.log('Socket new project');
           //   console.log(content);
@@ -48,7 +45,6 @@ export class SocketService {
           // });
 
           socket.on('project treated', (content) => {
-            console.log('Socket project treated');
             console.log(content);
             const participants = content.participants;
             if (participants.includes(this.entity_id)) {
@@ -57,7 +53,6 @@ export class SocketService {
           });
 
           socket.on('reply', (content) => {
-            console.log('Socket reply sent');
             console.log(content);
             const participants = content.participants;
 
@@ -73,7 +68,6 @@ export class SocketService {
             console.log(content);
 
             const participants = content.participants;
-            console.log('Socket flow treated');
             if (participants.includes(this.entity_id)) {
               this.flowService.getAllFlows();
               this.notification.flowTreated()
@@ -102,8 +96,6 @@ export class SocketService {
             }
           });
           socket.on('project composed', (content) => {
-            console.log(this.entity_id);
-            console.log('Socket project composed');
             console.log(content);
             const participants = content.participants;
             if (participants.includes(this.entity_id)) {

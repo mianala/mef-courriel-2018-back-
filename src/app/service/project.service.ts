@@ -17,7 +17,7 @@ export class ProjectService {
   projects = new BehaviorSubject([]);
   latest_projects = new BehaviorSubject([]);
   new_projects = new BehaviorSubject([]);
-  all_rojects = new BehaviorSubject([]);
+  all_projects = new BehaviorSubject([]);
   project = new BehaviorSubject({
     id: 0,
   });
@@ -29,12 +29,11 @@ export class ProjectService {
     private xhr: XhrService,
     private http: HttpClient) {
     this.url = EnvService.ip() + '/api/projects';
-    this.user = this.userService.user.getValue();
+
     // console.log('initializing projects');
 
-    this.user = this.userService.user.subscribe(user => {
+    this.userService.user.subscribe(user => {
       if (user['id']) {
-
         this.user = user;
         this.getLatestProjects();
       }
@@ -67,12 +66,8 @@ export class ProjectService {
     }
   }
 
-  addProject(id) {
-
-    this.http.get<any>(this.url + '/project/' + id)
-      .subscribe(p => {
-        this.all_rojects.next([p, ...this.all_rojects.getValue()])
-      })
+  addProject(p) {
+    this.all_projects.next([p, ...this.all_projects.getValue()])
   }
 
 
@@ -88,6 +83,7 @@ export class ProjectService {
           return
         }
         this.latest_projects.next(projects)
+        this.getAllProjects()
       })
   }
 
@@ -98,11 +94,12 @@ export class ProjectService {
 
     this.http.get<any>(this.url + '/all/' + this.user.entity_id)
       .subscribe(projects => {
-        projects.sort(GlobalService.sortByNumero);
+        // sorting all the projects
+        projects.sort(GlobalService.sortByDate);
         if (this.projects.getValue() == projects) {
           return
         }
-        this.all_rojects.next(projects)
+        this.all_projects.next(projects)
       })
   }
 
@@ -123,9 +120,9 @@ export class ProjectService {
     this.http.delete(this.url + '/' + project.id).subscribe(() => {
       next()
     });
-    const p = this.latest_projects.getValue();
-    p.splice(this.latest_projects.getValue().indexOf(project), 1);
-    this.latest_projects.next(p)
+    const p = this.all_projects.getValue();
+    p.splice(this.all_projects.getValue().indexOf(project), 1);
+    this.all_projects.next(p)
 
   }
 
@@ -155,7 +152,7 @@ export class ProjectService {
     formData.append('received_date', this.global.toOracleDate(project.received_date));
     formData.append('type_id', project.type_id);
     formData.append('letter_id', project.letter_id);
-    formData.append('user_id', this.user.id); // user_id
+    formData.append('user_id', this.user['id']); // user_id
 
     for (let i = 0; i < project.files.length; i++) {
       formData.append('files', project.files[i], project.files[i].name)
@@ -170,7 +167,7 @@ export class ProjectService {
 
       const p = this.latest_projects.getValue();
       const ps: any[] = this.latest_projects.getValue()
-      this.latest_projects.next([p, ...ps])
+      // this.latest_projects.next([p, ...ps])
 
       console.log(result)
       next(id)

@@ -66,7 +66,6 @@ export class FlowService {
     });
 
     this.entityService.entity.subscribe(e => {
-      console.log(e)
       if (!e) { return }
       if (e['id']) {
         this.entity = e

@@ -10,7 +10,7 @@ export class ProjectsPageComponent implements OnInit {
   projects
   constructor(private projectServices: ProjectService) {
     this.projectServices.getAllProjects()
-    this.projectServices.all_rojects.subscribe(s => {
+    this.projectServices.all_projects.subscribe(s => {
       this.projects = s
     })
   }

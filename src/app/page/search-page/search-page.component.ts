@@ -18,7 +18,7 @@ export class SearchPageComponent implements OnInit {
   constructor(private projectService: ProjectService,
     private filterService: FilterService,
     private flowService: FlowService) {
-    this.projectService.all_rojects.subscribe(ps => {
+    this.projectService.all_projects.subscribe(ps => {
       this.projects = ps
     })
 

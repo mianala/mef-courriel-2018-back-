@@ -21,10 +21,6 @@ export class ComposeComponent implements OnInit {
 
   user: any;
 
-  upEntities;
-  relativeEntities;
-  downEntities;
-
   observations = GlobalService.observations;
   checkedObservations;
   active_index = 0;
@@ -52,18 +48,6 @@ export class ComposeComponent implements OnInit {
       this.composition.project = project
     })
 
-    this.entityService.downEntities.subscribe(s => {
-      this.downEntities = s
-    })
-
-    this.entityService.relativeEntities.subscribe(s => {
-      this.relativeEntities = s
-    })
-
-    this.entityService.upEntities.subscribe(s => {
-      this.upEntities = s
-    })
-
   }
 
   checkEntity(id) {
@@ -74,8 +58,6 @@ export class ComposeComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userService.user.getValue();
-
-    this.relativeEntities = this.entityService.relativeEntities.getValue();
   }
 
   validTitle() {
@@ -87,7 +69,7 @@ export class ComposeComponent implements OnInit {
   }
 
   validReceiver() {
-    return this.composition.receivers.length > 0
+    return this.composition.receivers.length || this.composition.receiver.length > 2
   }
 
   submit() {

@@ -7,17 +7,4 @@
     grid-auto-flow: row;
     border: 1px solid black;
   }
-  .entities{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-flow: row;
-    padding: 1em;
-  }
-
-  .receiver{
-    padding: 1em;
-  }
-  mat-tab-group{
-    border: 1px solid black;
-  }
 }

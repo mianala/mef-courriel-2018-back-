@@ -1,9 +1,77 @@
 <app-user-sidenav-profil class="side-nav-item padded"></app-user-sidenav-profil>
 <app-user-sidenav-time></app-user-sidenav-time>
 <!-- <search></search> -->
-<app-project-nav class="side-nav-item"></app-project-nav>
 <!--<app-user-sidenav-mailmenu class="side-nav-item"></app-user-sidenav-mailmenu>-->
 <!--<app-user-sidenav-usermenu class="side-nav-item"></app-user-sidenav-usermenu>-->
 <!--todo setting option-->
 
 <!--todo dgbcourriel logo-->
+<mat-nav-list side-nav-item>
+    <div class="button">
+  
+      <button (click)="saveEmail()" appearance="legacy" mat-raised-button>
+        <mat-icon>save</mat-icon> Enregistrer
+      </button>
+    </div>
+  
+    <mat-list-item routerLink="/">
+      <mat-icon class="mat-18">inbox</mat-icon>
+      <strong>Boite </strong>
+    </mat-list-item>
+  
+  
+  
+    <!-- dispatche and traite are the same so I will leave and remove dispatch -->
+    <!-- <mat-list-item routerLink="/projets/dispatches">
+      <mat-icon class="mat-18">call_split</mat-icon>
+    <span>Dispatchés ({{dispatched_count}})</span>
+    </mat-list-item> -->
+  
+    <mat-list-item routerLink="/envoyes">
+      <mat-icon class="mat-18">send</mat-icon>
+      <span>Envoyés </span>
+    </mat-list-item>
+  
+    <mat-list-item routerLink="/traites">
+      <mat-icon class="mat-18">done_all</mat-icon>
+      <span>Traités</span>
+    </mat-list-item>
+  
+    <mat-list-item routerLink="/enregistres">
+      <mat-icon class="mat-18">book</mat-icon>
+      <span>Enregistrés</span>
+    </mat-list-item>
+  
+    <mat-list-item routerLink="/departements">
+      <mat-icon class="mat-18">book</mat-icon>
+      <span>Departements</span>
+    </mat-list-item>
+  
+    <!-- <h4 class="nav-header">
+      _____
+    </h4>
+    <mat-list-item routerLink="/templates">
+      <mat-icon class="mat-18">library_books</mat-icon>
+      <span>Templates</span>
+    </mat-list-item> -->
+  <!-- 
+    <h4 class="nav-header">
+      _____
+    </h4> -->
+  
+    <div class="button">
+  
+      <button  (click)="writeEmail()" mat-raised-button>
+        <mat-icon>edit</mat-icon> Ecrire
+      </button>
+    </div>
+    <!-- <mat-list-item routerLink="/exportes">
+      <mat-icon class="mat-18">file_upload</mat-icon>
+      <span>Exportés ({{shipped_count}})</span>
+    </mat-list-item> -->
+    <!-- <mat-list-item routerLink="/importes">
+      <mat-icon class="mat-18">file_download</mat-icon>
+      <span>Importés ({{returned_count}})</span>
+    </mat-list-item> -->
+  </mat-nav-list>
+  
