@@ -18,11 +18,7 @@ export class InboxComponent implements OnInit {
   constructor(private projectService: ProjectService,
     private flowService: FlowService) {
 
-    this.projectService.new_projects.subscribe(ps => {
-      this.projects = ps
-    })
-
-    this.flowService.new_flows.subscribe(fs => {
+    this.flowService.received_flows.subscribe(fs => {
       this.flows = fs
     })
 

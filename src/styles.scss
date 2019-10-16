@@ -15,20 +15,23 @@ body {
     //froala unlicenced here for the 1st
     div:nth-child(4) {
       background-color: #fff !important;
+
       a {
         background-color: #fff !important;
       }
     }
+
     //froala unlicenced here for the 1st
     div:nth-child(3) {
       background-color: #fff !important;
+
       a {
         background-color: #fff !important;
       }
     }
   }
 
-  a[href*='froala']{
+  a[href*='froala'] {
     display: none !important;
   }
 
@@ -48,12 +51,9 @@ body {
     line-height: 30px !important;
   }
 
-  .mat-sidenav-container {
-  }
+  .mat-sidenav-container {}
 
-  .mat-sidenav-content {
-
-  }
+  .mat-sidenav-content {}
 }
 
 mat-list-item[disabled] {
@@ -61,7 +61,8 @@ mat-list-item[disabled] {
   cursor: none;
 }
 
-html, body {
+html,
+body {
   margin: 0;
 }
 
@@ -103,9 +104,10 @@ mat-accordion {
     mat-expansion-panel-header {
       //border-left: 5px solid #00EAFF ;
 
-      .mat-content{
+      .mat-content {
         display: grid !important;
-        grid-template-columns: 1fr 5fr 1fr;
+        height: inherit;
+        grid-template-columns: 1.5fr 4fr 1fr;
       }
 
       overflow: hidden;
@@ -113,7 +115,9 @@ mat-accordion {
       mat-panel-description {
         overflow: hidden;
         max-height: 50px;
-        flex-grow:8;
+        flex-grow: 8;
+        text-overflow: ellipsis;
+        padding-top: .5em;
 
         p {
           margin: 10px !important;
@@ -121,12 +125,25 @@ mat-accordion {
       }
 
       mat-panel-title {
-        flex-grow:2;
+        flex-grow: 2;
         align-items: center;
+
+
+      }
+
+      .numero {
+        display: flex;
+        text-align: right;
+        white-space: nowrap;
+        flex-direction: column;
+        padding-top: .5em;
+        .highlight{
+          border-bottom: 1px solid rgba(195, 0, 255,.8)
+        }
       }
 
       .date {
-        flex-grow:.5;
+        flex-grow: .5;
         display: flex;
         justify-content: flex-end;
         align-self: center;
@@ -134,5 +151,3 @@ mat-accordion {
     }
   }
 }
-
-

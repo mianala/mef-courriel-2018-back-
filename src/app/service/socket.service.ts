@@ -48,7 +48,7 @@ export class SocketService {
             console.log(content);
             const participants = content.participants;
             if (participants.includes(this.entity_id)) {
-              this.projectService.getLatestProjects()
+              this.projectService.updateProject(content.project)
             }
           });
 
@@ -79,7 +79,7 @@ export class SocketService {
             console.log(content);
             const participants = content.participants;
             if (participants.includes(this.entity_id)) {
-              this.projectService.getLatestProjects();
+              this.projectService.updateProject(content.project);
               this.notification.projectTreated()
             }
           });

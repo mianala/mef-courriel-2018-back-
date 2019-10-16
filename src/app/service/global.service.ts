@@ -7,7 +7,6 @@ var collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base'
 @Injectable()
 export class GlobalService {
 
-  sidenav_status = new BehaviorSubject(true);
   // if need to add add at the bottom of the list please
   static observations = [
     'POUR LECTURE TOURNANTE',
@@ -39,6 +38,10 @@ export class GlobalService {
   static letter_types = [
     'Lettre',
     'BE',
+    'Notes',
+    'Fiche',
+    'Communication verbal',
+    'Instruction',
     'Circulaire',
     'Facture',
     'Décision',
@@ -53,10 +56,46 @@ export class GlobalService {
   static in_types = [
     'Originale',
     'Copie',
+    'Confidenciel',
     'Enveloppe'
   ];
 
+  static months = [
+    'Janvier',
+    'Février',
+    'Mars',
+    'Avril',
+    'Mai',
+    'Juin',
+    'Juillet',
+    'Août',
+    'Septembre',
+    'Octobre',
+    'Novembre',
+    'Décembre',
+  ];
+
+  static weeks = [
+    'Semaine I',
+    'Semaine II',
+    'Semaine III',
+    'Semaine IV',
+  ];
+
+  static statuses = [
+    '',
+    'Pour lecture',
+    'Pour signature',
+    'Signé',
+    'En attente',
+    'En cours de traitement',
+    'Lu',
+    'Traité'
+  ];
+
   static API_KEY = 'melody_key'
+
+  sidenav_status = new BehaviorSubject(true);
 
   static sortById(b, a) {
     const c = a['id'];
@@ -148,8 +187,19 @@ export class GlobalService {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
+  }
 
+  static paginator = {
+    pageSize: 15,
+    pageSizeOptions: [5, 15, 50]
+  }
+
+  static paginate(array, page_size, page_number) {
+    if (array) {
+      return array.slice(page_number * page_size, (page_number + 1) * page_size);
+    }
+  }
+  
   static openBe() {
 
     const be = {
@@ -187,14 +237,4 @@ export class GlobalService {
   constructor() {
   }
 
-  static paginator = {
-    pageSize: 15,
-    pageSizeOptions: [5, 15, 50]
-  }
-
-  static paginate(array, page_size, page_number) {
-    if (array) {
-      return array.slice(page_number * page_size, (page_number + 1) * page_size);
-    }
-  }
 }

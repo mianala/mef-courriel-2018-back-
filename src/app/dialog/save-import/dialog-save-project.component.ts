@@ -47,6 +47,7 @@ export class DialogSaveProjectComponent implements OnInit {
       letter_id: 0,
       title: 'TITLE',
       content: 'OBSERVATIONS',
+      description: 'DESCRIPTION',
       courriel_date: new Date(),
       received_date: new Date(),
     };

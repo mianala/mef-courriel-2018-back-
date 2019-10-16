@@ -19,7 +19,18 @@ export class FlowService {
   all_flows = new BehaviorSubject([]);
   new_flows = new BehaviorSubject([]);
   flows = new BehaviorSubject([]);
+
+  // filtered and searched
+  filtered_flows = new BehaviorSubject([]);
+
+  // searched flows
+  searched_flows = new BehaviorSubject([]);
+  searched_sent_flows = new BehaviorSubject([]);
+  searched_received_flows = new BehaviorSubject([]);
+
+
   sent_flows = new BehaviorSubject([]);
+  received_flows = new BehaviorSubject([]);
   // in traité
   treated_flows = new BehaviorSubject([]);
   // in expediés
@@ -37,7 +48,7 @@ export class FlowService {
   entity;
 
   constructor(private http: HttpClient,
-    private notification: NotificationService,
+    private notification: NotificationService,private filterService: FilterService,
     private projectService: ProjectService,
     private userService: UserService, private entityService: EntityService,
     private xhr: XhrService) {
@@ -46,32 +57,68 @@ export class FlowService {
     this
       .user = this.userService.user.getValue();
 
-    this.latest_flows.subscribe(fs => {
-      this.new_flows.next(fs.filter(flow => {
-        return FilterService.newFlow(flow, this.entity)
-      }))
-      this.sent_flows.next(fs.filter(flow => {
+    this.all_flows.subscribe(fs => {
+      if (!fs) {
+        return
+      }
+      if (!fs.length) {
+        return
+      }
+
+      this.refreshFlows(fs)
+    })
+
+    // update new and sent flows from filter
+    this.filtered_flows.subscribe(fs => {
+      this.refreshFlows(fs)
+    })
+
+    // update received and sent flows from search
+    this.searched_flows.subscribe(fs=>{
+      this.searched_sent_flows.next(fs.filter(flow => {
         return FilterService.sentFlow(flow, this.entity)
       }))
-      this.treated_flows.next(fs.filter(flow => {
-        return FilterService.treatedFlow(flow, this.entity)
+      this.searched_received_flows.next(fs.filter(flow => {
+        return FilterService.receivedFlow(flow, this.entity)
       }))
     })
 
-    this.userService.user.subscribe(user => {
+    this.filterService.query.subscribe(query => {
+      // filtered flows -> searched flows
+      this.search(query)
+    })
 
-      if (user['id']) {
-        this.user = user;
-      }
-    });
+    this.filterService.filters.subscribe(filters => {
+      // filtered flows -> searched flows
+      this.filterFlows(filters)
+    })
 
     this.entityService.entity.subscribe(e => {
       if (!e) { return }
-      if (e['id']) {
-        this.entity = e
-        this.getLatestFlows()
-      }
+      if (!e['id']) { return }
+      this.entity = e
+      this.getFlows()
     })
+  }
+
+  search(query){
+    this.searched_flows.next(FilterService.searchFlow(this.filtered_flows.getValue(), query))
+  }
+
+  filterFlows(filter){
+    this.filtered_flows.next(FilterService.filterFlows(this.all_flows.getValue(), filter))
+  }
+
+  refreshFlows(fs){
+    this.new_flows.next(fs.filter(flow => {
+      return FilterService.newFlow(flow, this.entity)
+    }))
+    this.sent_flows.next(fs.filter(flow => {
+      return FilterService.sentFlow(flow, this.entity)
+    }))
+    this.received_flows.next(fs.filter(flow => {
+      return FilterService.receivedFlow(flow, this.entity)
+    }))
   }
 
 
@@ -89,9 +136,20 @@ export class FlowService {
     this.flow.next(flow)
   }
 
+  getFlows() {
+
+    this.http.get<any>(this.url + '/latest/' + this.entity['id'])
+      .subscribe(flows => {
+        this.all_flows.next(flows)
+        this.getAllFlows()
+      })
+
+  }
+
   getAllFlows() {
+    console.log('getting all flows');
+
     // console.log('loading all flows');
-    if (!this.entity) { return }
     this.http.get<any>(this.url + '/all/' + this.entity['id'])
       .subscribe(flows => {
         flows.sort(GlobalService.sortByDate);
@@ -99,27 +157,7 @@ export class FlowService {
       })
   }
 
-  getNewFlows() {
-    // console.log('loading all flows');
-    this.http.get<any>(this.url + '/new/' + this.entity['id'])
-      .subscribe(flows => {
-        flows.sort(GlobalService.sortByDate);
-        this.new_flows.next(flows)
-      })
-  }
-
-  getLatestFlows() {
-    // console.log('loading all flows');
-    this.http.get<any>(this.url + '/latest/' + this.entity['id'])
-      .subscribe(flows => {
-        flows.sort(GlobalService.sortByDate);
-        this.latest_flows.next(flows)
-      })
-  }
-
-
-
-  getProjectFlows(id) {
+  getProjectFlows(id, next) {
     this.http.get<any>(this.url + '/project/' + id)
 
       .subscribe(flows => {
@@ -129,6 +167,12 @@ export class FlowService {
         }
         this.project_flows.next(flows)
       })
+  }
+
+  getFlowFiles(id, next) {
+    this.http.get(EnvService.ip() + '/api/flow/' + id).subscribe((files) => {
+      next(files)
+    })
   }
 
   decommission(flow, next) {

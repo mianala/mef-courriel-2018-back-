@@ -18,11 +18,7 @@ export class DispatchedPageComponent implements OnInit {
     public router: Router, public filter: FilterService,
     private projectService: ProjectService) {
     this.projects = [];
-    this.filter.query.subscribe(query => {
-      this.projectService.treated_projects.subscribe(uprojects => {
-        this.projects = FilterService.filterProject(uprojects,query)
-      })
-    })
+
   }
 
   ngOnInit() {

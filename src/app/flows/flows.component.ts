@@ -58,7 +58,7 @@ export class FlowsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filter.query.next('')
+
   }
 
   treated(flow) {
@@ -120,5 +120,11 @@ export class FlowsComponent implements OnInit {
     console.log(flow)
     this.projectService.setProjectFromId(flow.project_id);
     this.dialog.open(DispatchComponent);
+  }
+
+  getFiles(flow, id) {
+    this.flowService.getFlowFiles(flow.id, (files) => {
+      this.flows[id].files = files
+    })
   }
 }

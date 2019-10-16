@@ -1,3 +1,14 @@
-<p>
-  entities works!
-</p>
+<mat-list>
+  <h3 mat-subheader>Up</h3>
+  <mat-list-item *ngFor="let entity of up">
+    <entity [entity]='entity'></entity>
+  </mat-list-item>
+  <h3 mat-subheader>Relatives</h3>
+  <mat-list-item *ngFor="let entity of relatives">
+    <entity [entity]='entity'></entity>
+  </mat-list-item>
+  <h3 mat-subheader>Down</h3>
+  <mat-list-item *ngFor="let entity of down">
+    <entity [entity]='entity'></entity>
+  </mat-list-item>
+</mat-list>

@@ -13,11 +13,16 @@ import { HttpClient } from '@angular/common/http';
 export class ProjectService {
 
   url: string;
-  treated_projects = new BehaviorSubject([]);
-  projects = new BehaviorSubject([]);
-  latest_projects = new BehaviorSubject([]);
-  new_projects = new BehaviorSubject([]);
   all_projects = new BehaviorSubject([]);
+  local_all_projects = [];
+  projects = new BehaviorSubject([]); // last projects
+  new_projects = new BehaviorSubject([]);
+
+  filtered_projects = new BehaviorSubject([]);
+  searched_projects = new BehaviorSubject([]);
+
+  treated_projects = new BehaviorSubject([]);
+  latest_projects = new BehaviorSubject([]);
   project = new BehaviorSubject({
     id: 0,
   });
@@ -25,7 +30,7 @@ export class ProjectService {
   user;
 
   constructor(private global: GlobalService,
-    private userService: UserService,
+    private userService: UserService, private filterService: FilterService,
     private xhr: XhrService,
     private http: HttpClient) {
     this.url = EnvService.ip() + '/api/projects';
@@ -35,29 +40,46 @@ export class ProjectService {
     this.userService.user.subscribe(user => {
       if (user['id']) {
         this.user = user;
-        this.getLatestProjects();
+        this.getProjects();
       }
     });
 
-    this.latest_projects.subscribe(projects => {
-      this.new_projects.next(projects.filter(p => {
-        return FilterService.newProject(p)
-      }))
-      this.treated_projects.next(projects.filter(p => {
-        return FilterService.treatedProject(p)
-      }))
+    this.all_projects.subscribe(projects => {
+      if (!projects) {
+        return
+      }
+      if (!projects.length) {
+        return
+      }
+
     });
+
+    this.filterService.query.subscribe(query => {
+      this.search(query)
+    })
+
+    this.filterService.filters.subscribe(filters => {
+      this.filterProjects(filters)
+    })
+
+
+    // store the actual project in localstorage so that it's still accessible after refresh
 
     if (localStorage.getItem('project')) {
       const p = JSON.parse(localStorage.getItem('project'));
       this.project.next(p);
     }
-
     this.project.subscribe(p => {
       localStorage.setItem('project', JSON.stringify(p))
     })
+  }
 
+  search(query) {
+    this.searched_projects.next(FilterService.searchProject(this.all_projects.getValue(), query))
+  }
 
+  filterProjects(filter){
+    this.filtered_projects.next(FilterService.filterProjects(this.all_projects.getValue(), filter))
   }
 
   getLastNProject(projects) {
@@ -66,28 +88,36 @@ export class ProjectService {
     }
   }
 
+  // add a project in list
   addProject(p) {
     this.all_projects.next([p, ...this.all_projects.getValue()])
   }
 
+  // replace a project from projects
+  updateProject(p) {
 
-  getLatestProjects() {
-    if (this.user.entity_id == undefined) {
-      return false
+
+
+    this.all_projects.next(p)
+
+  }
+
+
+  getProjects() {
+    // if it's a in localstorage
+    if (localStorage.getItem('all_projects')) {
+      this.getAllProjects()
+      return
     }
 
     this.http.get<any>(this.url + '/latest/' + this.user.entity_id)
       .subscribe(projects => {
-        projects.sort(GlobalService.sortByDate);
-        if (this.projects.getValue() == projects) {
-          return
-        }
-        this.latest_projects.next(projects)
         this.getAllProjects()
       })
   }
 
   getAllProjects() {
+
     if (this.user.entity_id == undefined) {
       return false
     }
@@ -126,6 +156,12 @@ export class ProjectService {
 
   }
 
+  getProjectFiles(id, next) {
+    this.http.get(EnvService.ip() + '/api/files/project/' + id).subscribe((files) => {
+      next(files)
+    })
+  }
+
   removeProjectFile(id, next) {
     this.http.delete(EnvService.ip() + '/api/files/' + id).subscribe((result) => {
       console.log(result)
@@ -148,6 +184,7 @@ export class ProjectService {
     formData.append('sender', project.sender);
     formData.append('title', project.title);
     formData.append('content', project.content);
+    formData.append('description', project.description);
     formData.append('courriel_date', this.global.toOracleDate(project.courriel_date));
     formData.append('received_date', this.global.toOracleDate(project.received_date));
     formData.append('type_id', project.type_id);

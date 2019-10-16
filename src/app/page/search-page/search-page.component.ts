@@ -12,25 +12,24 @@ export class SearchPageComponent implements OnInit {
   projects = []
   flows = []
 
-  filteredFlows = []
+  searchedReceivedFlows = []
+  searchedSentFlows = []
   filteredProjects = []
 
   constructor(private projectService: ProjectService,
     private filterService: FilterService,
     private flowService: FlowService) {
-    this.projectService.all_projects.subscribe(ps => {
+    this.projectService.searched_projects.subscribe(ps => {
       this.projects = ps
     })
 
-    this.flowService.all_flows.subscribe(fs => {
-      this.flows = fs
+    this.flowService.searched_received_flows.subscribe(fs => {
+      this.searchedReceivedFlows = fs
+    })
+    this.flowService.searched_sent_flows.subscribe(fs => {
+      this.searchedSentFlows = fs
     })
 
-    this.filterService.query.subscribe(q => {
-      // timeout here? or in toolbar?
-      this.filteredFlows = FilterService.filterFlow(this.flows, q)
-      this.filteredProjects = FilterService.filterProject(this.projects, q)
-    })
   }
 
   ngOnInit() {

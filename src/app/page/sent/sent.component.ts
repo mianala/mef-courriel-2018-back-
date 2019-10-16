@@ -19,11 +19,6 @@ export class SentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filter.query.subscribe(query => {
-      this.flowService.sent_flows.subscribe(flows => {
-        this.flows = FilterService.filterFlow(flows, query)
-      })
-    })
   }
 
 }

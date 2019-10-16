@@ -1,0 +1,61 @@
+<div fxFlex="" fxLayout="column" class="container">
+    <header>
+      <h1><span class="lorem">S'enregistrer</span>
+      </h1>
+      <!--<img src="" alt="logo courrieldgb">-->
+      <p class="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem eveniet magnam possimus velit
+        veritatis,
+        voluptatibus! Ad corporis itaque omnis soluta sunt. Amet deleniti, eius explicabo modi obcaecati odio quas
+        quo?</p>
+    </header>
+    <app-avatar-upload (avatarSelected)="avatarSelected($event)"></app-avatar-upload>
+    <!--<form (ngSubmit)="submit()" (keyup.enter)="submit()" fxLayout="column">-->
+    <form (keyup.enter)="submit()" (ngSubmit)="submit()" class="form" fxLayout="column">
+      <mat-form-field>
+        <mat-select required name="entity" placeholder="Bureau" [(ngModel)]="user.entity">
+          <mat-option *ngFor="let entity of entities" [value]="entity">
+            {{ entity.label }} - {{entity.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input required name="im" [(ngModel)]="user.im" type="number" matInput placeholder="IM">
+        <mat-hint align="start">Si IM non attribué, laissez vide</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input required name="name" [(ngModel)]="user.name" matInput placeholder="Prénom">
+        <mat-hint align="start"><strong>"John, Marie"</strong></mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input required name="fullname" [(ngModel)]="user.fullname" matInput placeholder="Nom complet">
+        <!--<mat-hint align="start"><strong>Veillez inscrire votre nom complet</strong></mat-hint>-->
+      </mat-form-field>
+      <mat-form-field>
+        <input required name="funcitontitle" [(ngModel)]="user.functionTitle" matInput
+               placeholder="Titre de votre fonction">
+        <mat-hint align="start"><strong>Votre fonction, "Chargé de mission, chargé d'étude, etc"</strong></mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input required name="email" [(ngModel)]="user.email" matInput type="email" placeholder="Email">
+        <mat-hint align="start">_______@__mail.com</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input required name="username" [(ngModel)]="user.username" matInput placeholder="Nom d'utilisateur">
+        <mat-hint align="start"><strong>Utiliser pour la connexion</strong></mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input required name="password" [(ngModel)]="user.password" matInput type="password" placeholder="Mot de passe">
+      </mat-form-field>
+      <!--<mat-form-field>
+        <input name="confirm" matInput type="password"
+               placeholder="Confirmer votre mot de passe">
+      </mat-form-field>-->
+      <!--</form>-->
+    </form>
+  
+    <div fxLayout="row" class="action-buttons">
+      <button routerLink="/public" mat-button>ANNULER</button>
+      <button (click)="submit()" mat-button>S'ENREGISTRER</button>
+    </div>
+  </div>
+  

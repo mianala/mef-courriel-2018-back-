@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GlobalService } from '../../service/global.service';
+import { EntityService } from 'app/service/entity.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-save-form',
@@ -12,12 +14,26 @@ export class SaveFormComponent implements OnInit {
   in_types;
   form_max_date;
 
-  loading = false;
+  entities = []
+  filteredEntities = []
 
-  constructor() {
+  loading = false;
+  fc = new FormControl();
+
+  constructor(private entityService: EntityService) {
+    this.entityService.entities.subscribe(entities => {
+      this.entities = entities
+    })
+
     this.letter_types = GlobalService.letter_types;
     this.in_types = GlobalService.in_types;
     this.form_max_date = new Date();
+  }
+
+  filterEntities() {
+    this.filteredEntities = this.entities.filter((entity) => {
+      return entity.label.includes(this.project.sender) || entity.header.includes(this.project.sender)
+    })
   }
 
   ngOnInit() {

@@ -6,7 +6,7 @@
       <div app-user-sidenav></div>
     </mat-sidenav>
     <section id="container-section">
-      <toolbar *ngIf="userService.connected.getValue()"></toolbar>
+      <toolbar  class="" *ngIf="userService.connected.getValue()"></toolbar>
       <router-outlet></router-outlet>
     </section>
   </mat-sidenav-container>

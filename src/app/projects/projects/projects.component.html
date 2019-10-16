@@ -1,24 +1,23 @@
-
 <mat-accordion *ngIf="projects">
   <!--projects -->
-  <mat-expansion-panel 
-    *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1)"    hideToggle="true">
+  <mat-expansion-panel (opened)="getFiles(project,id)"
+    *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1); let id = index+(pageEvent?pageEvent.pageSize*pageEvent.pageIndex:0)"
+    hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <strong>{{senderLabel(project)}}</strong>
         <!--<div class="n">{{project.n_arrive}}</div>-->
 
       </mat-panel-title>
+
       <mat-panel-description [innerHtml]="(project.title| slice:0:150) + (project.title.length > 150? '...':'') ">
 
         <!--<mat-icon>class</mat-icon>-->
       </mat-panel-description>
-      <!-- <div class="date">
-        <span *ngIf="!sameday(project)"> {{project.date|date}}</span>
-        <span *ngIf="sameday(project)"> {{project.date|date:'shortTime'}}</span>
-      </div> -->
       <div class="numero">
-          <span>{{project.date|date:'yyyy'}}/{{project.numero}}</span><br>
+        <div>{{project.date|date:'yyyy'}}/ <span class="highlight"> {{project.numero}} </span></div>
+        <div *ngIf="!sameday(project)"> {{project.date|date}}</div>
+        <div *ngIf="sameday(project)"> {{project.date|date:'shortTime'}}</div>
       </div>
     </mat-expansion-panel-header>
 
@@ -47,13 +46,13 @@
 
       </mat-menu>
 
-      <button  mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">
+      <button mat-icon-button color="primary" [matMenuTriggerFor]="appMenu">
         <mat-icon>more_vert</mat-icon>
       </button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
 
-<mat-paginator *ngIf="projects" style="padding-right: 75px;" [length]="projects.length"
-  [pageSize]="paginator.pageSize" [pageSizeOptions]="paginator.pageSizeOptions" (page)="pageEvent = $event">
+<mat-paginator *ngIf="projects" style="padding-right: 75px;" [length]="projects.length" [pageSize]="paginator.pageSize"
+  [pageSizeOptions]="paginator.pageSizeOptions" (page)="pageEvent = $event">
 </mat-paginator>

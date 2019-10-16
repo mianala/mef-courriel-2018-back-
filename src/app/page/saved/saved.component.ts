@@ -18,12 +18,6 @@ export class SavedComponent implements OnInit {
     private projectService: ProjectService) {
     this.projects = [];
 
-    this.filter.query.subscribe(query => {
-      this.projectService.projects.subscribe(uprojects => {
-        this.projects = FilterService.filterProject(uprojects,query)
-
-      })
-    })
   }
 
   ngOnInit() {

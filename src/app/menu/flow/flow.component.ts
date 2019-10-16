@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FilterService} from '../../service/filter.service';
-import {EnvService} from '../../service/env.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { FilterService } from '../../service/filter.service';
+import { EnvService } from '../../service/env.service';
 import * as CryptoJS from 'crypto-js';
 
 @Component({
@@ -18,7 +18,9 @@ export class FlowComponent implements OnInit {
   }
 
   arrow() {
-
+    if (this.flow.destination) {
+      return 'arrow_upward'
+    }
     if (FilterService.downFlow(this.flow)) {
       return 'arrow_downward'
     } else if (FilterService.upFlow(this.flow)) {
@@ -30,14 +32,14 @@ export class FlowComponent implements OnInit {
   }
 
   content_label() {
-    if (FilterService.downFlow(this.flow)) {
+    if (this.flow.destination) {
+      return ''
+    } if (FilterService.downFlow(this.flow)) {
       // return 'arrow_downward'
       return 'Observation'
     } else if (FilterService.upFlow(this.flow)) {
       // return 'arrow_upward'
       return 'Contenu'
-    } else {
-      return ''
     }
 
   }

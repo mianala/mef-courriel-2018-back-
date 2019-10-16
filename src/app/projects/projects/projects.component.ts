@@ -37,18 +37,25 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filter.query.next('')
   }
   senderLabel(project) {
-    if (!project) {
-      return
-    }
+
     if (project.sender) {
       return project.sender.slice(0, 25) + (project.sender.length > 25 ? '...' : '')
     } else {
       return ''
     }
   }
+
+  getFiles(project,id) {
+    console.log(id)
+    this.projectService.getProjectFiles(project.id, (files) => {
+      this.projects[id].files = files
+      console.log(files)
+    })
+  }
+
+
 
   sameday(project) {
     return GlobalService.sameDay(new Date(project.date), new Date())

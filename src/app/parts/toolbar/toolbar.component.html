@@ -1,12 +1,12 @@
-<div class="container mat-elevation-z2" [style.background]="style().bg" [style.color]="style().color" fxLayout="row">
+<div class="container mat-elevation-z4" [style.background]="style().bg" [style.color]="style().color" fxLayout="row">
   <div class="action_buttons" *ngIf="showFab()" [style.width]="!status?'auto':'0px'" fxLayout="row">
     <button matTooltipPosition="before" (click)="toggleSidenav()" matTooltip="Menu" mat-icon-button class="write-email">
       <mat-icon>menu</mat-icon>
     </button>
-    <button matTooltipPosition="before" (click)="saveEmail()" matTooltip="Enregistrer" class="save" mat-mini-fab>
+    <button matTooltipPosition="before" (click)="saveProject()" matTooltip="Enregistrer" class="save" mat-mini-fab>
       <mat-icon>save</mat-icon>
     </button>
-    <button matTooltipPosition="before" (click)="writeEmail()" matTooltip="Ecrire" mat-mini-fab class="write-email">
+    <button matTooltipPosition="before" (click)="composeProject()" matTooltip="Ecrire" mat-mini-fab class="write-email">
       <mat-icon>edit</mat-icon>
     </button>
   </div>
@@ -35,14 +35,79 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-  <button mat-icon-button fxItemAlign="right" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon>sort</mat-icon>
+  <button mat-button fxItemAlign="right" [matMenuTriggerFor]="menu" aria-label="Trie">
+    <mat-icon>sort</mat-icon> Trier
   </button>
-  <!-- <mat-form-field>
-    <mat-select placeholder="Trier par">
-      <mat-option selected value="1">Numero</mat-option>
-      <mat-option value="2">Date Courriel</mat-option>
-      <mat-option value="2">Date de Reception</mat-option>
-    </mat-select>
-  </mat-form-field> -->
+  <button mat-button (click)="toggleFilter()" fxItemAlign="right">
+    <mat-icon>filter_list</mat-icon> Filtrer
+  </button>
+
 </div>
+
+<!-- the form starts here -->
+<form *ngIf="filtered" class="form filters">
+  <!-- year -->
+  <mat-form-field class="filter" name="year" ngDefaultControl [(ngModel)]='filter.year'>
+    <mat-label>Année</mat-label>
+    <mat-select [(ngModel)]="filter.year">
+      <mat-option value=''>
+        Tous
+      </mat-option>
+      <mat-option value='2019'>
+        2019
+      </mat-option>
+      <mat-option value='2018'>
+        2018
+      </mat-option>
+      <mat-option value='2017'>
+        2017
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- month -->
+  <mat-form-field *ngIf="filter.year" class="filter" (change)='updateFilter()' [(ngModel)]='filter.month'>
+    <mat-label>Mois</mat-label>
+    <mat-select>
+      <mat-option value=''></mat-option>
+      <mat-option *ngFor="let month of months; let i = index" [value]="i">
+        {{month}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- week -->
+  <mat-form-field *ngIf="filter.month" class="filter" (change)='updateFilter()' [(ngModel)]='filter.week'>
+    <mat-label>Semaine</mat-label>
+    <mat-select>
+      <mat-option value=''></mat-option>
+      <mat-option *ngFor="let week of weeks; let i = index" [value]="i">
+        {{week}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- starting date -->
+  <mat-form-field class="filter">
+    <input disabled [max]="form_max_date" (change)='updateFilter()' [(ngModel)]="filter.start_date" name="from_date"
+      matInput [matDatepicker]="from_picker" placeholder="Depuis">
+    <mat-datepicker-toggle matSuffix [for]="from_picker"></mat-datepicker-toggle>
+  </mat-form-field>
+  <mat-datepicker disabled="false" #from_picker></mat-datepicker>
+  <!-- ending date -->
+  <mat-form-field class="filter">
+    <input disabled [max]="form_max_date" [(ngModel)]="filter.end_date" name="to_date" matInput
+      [matDatepicker]="to_picker" placeholder="Vers">
+    <mat-datepicker-toggle matSuffix [for]="to_picker"></mat-datepicker-toggle>
+  </mat-form-field>
+  <mat-datepicker disabled="false" #to_picker></mat-datepicker>
+  <!-- sender -->
+  <sender [(sender)]="filter.sender"></sender>
+  <!-- status -->
+  <mat-form-field class="filter" name="status" ngDefaultControl>
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="filter.status" (change)='updateFilter()'>
+      <mat-option value=''></mat-option>
+      <mat-option *ngFor="let status of statuses; let i = index" [value]="i">
+        {{status}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

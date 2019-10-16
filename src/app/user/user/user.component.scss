@@ -1,0 +1,37 @@
+:host{
+    -webkit-box-shadow: 0px 0px 10px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px -9px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px -9px rgba(0,0,0,0.75);
+  
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 9px ;
+    display: flex;
+    flex-direction: column;
+    .username{
+      font-weight: bold;
+    }
+  
+    .username,.user-function,button{
+      text-align: center;
+      margin-top: .6em;
+    }
+  
+    .username{
+      text-decoration: none;
+      color: #333;
+      font-weight: 900;
+    }
+  
+    app-user-avatar{
+      width: 130px;
+      cursor: pointer;
+      height: 130px;
+      margin: auto;
+      outline:0;
+      border:none;
+      -moz-outline-style: none;
+    }
+  
+  }
+  

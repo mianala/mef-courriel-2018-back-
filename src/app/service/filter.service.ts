@@ -4,10 +4,17 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class FilterService {
 
-  query = new BehaviorSubject('');
+  query = new BehaviorSubject('')
+  filters = new BehaviorSubject({
+    year: '',
+    start_date: '',
+    end_date: '',
+    status: '',
+  });
+
   direction = new BehaviorSubject(0);
 
-  static filterProject(projects, query) {
+  static searchProject(projects, query) {
 
     const filtered = projects.filter(project => {
       let result = false;
@@ -23,8 +30,8 @@ export class FilterService {
       if (project.n_arrive) {
         result = result || project.n_arrive.toLowerCase().includes(query.toLowerCase())
       }
-      if (project.n_arrive_dgb) {
-        result = result || project.n_arrive_dgb.toLowerCase().includes(query.toLowerCase())
+      if (project.numero) {
+        result = result || project.numero.toLowerCase().includes(query.toLowerCase())
       }
       if (project.title) {
         result = result || project.title.toLowerCase().includes(query.toLowerCase())
@@ -38,7 +45,43 @@ export class FilterService {
     return filtered
   }
 
-  static filterFlow(flows, query) {
+  static filterProjects(projects, filter) {
+    const filtered = projects.filter(project => {
+      let result = true;
+      if (filter.start_date) {
+        result = result && (project.received_date > filter.start_date)
+      }
+      if (filter.end_date) {
+        result = result && (project.received_date < filter.end_date)
+      }
+      if (filter.status) {
+        result = result && (project.status_id == filter.status)
+      }
+
+    })
+
+    return filtered
+  }
+
+  static filterFlows(flows, filter) {
+    const filtered = flows.filter(flow => {
+      let result = true;
+      if (filter.start_date) {
+        result = result && (flow.date > filter.start_date)
+      }
+      if (filter.end_date) {
+        result = result && (flow.date < filter.end_date)
+      }
+      if (filter.status) {
+        result = result && (flow.status_id == filter.status)
+      }
+
+    })
+
+    return filtered
+  }
+
+  static searchFlow(flows, query) {
 
     const filtered = flows.filter(flow => {
       let result = false;
@@ -78,7 +121,7 @@ export class FilterService {
 
   //  PROJECTS
   static newProject(project) {
-      return project.dispatched != 1 && project.status_id != 1
+    return project.dispatched != 1 && project.status_id != 1
   }
 
   static treatedProject(project) {
@@ -103,7 +146,7 @@ export class FilterService {
     return flow.entity_id == entity.id && flow.status_id != 1
   }
 
-// ENTITY FLOWS
+  // ENTITY FLOWS
   static downFlow(flow) {
     // 1-2 -> 1-2-2
     return flow.entity.includes(flow.sender_entity + '-')
@@ -114,7 +157,7 @@ export class FilterService {
     return flow.sender_entity.includes(flow.entity + '-')
   }
 
-  
+
   // ENTITY NETWORK
   static fitlerRelativeEntities(entities, activeEntity) {
 
@@ -136,7 +179,6 @@ export class FilterService {
       return relative.test(entity.entity) && entity.entity != activeEntity['entity']
       // regex
     })
-    console.log(filtered);
     return filtered
   }
 
@@ -158,7 +200,6 @@ export class FilterService {
       return entity.entity == label
     })
 
-    console.log(filtered);
     return filtered
   }
 
@@ -169,7 +210,6 @@ export class FilterService {
       // regex
     })
 
-    console.log(filtered)
     return filtered
   }
 

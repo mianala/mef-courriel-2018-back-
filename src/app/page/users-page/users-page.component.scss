@@ -1,0 +1,16 @@
+:host {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+  
+    .users {
+      //display: flex;
+      flex: 1 1;
+      margin-top: 1em;
+      masonry-brick {
+        width: 200px;
+        margin: .6em;
+      }
+    }
+  }
+  

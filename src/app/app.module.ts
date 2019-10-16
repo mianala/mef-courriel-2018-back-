@@ -88,6 +88,13 @@ import { ToolbarComponent } from './parts/toolbar/toolbar.component';
 import { ProjectsPageComponent } from './page/projects-page/projects-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReceiversComponent } from './form/receivers/receivers.component';
+import { ManageUserPageComponent } from './page/manage-user-page/manage-user-page.component';
+import { AddUserComponent } from './form/add-user/add-user.component';
+import { UsersPageComponent } from './page/users-page/users-page.component';
+import { UserComponent } from './user/user/user.component';
+import { EntityComponent } from './component/entity/entity.component';
+import { FiltersComponent } from './form/filters/filters.component';
+import { FoldersComponent } from './page/folders/folders.component';
 
 registerLocaleData(localeFr);
 
@@ -180,6 +187,13 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     ToolbarComponent,
     ProjectsPageComponent,
     ReceiversComponent,
+    ManageUserPageComponent,
+    AddUserComponent,
+    UsersPageComponent,
+    UserComponent,
+    EntityComponent,
+    FiltersComponent,
+    FoldersComponent,
   ],
   imports: [
     BrowserModule,

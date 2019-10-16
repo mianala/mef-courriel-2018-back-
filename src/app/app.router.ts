@@ -16,6 +16,7 @@ import { ProjectsPageComponent } from './page/projects-page/projects-page.compon
 import { SearchPageComponent } from './page/search-page/search-page.component';
 import { InboxComponent } from './page/inbox/inbox.component'
 import { EntitiesComponent } from './form/entities/entities.component';
+import { FoldersComponent } from './page/folders/folders.component';
 export const router: Routes = [
 
   {
@@ -67,6 +68,15 @@ export const router: Routes = [
       {
         path: '',
         component: EntityPageComponent,
+      }
+    ]
+  },
+  {
+    path: 'classeurs',
+    children: [
+      {
+        path: '',
+        component: FoldersComponent,
       }
     ]
   },
