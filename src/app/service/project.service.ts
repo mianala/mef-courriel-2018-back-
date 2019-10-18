@@ -161,9 +161,11 @@ export class ProjectService {
   updateStatus(project, status_id, next) {
     const project_id = project.id
     const entity_id = project.entity_id
-    this.http.put(this.url + '/status', { project_id: project_id, status_id: status_id, entity_id: entity_id }).subscribe((result) => {
-      next(result)
-    });
+    this.http.post(this.url + '/update_project_status',
+      { project_id: project_id, status_id: status_id, entity_id: entity_id })
+      .subscribe((result) => {
+        next(result)
+      });
   }
 
   // get project's files

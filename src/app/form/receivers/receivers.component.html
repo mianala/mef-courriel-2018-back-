@@ -36,7 +36,7 @@
   </mat-tab>
   <mat-tab label="Autre">
     <mat-form-field class="receiver">
-      <input [(ngModel)]="receiver" name="content" matInput placeholder="Destinataire"/>
+      <input (keyup)="emit()" [(ngModel)]='receivers.receiver' name="content" matInput placeholder="Destinataire"/>
       <mat-hint>Plus > deux (2) caractères</mat-hint>
     </mat-form-field>
   </mat-tab>

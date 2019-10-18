@@ -70,11 +70,9 @@ export class ProjectsComponent implements OnInit {
   }
 
   updateStatus(project, event) {
-    console.log(event)
     // if success then just change the status if not return error in notification and cancels the change
     this.projectService.updateStatus(project, event.value, (result) => {
       console.log(result);
-      
     })
   }
 

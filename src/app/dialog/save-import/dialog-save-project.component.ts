@@ -41,13 +41,13 @@ export class DialogSaveProjectComponent implements OnInit {
 
     this.project = {
       numero: '',
-      sender: 'MINISTRE',
-      ref: 'MIN',
+      sender: '',
+      ref: '',
       type_id: 0,
       letter_id: 0,
-      title: 'TITLE',
-      content: 'OBSERVATIONS',
-      description: 'DESCRIPTION',
+      title: '',
+      content: '',
+      description: '',
       courriel_date: new Date(),
       received_date: new Date(),
     };

@@ -16,7 +16,6 @@ export class DispatchComponent implements OnInit {
   thread: any;
   observations = GlobalService.observations;
   loading = false
-  receiver = ''
 
   constructor(
     public notification: NotificationService,
@@ -45,6 +44,11 @@ export class DispatchComponent implements OnInit {
     GlobalService.toggleInArray(this.thread.checkedObservations, observation)
   }
 
+
+  updateReceiver(receivers) {
+    this.thread.receiver = receivers.receiver
+    this.thread.receivers = receivers.receivers
+  }
 
   getFiles(files) {
     this.thread.files = this.thread.files.concat(files)

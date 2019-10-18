@@ -14,7 +14,7 @@
   </mat-form-field>
 
   <!-- receivers -->
-  <receivers [(receiver)]="thread.receiver" [(receivers)]="thread.receivers"></receivers>
+  <receivers (updated)="updateReceiver($event)"></receivers>
 
   <app-files [files]="thread.files"></app-files>
 </mat-dialog-content>

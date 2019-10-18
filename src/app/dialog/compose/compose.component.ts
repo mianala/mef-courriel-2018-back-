@@ -32,10 +32,11 @@ export class ComposeComponent implements OnInit {
     public userService: UserService,
     private dialogRef: MatDialogRef<DispatchComponent>) {
     this.checkedObservations = [];
+
     this.composition = {
-      ref: 'REF',
-      title: 'TITLE',
-      content: 'CONTENT',
+      ref: '',
+      title: '',
+      content: '',
       receiver: '',
       files: [],
       be: {},
@@ -50,10 +51,6 @@ export class ComposeComponent implements OnInit {
 
   }
 
-  checkEntity(id) {
-    GlobalService.toggleInArray(this.composition.receivers, id);
-  }
-
   // how about direction? there will be no direction animore in the database we have to calculate it in the front end, this is much better
 
   ngOnInit() {
@@ -62,6 +59,12 @@ export class ComposeComponent implements OnInit {
 
   validTitle() {
     return this.composition.title.length > 3
+  }
+
+  updateReceiver(receivers) {
+    console.log(receivers)
+    this.composition.receiver = receivers.receiver
+    this.composition.receivers = receivers.receivers
   }
 
   updateBe(be) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EntityService } from 'app/service/entity.service';
 import { GlobalService } from 'app/service/global.service';
 
@@ -8,14 +8,18 @@ import { GlobalService } from 'app/service/global.service';
   styleUrls: ['./receivers.component.scss']
 })
 export class ReceiversComponent implements OnInit {
-  @Input('receiver') receiver: string;
 
   // todo: fix this bcs this does'nt work
-  @Input('receivers') receivers: any;
+
+  @Output() updated: EventEmitter<any> = new EventEmitter()
+  receivers = {
+    receivers: [],
+    receiver: ''
+  }
   active_index = 0;
-  downEntities;
-  upEntities;
-  relativeEntities;
+  downEntities: any[];
+  upEntities: {};
+  relativeEntities: any[];
   constructor(
     private entityService: EntityService,
   ) {
@@ -40,10 +44,15 @@ export class ReceiversComponent implements OnInit {
   }
 
 
-  indexChanged(event) {
+  indexChanged(event: { index: number; }) {
     this.active_index = event.index
   }
-  checkEntity(id) {
-    GlobalService.toggleInArray(this.receivers, id);
+  checkEntity(id: any) {
+    this.emit()
+    GlobalService.toggleInArray(this.receivers.receivers, id);
+  }
+
+  emit() {
+    this.updated.emit(this.receivers)
   }
 }

@@ -20,7 +20,7 @@
     <textarea [(ngModel)]="composition.content" required name="content" matInput placeholder="Note / Observation"></textarea>
   </mat-form-field>
 
-  <receivers [(receiver)]="composition.receiver"  [(receivers)]="composition.receivers"></receivers>
+  <receivers (update)="updateReceiver($event)"></receivers>
 
 
   <!-- 
