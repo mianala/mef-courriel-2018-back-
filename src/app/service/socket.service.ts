@@ -17,15 +17,16 @@ export class SocketService {
     private projectService: ProjectService) {
 
     this.userService.user.subscribe(user => {
-
       if (!user['entity_id']) {
         return
       } else {
 
         const socket = io(EnvService.ip());
-        // console.log('socket can connect')
         this.entity_id = user['entity_id'].toString()
         socket.on('connect', () => {
+          console.log('socket connected')
+
+
           socket.on('new project', (content) => {
             console.log(content);
             const participants = content.participants;

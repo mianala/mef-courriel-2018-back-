@@ -1,7 +1,7 @@
 <mat-tab-group>
 
   <mat-tab label="Enregistrés {{project_count}}">
-    <projects [projects]='filteredProjects'></projects>
+    <projects [projects]='searchedProjects'></projects>
   </mat-tab>
   <mat-tab label="Reçus {{received_count}}">
     <flows [flows]='searchedReceivedFlows'></flows>

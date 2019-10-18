@@ -80,7 +80,6 @@ export class FlowsComponent implements OnInit {
     // return flow.direction == 1;
   }
 
-
   sameDay(flow) {
     return GlobalService.sameDay(new Date(flow.date), new Date())
   }
@@ -109,7 +108,7 @@ export class FlowsComponent implements OnInit {
 
   view(flow) {
     this.projectService.setProjectFromId(flow.project_id);
-    this.router.navigateByUrl('/courriel')
+    this.router.navigateByUrl('/projet')
   }
 
   submit(flow) {

@@ -4,6 +4,7 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { GlobalService } from './service/global.service';
 import { Router } from '@angular/router';
 import { FilterService } from './service/filter.service';
+import { SocketService } from './service/socket.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   title = 'app';
   sidenav_status;
 
-  constructor(private userService: UserService,
+  constructor(private userService: UserService, private socket: SocketService,
     private global: GlobalService) {
     this.sidenav_status = true;
     this.global.sidenav_status.subscribe(status => {

@@ -48,7 +48,8 @@ export class FlowService {
   entity;
 
   constructor(private http: HttpClient,
-    private notification: NotificationService,private filterService: FilterService,
+    private notification: NotificationService,
+    private filterService: FilterService,
     private projectService: ProjectService,
     private userService: UserService, private entityService: EntityService,
     private xhr: XhrService) {
@@ -74,18 +75,20 @@ export class FlowService {
     })
 
     // update received and sent flows from search
-    this.searched_flows.subscribe(fs=>{
-      this.searched_sent_flows.next(fs.filter(flow => {
-        return FilterService.sentFlow(flow, this.entity)
+    this.searched_flows.subscribe(fs => {
+    this.searched_sent_flows.next(fs.filter(flow => {
+        return flow.sender_entity_id == this.entity.id
       }))
+      
       this.searched_received_flows.next(fs.filter(flow => {
-        return FilterService.receivedFlow(flow, this.entity)
+        return flow.sender_entity_id !== this.entity.id
       }))
+      console.log(this.searched_received_flows.getValue())
     })
 
     this.filterService.query.subscribe(query => {
       // filtered flows -> searched flows
-      this.search(query)
+      this.search()
     })
 
     this.filterService.filters.subscribe(filters => {
@@ -101,15 +104,16 @@ export class FlowService {
     })
   }
 
-  search(query){
-    this.searched_flows.next(FilterService.searchFlow(this.filtered_flows.getValue(), query))
+  search() {
+    // for now from all flows
+    this.searched_flows.next(FilterService.searchFlow(this.all_flows.getValue(), this.filterService.query.getValue()))
   }
 
-  filterFlows(filter){
+  filterFlows(filter) {
     this.filtered_flows.next(FilterService.filterFlows(this.all_flows.getValue(), filter))
   }
 
-  refreshFlows(fs){
+  refreshFlows(fs) {
     this.new_flows.next(fs.filter(flow => {
       return FilterService.newFlow(flow, this.entity)
     }))
@@ -157,10 +161,11 @@ export class FlowService {
       })
   }
 
-  getProjectFlows(id, next) {
+  getProjectFlows(id) {
     this.http.get<any>(this.url + '/project/' + id)
 
       .subscribe(flows => {
+        console.log(flows)
         flows.sort(GlobalService.sortByDate);
         if (this.project_flows.getValue() == flows) {
           return false

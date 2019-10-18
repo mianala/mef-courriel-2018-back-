@@ -1,5 +1,5 @@
 <div mat-dialog-title>
-  <p style="text-decoration:underline;">Envoie  </p>
+  <p style="text-decoration:underline;">Envoie </p>
 </div>
 <mat-dialog-content class="content">
 
@@ -13,7 +13,8 @@
     <textarea [(ngModel)]="thread.content" name="content" matInput placeholder="Autres observations"></textarea>
   </mat-form-field>
 
-  <receivers  [(receiver)]="thread.receiver"  [(receivers)]="thread.receivers" ></receivers>
+  <!-- receivers -->
+  <receivers [(receiver)]="thread.receiver" [(receivers)]="thread.receivers"></receivers>
 
   <app-files [files]="thread.files"></app-files>
 </mat-dialog-content>

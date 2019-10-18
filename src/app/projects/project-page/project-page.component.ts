@@ -12,7 +12,7 @@ import { FilterService } from "../../service/filter.service";
 })
 export class ProjectPageComponent implements OnInit {
   project;
-  flows;
+  flows = [];
   user;
 
   constructor(private projectService: ProjectService,
@@ -23,8 +23,10 @@ export class ProjectPageComponent implements OnInit {
       this.project = project
       this.projectService.getProjectFiles(project.id, (files) => {
         this.project.files = files
+        this.flowService.getProjectFlows(project.id)
       })
-      this.flowService.getProjectFlows(this.project.id, flows => {
+
+      this.flowService.project_flows.subscribe(flows => {
         this.flows = flows
       })
     });

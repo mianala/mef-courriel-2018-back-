@@ -67,7 +67,6 @@ export class ToolbarComponent implements OnInit {
     if (this.query.length > 0) {
       this.router.navigateByUrl('/recherche')
     }
-
     this.filterService.query.next(this.query)
   }
 

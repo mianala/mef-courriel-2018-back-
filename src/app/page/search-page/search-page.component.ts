@@ -14,13 +14,14 @@ export class SearchPageComponent implements OnInit {
 
   searchedReceivedFlows = []
   searchedSentFlows = []
-  filteredProjects = []
+  searchedProjects = []
 
   constructor(private projectService: ProjectService,
     private filterService: FilterService,
     private flowService: FlowService) {
+
     this.projectService.searched_projects.subscribe(ps => {
-      this.projects = ps
+      this.searchedProjects = ps
     })
 
     this.flowService.searched_received_flows.subscribe(fs => {

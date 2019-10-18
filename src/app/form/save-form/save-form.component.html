@@ -1,22 +1,12 @@
 <form class="form" fxLayout="column">
   <!--numero-->
 
+  <mat-form-field>
+    <input type="text" required [(ngModel)]="project.numero" [formControl]="fc" name="numero"
+      matInput placeholder="N° du courrier">
+  </mat-form-field>
   <!-- expediteur -> send to anotehr component -->
-  <mat-form-field>
-    <input type="text" (keyup)='filterEntities()' required [(ngModel)]="project.numero" [formControl]="fc" name="numero" matInput
-      placeholder="N° du courrier">
-  </mat-form-field>
-  <mat-form-field>
-    <input [(ngModel)]="project.sender" required name="sender" matInput placeholder='Expéditeur'
-      [matAutocomplete]="autoGroup">
-    <mat-autocomplete #autoGroup="matAutocomplete">
-      <mat-optgroup [label]="'MEF'">
-        <mat-option *ngFor="let entity of filteredEntities | async" [value]="entity.label">
-          {{entity.label}}
-        </mat-option>
-      </mat-optgroup>
-    </mat-autocomplete>
-  </mat-form-field>
+  <sender [(sender)]='project.sender'></sender>
   <!--date du courriel-->
   <mat-form-field>
     <input disabled [max]="form_max_date" [(ngModel)]="project.courriel_date" required name="date" matInput

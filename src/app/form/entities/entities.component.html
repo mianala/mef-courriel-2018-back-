@@ -1,13 +1,22 @@
+<h5>
+  < version beta >
+</h5>
 <mat-list>
-  <h3 mat-subheader>Up</h3>
+  <h3 mat-subheader *ngIf="up.length">
+    <mat-icon>arrow_upward</mat-icon>
+  </h3>
   <mat-list-item *ngFor="let entity of up">
     <entity [entity]='entity'></entity>
   </mat-list-item>
-  <h3 mat-subheader>Relatives</h3>
+  <h3 mat-subheader *ngIf="relatives.length">
+    <mat-icon>arrow_forward</mat-icon>
+  </h3>
   <mat-list-item *ngFor="let entity of relatives">
     <entity [entity]='entity'></entity>
   </mat-list-item>
-  <h3 mat-subheader>Down</h3>
+  <h3 mat-subheader *ngIf="down.length">
+    <mat-icon>arrow_downward</mat-icon>
+  </h3>
   <mat-list-item *ngFor="let entity of down">
     <entity [entity]='entity'></entity>
   </mat-list-item>

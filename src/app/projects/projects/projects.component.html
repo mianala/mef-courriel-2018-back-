@@ -1,8 +1,13 @@
 <mat-accordion *ngIf="projects">
   <!--projects -->
-  <mat-expansion-panel (opened)="getFiles(project,id)"
-    *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1); let id = index+(pageEvent?pageEvent.pageSize*pageEvent.pageIndex:0)"
+  <mat-expansion-panel (opened)="getFiles(project,id,pageEvent)"
+    *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1); let id = index"
     hideToggle="true">
+
+    <!-- <mat-expansion-panel (opened)="getFiles(project,id)"
+    *ngFor="let project of paginate(projects,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1); let id = index+(pageEvent?(pageEvent.pageSize*pageEvent.pageIndex):1)"
+    hideToggle="true"> -->
+
     <mat-expansion-panel-header>
       <mat-panel-title>
         <strong>{{senderLabel(project)}}</strong>
@@ -24,15 +29,24 @@
     <project [project]="project"></project>
 
     <mat-action-row>
-      <button mat-button color="primary" *ngIf="viewable(project)" (click)="setProject(project)"
-        routerLink="/courriels/courriel">Voir
+      <button mat-button color="primary" (click)="setProject(project)"
+        routerLink="/projet">
+        <mat-icon class="mat-18">folder_open</mat-icon>
+        Voir
       </button>
-
 
       <button mat-button color="primary" (click)="dispatch(project)">
         <mat-icon class="mat-18">call_split</mat-icon>
         Envoyer
       </button>
+
+      <mat-form-field class="status">
+        <mat-select (selectionChange)='updateStatus(project,$event)' [(ngModel)]="project.status_id" name="type"
+          placeholder="Status">
+          <mat-option *ngFor="let status of statuses; let i = index" [value]="i">{{status}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-menu #appMenu="matMenu">
 
         <button *ngIf="editable() " (click)="edit(project)" mat-menu-item="" color="primary">

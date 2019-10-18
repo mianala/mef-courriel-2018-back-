@@ -95,6 +95,8 @@ import { UserComponent } from './user/user/user.component';
 import { EntityComponent } from './component/entity/entity.component';
 import { FiltersComponent } from './form/filters/filters.component';
 import { FoldersComponent } from './page/folders/folders.component';
+import { SenderComponent } from './form/sender/sender.component';
+import { StatusComponent } from './page/status/status.component';
 
 registerLocaleData(localeFr);
 
@@ -194,6 +196,8 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     EntityComponent,
     FiltersComponent,
     FoldersComponent,
+    SenderComponent,
+    StatusComponent,
   ],
   imports: [
     BrowserModule,

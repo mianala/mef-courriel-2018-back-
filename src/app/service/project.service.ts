@@ -51,20 +51,18 @@ export class ProjectService {
       if (!projects.length) {
         return
       }
-
     });
 
     this.filterService.query.subscribe(query => {
-      this.search(query)
+
+      this.search()
     })
 
     this.filterService.filters.subscribe(filters => {
       this.filterProjects(filters)
     })
 
-
     // store the actual project in localstorage so that it's still accessible after refresh
-
     if (localStorage.getItem('project')) {
       const p = JSON.parse(localStorage.getItem('project'));
       this.project.next(p);
@@ -74,18 +72,24 @@ export class ProjectService {
     })
   }
 
-  search(query) {
-    this.searched_projects.next(FilterService.searchProject(this.all_projects.getValue(), query))
+  search() {
+
+    this.searched_projects.next(FilterService.searchProject(this.all_projects.getValue(), this.filterService.query.getValue()))
   }
 
-  filterProjects(filter){
+  filterProjects(filter) {
     this.filtered_projects.next(FilterService.filterProjects(this.all_projects.getValue(), filter))
+    this.search()
   }
 
   getLastNProject(projects) {
     if (projects[0]) {
       this.last_n_project.next(projects[0]['n_project'])
     }
+  }
+
+  refreshProjects(ps) {
+
   }
 
   // add a project in list
@@ -95,11 +99,7 @@ export class ProjectService {
 
   // replace a project from projects
   updateProject(p) {
-
-
-
     this.all_projects.next(p)
-
   }
 
 
@@ -116,6 +116,7 @@ export class ProjectService {
       })
   }
 
+  // all entity projects
   getAllProjects() {
 
     if (this.user.entity_id == undefined) {
@@ -145,6 +146,7 @@ export class ProjectService {
       })
   }
 
+  // delete the project
   deleteProject(project, next) {
 
     this.http.delete(this.url + '/' + project.id).subscribe(() => {
@@ -153,15 +155,26 @@ export class ProjectService {
     const p = this.all_projects.getValue();
     p.splice(this.all_projects.getValue().indexOf(project), 1);
     this.all_projects.next(p)
-
   }
 
+  // updating the status of project
+  updateStatus(project, status_id, next) {
+    const project_id = project.id
+    const entity_id = project.entity_id
+    this.http.put(this.url + '/status', { project_id: project_id, status_id: status_id, entity_id: entity_id }).subscribe((result) => {
+      next(result)
+    });
+  }
+
+  // get project's files
   getProjectFiles(id, next) {
     this.http.get(EnvService.ip() + '/api/files/project/' + id).subscribe((files) => {
       next(files)
     })
   }
 
+
+  // remove the project's files
   removeProjectFile(id, next) {
     this.http.delete(EnvService.ip() + '/api/files/' + id).subscribe((result) => {
       console.log(result)
@@ -169,6 +182,7 @@ export class ProjectService {
     })
   }
 
+  // save project
   save(project: any, next) {
 
     const formData: any = new FormData();
@@ -211,6 +225,7 @@ export class ProjectService {
     })
   }
 
+  // update project
   update(project: any, next) {
     if (this.user['id']) {
 
@@ -237,7 +252,7 @@ export class ProjectService {
     }
   }
 
-
+  // removed soon
   treat(project, next) {
     const id = project.id;
     const entity_id = this.user.entity_id;

@@ -22,6 +22,8 @@ export class ProjectsComponent implements OnInit {
   // MatPaginator Inputs
   length = 0;
 
+  statuses = []
+
   paginator = GlobalService.paginator;
   paginate = GlobalService.paginate;
   // MatPaginator Output
@@ -34,10 +36,13 @@ export class ProjectsComponent implements OnInit {
     private projectService: ProjectService) {
     this.pageEvent.pageIndex = 0
     this.pageEvent.pageSize = this.paginator.pageSize
+
+    this.statuses = GlobalService.statuses
   }
 
   ngOnInit() {
   }
+
   senderLabel(project) {
 
     if (project.sender) {
@@ -47,15 +52,14 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  getFiles(project,id) {
+  getFiles(project, id, pageEvent) {
+    console.log(project)
+    id += pageEvent.pageIndex * pageEvent.pageSize
     console.log(id)
     this.projectService.getProjectFiles(project.id, (files) => {
       this.projects[id].files = files
-      console.log(files)
     })
   }
-
-
 
   sameday(project) {
     return GlobalService.sameDay(new Date(project.date), new Date())
@@ -65,18 +69,24 @@ export class ProjectsComponent implements OnInit {
     return project.status_id != 1
   }
 
+  updateStatus(project, event) {
+    console.log(event)
+    // if success then just change the status if not return error in notification and cancels the change
+    this.projectService.updateStatus(project, event.value, (result) => {
+      console.log(result);
+      
+    })
+  }
+
   setProject(project) {
     this.projectService.setProject(project);
-    this.router.navigateByUrl('/courriels/courriel')
+    this.router.navigateByUrl('/projet')
   }
 
   editable() {
     return true
   }
 
-  viewable(project) {
-    return project.status_id != 0
-  }
 
   delete(project) {
     if (confirm('Suprimer le projet ' + project.entity_label + '/' + project.n_project + ' ?')) {

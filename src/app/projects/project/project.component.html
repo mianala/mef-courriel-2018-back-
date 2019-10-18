@@ -6,13 +6,11 @@
     </h4>
     <div>
       <h4>{{project.entity_label}}-{{project.date | date:'yyyy'}}/{{project.n_project}}
-        <mat-chip-list *ngIf="project.status_id == 1">
-          <mat-chip>Traité</mat-chip>
-        </mat-chip-list>
       </h4>
-      <mat-chip-list *ngIf="!composed()">
-        <mat-chip [color]="'primary'">{{letter_types[project.letter_id]}}</mat-chip>
-        <mat-chip [color]="'accent'">{{in_types[project.type_id]}}</mat-chip>
+      <mat-chip-list>
+        <mat-chip *ngIf="project.status_id">{{statuses[project.status_id]}}</mat-chip>
+        <mat-chip  [color]="'primary'">{{letter_types[project.letter_id]}}</mat-chip>
+        <mat-chip  [color]="'accent'">{{in_types[project.type_id]}}</mat-chip>
       </mat-chip-list>
     </div>
   </div>
@@ -60,7 +58,7 @@
 
   <div *ngIf="project.description && project.description != 'null'" class="description">
     <h4 class="label">
-      Observation
+      Description
     </h4>
     <div [innerHtml]="project.description"></div>
   </div>

@@ -1,0 +1,10 @@
+<mat-form-field>
+    <input [(ngModel)]="sender" (keyup)='filterEntities()' required name="sender" matInput placeholder='Expéditeur' [matAutocomplete]="autoGroup">
+    <mat-autocomplete #autoGroup="matAutocomplete">
+        <mat-optgroup label='MEF'>
+            <mat-option *ngFor="let entity of filteredEntities" [value]="entity.header">
+                {{entity.header}}
+            </mat-option>
+        </mat-optgroup>
+    </mat-autocomplete>
+</mat-form-field>

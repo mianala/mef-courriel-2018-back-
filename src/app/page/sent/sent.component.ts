@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FlowService} from "../../service/flow.service";
-import {FilterService} from "../../service/filter.service";
-import {fadeInAnimation} from '../../animation/fadeIn'
+import { Component, OnInit } from '@angular/core';
+import { FlowService } from "../../service/flow.service";
+import { FilterService } from "../../service/filter.service";
+import { fadeInAnimation } from '../../animation/fadeIn'
 
 @Component({
   selector: 'app-threads',
   animations: [fadeInAnimation],
-  host: {'[@fadeInAnimation]': ''},
+  host: { '[@fadeInAnimation]': '' },
   templateUrl: './sent.component.html',
   styleUrls: ['./sent.component.scss']
 })
@@ -14,8 +14,10 @@ export class SentComponent implements OnInit {
   flows
 
   constructor(public filter: FilterService,
-              private flowService: FlowService) {
-    this.flows = []
+    private flowService: FlowService) {
+    this.flowService.sent_flows.subscribe(fs => {
+      this.flows = fs
+    })
   }
 
   ngOnInit() {

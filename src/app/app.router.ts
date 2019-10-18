@@ -17,22 +17,23 @@ import { SearchPageComponent } from './page/search-page/search-page.component';
 import { InboxComponent } from './page/inbox/inbox.component'
 import { EntitiesComponent } from './form/entities/entities.component';
 import { FoldersComponent } from './page/folders/folders.component';
+import { StatusComponent } from './page/status/status.component';
 export const router: Routes = [
 
   {
     path: '',
-    component: InboxComponent,
+    component: ProjectsPageComponent,
   },
   {
     path: 'traites',
     component: TreatedComponent
   },
   {
-    path: 'enregistres',
-    component: ProjectsPageComponent
+    path: 'reçus',
+    component: InboxComponent
   },
   {
-    path: 'courriel',
+    path: 'projet',
     component: ProjectPageComponent,
     data: { title: '' }
   },
@@ -47,6 +48,10 @@ export const router: Routes = [
   {
     path: 'departements',
     component: EntitiesComponent
+  },
+  {
+    path: 'status/:id',
+    component: StatusComponent
   },
   {
     path: 'profile',

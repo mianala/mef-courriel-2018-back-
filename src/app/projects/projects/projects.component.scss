@@ -1,13 +1,16 @@
 :host {
-  display: block;
-  padding: 1em;
+    display: block;
+    padding: 1em;
 
-  mat-paginator{
-    margin-top: 2em;
-  }
+    mat-paginator {
+        margin-top: 2em;
+    }
 
-  mat-action-row{
+    mat-action-row {
 
-  }
+        .status{
+          width: 140px !important;
+        }
+    }
 
 }

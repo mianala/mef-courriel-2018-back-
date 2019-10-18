@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {DispatchComponent} from "../dialog/dispatch/dispatch.component";
-import {MatDialog} from "@angular/material";
-import {EntityService} from "../../service/entity.service";
-import {GlobalService} from "../../service/global.service";
-import {ProjectService} from '../../service/project.service';
-import {NotificationService} from '../../service/notification.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { DispatchComponent } from "../dialog/dispatch/dispatch.component";
+import { MatDialog } from "@angular/material";
+import { EntityService } from "../../service/entity.service";
+import { GlobalService } from "../../service/global.service";
+import { ProjectService } from '../../service/project.service';
+import { NotificationService } from '../../service/notification.service';
 
 @Component({
   selector: 'project',
@@ -16,22 +16,25 @@ export class ProjectComponent implements OnInit {
   in_types;
   letter_types;
   sender = '';
+  statuses = []
 
-  constructor(public dialog: MatDialog, public entityService: EntityService, private projectService:ProjectService) {
+  constructor(public dialog: MatDialog, public entityService: EntityService, private projectService: ProjectService) {
     this.letter_types = GlobalService.letter_types;
     this.in_types = GlobalService.in_types
+
+    this.statuses = GlobalService.statuses
   }
 
   ngOnInit() {
 
-    if(this.composed()){
-      this.sender =  'Rédigé par'
-    }else{
-      this.sender =  'Expéditeur'
+    if (this.composed()) {
+      this.sender = 'Rédigé par'
+    } else {
+      this.sender = 'Expéditeur'
     }
   }
 
-  composed(){
+  composed() {
     return this.project.composed == 1
   }
 

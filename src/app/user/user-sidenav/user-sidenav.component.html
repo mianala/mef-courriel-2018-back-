@@ -14,12 +14,12 @@
     </button>
   </div>
 
-  <mat-list-item routerLink="/enregistres">
+  <mat-list-item routerLink="/">
     <mat-icon class="mat-18">save</mat-icon>
     <span>Enregistrés</span>
   </mat-list-item>
 
-  <mat-list-item routerLink="/">
+  <mat-list-item routerLink="/reçus">
     <mat-icon class="mat-18">inbox</mat-icon>
     <strong>Reçus </strong>
   </mat-list-item>
@@ -31,7 +31,6 @@
 
 
   <div class="button">
-
     <button (click)="writeEmail()" mat-raised-button>
       <mat-icon>edit</mat-icon> Ecrire
     </button>
@@ -41,9 +40,6 @@
     <mat-icon class="mat-18">call_merge</mat-icon>
     <span>Départements</span>
   </mat-list-item>
-
-
-
 
   <mat-list-item routerLink="/classeurs">
     <!-- <mat-icon class="mat-18">call_merge</mat-icon> -->
@@ -57,11 +53,11 @@
 
   <!-- labels -->
 
-  <mat-list-item routerLink="/classeurs">
+  <mat-list-item routerLink="/status/1">
     <span>Pour lecture</span>
   </mat-list-item>
 
-  <mat-list-item routerLink="/classeurs">
+  <mat-list-item routerLink="/status/2">
     <span>Pour signature</span>
   </mat-list-item>
   
