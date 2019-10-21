@@ -15,7 +15,7 @@ export class SenderComponent implements OnInit {
   constructor(private entityService: EntityService) {
     this.entityService.entities.subscribe(entities => {
       this.filteredEntities = this.entities = entities
-      console.log(this.filterEntities);
+      console.log(this.filteredEntities);
     })
   }
 
