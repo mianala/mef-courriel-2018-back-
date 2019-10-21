@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {GlobalService} from './global.service';
-import {NotificationService} from './notification.service';
-import {BehaviorSubject} from 'rxjs';
-import {UserService} from './user.service';
-import {EnvService} from "./env.service";
-import {XhrService} from "./xhr.service";
+import { Injectable } from '@angular/core';
+import { GlobalService } from './global.service';
+import { NotificationService } from './notification.service';
+import { BehaviorSubject } from 'rxjs';
+import { UserService } from './user.service';
+import { EnvService } from "./env.service";
+import { XhrService } from "./xhr.service";
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -16,9 +16,9 @@ export class ThreadService {
 
 
   constructor(private http: HttpClient,
-              private xhr: XhrService,
-              private userService: UserService,
-              private notification: NotificationService) {
+    private xhr: XhrService,
+    private userService: UserService,
+    private notification: NotificationService) {
     this
       .url = EnvService.ip() + '/api/threads';
 
@@ -32,28 +32,29 @@ export class ThreadService {
 
 
   getProjectThreads(id) {
-    console.log('getting the project threads');
+    // console.log('getting the project threads');
     this.http.get<any>(this.url + '/' + id)
       .subscribe(project_threads => {
-      project_threads.sort(function (b, a) {
-        const c = a.id;
-        const d = b.id;
-        return c - d;
-      });
+        project_threads.sort(function (b, a) {
+          const c = a.id;
+          const d = b.id;
+          return c - d;
+        });
 
-      console.log('got the project threads');
+        // console.log('got the project threads');
 
 
-      if (this.project_threads.getValue() == project_threads) {
-        return false
-      }
-      this.project_threads.next(project_threads)
-    })
+        if (this.project_threads.getValue() == project_threads) {
+          return false
+        }
+        this.project_threads.next(project_threads)
+      })
   }
 
   dispatch(thread, next) {
     if (this.user['id']) {
       const formData: any = new FormData();
+      console.log(thread)
       formData.append('receivers', thread.receivers);
       formData.append('receiver', thread.receiver);
       formData.append('sender_entity_id', this.user.entity_id);
@@ -68,11 +69,7 @@ export class ThreadService {
       this.xhr.promise(this.url, formData, () => {
         next()
       })
-    }else{
-      console.log('cannot get user')
-      console.log(this.user)
     }
   }
-
 
 }
