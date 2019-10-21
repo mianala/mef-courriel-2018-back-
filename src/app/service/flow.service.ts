@@ -83,7 +83,6 @@ export class FlowService {
       this.searched_received_flows.next(fs.filter(flow => {
         return flow.sender_entity_id !== this.entity.id
       }))
-      console.log(this.searched_received_flows.getValue())
     })
 
     this.filterService.query.subscribe(query => {
@@ -151,7 +150,7 @@ export class FlowService {
   }
 
   getAllFlows() {
-    console.log('getting all flows');
+    // console.log('getting all flows');
 
     // console.log('loading all flows');
     this.http.get<any>(this.url + '/all/' + this.entity['id'])

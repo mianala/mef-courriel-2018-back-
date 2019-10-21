@@ -7,6 +7,7 @@ import { XhrService } from './xhr.service';
 import { FilterService } from './filter.service';
 import { project } from 'models/Project';
 import { HttpClient } from '@angular/common/http';
+import { NotificationService } from './notification.service';
 
 
 @Injectable()
@@ -29,7 +30,7 @@ export class ProjectService {
   last_n_project = new BehaviorSubject(0);
   user;
 
-  constructor(private global: GlobalService,
+  constructor(private global: GlobalService, private notification: NotificationService,
     private userService: UserService, private filterService: FilterService,
     private xhr: XhrService,
     private http: HttpClient) {
@@ -51,6 +52,8 @@ export class ProjectService {
       if (!projects.length) {
         return
       }
+
+      this.filterProjects()
     });
 
     this.filterService.query.subscribe(query => {
@@ -59,7 +62,7 @@ export class ProjectService {
     })
 
     this.filterService.filters.subscribe(filters => {
-      this.filterProjects(filters)
+      this.filterProjects()
     })
 
     // store the actual project in localstorage so that it's still accessible after refresh
@@ -73,12 +76,11 @@ export class ProjectService {
   }
 
   search() {
-
-    this.searched_projects.next(FilterService.searchProject(this.all_projects.getValue(), this.filterService.query.getValue()))
+    this.searched_projects.next(FilterService.searchProject(this.filtered_projects.getValue(), this.filterService.query.getValue()))
   }
 
-  filterProjects(filter) {
-    this.filtered_projects.next(FilterService.filterProjects(this.all_projects.getValue(), filter))
+  filterProjects() {
+    this.filtered_projects.next(FilterService.filterProjects(this.all_projects.getValue(), this.filterService.filters.getValue()))
     this.search()
   }
 
@@ -90,6 +92,23 @@ export class ProjectService {
 
   refreshProjects(ps) {
 
+  }
+
+  exportXLS(projects) {
+    this.http.post(this.url + '/print', { project: JSON.stringify(projects) })
+      .subscribe(result => {
+        console.log(result)
+        window.open(EnvService.ip() + '/export/' + result, '_blank')
+      })
+  }
+
+  // export all projects
+  exportALL() {
+    this.http.post(this.url + '/export-all', { entity_id: this.user.entity_id })
+      .subscribe(result => {
+        console.log(result)
+        window.open(EnvService.ip() + '/exports/' + result, '_blank')
+      })
   }
 
   // add a project in list
@@ -157,15 +176,14 @@ export class ProjectService {
     this.all_projects.next(p)
   }
 
-  // updating the status of project
-  updateStatus(project, status_id, next) {
+  updateStatus(project, status_id) {
     const project_id = project.id
     const entity_id = project.entity_id
-    this.http.post(this.url + '/update_project_status',
-      { project_id: project_id, status_id: status_id, entity_id: entity_id })
-      .subscribe((result) => {
-        next(result)
-      });
+    this.http.put<any>(this.url + '/update_project_status', { project_id: project_id, status_id: status_id, entity_id: entity_id }).subscribe(result => {
+      if (result) {
+        this.notification.statusUpdated()
+      }
+    })
   }
 
   // get project's files

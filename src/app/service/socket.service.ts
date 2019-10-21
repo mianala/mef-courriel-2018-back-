@@ -45,14 +45,6 @@ export class SocketService {
           //   }
           // });
 
-          socket.on('project treated', (content) => {
-            console.log(content);
-            const participants = content.participants;
-            if (participants.includes(this.entity_id)) {
-              this.projectService.updateProject(content.project)
-            }
-          });
-
           socket.on('reply', (content) => {
             console.log(content);
             const participants = content.participants;

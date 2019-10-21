@@ -53,14 +53,23 @@
 
   <!-- labels -->
 
-  <mat-list-item routerLink="/status/1">
+  <mat-list-item routerLink="/status/2">
     <span>Pour lecture</span>
   </mat-list-item>
 
-  <mat-list-item routerLink="/status/2">
+  <mat-list-item routerLink="/status/3">
     <span>Pour signature</span>
   </mat-list-item>
+
+  <mat-list-item routerLink="/status/4">
+    <span>Signé</span>
+  </mat-list-item>
   
+  <div class="button">
+    <button (click)="exportAll()" appearance="legacy" mat-raised-button>
+      <mat-icon>print</mat-icon> Export XLSX
+    </button>
+  </div>
   <!-- <mat-list-item routerLink="/templates">
       <mat-icon class="mat-18">library_books</mat-icon>
       <span>Templates</span>
@@ -69,8 +78,6 @@
     <h4 class="nav-header">
       _____
     </h4> -->
-
-
   <!-- <mat-list-item routerLink="/exportes">
       <mat-icon class="mat-18">file_upload</mat-icon>
       <span>Exportés ({{shipped_count}})</span>

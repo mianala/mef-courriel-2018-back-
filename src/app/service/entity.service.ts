@@ -56,13 +56,13 @@ export class EntityService {
       return e.id == entity_id
     })
     entity['numero'] = '## - 2019/' + entity['header'];
-    console.log('setting entity');
+    // console.log('setting entity');
     this.entity.next(entity[0]);
     // get relative entities
   }
 
   filterEntities(entities, entity) {
-    console.log('filtering entities');
+    // console.log('filtering entities');
 
     this.downEntities.next(FilterService.fitlerDownEntities(entities, entity))
     this.upEntities.next(FilterService.fitlerUpEntities(entities, entity))

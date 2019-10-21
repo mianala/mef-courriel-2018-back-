@@ -9,7 +9,7 @@ export class FilterService {
     year: '',
     start_date: '',
     end_date: '',
-    status: '',
+    status: '-1',
   });
 
   direction = new BehaviorSubject(0);
@@ -48,16 +48,38 @@ export class FilterService {
   static filterProjects(projects, filter) {
     const filtered = projects.filter(project => {
       let result = true;
+
       if (filter.start_date) {
-        result = result && (project.received_date > filter.start_date)
+        // console.log(new Date(project.received_date))
+        result = result && (new Date(project.received_date) > filter.start_date)
       }
       if (filter.end_date) {
-        result = result && (project.received_date < filter.end_date)
+        result = result && (new Date(project.received_date) < filter.end_date)
       }
-      if (filter.status) {
-        result = result && (project.status_id == filter.status)
+      if (filter.status != '-1') {
+        result = project.status_id == filter.status
       }
+      return result
+    })
 
+    return filtered
+  }
+
+  static filterFolders(projects, filter) {
+    const filtered = projects.filter(project => {
+      let result = true;
+
+      if (filter.startDate) {
+        // console.log(new Date(project.received_date))
+        result = result && (new Date(project.received_date) >= filter.startDate)
+      }
+      if (filter.endDate) {
+        result = result && (new Date(project.received_date) < filter.endDate)
+      }
+      // if (filter.status != '-1') {
+      //   result = project.status_id == filter.status
+      // }
+      return result
     })
 
     return filtered

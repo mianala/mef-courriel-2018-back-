@@ -53,12 +53,18 @@ export class ProjectsComponent implements OnInit {
   }
 
   getFiles(project, id, pageEvent) {
-    console.log(project)
+    console.log(project.files)
+
+    // return if project already have files
     id += pageEvent.pageIndex * pageEvent.pageSize
     console.log(id)
     this.projectService.getProjectFiles(project.id, (files) => {
       this.projects[id].files = files
     })
+  }
+
+  exportXLS() {
+    this.projectService.exportXLS(this.projects)
   }
 
   sameday(project) {
@@ -71,9 +77,10 @@ export class ProjectsComponent implements OnInit {
 
   updateStatus(project, event) {
     // if success then just change the status if not return error in notification and cancels the change
-    this.projectService.updateStatus(project, event.value, (result) => {
-      console.log(result);
-    })
+    // this.projectService.updateStatus(project, event.value, (result) => {
+    //   console.log(result);
+    // })
+    this.projectService.updateStatus(project, event.value)
   }
 
   setProject(project) {

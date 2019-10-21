@@ -114,8 +114,11 @@ export class ToolbarComponent implements OnInit {
     this.global.sidenav_status.next(this.global.sidenav_status.getValue() ? false : true)
   }
 
-  toggleFilter() {
-    this.filter = this.filter ? false : true
+  toggleFiltered() {
+    this.filtered = this.filtered ? false : true
+    if(!this.filtered){
+
+    }
   }
 
 }

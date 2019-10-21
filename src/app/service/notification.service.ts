@@ -76,6 +76,11 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+  statusUpdated() {
+    const message = 'Modifié avec succès';
+    this.openSnack(message);
+  }
+
   threadDispatched() {
     const message = 'Courriel dispatché';
     this.openSnack(message);

@@ -14,11 +14,12 @@ export class StatusComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.status_id = params['status_id']
-    })
-    this.projectService.all_projects.subscribe(ps => {
-      this.projects = ps.filter(p => {
-        return p.status_id == this.status_id
+      this.status_id = params['id']
+      console.log(this.status_id)
+      this.projectService.filtered_projects.subscribe(ps => {
+        this.projects = ps.filter(p => {
+          return p.status_id == this.status_id
+        })
       })
     })
 

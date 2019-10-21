@@ -12,7 +12,7 @@
   </div>
 
 
-  <mat-menu #menu="matMenu">
+  <!-- <mat-menu #menu="matMenu">
     <span style="padding: .8em; font-weight: bold">Trier par</span>
     <button mat-menu-item (click)="sortDate()">
       <mat-icon>calendar_today</mat-icon>
@@ -26,7 +26,7 @@
       <mat-icon>arrow_forward</mat-icon>
       <span>Destinataire</span>
     </button>
-  </mat-menu>
+  </mat-menu> -->
   <mat-form-field>
     <mat-icon matPrefix>search</mat-icon>
     <input (focus)="searchFocus()" (keyup)="updateQuery()" matInput type="text" placeholder="Rechercher"
@@ -35,38 +35,40 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-  <!-- <button mat-button fxItemAlign="right" [matMenuTriggerFor]="menu" aria-label="Trie">
+  <button mat-button fxItemAlign="right" [matMenuTriggerFor]="menu" aria-label="Trie">
     <mat-icon>sort</mat-icon> Trier
-  </button> -->
-  <!-- <button mat-button (click)="toggleFilter()" fxItemAlign="right">
+  </button>
+  <button mat-button (click)="toggleFiltered()" fxItemAlign="right">
     <mat-icon>filter_list</mat-icon> Filtrer
-  </button> -->
+  </button>
 </div>
 
 <!-- the form starts here -->
-<div *ngIf="0" class="form filters" novalidate>
+<div *ngIf="filtered" class="form filters" novalidate>
   <!-- removed the year because of redunduncy with folders -->
   <!-- starting date -->
   <mat-form-field class="filter">
-    <input disabled [max]="form_max_date" (change)='updateFilter()' [(ngModel)]="filter.start_date" 
+    <input disabled [max]="form_max_date" (dateChange)='updateFilter()' [(ngModel)]="filter.start_date" 
       matInput [matDatepicker]="from_picker" placeholder="Depuis">
     <mat-datepicker-toggle matSuffix [for]="from_picker"></mat-datepicker-toggle>
   </mat-form-field>
   <mat-datepicker disabled="false" #from_picker></mat-datepicker>
   <!-- ending date -->
   <mat-form-field class="filter">
-    <input disabled [max]="form_max_date" [(ngModel)]="filter.end_date"  matInput
+    <input disabled [max]="form_max_date"  (dateChange)='updateFilter()' [(ngModel)]="filter.end_date"  matInput
       [matDatepicker]="to_picker" placeholder="Vers">
     <mat-datepicker-toggle matSuffix [for]="to_picker"></mat-datepicker-toggle>
   </mat-form-field>
   <mat-datepicker disabled="false" #to_picker></mat-datepicker>
   <!-- sender -->
-  <sender  [(sender)]="filter.sender"></sender>
+
+  <!-- <sender  [(sender)]="filter.sender"></sender> -->
+  
   <!-- status -->
   <mat-form-field class="filter"  ngDefaultControl>
     <mat-label>Status</mat-label>
-    <mat-select [(ngModel)]="filter.status" (change)='updateFilter()'>
-      <mat-option value=''></mat-option>
+    <mat-select [(ngModel)]="filter.status" (selectionChange)='updateFilter()'>
+      <mat-option value='-1'></mat-option>
       <mat-option *ngFor="let status of statuses; let i = index" [value]="i">
         {{status}}
       </mat-option>

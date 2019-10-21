@@ -1,35 +1,37 @@
 <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
-<h5>< version beta ></h5>
+<h5>
+  < version beta >
+</h5>
 
 <mat-horizontal-stepper [linear]="'true'" #stepper>
   <mat-step [stepControl]="firstFormGroup">
-    <ng-template matStepLabel>Année</ng-template>
+    <ng-template matStepLabel>{{year?year:'Année'}}</ng-template>
     <div>
-      <button mat-button matStepperNext value="2019">2019</button>
-      <button mat-button matStepperNext value="2018">2018</button>
-      <button mat-button matStepperNext value="2017">2017</button>
-      <button mat-button matStepperNext value="2016">2016</button>
-      <button mat-button matStepperNext value="2015">2015</button>
-      <button mat-button matStepperNext value="2014">2014</button>
+      <button mat-button matStepperNext (click)="selectYear(2019)">2019</button>
+      <button mat-button matStepperNext (click)="selectYear(2018)">2018</button>
+      <button mat-button matStepperNext (click)="selectYear(2017)">2017</button>
+      <button mat-button matStepperNext (click)="selectYear(2016)">2016</button>
+      <button mat-button matStepperNext (click)="selectYear(2015)">2015</button>
+      <button mat-button matStepperNext (click)="selectYear(2014)">2014</button>
     </div>
   </mat-step>
   <mat-step [stepControl]="secondFormGroup">
     <ng-template matStepLabel>Mois</ng-template>
     <div>
-      <button mat-button matStepperNext value="0">Janvier </button>
-      <button mat-button matStepperNext value="1">Février </button>
-      <button mat-button matStepperNext value="2">Mars </button>
-      <button mat-button matStepperNext value="3">Avril </button>
-      <button mat-button matStepperNext value="4">Mai</button>
-      <button mat-button matStepperNext value="5">Juin </button>
-      <button mat-button matStepperNext value="6">Juillet </button>
-      <button mat-button matStepperNext value="7">Août</button>
-      <button mat-button matStepperNext value="8">Septembre </button>
-      <button mat-button matStepperNext value="9">Octobre</button>
-      <button mat-button matStepperNext value="10">Novembre</button>
-      <button mat-button matStepperNext value="11">Décembre </button>
+      <button mat-button matStepperNext (click)="selectMonth(1)">Janvier </button>
+      <button mat-button matStepperNext (click)="selectMonth(2)">Février </button>
+      <button mat-button matStepperNext (click)="selectMonth(3)">Mars </button>
+      <button mat-button matStepperNext (click)="selectMonth(4)">Avril </button>
+      <button mat-button matStepperNext (click)="selectMonth(5)">Mai</button>
+      <button mat-button matStepperNext (click)="selectMonth(6)">Juin </button>
+      <button mat-button matStepperNext (click)="selectMonth(7)">Juillet </button>
+      <button mat-button matStepperNext (click)="selectMonth(8)">Août</button>
+      <button mat-button matStepperNext (click)="selectMonth(9)">Septembre </button>
+      <button mat-button matStepperNext (click)="selectMonth(10)">Octobre</button>
+      <button mat-button matStepperNext (click)="selectMonth(11)">Novembre</button>
+      <button mat-button matStepperNext (click)="selectMonth(12)">Décembre </button>
     </div>
     <button mat-raised-button color='accent' matStepperPrevious>Retour</button>
   </mat-step>
@@ -40,11 +42,11 @@
       <button mat-raised-button color='warn' (click)="stepper.reset()">Réinitialiser</button>
     </div>
     <!-- content goes here -->
-      <button mat-button matStepperNext value="0">Mois </button>
-      <button mat-button matStepperNext value="0">Semaine 1 </button>
-      <button mat-button matStepperNext value="1">Semaine 2</button>
-      <button mat-button matStepperNext value="2">Semaine 3 </button>
-      <button mat-button matStepperNext value="3">Semaine 4 </button>
+    <button mat-button matStepperNext (click)="selectWeek(-1)">Mois </button>
+    <button mat-button matStepperNext (click)="selectWeek(1)">Semaine 1 </button>
+    <button mat-button matStepperNext (click)="selectWeek(2)">Semaine 2</button>
+    <button mat-button matStepperNext (click)="selectWeek(3)">Semaine 3 </button>
+    <button mat-button matStepperNext (click)="selectWeek(4)">Semaine 4 </button>
     <projects [projects]="projects"></projects>
 
   </mat-step>

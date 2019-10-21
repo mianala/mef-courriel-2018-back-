@@ -83,7 +83,8 @@ export class GlobalService {
   ];
 
   static statuses = [
-    '',
+    'Reçu',
+    'Vu',
     'Pour lecture',
     'Pour signature',
     'Signé',
@@ -199,7 +200,7 @@ export class GlobalService {
       return array.slice(page_number * page_size, (page_number + 1) * page_size);
     }
   }
-  
+
   static openBe() {
 
     const be = {
@@ -221,6 +222,18 @@ export class GlobalService {
 
   }
 
+  static download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
 
   toOracleDate(in_date) {
     const date = new Date(in_date);
