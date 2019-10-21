@@ -63,8 +63,7 @@ export class DialogSaveProjectComponent implements OnInit {
     this.user = this.userService.user.getValue();
   }
 
-  updateForm(project){
-    console.log(project)
+  updateForm(project) {
     this.project.numero = project.numero
     this.project.courriel_date = project.courriel_date
     this.project.received_date = project.received_date
@@ -75,13 +74,13 @@ export class DialogSaveProjectComponent implements OnInit {
     this.project.description = project.description
     this.project.observation = project.observation
   }
-  
+
   ngOnInit() {
 
   }
 
   validProject() {
-    return !(this.project.sender.length < 2 || this.project.content.length < 3);
+    return !(this.project.sender.length < 2 || this.project.title.length < 2);
   }
 
   getFiles(files) {
