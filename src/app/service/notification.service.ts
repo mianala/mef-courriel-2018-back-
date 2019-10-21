@@ -82,7 +82,7 @@ export class NotificationService {
   }
 
   threadDispatched() {
-    const message = 'Courriel dispatché';
+    const message = 'Courriel envoyé';
     this.openSnack(message);
   }
 

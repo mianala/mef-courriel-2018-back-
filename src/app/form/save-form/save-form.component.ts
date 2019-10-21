@@ -10,6 +10,7 @@ import { FormControl } from '@angular/forms';
 })
 export class SaveFormComponent implements OnInit {
   @Input() project: any;
+  @Output() updated: EventEmitter<any> = new EventEmitter()
   letter_types;
   in_types;
   form_max_date;
@@ -30,4 +31,10 @@ export class SaveFormComponent implements OnInit {
     console.log(this.project);
   }
 
+  up() {
+    this.updated.emit(this.project)
+  }
+  updatedSender(sender){
+    this.project.sender = sender
+  }
 }

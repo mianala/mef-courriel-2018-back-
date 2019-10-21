@@ -52,7 +52,7 @@ export class DialogSaveProjectComponent implements OnInit {
       received_date: new Date(),
     };
 
-    let entity = this.entityService.entity.getValue()
+    const entity = this.entityService.entity.getValue()
 
     this.entityService.last_n_project.subscribe(id => {
       this.last_n_project = entity['label'] + '-' + new Date().getFullYear() + '/' + (id + 1)
@@ -63,6 +63,19 @@ export class DialogSaveProjectComponent implements OnInit {
     this.user = this.userService.user.getValue();
   }
 
+  updateForm(project){
+    console.log(project)
+    this.project.numero = project.numero
+    this.project.courriel_date = project.courriel_date
+    this.project.received_date = project.received_date
+    this.project.letter_id = project.letter_id
+    this.project.ref = project.ref
+    this.project.title = project.title
+    this.project.content = project.content
+    this.project.description = project.description
+    this.project.observation = project.observation
+  }
+  
   ngOnInit() {
 
   }
@@ -99,6 +112,4 @@ export class DialogSaveProjectComponent implements OnInit {
   reload() {
     this.loading = false
   }
-
-
 }

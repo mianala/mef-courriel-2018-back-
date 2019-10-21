@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EntityService } from 'app/service/entity.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { EntityService } from 'app/service/entity.service';
 export class SenderComponent implements OnInit {
   entities = []
   filteredEntities = []
-
-  @Input('sender') sender: string;
+  sender = ''
+  @Output() updated: EventEmitter<any> = new EventEmitter()
 
   constructor(private entityService: EntityService) {
     this.entityService.entities.subscribe(entities => {
@@ -25,5 +25,10 @@ export class SenderComponent implements OnInit {
     this.filteredEntities = this.entities.filter((entity) => {
       return entity.label.toLowerCase().includes(this.sender.toLowerCase()) || entity.header.toLowerCase().includes(this.sender.toLowerCase())
     })
+  }
+
+  up() {
+    this.filterEntities()
+    this.updated.emit(this.sender)
   }
 }
