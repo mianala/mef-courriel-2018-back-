@@ -85,12 +85,12 @@ export class GlobalService {
   static statuses = [
     'Reçu',
     'Vu',
+    'En cours de traitement',
     'Pour lecture',
+    'Lu',
+    'En attente',
     'Pour signature',
     'Signé',
-    'En attente',
-    'En cours de traitement',
-    'Lu',
     'Traité'
   ];
 

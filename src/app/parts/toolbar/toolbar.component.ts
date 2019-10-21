@@ -116,8 +116,13 @@ export class ToolbarComponent implements OnInit {
 
   toggleFiltered() {
     this.filtered = this.filtered ? false : true
-    if(!this.filtered){
-
+    if (!this.filtered) {
+      this.filter = {
+        start_date: '',
+        end_date: '',
+        status: '-1',
+      }
+      this.filterService.filters.next(this.filter)
     }
   }
 

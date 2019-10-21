@@ -48,14 +48,14 @@
   <!-- removed the year because of redunduncy with folders -->
   <!-- starting date -->
   <mat-form-field class="filter">
-    <input disabled [max]="form_max_date" (dateChange)='updateFilter()' [(ngModel)]="filter.start_date" 
+    <input [max]="form_max_date" (dateChange)='updateFilter()' [(ngModel)]="filter.start_date" 
       matInput [matDatepicker]="from_picker" placeholder="Depuis">
     <mat-datepicker-toggle matSuffix [for]="from_picker"></mat-datepicker-toggle>
   </mat-form-field>
   <mat-datepicker disabled="false" #from_picker></mat-datepicker>
   <!-- ending date -->
   <mat-form-field class="filter">
-    <input disabled [max]="form_max_date"  (dateChange)='updateFilter()' [(ngModel)]="filter.end_date"  matInput
+    <input  [max]="form_max_date"  (dateChange)='updateFilter()' [(ngModel)]="filter.end_date"  matInput
       [matDatepicker]="to_picker" placeholder="Vers">
     <mat-datepicker-toggle matSuffix [for]="to_picker"></mat-datepicker-toggle>
   </mat-form-field>

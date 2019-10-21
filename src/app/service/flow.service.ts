@@ -109,6 +109,7 @@ export class FlowService {
   }
 
   filterFlows(filter) {
+    console.log(filter)
     this.filtered_flows.next(FilterService.filterFlows(this.all_flows.getValue(), filter))
   }
 

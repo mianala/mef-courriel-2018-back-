@@ -6,7 +6,6 @@ export class FilterService {
 
   query = new BehaviorSubject('')
   filters = new BehaviorSubject({
-    year: '',
     start_date: '',
     end_date: '',
     status: '-1',
@@ -89,17 +88,18 @@ export class FilterService {
     const filtered = flows.filter(flow => {
       let result = true;
       if (filter.start_date) {
-        result = result && (flow.date > filter.start_date)
+        result = result && (new Date(flow.date) > filter.start_date)
       }
       if (filter.end_date) {
-        result = result && (flow.date < filter.end_date)
+        result = result && (new Date(flow.date) < filter.end_date)
       }
-      if (filter.status) {
-        result = result && (flow.status_id == filter.status)
-      }
+      // if (filter.status) {
+      //   result = result && (flow.status_id == filter.status)
+      // }
+      return result
 
     })
-
+    console.log(filtered)
     return filtered
   }
 
