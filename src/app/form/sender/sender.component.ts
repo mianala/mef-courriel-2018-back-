@@ -15,7 +15,6 @@ export class SenderComponent implements OnInit {
   constructor(private entityService: EntityService) {
     this.entityService.entities.subscribe(entities => {
       this.filteredEntities = this.entities = entities
-      console.log(this.filteredEntities);
     })
   }
 
@@ -23,14 +22,14 @@ export class SenderComponent implements OnInit {
   }
 
   filterEntities() {
-    
+
     this.filteredEntities = this.entities.filter((entity) => {
-      if (!entity.label) {
-        return false
+      let filter = false
+      filter = filter || entity.label.toLowerCase().includes(this.sender.toLowerCase())
+      if (entity.header) {
+        filter = filter || entity.header.toLowerCase().includes(this.sender.toLowerCase())
       }
-      return entity.label.toLowerCase()
-        .includes(this.sender.toLowerCase()) || entity.header.toLowerCase()
-          .includes(this.sender.toLowerCase())
+      return filter
     })
   }
 
