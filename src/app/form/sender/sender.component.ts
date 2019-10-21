@@ -22,8 +22,15 @@ export class SenderComponent implements OnInit {
   }
 
   filterEntities() {
+    console.log(this.entities);
+    
     this.filteredEntities = this.entities.filter((entity) => {
-      return entity.label.toLowerCase().includes(this.sender.toLowerCase()) || entity.header.toLowerCase().includes(this.sender.toLowerCase())
+      if (!entity) {
+        return false
+      }
+      return entity.label.toLowerCase()
+        .includes(this.sender.toLowerCase()) || entity.header.toLowerCase()
+          .includes(this.sender.toLowerCase())
     })
   }
 
