@@ -17,7 +17,9 @@
   <!--
     here we add the decomissioned\treated\and so on
   -->
-
+  <mat-chip-list *ngIf="flow.type_id">
+    <mat-chip  [color]="'primary'">{{types[flow.type_id]}}</mat-chip>
+  </mat-chip-list>
   <h5><b>{{flow.project_ref}}</b></h5>
   <div class="" *ngIf="flow.content">
     <h4>{{content_label()}}</h4>

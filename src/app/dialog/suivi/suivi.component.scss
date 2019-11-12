@@ -1,0 +1,11 @@
+:host{
+    display: block;
+    .observations{
+      padding:1em;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-flow: row;
+      border: 1px solid black;
+    }
+  }
+  

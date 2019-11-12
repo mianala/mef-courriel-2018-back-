@@ -1,0 +1,35 @@
+<div mat-dialog-title>
+  <p style="text-decoration:underline;"> {{project.numero}} | {{project.sender}} - Suivi</p>
+</div>
+<mat-dialog-content class="content">
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="flow.type_id" name="lettre" placeholder="Type suivi">
+      <mat-option value=1>Suivi</mat-option>
+      <mat-option value=2>Signature</mat-option>
+      <mat-option value=3>Signé</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="" *ngIf="flow.type_id < 3">
+    <textarea [(ngModel)]="flow.sender" name="prep" matInput placeholder="Preparateur"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="" *ngIf="flow.type_id < 3">
+    <textarea [(ngModel)]="flow.objet" name="objet" matInput placeholder="Objet"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="" *ngIf="flow.type_id < 3">
+    <textarea [(ngModel)]="flow.content" name="content" matInput placeholder="OBS/INSTR"></textarea>
+  </mat-form-field>
+
+  <app-files [files]="flow.files"></app-files>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
+  <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button [disabled]="!valid()" matDialogClose="" (click)="submit()" mat-button>
+    <mat-icon *ngIf="!loading">keyboard_return</mat-icon>
+    <loading-button *ngIf="loading"></loading-button>
+    ENTRER
+  </button>
+</mat-dialog-actions>

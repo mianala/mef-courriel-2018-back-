@@ -192,4 +192,23 @@ export class FlowService {
       next()
     })
   }
+
+  addSuivi(flow, next) {
+    const formData: any = new FormData();
+    formData.append('project_id', flow.project_id);
+    formData.append('user_id', this.user.id);
+    formData.append('entity_id', this.user.entity_id);
+    formData.append('type_id', flow.type_id);
+    formData.append('content', flow.content);
+    formData.append('objet', flow.objet);
+    formData.append('sender', flow.sender);
+
+    for (let i = 0; i < flow.files.length; i++) {
+      formData.append('files', flow.files[i], flow.files[i].name)
+    }
+
+    this.xhr.promise(this.url + '/suivi', formData, () => {
+      next()
+    })
+  }
 }

@@ -1,14 +1,13 @@
 <div class="content">
 
   <div class="description">
-    <h4 class="label">
+    <!-- <h4 class="label">
       PROJET
-    </h4>
+    </h4> -->
     <div>
-      <h4>{{project.entity_label}}-{{project.date | date:'yyyy'}}/{{project.n_project}}
-      </h4>
+      <!-- <h4>{{project.entity_label}}-{{project.date | date:'yyyy'}}/{{project.n_project}}
+      </h4> -->
       <mat-chip-list>
-        <mat-chip *ngIf="project.status_id">{{statuses[project.status_id]}}</mat-chip>
         <mat-chip  [color]="'primary'">{{letter_types[project.letter_id]}}</mat-chip>
         <mat-chip  [color]="'accent'">{{in_types[project.type_id]}}</mat-chip>
       </mat-chip-list>
@@ -55,17 +54,17 @@
     </h4>
     <div [innerHtml]="project.content"></div>
   </div>
-
+<!-- 
   <div *ngIf="project.description && project.description != 'null'" class="description">
     <h4 class="label">
       Description
     </h4>
     <div [innerHtml]="project.description"></div>
-  </div>
+  </div> -->
 
   <div *ngIf="project.ref" class="description">
     <h4 class="label">
-      Référence
+      Référence / CR
     </h4>
     <div [innerHtml]="project.ref"></div>
   </div>

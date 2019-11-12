@@ -176,7 +176,13 @@ export class FilterService {
 
   static upFlow(flow) {
     // 1-2-2 -> 1-2
-    return flow.sender_entity.includes(flow.entity + '-')
+    
+    if (flow.sender) {
+      return true
+    } else {
+
+      return flow.sender_entity.includes(flow.entity + '-')
+    }
   }
 
 

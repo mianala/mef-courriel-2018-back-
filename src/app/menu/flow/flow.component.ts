@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FilterService } from '../../service/filter.service';
 import { EnvService } from '../../service/env.service';
 import * as CryptoJS from 'crypto-js';
+import { GlobalService } from 'app/service/global.service';
 
 @Component({
   selector: 'flow',
@@ -10,7 +11,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class FlowComponent implements OnInit {
   @Input() flow;
-
+  types = GlobalService.suivi_types
   constructor() {
   }
 
@@ -18,9 +19,17 @@ export class FlowComponent implements OnInit {
   }
 
   arrow() {
+    if (this.flow.type_id == 3) {
+      return ''
+    }
     if (this.flow.destination) {
       return 'arrow_upward'
     }
+    if (this.flow.sender) {
+      return 'arrow_downward'
+    }
+
+
     if (FilterService.downFlow(this.flow)) {
       return 'arrow_downward'
     } else if (FilterService.upFlow(this.flow)) {
@@ -32,7 +41,11 @@ export class FlowComponent implements OnInit {
   }
 
   content_label() {
-    if (this.flow.destination) {
+
+    if (this.flow.type_id == 3) {
+      return 'Signé'
+    }
+    if (this.flow.destination || this.flow.sender) {
       return ''
     } if (FilterService.downFlow(this.flow)) {
       // return 'arrow_downward'
@@ -50,8 +63,16 @@ export class FlowComponent implements OnInit {
 
   up_label() {
 
+    if (this.flow.type_id == 3) {
+      return ''
+    }
+
     if (this.flow.destination) {
       return this.flow.destination
+    }
+
+    if (this.flow.sender) {
+      return this.flow.sender
     }
 
     // if
@@ -68,8 +89,14 @@ export class FlowComponent implements OnInit {
 
   up_n() {
 
+    if (this.flow.type_id == 3) {
+      return ''
+    }
 
     if (this.flow.destination) {
+      return ''
+    }
+    if (this.flow.sender) {
       return ''
     }
 
@@ -85,6 +112,12 @@ export class FlowComponent implements OnInit {
 
   down_label() {
 
+    if (this.flow.type_id == 3) {
+      return this.flow.entity_label
+
+    } if (this.flow.sender) {
+      return this.flow.entity_label
+    }
     if (this.flow.destination) {
       return this.flow.sender_entity_label
     }
@@ -102,8 +135,16 @@ export class FlowComponent implements OnInit {
 
   down_n() {
 
+    if (this.flow.type_id == 3) {
+      return ''
+    }
+
     if (this.flow.destination) {
       return this.flow.n_depart
+    }
+
+    if (this.flow.sender) {
+      return this.flow.n_arrive
     }
     // if
     if (this.flow.sender_entity.length > 0 && this.flow.entity.length > 0) {

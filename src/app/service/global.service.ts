@@ -36,6 +36,8 @@ export class GlobalService {
     'SUITE A VOTRE DEMANDE'];
 
   static letter_types = [
+    'Lecture',
+    'Signature',
     'Lettre',
     'BE',
     'Notes',
@@ -50,6 +52,17 @@ export class GlobalService {
     'Magazine',
     'Note de service',
     'Mensuel'
+
+    // add lecture signature
+  ];
+
+  static suivi_types = [
+    '',
+    'Suivi',
+    'Signature',
+    'Signé',
+
+    // add lecture signature
   ];
 
 
@@ -84,12 +97,10 @@ export class GlobalService {
 
   static statuses = [
     'Reçu',
+    'En attente',
     'Vu',
     'En cours de traitement',
-    'Pour lecture',
     'Lu',
-    'En attente',
-    'Pour signature',
     'Signé',
     'Traité'
   ];

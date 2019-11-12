@@ -1,0 +1,14 @@
+<div mat-dialog-title>
+  Export
+</div>
+<mat-dialog-content class="content">
+
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" class="action-buttons">
+  <button mat-button>ANNULER</button>
+  <button [disabled]="loading || !validProject()" (click)="submit()" mat-button>
+    <mat-icon *ngIf="!loading" class="mat-18">save</mat-icon>
+    <loading-button *ngIf="loading"></loading-button>
+    EXPORTER
+  </button>
+</mat-dialog-actions>

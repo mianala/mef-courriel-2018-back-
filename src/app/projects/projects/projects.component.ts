@@ -8,6 +8,7 @@ import { GlobalService } from '../../service/global.service';
 import { FilterService } from '../../service/filter.service';
 import { EditProjectComponent } from '../../dialog/edit-project/edit-project.component';
 import { NotificationService } from '../../service/notification.service';
+import { SuiviComponent } from 'app/dialog/suivi/suivi.component';
 
 @Component({
   selector: 'projects',
@@ -112,6 +113,15 @@ export class ProjectsComponent implements OnInit {
   }
   dispatch(project) {
     this.projectService.project.next(project);
-    this.dialog.open(DispatchComponent);
+    this.dialog.open(DispatchComponent, {
+      data: project
+    });
+  }
+  followUp(project) {
+
+    this.dialog.open(SuiviComponent, {
+      data: project
+    });
+
   }
 }

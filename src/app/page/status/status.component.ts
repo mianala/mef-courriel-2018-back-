@@ -8,17 +8,17 @@ import { ProjectService } from 'app/service/project.service';
   styleUrls: ['./status.component.scss']
 })
 export class StatusComponent implements OnInit {
-  status_id
+  letter_id
   projects
   constructor(private route: ActivatedRoute, private projectService: ProjectService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.status_id = params['id']
-      console.log(this.status_id)
+      this.letter_id = params['id']
+      console.log(this.letter_id)
       this.projectService.filtered_projects.subscribe(ps => {
         this.projects = ps.filter(p => {
-          return p.status_id == this.status_id
+          return p.letter_id == this.letter_id
         })
       })
     })

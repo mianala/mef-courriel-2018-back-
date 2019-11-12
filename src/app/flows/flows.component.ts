@@ -66,8 +66,14 @@ export class FlowsComponent implements OnInit {
   }
 
   title_label(flow) {
+    if (flow.type_id == 3 ) {
+      return flow.entity_label
+    }
     if (flow.destination) {
       return flow.destination
+    }
+    else if (flow.sender) {
+      return flow.sender
     } else if (FilterService.sentFlow(flow, this.entity)) {
       return 'à ' + flow.entity_label
     } else if (FilterService.receivedFlow(flow, this.entity)) {
@@ -107,7 +113,7 @@ export class FlowsComponent implements OnInit {
   }
 
   view(flow) {
-    this.projectService.setProjectFromId(flow.project_id);
+    this.projectService.getProjectFromId(flow.project_id);
     this.router.navigateByUrl('/projet')
   }
 
@@ -117,8 +123,13 @@ export class FlowsComponent implements OnInit {
 
   dispatch(flow) {
     console.log(flow)
-    this.projectService.setProjectFromId(flow.project_id);
-    this.dialog.open(DispatchComponent);
+    this.projectService.getProjectFromId(flow.project_id).subscribe(project => {
+      this.dialog.open(DispatchComponent, {
+        data: project
+      });
+    })
+
+
   }
 
   getFiles(flow, id) {

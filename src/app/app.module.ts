@@ -97,6 +97,8 @@ import { FiltersComponent } from './form/filters/filters.component';
 import { FoldersComponent } from './page/folders/folders.component';
 import { SenderComponent } from './form/sender/sender.component';
 import { StatusComponent } from './page/status/status.component';
+import { PrintDialogComponent } from './dialog/print-dialog/print-dialog.component';
+import { SuiviComponent } from './dialog/suivi/suivi.component';
 
 registerLocaleData(localeFr);
 
@@ -198,6 +200,8 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     FoldersComponent,
     SenderComponent,
     StatusComponent,
+    PrintDialogComponent,
+    SuiviComponent,
   ],
   imports: [
     BrowserModule,
@@ -213,6 +217,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     DispatchComponent,
     DialogSaveProjectComponent,
     ComposeComponent,
+    SuiviComponent,
     EditProjectComponent,
   ],
   providers: [UserService,

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProjectService } from '../../../service/project.service';
 import { EntityService } from '../../../service/entity.service';
 import { ThreadService } from '../../../service/thread.service';
@@ -21,7 +21,7 @@ export class DispatchComponent implements OnInit {
     public notification: NotificationService,
     private projectService: ProjectService,
     private threadService: ThreadService,
-    private dialogRef: MatDialogRef<DispatchComponent>) {
+    private dialogRef: MatDialogRef<DispatchComponent>, @Inject(MAT_DIALOG_DATA) public project: any) {
 
     this.thread = {
       receiver: '',
@@ -31,9 +31,7 @@ export class DispatchComponent implements OnInit {
       receivers: []
     };
 
-    this.projectService.project.subscribe(project => {
-      this.thread.project = project
-    })
+    this.thread.project = project
   }
 
   ngOnInit() {

@@ -158,11 +158,8 @@ export class ProjectService {
     this.project.next(project)
   }
 
-  setProjectFromId(id) {
-    this.http.get<any>(this.url + '/' + id)
-      .subscribe(project => {
-        this.project.next(project)
-      })
+  getProjectFromId(id) {
+    return this.http.get<any>(this.url + '/' + id)
   }
 
   // delete the project

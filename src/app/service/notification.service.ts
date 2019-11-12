@@ -114,6 +114,11 @@ export class NotificationService {
     this.openSnack(message);
   }
 
+  suiviSaved() {
+    const message = 'Suivi enregistré';
+    this.openSnack(message);
+  }
+
   flowExported() {
     const message = 'Un courriel a été exporté';
     this.openSnack(message);
