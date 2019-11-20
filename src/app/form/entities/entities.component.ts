@@ -13,16 +13,12 @@ export class EntitiesComponent implements OnInit {
   constructor(private entityService: EntityService) {
     this.entityService.downEntities.subscribe(d => {
       this.down = d
-      console.log(d);
-      
     })
     this.entityService.upEntities.subscribe(d => {
-      console.log(d);
       this.up = d
     })
     this.entityService.relativeEntities.subscribe(d => {
       this.relatives = d
-      console.log(d);
     })
   }
 

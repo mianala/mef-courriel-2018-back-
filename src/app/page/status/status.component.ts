@@ -15,7 +15,6 @@ export class StatusComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.doc_id = params['id']
-      console.log(this.doc_id)
       this.projectService.filtered_projects.subscribe(ps => {
         this.projects = ps.filter(p => {
           if (this.doc_id == '05') {
