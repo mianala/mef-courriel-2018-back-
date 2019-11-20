@@ -50,7 +50,7 @@ export const router: Routes = [
     component: EntitiesComponent
   },
   {
-    path: 'lettre/:id',
+    path: 'doc/:id',
     component: StatusComponent
   },
   {

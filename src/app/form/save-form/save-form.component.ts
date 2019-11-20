@@ -10,6 +10,8 @@ import { FormControl } from '@angular/forms';
 })
 export class SaveFormComponent implements OnInit {
   @Input() project: any;
+  @Input() signature: boolean = false;
+  @Input() lecture: boolean = false;
   @Output() updated: EventEmitter<any> = new EventEmitter()
   letter_types;
   in_types;
@@ -36,5 +38,6 @@ export class SaveFormComponent implements OnInit {
   }
   updatedSender(sender){
     this.project.sender = sender
+    this.up()
   }
 }

@@ -3,6 +3,7 @@ import { ComposeComponent } from 'app/dialog/compose/compose.component';
 import { DialogSaveProjectComponent } from 'app/dialog/save-import/dialog-save-project.component';
 import { MatDialog } from '@angular/material';
 import { ProjectService } from 'app/service/project.service';
+import { PrintService } from 'app/print.service';
 
 @Component({
   selector: '[app-user-sidenav]',
@@ -11,7 +12,7 @@ import { ProjectService } from 'app/service/project.service';
 })
 export class UserSidenavComponent implements OnInit {
 
-  constructor( public dialog: MatDialog, private projectService:ProjectService) { }
+  constructor( public dialog: MatDialog, private printService:PrintService) { }
 
   ngOnInit() {
   }
@@ -29,6 +30,6 @@ export class UserSidenavComponent implements OnInit {
   }
 
   exportAll(){
-    this.projectService.exportALL()
+    this.printService.exportALL()
   }
 }

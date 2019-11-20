@@ -1,4 +1,4 @@
-<app-user-sidenav-profil class="side-nav-item padded"></app-user-sidenav-profil>
+<app-user-sidenav-profil  class="side-nav-item padded"></app-user-sidenav-profil>
 <app-user-sidenav-time></app-user-sidenav-time>
 <!-- <search></search> -->
 <!--<app-user-sidenav-mailmenu class="side-nav-item"></app-user-sidenav-mailmenu>-->
@@ -21,7 +21,7 @@
 
   <mat-list-item routerLink="/reçus">
     <mat-icon class="mat-18">inbox</mat-icon>
-    <strong>Reçus </strong>
+    <span>Reçus </span>
   </mat-list-item>
 
   <mat-list-item routerLink="/envoyes">
@@ -53,20 +53,24 @@
 
   <!-- labels -->
 
-  <mat-list-item routerLink="/lettre/0">
+  <mat-list-item routerLink="/doc/4">
     <span>Lecture</span>
   </mat-list-item>
 
-  <mat-list-item routerLink="/lettre/1">
+  <mat-list-item routerLink="/doc/5">
     <span>Signature</span>
   </mat-list-item>
 
+  <mat-list-item routerLink="/doc/05">
+    <span>Traité</span>
+  </mat-list-item>
+
   
-  <div class="button">
+  <!-- <div class="button">
     <button (click)="exportAll()" appearance="legacy" mat-raised-button>
       <mat-icon>print</mat-icon> Export XLSX
     </button>
-  </div>
+  </div> -->
   <!-- <mat-list-item routerLink="/templates">
       <mat-icon class="mat-18">library_books</mat-icon>
       <span>Templates</span>

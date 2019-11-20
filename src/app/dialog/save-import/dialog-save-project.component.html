@@ -2,8 +2,17 @@
   <app-user-box [user]="user"></app-user-box>
 </div>
 <mat-dialog-content class="content">
-
-  <app-save-form (updated)='updateForm($event)' [(project)]="project"></app-save-form>
+  <mat-tab-group  (selectedTabChange)='tabChange($event)'>
+    <mat-tab label="Enregistrement">
+      <app-save-form (updated)='updateForm($event)' [(project)]="project"></app-save-form>
+    </mat-tab>
+    <mat-tab label="Lecture">
+      <app-save-form [lecture]='true' (updated)='updateForm($event)' [(project)]="project"></app-save-form>
+    </mat-tab>
+    <mat-tab label="Signature">
+      <app-save-form [signature]='true' (updated)='updateForm($event)' [(project)]="project"></app-save-form>
+    </mat-tab>
+  </mat-tab-group>
 
   <app-files [files]="files"></app-files>
 </mat-dialog-content>

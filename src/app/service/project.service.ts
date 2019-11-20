@@ -102,14 +102,6 @@ export class ProjectService {
       })
   }
 
-  // export all projects
-  exportALL() {
-    this.http.post(this.url + '/export-all', { entity_id: this.user.entity_id })
-      .subscribe(result => {
-        console.log(result)
-        window.open(EnvService.ip() + '/exports/' + result, '_blank')
-      })
-  }
 
   // add a project in list
   addProject(p) {

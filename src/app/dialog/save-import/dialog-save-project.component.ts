@@ -18,6 +18,7 @@ export class DialogSaveProjectComponent implements OnInit {
   flow: any;
   loading = false;
   be: any;
+  type_id = 0;
   files: any;
   options: any;
   user: any;
@@ -79,6 +80,23 @@ export class DialogSaveProjectComponent implements OnInit {
 
   }
 
+  tabChange(e) {
+    switch (e.index) {
+      case 0:
+        this.type_id = 0;
+        this.project.type_id = 0;
+        break;
+      case 1: // lecture
+        this.type_id = 4;
+        this.project.type_id = 4;
+        break;
+      case 2: // signature
+        this.type_id = 5;
+        this.project.type_id = 5;
+        break;
+    }
+  }
+
   validProject() {
     return !(this.project.sender.length < 2 || this.project.title.length < 2);
   }
@@ -89,7 +107,6 @@ export class DialogSaveProjectComponent implements OnInit {
 
 
   submit() {
-    const reload = this.reload
     this.loading = true;
 
     this.project.user = this.user;
@@ -99,16 +116,33 @@ export class DialogSaveProjectComponent implements OnInit {
     this.projectService.save(this.project, (id) => {
       if (id > 0) {
         this.notification.projectSaved()
-        this.dialogRef.close()
+        this.reNewProject()
+        this.reload()
+        // this.dialogRef.close()
       } else {
         this.notification.requestError()
-        reload()
+        this.reload()
         // change to loading to false
       }
-    })
+    }) 
   }
 
   reload() {
     this.loading = false
+  }
+
+  reNewProject() {
+    this.project = {
+      numero: '',
+      sender: '',
+      ref: '',
+      type_id: this.type_id,
+      letter_id: 0,
+      title: '',
+      content: '',
+      description: '',
+      courriel_date: new Date(),
+      received_date: new Date(),
+    };
   }
 }

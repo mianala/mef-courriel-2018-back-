@@ -67,6 +67,16 @@ export class SocketService {
             }
           });
 
+          socket.on('new suivi', (content) => {
+            console.log(content);
+
+            const participants = content.participants;
+            if (participants.includes(this.entity_id)) {
+              this.flowService.getAllFlows();
+              this.notification.flowTreated()
+            }
+          });
+
           socket.on('project treated', (content) => {
             console.log(this.entity_id);
             console.log(content);

@@ -1,7 +1,7 @@
 <mat-form-field>
   <input [(ngModel)]="sender" (keyup)='up()' (optionSelected)='up()' required name="sender" matInput
     placeholder='Provenance / Prep' [matAutocomplete]="autoGroup">
-  <mat-autocomplete #autoGroup="matAutocomplete">
+  <mat-autocomplete #autoGroup="matAutocomplete" (optionSelected)='up()'>
     <mat-optgroup label='MEF'>
       <mat-option *ngFor="let entity of filteredEntities" [value]="entity.header">
         {{entity.label}}

@@ -36,8 +36,6 @@ export class GlobalService {
     'SUITE A VOTRE DEMANDE'];
 
   static letter_types = [
-    'Lecture',
-    'Signature',
     'Lettre',
     'BE',
     'Notes',
@@ -70,7 +68,9 @@ export class GlobalService {
     'Originale',
     'Copie',
     'Confidenciel',
-    'Enveloppe'
+    'Enveloppe',
+    'Lecture',
+    'Signature',
   ];
 
   static months = [
@@ -101,7 +101,6 @@ export class GlobalService {
     'Vu',
     'En cours de traitement',
     'Lu',
-    'Signé',
     'Traité'
   ];
 

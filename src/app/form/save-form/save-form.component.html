@@ -1,53 +1,53 @@
 <form class="form" fxLayout="column">
   <!--numero-->
-
+  <mat-form-field *ngIf="!signature">
+    <input type="number" required (keyup)='up()' [(ngModel)]="project.numero" [formControl]="fc" name="numero" matInput
+      placeholder="N° du courrier">
+  </mat-form-field>
   <mat-form-field>
-    <input type="text" required (keyup)='up()' [(ngModel)]="project.numero" [formControl]="fc" name="numero"
-      matInput placeholder="N° du courrier">
+    <input (keyup)='up()' [required]="signature" [(ngModel)]="project.ref" name="ref" matInput placeholder="Référence / CR ">
   </mat-form-field>
   <!-- expediteur -> send to anotehr component -->
-  <sender  (updated)='updatedSender($event)'></sender>
+  <sender [sender]='project.sender' (updated)='updatedSender($event)'></sender>
   <!--date du courriel-->
-  <mat-form-field>
-    <input disabled [max]="form_max_date" (dateChange)='up()' [(ngModel)]="project.courriel_date" required name="date" matInput
-      [matDatepicker]="picker" placeholder="Date du courrier">
+  <mat-form-field *ngIf="!signature">
+    <input disabled [max]="form_max_date" (dateChange)='up()' [(ngModel)]="project.courriel_date" required name="date"
+      matInput [matDatepicker]="picker" placeholder="Date du courrier">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-hint align="start">Veillez sélectionner la date à partir de l’Icon à droite</mat-hint>
   </mat-form-field>
-  <mat-datepicker disabled="false" #picker></mat-datepicker>
-  <mat-form-field>
-    <input disabled matInput [max]="form_max_date" [min]="project.courriel_date" (dateChange)='up()' [(ngModel)]="project.received_date"
-      required name="received_date" [matDatepicker]="recieved_picker" placeholder="Reçu le">
+  <mat-datepicker *ngIf="!signature" disabled="false" #picker></mat-datepicker>
+  <!-- <mat-form-field  *ngIf="!signature">
+    <input disabled matInput [max]="form_max_date" [min]="project.courriel_date" (dateChange)='up()'
+      [(ngModel)]="project.received_date" required name="received_date" [matDatepicker]="recieved_picker"
+      placeholder="Reçu le">
     <mat-datepicker-toggle matSuffix [for]="recieved_picker"></mat-datepicker-toggle>
-    <mat-hint align="start">Veillez sélectionner la date à partir de l’Icon à droite</mat-hint>
   </mat-form-field>
-  <mat-datepicker disabled="false" #recieved_picker></mat-datepicker>
+  <mat-datepicker disabled="false" #recieved_picker></mat-datepicker> -->
 
-  <mat-form-field>
+  <mat-form-field *ngIf="!signature">
     <mat-select (selectionChange)='up()' [(ngModel)]="project.letter_id" name="lettre" placeholder="Type">
       <mat-option *ngFor="let lettre of letter_types; let i = index" [value]="i">{{lettre}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <input (keyup)='up()' [(ngModel)]="project.ref" name="ref" matInput placeholder="Référence / CR ">
-  </mat-form-field>
+
 
   <!--objet-->
   <mat-form-field>
-    <textarea (keyup)='up()' [(ngModel)]="project.title" name="title" matInput placeholder="Objet">
+    <textarea (keyup)='up()' required [(ngModel)]="project.title" name="title" matInput placeholder="Objet">
             {{project.title}}
           </textarea>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field *ngIf="!(signature || lecture)">
     <mat-select (selectionChange)='up()' [(ngModel)]="project.type_id" name="type" placeholder="Document">
       <mat-option *ngFor="let in_t of in_types; let i = index" [value]="i">{{in_t}}</mat-option>
     </mat-select>
   </mat-form-field>
 
 
-  <mat-form-field>
-    <textarea (keyup)='up()' [(ngModel)]="project.content" name="content" matInput placeholder="Observations / Instructions"></textarea>
+  <mat-form-field *ngIf="!(signature || lecture)">
+    <textarea (keyup)='up()' [(ngModel)]="project.content" name="content" matInput
+      placeholder="Observations / Instructions"></textarea>
   </mat-form-field>
   <!-- <mat-form-field>
     <textarea (keyup)='up()' [(ngModel)]="project.description" name="content" matInput placeholder="Description"></textarea>

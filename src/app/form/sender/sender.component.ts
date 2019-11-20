@@ -7,9 +7,9 @@ import { EntityService } from 'app/service/entity.service';
   styleUrls: ['./sender.component.scss']
 })
 export class SenderComponent implements OnInit {
+  @Input() sender: string = '';
   entities = []
   filteredEntities = []
-  sender = ''
   @Output() updated: EventEmitter<any> = new EventEmitter()
 
   constructor(private entityService: EntityService) {
