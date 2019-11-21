@@ -102,7 +102,7 @@ export class GlobalService {
     'Vu',
     'En cours de traitement',
     'Lu',
-    'Traité'
+    'Traité / Signé'
   ];
 
   static API_KEY = 'melody_key'
