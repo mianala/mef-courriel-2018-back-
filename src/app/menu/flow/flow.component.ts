@@ -23,7 +23,7 @@ export class FlowComponent implements OnInit {
       return ''
     }
     if (this.flow.destination) {
-      return 'arrow_upward'
+      return 'arrow_downward'
     }
     if (this.flow.sender) {
       return 'arrow_downward'
@@ -68,7 +68,7 @@ export class FlowComponent implements OnInit {
     }
 
     if (this.flow.destination) {
-      return this.flow.destination
+      return this.flow.sender_entity_label
     }
 
     if (this.flow.sender) {
@@ -119,7 +119,7 @@ export class FlowComponent implements OnInit {
       return this.flow.entity_label
     }
     if (this.flow.destination) {
-      return this.flow.sender_entity_label
+      return this.flow.destination
     }
     // if
     if (this.flow.sender_entity.length > 0 && this.flow.entity.length > 0) {

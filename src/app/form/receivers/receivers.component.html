@@ -1,7 +1,12 @@
 <h4>Destinataires</h4>
 
 <mat-tab-group (selectedTabChange)="indexChanged($event)" backgroundColor='accent'>
-
+  <mat-tab label="Autre">
+    <mat-form-field class="receiver">
+      <input (keyup)="emit()" [(ngModel)]='receivers.receiver' name="content" matInput placeholder="Destinataire" />
+      <mat-hint>Plus > deux (2) caractères</mat-hint>
+    </mat-form-field>
+  </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon>arrow_downward</mat-icon>
@@ -34,10 +39,5 @@
         {{entity.title}}</mat-checkbox>
     </div>
   </mat-tab>
-  <mat-tab label="Autre">
-    <mat-form-field class="receiver">
-      <input (keyup)="emit()" [(ngModel)]='receivers.receiver' name="content" matInput placeholder="Destinataire"/>
-      <mat-hint>Plus > deux (2) caractères</mat-hint>
-    </mat-form-field>
-  </mat-tab>
+
 </mat-tab-group>

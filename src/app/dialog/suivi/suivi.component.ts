@@ -20,7 +20,7 @@ export class SuiviComponent implements OnInit {
 
     this.flow = {
       project_id: project.id,
-      type_id: 0,
+      type_id: 1,
       sender: '',
       content: '',
       files: [],
