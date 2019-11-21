@@ -98,7 +98,8 @@ export class DialogSaveProjectComponent implements OnInit {
   }
 
   validProject() {
-    return !(this.project.sender.length < 2 || this.project.title.length < 2);
+    return true
+    // return !(this.project.sender.length < 2 || this.project.title.length < 2);
   }
 
   getFiles(files) {
@@ -124,7 +125,7 @@ export class DialogSaveProjectComponent implements OnInit {
         this.reload()
         // change to loading to false
       }
-    }) 
+    })
   }
 
   reload() {

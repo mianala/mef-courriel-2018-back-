@@ -10,6 +10,7 @@ import { UserService } from './user.service';
 export class SocketService {
 
   entity_id;
+  last_content
 
   constructor(private userService: UserService,
     private flowService: FlowService,
@@ -28,6 +29,8 @@ export class SocketService {
 
 
           socket.on('new project', (content) => {
+            if (this.last_content == content) { return }
+            this.last_content = content
             // console.log(content);
             const participants = content.participants;
             if (participants.includes(this.entity_id)) {

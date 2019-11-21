@@ -49,7 +49,8 @@ export class GlobalService {
     'Decret',
     'Magazine',
     'Note de service',
-    'Mensuel'
+    'Mensuel',
+    'Autre',
 
     // add lecture signature
   ];
