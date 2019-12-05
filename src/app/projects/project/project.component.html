@@ -22,9 +22,9 @@
 
   <div class="description">
     <h4 class="label">
-      {{sender}}
+      {{sender}} / CR
     </h4>
-    <div>{{project.sender}}</div>
+    <div>{{project.sender}} / {{project.ref}}</div>
   </div>
 
   <div class="description">
@@ -62,12 +62,6 @@
     <div [innerHtml]="project.description"></div>
   </div> -->
 
-  <div *ngIf="project.ref" class="description">
-    <h4 class="label">
-      Référence / CR
-    </h4>
-    <div [innerHtml]="project.ref"></div>
-  </div>
 
   <div class="description" *ngIf="project['files']">
     <h4 *ngIf="project['files'].length > 0" class="label">
