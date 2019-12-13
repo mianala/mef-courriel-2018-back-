@@ -54,9 +54,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   getFiles(project, id, pageEvent) {
-
+    if(pageEvent.pageIndex){
+      id += pageEvent.pageIndex * pageEvent.pageSize
+    }
     // return if project already have files
-    id += pageEvent.pageIndex * pageEvent.pageSize
     this.projectService.getProjectFiles(project.id, (files) => {
       this.projects[id].files = files
     })

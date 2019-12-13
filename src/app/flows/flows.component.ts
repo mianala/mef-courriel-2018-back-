@@ -132,8 +132,14 @@ export class FlowsComponent implements OnInit {
 
   }
 
-  getFiles(flow, id) {
-    this.flowService.getFlowFiles(flow.id, (files) => {
+  getFiles(flow, id, pageEvent) {
+
+    // return if flow already have files
+    if(pageEvent.pageIndex){
+      id += pageEvent.pageIndex * pageEvent.pageSize
+    }
+    console.log(id)
+    this.flowService.getFlowFiles(flow.thread_id, (files) => {
       this.flows[id].files = files
     })
   }

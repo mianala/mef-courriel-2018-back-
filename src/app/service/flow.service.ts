@@ -125,7 +125,6 @@ export class FlowService {
     }))
   }
 
-
   update() {
     this.http.get<any>(this.url + '/user/' + this.user['id'])
       .subscribe(flows => {
@@ -174,8 +173,8 @@ export class FlowService {
       })
   }
 
-  getFlowFiles(id, next) {
-    this.http.get(EnvService.ip() + '/api/flow/' + id).subscribe((files) => {
+  getFlowFiles(thread_id, next) {
+    this.http.get(EnvService.ip() + '/api/files/thread/' + thread_id).subscribe((files) => {
       next(files)
     })
   }

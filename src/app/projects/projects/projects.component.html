@@ -14,7 +14,7 @@
 
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <strong>{{senderLabel(project)}}</strong>
+        <strong><span class="highlight" *ngIf="project.numero">{{project.numero}}</span> {{senderLabel(project)}} <span class="highlight" *ngIf="!project.numero"> / {{project.ref}}</span></strong>
         <!--<div class="n">{{project.n_arrive}}</div>-->
 
       </mat-panel-title>
@@ -24,7 +24,7 @@
         <!--<mat-icon>class</mat-icon>-->
       </mat-panel-description>
       <div class="numero">
-        <div>{{project.date|date:'yyyy'}}/ <span class="highlight"> {{project.numero}} </span></div>
+        <div>{{project.sender}}/ <span class="highlight"> {{project.ref}} </span></div>
         <div *ngIf="!sameday(project)"> {{project.date|date}}</div>
         <div *ngIf="sameday(project)"> {{project.date|date:'shortTime'}}</div>
       </div>

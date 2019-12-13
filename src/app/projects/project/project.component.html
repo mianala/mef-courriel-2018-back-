@@ -54,6 +54,7 @@
     </h4>
     <div [innerHtml]="project.content"></div>
   </div>
+
 <!-- 
   <div *ngIf="project.description && project.description != 'null'" class="description">
     <h4 class="label">
@@ -61,7 +62,6 @@
     </h4>
     <div [innerHtml]="project.description"></div>
   </div> -->
-
 
   <div class="description" *ngIf="project['files']">
     <h4 *ngIf="project['files'].length > 0" class="label">

@@ -137,9 +137,6 @@ mat-accordion {
         white-space: nowrap;
         flex-direction: column;
         padding-top: .5em;
-        .highlight{
-          border-bottom: 1px solid rgba(195, 0, 255,.8)
-        }
       }
 
       .date {
@@ -149,5 +146,8 @@ mat-accordion {
         align-self: center;
       }
     }
+  }
+  .highlight{
+    border-bottom: 1px solid rgba(195, 0, 255,.8)
   }
 }
