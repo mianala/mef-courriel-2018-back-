@@ -8,12 +8,12 @@
       <!-- <h4>{{project.entity_label}}-{{project.date | date:'yyyy'}}/{{project.n_project}}
       </h4> -->
       <mat-chip-list>
-        <mat-chip  [color]="'primary'">{{letter_types[project.letter_id]}}</mat-chip>
-        <mat-chip  [color]="'accent'">{{in_types[project.type_id]}}</mat-chip>
+        <mat-chip [color]="'primary'">{{letter_types[project.letter_id]}}</mat-chip>
+        <mat-chip [color]="'accent'">{{in_types[project.type_id]}}</mat-chip>
       </mat-chip-list>
     </div>
   </div>
-  <div class="description" *ngIf="project.numero">
+  <div class="description" *ngIf="project.numero && project.numero != 'null'">
     <h4 class="label">
       N° du courrier
     </h4>
@@ -22,9 +22,9 @@
 
   <div class="description">
     <h4 class="label">
-      {{sender}} / CR
+      {{sender}} <span *ngIf="project.ref"> / CR</span>
     </h4>
-    <div>{{project.sender}} / {{project.ref}}</div>
+    <div>{{project.sender}} <span *ngIf="project.ref"> / {{project.ref}}</span></div>
   </div>
 
   <div class="description">
@@ -55,7 +55,7 @@
     <div [innerHtml]="project.content"></div>
   </div>
 
-<!-- 
+  <!-- 
   <div *ngIf="project.description && project.description != 'null'" class="description">
     <h4 class="label">
       Description

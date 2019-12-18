@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel  (opened)="getFiles(flow,id,pageEvent)" class="flow-"
+  <mat-expansion-panel (opened)="getFiles(flow,id,pageEvent)" class="flow-"
     *ngFor="let flow of paginate(flows,pageEvent?pageEvent.pageSize:15,pageEvent?pageEvent.pageIndex:1);let id = index"
     hideToggle="visibility">
     <mat-expansion-panel-header>
@@ -12,7 +12,10 @@
       </mat-panel-description>
       <div class="numero">
         <!--<mat-icon class="mat-18" *ngIf="treated(flow)">checked</mat-icon>-->
-        <div>{{flow.project_numero}} - {{flow.project_sender}} / <span class="highlight"> {{flow.project_ref}} </span></div>
+        <div>
+          <span class="highlight" *ngIf="flow.project_numero && flow.project_numero != 'null'">{{flow.project_numero}} - </span>
+          {{flow.project_sender}} 
+          <span class="highlight"> {{flow.project_ref}} </span></div>
 
         <span *ngIf="!sameDay(flow)">{{flow.date|date}}</span>
         <span *ngIf="sameDay(flow)">{{flow.date|date:'shortTime'}}</span>

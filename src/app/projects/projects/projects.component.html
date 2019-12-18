@@ -14,7 +14,8 @@
 
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <strong><span class="highlight" *ngIf="project.numero">{{project.numero}}</span> {{senderLabel(project)}} <span class="highlight" *ngIf="!project.numero"> / {{project.ref}}</span></strong>
+        <strong><span class="highlight" *ngIf="project.numero && project.numero != 'null'">{{project.numero}}</span>
+          {{senderLabel(project)}} <span class="highlight" *ngIf="!project.numero"> / {{project.ref}}</span></strong>
         <!--<div class="n">{{project.n_arrive}}</div>-->
 
       </mat-panel-title>
@@ -24,7 +25,8 @@
         <!--<mat-icon>class</mat-icon>-->
       </mat-panel-description>
       <div class="numero">
-        <div>{{project.sender}}/ <span class="highlight"> {{project.ref}} </span></div>
+        <div>{{project.sender}}<span class="highlight"> <span *ngIf="project.ref"> / {{project.ref}}</span> </span>
+        </div>
         <div *ngIf="!sameday(project)"> {{project.date|date}}</div>
         <div *ngIf="sameday(project)"> {{project.date|date:'shortTime'}}</div>
       </div>
@@ -33,8 +35,7 @@
     <project [project]="project"></project>
 
     <mat-action-row>
-      <button mat-button color="primary" (click)="setProject(project)"
-        routerLink="/projet">
+      <button mat-button color="primary" (click)="setProject(project)" routerLink="/projet">
         <mat-icon class="mat-18">folder_open</mat-icon>
         Voir
       </button>
