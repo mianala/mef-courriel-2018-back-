@@ -7,7 +7,6 @@ export class EnvService {
     var protocol = location.protocol;
     var slashes = protocol.concat("//");
     var host = slashes.concat(window.location.hostname);
-    console.log(host.concat(":5000"))
 
     // return 'http://localhost:5000'
     return host.concat(":5000")

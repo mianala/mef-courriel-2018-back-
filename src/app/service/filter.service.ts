@@ -21,7 +21,7 @@ export class FilterService {
         result = result || project.sender.toLowerCase().includes(query.toLowerCase())
       }
       if (project.content) {
-        result = result || project.content.toLowerCase().includes(query.toLowerCase())
+       result = result || project.content.toLowerCase().includes(query.toLowerCase())
       }
       if (project.ref) {
         result = result || project.ref.toLowerCase().includes(query.toLowerCase())

@@ -113,7 +113,9 @@ export class FlowsComponent implements OnInit {
   }
 
   view(flow) {
-    this.projectService.getProjectFromId(flow.project_id);
+    this.projectService.getProjectFromId(flow.project_id).subscribe(project => {
+      this.projectService.setProject(project)
+    })
     this.router.navigateByUrl('/projet')
   }
 
@@ -122,7 +124,6 @@ export class FlowsComponent implements OnInit {
   }
 
   dispatch(flow) {
-    console.log(flow)
     this.projectService.getProjectFromId(flow.project_id).subscribe(project => {
       this.dialog.open(DispatchComponent, {
         data: project

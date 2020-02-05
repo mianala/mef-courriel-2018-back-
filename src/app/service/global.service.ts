@@ -202,8 +202,8 @@ export class GlobalService {
   }
 
   static paginator = {
-    pageSize: 200,
-    pageSizeOptions: [200, 100, 50]
+    pageSize: 15,
+    pageSizeOptions: [15,25,50,100,250]
   }
 
   static paginate(array, page_size, page_number) {
