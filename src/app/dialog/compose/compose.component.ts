@@ -14,7 +14,7 @@ import { NotificationService } from "../../service/notification.service";
   styleUrls: ['./compose.component.scss']
 })
 export class ComposeComponent implements OnInit {
-  composition: any;
+  project: any;
   loading = false;
 
   options: any;
@@ -25,29 +25,38 @@ export class ComposeComponent implements OnInit {
   checkedObservations;
   active_index = 0;
 
+  letter_types;
+  in_types;
   constructor(public flowService: FlowService,
     public entityService: EntityService,
     public projectService: ProjectService,
     private notification: NotificationService,
     public userService: UserService,
     private dialogRef: MatDialogRef<DispatchComponent>) {
-    this.checkedObservations = [];
+      this.letter_types = GlobalService.letter_types;
+      this.in_types = GlobalService.in_types;
+       this.checkedObservations = [];
 
-    this.composition = {
+    this.project = {
+      numero: '',
+      sender: '',
       ref: '',
+      type_id: 0,
+      letter_id: 0,
       title: '',
       content: '',
+      description: '',
+      courriel_date: new Date(),
+      received_date: new Date(),
       receiver: '',
-      files: [],
-      be: {},
-      hasBe: 0,
       receivers: []
     };
-    this.composition.files = [];
+    this.project.files = [];
 
-    this.projectService.project.subscribe(project => {
-      this.composition.project = project
-    })
+    // what is this?
+    // this.projectService.project.subscribe(project => {
+    //   this.project.project = project
+    // })
 
   }
 
@@ -58,21 +67,20 @@ export class ComposeComponent implements OnInit {
   }
 
   validTitle() {
-    return this.composition.title.length > 3
+    return this.project.title.length > 3
   }
 
   updateReceiver(receivers) {
-    console.log(receivers)
-    this.composition.receiver = receivers.receiver
-    this.composition.receivers = receivers.receivers
+    this.project.receiver = receivers.receiver
+    this.project.receivers = receivers.receivers
   }
 
-  updateBe(be) {
-    this.composition.be = be
-  }
+  // updateBe(be) {
+  //   this.project.be = be
+  // }
 
   validReceiver() {
-    return this.composition.receivers.length || this.composition.receiver.length > 2
+    return this.project.receivers.length || this.project.receiver.length > 2
   }
 
   submit() {
@@ -85,37 +93,32 @@ export class ComposeComponent implements OnInit {
       obs += ' - ' + o + '<br>'
     }
 
-    if (!this.validTitle()) {
-      this.notification.formError();
-      this.loading = false;
-      return
-    }
-    if (!this.validReceiver()) {
-      this.notification.invalidReceiver();
-      this.loading = false;
-      return
-    }
-
     // update button to loading button
-    this.composition.content = obs.concat(this.composition.content);
+    this.project.content = obs.concat(this.project.content);
 
-    this.projectService.compose(this.composition, () => {
+    this.projectService.compose(this.project, () => {
       // notification
       this.dialogRef.close()
     })
   }
 
+  updateForm(project) {
+    this.project.numero = project.numero
+    this.project.courriel_date = project.courriel_date
+    this.project.received_date = project.received_date
+    this.project.letter_id = project.letter_id
+    this.project.ref = project.ref
+    this.project.title = project.title
+    this.project.content = project.content
+    this.project.description = project.description
+    this.project.observation = project.observation
+  }
   valid() {
-    const v: boolean = this.validReceiver() && this.validTitle()
-    if (this.composition.hasBe) {
-      return v && this.composition.be.valid
-    } else {
-      return v
-    }
+    return  this.validReceiver() 
   }
 
   getFiles(files) {
-    this.composition.files = this.composition.files.concat(files)
+    this.project.files = this.project.files.concat(files)
   }
 
   indexChanged(event) {

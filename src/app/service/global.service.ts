@@ -72,6 +72,7 @@ export class GlobalService {
     'Enveloppe',
     'Lecture',
     'Signature',
+    'Sortie',
   ];
 
   static months = [
@@ -97,7 +98,7 @@ export class GlobalService {
   ];
 
   static statuses = [
-    'Reçu',
+    'Reçu / Sortie',
     'En attente',
     'Vu',
     'En cours de traitement',

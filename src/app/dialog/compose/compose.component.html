@@ -4,32 +4,23 @@
 <mat-dialog-content fxLayout="column" class="content">
   <!--arrive mfb auto-->
   <!-- <mat-form-field class="">
-    <input type="text" disabled required [(ngModel)]="composition.n_arrive" name="n_arrive" matInput
+    <input type="text" disabled required [(ngModel)]="project.n_arrive" name="n_arrive" matInput
       placeholder="N° du courrier">
   </mat-form-field> -->
 
-  <mat-form-field class="">
-      <input [(ngModel)]="composition.ref" required name="ref" matInput placeholder='Reference'>
-  </mat-form-field>
+  <app-save-form (updated)='updateForm($event)' [(project)]="project"></app-save-form>
 
-  <mat-form-field class="">
-    <textarea [(ngModel)]="composition.title" required name="title" matInput placeholder="Objet"></textarea>
-  </mat-form-field>
 
-  <mat-form-field class="">
-    <textarea [(ngModel)]="composition.content" required name="content" matInput placeholder="Note / Observation"></textarea>
-  </mat-form-field>
-
-  <receivers (update)="updateReceiver($event)"></receivers>
+  <receivers (updated)="updateReceiver($event)"></receivers>
 
 
   <!-- 
-  <mat-checkbox *ngIf="composition.receivers.length == 1" [(ngModel)]="composition.hasBe">BORDEREAU D'ENVOI
+  <mat-checkbox *ngIf="project.receivers.length == 1" [(ngModel)]="project.hasBe">BORDEREAU D'ENVOI
   </mat-checkbox> -->
-  <!-- <be *ngIf="composition.hasBe" (onUpdate)="updateBe($event)"></be> -->
+  <!-- <be *ngIf="project.hasBe" (onUpdate)="updateBe($event)"></be> -->
 
   <!--date de depart auto-->
-  <app-files [files]="composition.files"></app-files>
+  <app-files [files]="project.files"></app-files>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" class="action-buttons">
   <app-upload-button (fileSelect)="getFiles($event)"></app-upload-button>

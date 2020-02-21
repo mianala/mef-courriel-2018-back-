@@ -39,7 +39,7 @@
           </textarea>
   </mat-form-field>
 
-  <mat-form-field *ngIf="!(signature || lecture)">
+  <mat-form-field *ngIf="standard">
     <mat-select (selectionChange)='up()' [(ngModel)]="project.type_id" name="type" placeholder="Document">
       <mat-option *ngFor="let in_t of in_types; let i = index" [value]="i">{{in_t}}</mat-option>
     </mat-select>

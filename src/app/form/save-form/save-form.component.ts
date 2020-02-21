@@ -11,7 +11,9 @@ import { FormControl } from '@angular/forms';
 export class SaveFormComponent implements OnInit {
   @Input() project: any;
   @Input() signature: boolean = false;
+  @Input() standard: boolean = false;
   @Input() lecture: boolean = false;
+  @Input() sortie: boolean = false;
   @Output() updated: EventEmitter<any> = new EventEmitter()
   letter_types;
   in_types;
@@ -30,7 +32,7 @@ export class SaveFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.project);
+    // console.log(this.project);
   }
 
   up() {

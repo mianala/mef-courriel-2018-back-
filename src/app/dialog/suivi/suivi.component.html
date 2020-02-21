@@ -4,16 +4,15 @@
 <mat-dialog-content class="content">
 
   <mat-form-field>
-    <mat-select [(ngModel)]="flow.type_id" name="lettre" placeholder="Type suivi">
+    <mat-select required [(ngModel)]="flow.type_id" name="lettre" placeholder="Type suivi">
       <mat-option value=1>Suivi</mat-option>
       <mat-option value=2>Signature</mat-option>
       <mat-option value=3>Signé</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field class="" *ngIf="flow.type_id < 3">
-    <textarea [(ngModel)]="flow.sender" name="prep" matInput placeholder="Preparateur"></textarea>
-  </mat-form-field>
-
+  <div class="" *ngIf="flow.type_id < 3">
+    <sender [sender]='flow.sender' (updated)='updatedSender($event)'></sender>
+  </div>
   <mat-form-field class="" *ngIf="flow.type_id < 3">
     <textarea [(ngModel)]="flow.objet" name="objet" matInput placeholder="Objet"></textarea>
   </mat-form-field>

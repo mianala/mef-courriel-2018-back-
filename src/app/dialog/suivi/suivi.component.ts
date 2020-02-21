@@ -38,7 +38,9 @@ export class SuiviComponent implements OnInit {
   toggleObservation(observation) {
     GlobalService.toggleInArray(this.flow.checkedObservations, observation)
   }
-
+  updatedSender(sender) {
+    this.flow.sender = sender
+  }
   valid() {
     return this.flow.type_id == 3 || (this.flow.sender.length)
   }

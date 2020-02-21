@@ -4,8 +4,8 @@
   <mat-autocomplete #autoGroup="matAutocomplete" (optionSelected)='up()'>
     <mat-optgroup label='MEF'>
       <mat-option *ngFor="let entity of filteredEntities" [value]="entity.header">
-        {{entity.label}}
-        {{entity.header?'-'+entity.header:''}}
+        {{entity.label }}
+        {{entity.header?' - '+entity.header:''}}
       </mat-option>
     </mat-optgroup>
   </mat-autocomplete>

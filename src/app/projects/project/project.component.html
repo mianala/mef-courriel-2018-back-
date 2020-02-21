@@ -8,8 +8,8 @@
       <!-- <h4>{{project.entity_label}}-{{project.date | date:'yyyy'}}/{{project.n_project}}
       </h4> -->
       <mat-chip-list>
-        <mat-chip [color]="'primary'">{{letter_types[project.letter_id]}}</mat-chip>
-        <mat-chip [color]="'accent'">{{in_types[project.type_id]}}</mat-chip>
+        <mat-chip *ngIf="project.letter_id != null" [color]="'primary'">{{letter_types[project.letter_id]}}</mat-chip>
+        <mat-chip *ngIf="project.letter_id != null" [color]="'accent'">{{in_types[project.type_id]}}</mat-chip>
       </mat-chip-list>
     </div>
   </div>
@@ -34,7 +34,7 @@
     <div>{{project.courriel_date|date}}</div>
   </div>
 
-  <div *ngIf="!composed()" class="description">
+  <div *ngIf="project.type_id != 6" class="description">
     <h4 class="label">
       Date de réception
     </h4>

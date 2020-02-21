@@ -84,15 +84,23 @@ export class DialogSaveProjectComponent implements OnInit {
     switch (e.index) {
       case 0:
         this.type_id = 0;
+        this.project.sender = '';
         this.project.type_id = 0;
         break;
       case 1: // lecture
         this.type_id = 4;
+        this.project.sender = '';
         this.project.type_id = 4;
         break;
       case 2: // signature
         this.type_id = 5;
+        this.project.sender = '';
         this.project.type_id = 5;
+        break;
+      case 3: // sortie
+        this.type_id = 6;
+        this.project.type_id = 6;
+        this.project.sender = this.user.entity_header;
         break;
     }
   }

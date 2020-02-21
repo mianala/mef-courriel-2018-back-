@@ -164,12 +164,25 @@ export class FlowService {
     this.http.get<any>(this.url + '/project/' + id)
 
       .subscribe(flows => {
-        console.log(flows)
+        // console.log(flows)
         flows.sort(GlobalService.sortByDate);
         if (this.project_flows.getValue() == flows) {
           return false
         }
         this.project_flows.next(flows)
+      })
+  }
+
+  addProjectFlows(id, next) {
+    this.http.get<any>(this.url + '/project/' + id)
+
+      .subscribe(flows => {
+        // console.log(flows)
+        flows.sort(GlobalService.sortByDate);
+        if (this.project_flows.getValue() == flows) {
+          return false
+        }
+        next(flows)
       })
   }
 
