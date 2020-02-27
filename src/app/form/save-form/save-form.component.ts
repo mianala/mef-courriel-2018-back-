@@ -14,6 +14,7 @@ export class SaveFormComponent implements OnInit {
   @Input() standard: boolean = false;
   @Input() lecture: boolean = false;
   @Input() sortie: boolean = false;
+  @Input() edit: boolean = false;
   @Output() updated: EventEmitter<any> = new EventEmitter()
   letter_types;
   in_types;

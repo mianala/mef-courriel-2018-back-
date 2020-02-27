@@ -29,6 +29,7 @@ export class EditProjectComponent implements OnInit {
 
   updateProject(project) {
     this.project = project
+    this.project.date = project.received_date
   }
 
   validProject() {

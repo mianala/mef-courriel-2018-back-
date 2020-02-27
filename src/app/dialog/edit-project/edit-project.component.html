@@ -2,7 +2,7 @@
   <p style="text-decoration:underline;">Modifier </p>
 </div>
 <mat-dialog-content class="content">
-  <app-save-form [(project)]="project"></app-save-form>
+  <app-save-form [(project)]="project" [edit]='true'></app-save-form>
 
   <app-files [files]="project.updatedFiles" (fileRemoved)="removeProjectFile($event)"></app-files>
   <app-files [files]="project.newFiles"></app-files>

@@ -31,6 +31,7 @@ export class SocketService {
           socket.on('new project', (content) => {
             if (this.last_content == content) { return }
             this.last_content = content
+
             // console.log(content);
             const participants = content.participants;
             if (participants.includes(this.entity_id)) {
