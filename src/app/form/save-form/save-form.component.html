@@ -18,7 +18,7 @@
   </mat-form-field>
   <mat-datepicker disabled="false" #picker></mat-datepicker>
   <!-- date de reception -->
-  <mat-form-field  *ngIf="edit">
+  <mat-form-field >
     <input disabled matInput [max]="form_max_date" (dateChange)='up()'  [min]="project.courriel_date" (dateChange)='up()'
       [(ngModel)]="project.received_date" name="received_date" [matDatepicker]="recieved_picker"
       placeholder="Reçu le">
