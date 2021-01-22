@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DispatchComponent } from "../dialog/dispatch/dispatch.component";
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { EntityService } from "../../service/entity.service";
 import { GlobalService } from "../../service/global.service";
 import { ProjectService } from '../../service/project.service';

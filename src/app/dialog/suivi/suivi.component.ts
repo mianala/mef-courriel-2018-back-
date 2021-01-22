@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DispatchComponent } from 'app/projects/dialog/dispatch/dispatch.component';
 import { NotificationService } from 'app/service/notification.service';
 import { GlobalService } from 'app/service/global.service';

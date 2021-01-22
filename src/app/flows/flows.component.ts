@@ -2,13 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FlowService } from '../service/flow.service';
 import { EntityService } from '../service/entity.service';
 import { DispatchComponent } from '../projects/dialog/dispatch/dispatch.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from '../service/project.service';
 import { Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { GlobalService } from '../service/global.service';
 import { FilterService } from '../service/filter.service';
-import { PageEvent } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'flows',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { UserService } from 'app/service/user.service';
 import { ProjectService } from 'app/service/project.service';

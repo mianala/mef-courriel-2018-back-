@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as io from 'socket.io-client';
+import {io} from 'socket.io-client';
 import { EnvService } from './env.service';
 import { FlowService } from './flow.service';
 import { ProjectService } from './project.service';

@@ -1,7 +1,7 @@
 /**
  * Created by Loharano on 6/30/2017.
  */
-import { ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginPageComponent } from './public/public-login-page/login-page.component';
 import { ProjectPageComponent } from './projects/project-page/project-page.component';
@@ -18,7 +18,9 @@ import { InboxComponent } from './page/inbox/inbox.component'
 import { EntitiesComponent } from './form/entities/entities.component';
 import { FoldersComponent } from './page/folders/folders.component';
 import { StatusComponent } from './page/status/status.component';
-export const router: Routes = [
+
+
+const routes: Routes =  [
 
   {
     path: '',
@@ -104,5 +106,13 @@ export const router: Routes = [
   }
 ]
   ;
-
-export const routes: ModuleWithProviders = RouterModule.forRoot(router);
+  @NgModule({
+    imports: [
+      RouterModule.forRoot(routes)
+    ],
+    exports: [
+      RouterModule
+    ],
+    declarations: []
+  })
+  export class AppRoutingModule { }

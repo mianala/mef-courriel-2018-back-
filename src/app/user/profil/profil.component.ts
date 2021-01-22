@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {EntityService} from '../../service/entity.service';
 import {NotificationService} from '../../service/notification.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {UpdateComponent} from '../update/update.component';
 
 @Component({

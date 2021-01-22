@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EntityService } from '../../service/entity.service';
-import { MatDialog, PageEvent } from '@angular/material';
+import { MatDialog} from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { ProjectService } from '../../service/project.service';
 import { DispatchComponent } from '../dialog/dispatch/dispatch.component';
 import { Router } from '@angular/router';

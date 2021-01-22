@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComposeComponent } from 'app/dialog/compose/compose.component';
 import { DialogSaveProjectComponent } from 'app/dialog/save-import/dialog-save-project.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from 'app/service/project.service';
 import { PrintService } from 'app/print.service';
 

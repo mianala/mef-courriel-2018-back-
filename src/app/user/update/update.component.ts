@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
-import {MatDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material/dialog';
 import {DispatchComponent} from '../../projects/dialog/dispatch/dispatch.component';
 import {NotificationService} from '../../service/notification.service';
 

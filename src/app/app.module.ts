@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PublicHomeComponent } from './public/public-home/public-home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginPageComponent } from './public/public-login-page/login-page.component';
-import { routes } from './app.router';
+import { AppRoutingModule } from './app.router';
 import { UserSidenavComponent } from './user/user-sidenav/user-sidenav.component';
 import { UserSidenavProfilComponent } from './user/user-sidenav-profil/user-sidenav-profil.component';
 import { UserSidenavTimeComponent } from './user/user-sidenav-time/user-sidenav-time.component';
@@ -77,7 +77,6 @@ import { TreatedComponent } from './page/treated/treated.component';
 import { TreatedProjectComponent } from './page/treated-project/treated-project.component';
 import { ComposeComponent } from './dialog/compose/compose.component';
 import { LoadingButtonComponent } from './util/loading-button/loading-button.component';
-import { MatPaginatorIntl } from '@angular/material';
 import { SaveFormComponent } from './form/save-form/save-form.component';
 import { UpdateProjectComponent } from './dialog/update-project/update-project.component';
 import { EditProjectComponent } from './dialog/edit-project/edit-project.component';
@@ -99,6 +98,7 @@ import { SenderComponent } from './form/sender/sender.component';
 import { StatusComponent } from './page/status/status.component';
 import { PrintDialogComponent } from './dialog/print-dialog/print-dialog.component';
 import { SuiviComponent } from './dialog/suivi/suivi.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 registerLocaleData(localeFr);
 
@@ -211,7 +211,7 @@ export class MatPaginatorIntlCro extends MatPaginatorIntl {
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    routes
+    AppRoutingModule
   ],
   entryComponents: [
     DispatchComponent,

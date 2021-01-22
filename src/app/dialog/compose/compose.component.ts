@@ -3,7 +3,7 @@ import { UserService } from '../../service/user.service'
 import { FlowService } from '../../service/flow.service'
 import { EntityService } from "../../service/entity.service";
 import { ProjectService } from "../../service/project.service";
-import { MatDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material/dialog";
 import { DispatchComponent } from "../../projects/dialog/dispatch/dispatch.component";
 import { GlobalService } from "../../service/global.service";
 import { NotificationService } from "../../service/notification.service";

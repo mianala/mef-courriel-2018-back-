@@ -3,7 +3,7 @@ import { EntityService } from "../../service/entity.service";
 import { FlowService } from "../../service/flow.service";
 import { ProjectService } from "../../service/project.service";
 import { MediaObserver } from '@angular/flex-layout';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ComposeComponent } from 'app/dialog/compose/compose.component';
 import { DialogSaveProjectComponent } from 'app/dialog/save-import/dialog-save-project.component';
 

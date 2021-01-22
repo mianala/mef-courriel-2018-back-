@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { DialogSaveProjectComponent } from '../save-import/dialog-save-project.component';
 import { NotificationService } from 'app/service/notification.service';
 import { ProjectService } from 'app/service/project.service';
