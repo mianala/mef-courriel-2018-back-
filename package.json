@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "private": true,
   "dependencies": {
@@ -26,9 +27,9 @@
     "@angular/router": "^11.1.0",
     "core-js": "^3.8.3",
     "crypto-js": "^4.0.0",
+    "dart-sass": "^1.25.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
-    "node-sass": "^5.0.0",
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.6.3",
     "socket.io-client": "^3.1.0",

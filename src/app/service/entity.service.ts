@@ -3,6 +3,9 @@ import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
 import { EnvService } from './env.service';
+import { EnvService } from 'environments/environment';
+
+
 import { FilterService } from './filter.service';
 import { HttpClient } from '@angular/common/http';
 
